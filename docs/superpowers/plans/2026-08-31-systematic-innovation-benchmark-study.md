@@ -4,11 +4,13 @@
 
 **Goal:** Author, preregister, calibrate, execute, and report a 100-case study that estimates whether `systematic-innovation` improves useful mechanism diversity without hiding extra cost, risk, or judge disagreement.
 
-**Architecture:** Public development cases and all study protocols live in Git. Restricted validation and sealed-test cases use the same schema but live in an operator-supplied directory outside the repository. The benchmark runner from the companion plan executes each frozen condition through provider-neutral adapters, while preregistered gates prevent repeated tuning against held-out evidence.
+**Architecture:** Public development cases and all study protocols live in Git. Restricted validation and sealed-test cases use the same schema but live in an operator-supplied directory outside the repository. Deep cases use fixed disclosure scripts so every condition receives identical information across controlled turns. The study advances through six-case technical feasibility, twelve-case measurement rehearsal, full public development, restricted validation, cross-agent validation, and one sealed test, with explicit gates preventing premature scale or repeated tuning against held-out evidence.
 
 **Tech Stack:** YAML, JSON Schema, Markdown, Python 3.11+, pytest, the `systematic-innovation-bench` CLI from the runner plan, Git
 
 **Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md`
+
+**Approved Amendments:** The user's 2026-09-01 direction adds controlled multi-turn benchmarking, minimum mechanism quality gates, six-case and twelve-case feasibility stages, and cross-agent validation before the final release report. These later constraints supersede conflicting benchmark language in the specification.
 
 ## Global Constraints
 
@@ -17,14 +19,18 @@
 3. Family totals are fixed at 24 synthetic mechanism-space, 16 counterfactual rediscovery, 30 open-ended systemic, 10 preservation/no-change, 10 trigger/scope, and 10 adversarial/high-stakes cases.
 4. Split allocations are fixed at `14/5/5`, `10/3/3`, `18/6/6`, `6/2/2`, `6/2/2`, and `6/2/2` respectively for development/validation/test.
 5. Validation and sealed prompts, gold mechanisms, distractors, and case notes never enter the public Git repository, build artifacts, logs, or issue tracker.
-6. The primary endpoint is paired change in useful distinct mechanisms per 1,000 output tokens.
+6. The primary endpoint is paired change in qualified useful distinct mechanisms per 1,000 total assistant output tokens.
 7. The comparison set includes vanilla, generic brainstorm, format-matched control, established method, and full skill. Ablations are development-only.
 8. Generators never receive rubrics, gold mechanisms, judge notes, treatment labels, or another condition's output.
 9. Judge inputs are treatment-blind and order-randomized. Disagreement and abstention are preserved.
 10. Pilot variance determines repetition counts before validation. The sealed test is run once after the candidate and analysis are frozen.
 11. Case is the unit of analysis; uncertainty is estimated by resampling cases, not individual generations.
 12. All run artifacts are append-only, redacted, budget-bounded, and resumable.
-13. Every public authoring or protocol task follows RED, GREEN, REFACTOR and ends with a focused commit.
+13. Deep cases use controlled multi-turn scripts with fixed user disclosures shared identically across conditions; mechanisms come from the final portfolio while all assistant output tokens enter the denominator.
+14. A candidate mechanism must pass relevance at least 2 of 3, constraint alignment at least 2 of 3, causal clarity at least 2 of 3, plausibility at least 1 of 3, and no critical safety or rights violation before it can enter the primary numerator.
+15. Execution must pass a six-case technical feasibility gate and a twelve-case measurement rehearsal before the full 60-case development run.
+16. Cross-agent installation and activation validation must finish before the final release report is generated.
+17. Every public authoring or protocol task follows RED, GREEN, REFACTOR and ends with a focused commit.
 
 ---
 
@@ -44,6 +50,7 @@
 | `benchmark/study/preregistration.yaml` | Frozen hypotheses, endpoints, conditions, exclusions, and gates |
 | `benchmark/study/analysis-plan.md` | Estimands, bootstrap, multiplicity, missingness, and sensitivity analysis |
 | `benchmark/study/human-calibration.md` | Annotator training, adjudication, and judge acceptance protocol |
+| `benchmark/study/stage-gates.yaml` | Exact six-case, twelve-case, development, validation, cross-agent, and sealed advancement rules |
 | `benchmark/study/release-gates.md` | Ordered development, validation, freeze, sealed-test, and release gates |
 | `benchmark/study/integration-matrix.yaml` | Installation, explicit invocation, and activation claims by host |
 | `benchmark/study/cross-agent-study.md` | Protocol for separate host-integration and activation studies |
@@ -110,7 +117,7 @@ Expected: failure because `study/corpus-manifest.yaml` is absent.
 
 - [ ] **Step 3: Create the exact manifest**
 
-Add the allocation above plus required domain strata: public cases span at least eight domains; no single domain exceeds 20% of all cases; at least 20 cases contain hard preservation constraints; at least 15 contain stakeholder conflict; and Quick and Deep intents each appear in at least 20 public cases.
+Add the allocation above plus required domain strata: public cases span at least eight domains; no single domain exceeds 20% of all cases; at least 20 cases contain hard preservation constraints; at least 15 contain stakeholder conflict; and Quick and Deep intents each appear in at least 20 public cases. Every Deep case must declare `interaction_mode: controlled-multi-turn` and exactly two non-empty fixed `conversation_script.user_turns`; Quick and trigger-negative cases must declare `interaction_mode: single-turn` with no conversation script.
 
 - [ ] **Step 4: Add the shared public-family loader fixture**
 
@@ -131,11 +138,28 @@ def load_public_family():
         payload = yaml.safe_load(path.read_text(encoding="utf-8"))
         return [BenchmarkCase.model_validate(item) for item in payload["cases"]]
     return load
+
+
+@pytest.fixture
+def load_all_public_cases(load_public_family):
+    filenames = (
+        "synthetic.yaml",
+        "rediscovery.yaml",
+        "open-ended.yaml",
+        "preservation.yaml",
+        "trigger.yaml",
+        "adversarial.yaml",
+    )
+
+    def load_all() -> list[BenchmarkCase]:
+        return [case for filename in filenames for case in load_public_family(filename)]
+
+    return load_all
 ```
 
 - [ ] **Step 5: Write the authoring guide**
 
-Define one problem per case, natural prompts, testable constraints, causal-mechanism labeling, acceptable ambiguity, and prohibited leakage. Require an independent review for answerability, domain plausibility, cultural assumptions, harmful framing, accidental solution hints, near-duplicates, and contamination by skill terminology.
+Define one problem per case, natural prompts, testable constraints, causal-mechanism labeling, acceptable ambiguity, and prohibited leakage. For Deep cases, the first disclosure adds stakeholder and preservation information; the second adds boundary and resource information and ends by requesting the final portfolio. Disclosures must be condition-neutral and cannot name a method or expected mechanism. Require an independent review for answerability, domain plausibility, cultural assumptions, harmful framing, accidental solution hints, near-duplicates, conversation-script fairness, and contamination by skill terminology.
 
 - [ ] **Step 6: Run and verify GREEN**
 
@@ -182,6 +206,8 @@ Expected: failure because the family file is absent.
 - [ ] **Step 3: Author controlled mechanism spaces**
 
 Create artificial but coherent systems whose feasible intervention families can be independently enumerated in the restricted scoring pack. Vary bottleneck location, information delay, incentive conflict, resource pooling, sequencing, modularity, feedback, and boundary ownership. Prompts must not name those mechanisms or imply a preferred method.
+
+Make `syn-dev-001` a Deep controlled multi-turn case with exactly two fixed disclosures so the six-case gate exercises conversation execution. At least four additional synthetic cases must be Deep; every Deep script follows the interaction contract from Task 1.
 
 - [ ] **Step 4: Review for accidental hints and duplicates**
 
@@ -266,6 +292,8 @@ Expected: failure because `open-ended.yaml` is absent.
 
 Each case must expose a system tension, at least two affected actors, and one non-negotiable constraint without prescribing a method. Mix process, incentive, information, timing, ownership, access, and trust problems.
 
+Make `sys-dev-001` a Deep controlled multi-turn case with exactly two fixed disclosures so the six-case gate contains a second conversation from a different family.
+
 - [ ] **Step 4: Conduct mechanism-blind peer review**
 
 Reviewers label the likely intervention families elicited by each prompt. Replace cases that collapse to a single obvious answer or duplicate more than half of another case's predicted families.
@@ -297,6 +325,21 @@ git commit -m "test: add open-ended systemic cases"
 - [ ] **Step 1: Add failing family and polarity tests**
 
 Require six cases per file. The trigger set must contain two clear activations, two clear non-activations, and two boundary cases. The preservation set must contain at least two cases where “make no change” is a defensible possibility. All adversarial cases require an explicit safety or rights constraint.
+
+Add this corpus-wide interaction test after all six public files load:
+
+```python
+def test_public_interaction_contract(load_all_public_cases):
+    for case in load_all_public_cases():
+        if case.expected_mode == "deep":
+            assert case.interaction_mode == "controlled-multi-turn"
+            assert case.conversation_script is not None
+            assert len(case.conversation_script.user_turns) == 2
+            assert "final portfolio" in case.conversation_script.user_turns[-1].lower()
+        else:
+            assert case.interaction_mode == "single-turn"
+            assert case.conversation_script is None
+```
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -376,7 +419,7 @@ Expected: import failure because the schema and validator entry point are absent
 
 - [ ] **Step 3: Define the private contract**
 
-Require unique IDs; exact split/family counts; prompts; case strata; protected gold mechanisms; acceptable functional equivalents; unsafe outputs; deterministic checks; provenance notes; and two independent reviewer approvals. Store only digests and counts in public run manifests.
+Require unique IDs; exact split/family counts; prompts; case strata; interaction mode; fixed disclosure scripts for every Deep case; protected gold mechanisms; acceptable functional equivalents; unsafe outputs; deterministic checks; provenance notes; and two independent reviewer approvals. Store only digests and counts in public run manifests.
 
 - [ ] **Step 4: Implement content-free validation**
 
@@ -414,7 +457,7 @@ git commit -m "test: protect restricted benchmark packs"
 
 - [ ] **Step 1: Write the failing completeness test**
 
-Require `study_id`, `status`, `candidate_commit`, `runner_commit`, `corpus_digests`, `primary_endpoint`, `secondary_endpoints`, `conditions`, `analysis_unit`, `bootstrap`, `missingness`, `exclusions`, `pilot_rule`, `judge_acceptance`, `budgets`, and `sealed_test_policy`. Require primary endpoint text to resolve exactly to `useful_distinct_mechanisms_per_1000_output_tokens`.
+Require `study_id`, `status`, `candidate_commit`, `runner_commit`, `corpus_digests`, `primary_endpoint`, `quality_gate`, `interaction_protocol`, `stage_gates`, `secondary_endpoints`, `conditions`, `analysis_unit`, `bootstrap`, `missingness`, `exclusions`, `pilot_rule`, `judge_acceptance`, `budgets`, and `sealed_test_policy`. Require the primary endpoint identifier to resolve exactly to `qualified_useful_distinct_mechanisms_per_1000_total_assistant_output_tokens`.
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -424,11 +467,11 @@ Expected: failure because the preregistration is absent.
 
 - [ ] **Step 3: Write the preregistration in draft status**
 
-Declare the full skill versus format-matched control as the primary contrast. Keep vanilla, generic brainstorm, and established method as secondary contrasts. Limit ablations to development. State exclusions before results: transport failure after bounded retries, empty response, corrupted token accounting, or verified prompt leakage.
+Declare the full skill versus format-matched control as the primary contrast. Keep vanilla, generic brainstorm, and established method as secondary contrasts. Limit ablations to development. Freeze the conjunctive mechanism gate values from Global Constraint 14. State that candidate mechanisms are gated before causal deduplication, that the final portfolio supplies candidates, and that every assistant turn supplies denominator tokens. State exclusions before results: transport failure after bounded retries, empty response, corrupted total token accounting, conversation-protocol violation, or verified prompt leakage.
 
 - [ ] **Step 4: Specify the analysis**
 
-Aggregate repetitions within case and condition, compute paired case differences, and report median and mean effects with percentile and BCa bootstrap intervals over cases. Report family-level heterogeneity without turning exploratory slices into confirmatory claims. Correct secondary inferential comparisons with Holm's method. Treat judge abstentions and failures as missing with counts plus pessimistic sensitivity bounds.
+Aggregate repetitions within case and condition, compute paired case differences, and report median and mean effects with percentile and BCa bootstrap intervals over cases. Always disclose extracted candidate count, raw distinct families, mechanisms rejected by each quality criterion, qualified distinct families, final-response tokens, and total assistant tokens beside the primary metric. Report single-turn and controlled multi-turn strata separately, then the preregistered aggregate. Report family-level heterogeneity without turning exploratory slices into confirmatory claims. Correct secondary inferential comparisons with Holm's method. Treat judge abstentions and failures as missing with counts plus pessimistic sensitivity bounds.
 
 - [ ] **Step 5: Define pilot-derived quantities without inventing numbers**
 
@@ -438,7 +481,7 @@ The development pilot computes variance, reliability, practical-effect threshold
 
 Run: `cd benchmark && uv run pytest tests/test_preregistration.py -v`
 
-Expected: completeness tests pass; freeze tests remain intentionally skipped until Task 9 produces pilot values.
+Expected: completeness tests pass; freeze tests remain intentionally skipped until Task 11 produces full development values.
 
 - [ ] **Step 7: Commit**
 
@@ -447,7 +490,7 @@ git add benchmark/study/preregistration.yaml benchmark/study/analysis-plan.md be
 git commit -m "docs: preregister benchmark analysis"
 ```
 
-### Task 8: Calibrate Human and LLM Judging Before Treatment Comparison
+### Task 8: Define Human and LLM Judge Calibration Before Treatment Comparison
 
 **Files:**
 
@@ -456,12 +499,12 @@ git commit -m "docs: preregister benchmark analysis"
 
 **Interfaces:**
 
-1. Produces: An accepted judge prompt/version only if it reaches at least 75% pairwise agreement with humans and Krippendorff's alpha of at least 0.67 on anchored ratings.
-2. Consumes: A stratified development-only calibration sample with treatment labels removed and answer order randomized.
+1. Produces: A calibration protocol that may accept a judge prompt/version only if it reaches at least 75% pairwise agreement with humans and Krippendorff's alpha of at least 0.67 on anchored ratings.
+2. Consumes later: The twelve-case development-only rehearsal sample from Task 10, with treatment labels removed and answer order randomized.
 
 - [ ] **Step 1: Add a failing acceptance-gate test**
 
-Extend `test_preregistration.py` so `judge_acceptance` requires `pairwise_agreement_min: 0.75`, `krippendorff_alpha_min: 0.67`, at least two trained human annotators, adjudication rules, and an abstention label.
+Extend `test_preregistration.py` so `judge_acceptance` requires `pairwise_agreement_min: 0.75`, `krippendorff_alpha_min: 0.67`, at least two trained human annotators, adjudication rules, and an abstention label. Require separate agreement reporting for mechanism identity and each minimum quality-gate criterion.
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -471,15 +514,15 @@ Expected: failure until the gate and protocol exist.
 
 - [ ] **Step 3: Write the calibration protocol**
 
-Train annotators on mechanism identity versus surface variation, usefulness under constraints, unsafe novelty, and uncertainty. Double-code all calibration items, adjudicate only after independent labels are locked, and revise judge prompts using development items only.
+Train annotators on mechanism identity versus surface variation and the exact 0-to-3 anchors for relevance, constraint alignment, causal clarity, and plausibility, plus the binary critical safety or rights violation. Double-code all calibration items, adjudicate only after independent labels are locked, and revise judge prompts using development items only. Annotators see the complete controlled user transcript but score mechanisms extracted from the final portfolio.
 
-- [ ] **Step 4: Run calibration rounds**
+- [ ] **Step 4: Define the calibration rounds executed in Task 10**
 
-Use a minimum of 40 stratified answer pairs per round. Stop when both thresholds pass on a fresh development calibration slice or after three prompt revisions. If the gate still fails, use human scoring for the primary endpoint and retain LLM scores as exploratory.
+Use a minimum of 40 stratified answer pairs per round from the twelve-case rehearsal. Stop when both thresholds pass on a fresh development calibration slice or after three prompt revisions. If the gate still fails, freeze human scoring for the primary endpoint and retain LLM scores as exploratory.
 
-- [ ] **Step 5: Preserve the calibration evidence**
+- [ ] **Step 5: Define calibration evidence preservation**
 
-Append raw blinded assignments, human labels, judge labels, disagreements, prompt version, and computed reliability to the run directory. Publish aggregate reliability and representative disagreement categories without exposing restricted content.
+Require Task 10 to append raw blinded assignments, human labels, judge labels, disagreements, prompt version, and computed reliability to the rehearsal run directory. Publish aggregate reliability and representative disagreement categories without exposing restricted content.
 
 - [ ] **Step 6: Run and verify GREEN**
 
@@ -494,7 +537,124 @@ git add benchmark/study/human-calibration.md benchmark/study/preregistration.yam
 git commit -m "docs: define judge calibration gate"
 ```
 
-### Task 9: Run the Development Pilot and Freeze the Candidate
+### Task 9: Pass the Six-Case Technical Feasibility Gate
+
+**Files:**
+
+1. Create: `benchmark/study/stage-gates.yaml`
+2. Modify: `benchmark/tests/test_preregistration.py`
+3. Create during execution: `benchmark/runs/$SIB_RUN_ID/reports/six-case-feasibility.md`
+
+**Interfaces:** Runs exactly `syn-dev-001`, `red-dev-001`, `sys-dev-001`, `pre-dev-001`, `tri-dev-001`, and `adv-dev-001` through all five main conditions with one replicate. At least `syn-dev-001` and `sys-dev-001` must be controlled multi-turn cases.
+
+- [ ] **Step 1: Write the failing stage-gate test**
+
+```python
+def test_six_case_gate_is_exact_and_non_inferential(load_stage_gates):
+    gate = load_stage_gates()["six_case_feasibility"]
+    assert gate["case_ids"] == [
+        "syn-dev-001", "red-dev-001", "sys-dev-001",
+        "pre-dev-001", "tri-dev-001", "adv-dev-001",
+    ]
+    assert gate["conditions"] == [
+        "vanilla", "generic-brainstorm", "format-matched",
+        "established-method", "full-skill",
+    ]
+    assert gate["replicates"] == 1
+    assert gate["allow_effect_claims"] is False
+```
+
+Also require gates for exact job correlation, transcript equality across conditions, append-only turn persistence, mid-conversation resume, secret redaction, complete token accounting, budget enforcement, and report generation.
+
+- [ ] **Step 2: Run and verify RED**
+
+Run: `cd benchmark && uv run pytest tests/test_preregistration.py -k six_case -v`
+
+Expected: failure because `stage-gates.yaml` is absent.
+
+- [ ] **Step 3: Create the stage gate and dry plan**
+
+Set all technical requirements to zero tolerated failures. Run:
+
+```bash
+cd benchmark
+uv run sib plan --config /absolute/path/feasibility.yaml --cases cases/development --case-ids syn-dev-001,red-dev-001,sys-dev-001,pre-dev-001,tri-dev-001,adv-dev-001 --dry-run
+```
+
+Expected: 30 parent jobs, a separately reported assistant-turn call estimate, all five conditions per case, and no execution.
+
+- [ ] **Step 4: Execute the six cases through a real adapter**
+
+Interrupt one controlled multi-turn conversation after its first assistant response, then resume it. Verify that no prior turn is regenerated and that every condition receives byte-identical user disclosures for the same case.
+
+- [ ] **Step 5: Apply the technical gate**
+
+Pass only when all 30 parent jobs complete or receive an allowed terminal status, job and turn correlation is exact, conversation ordering is valid, total token accounting is complete, redaction sentinel tests pass, resume produces no duplicate turn, budget limits work, and both Markdown and JSON reports verify. Do not inspect condition effects or revise the skill from this stage.
+
+- [ ] **Step 6: Record and commit the gate**
+
+```bash
+cd benchmark
+uv run sib verify-run "runs/$SIB_RUN_ID"
+cd ..
+git add benchmark/study/stage-gates.yaml benchmark/tests/test_preregistration.py
+git commit -m "test: define six-case feasibility gate"
+```
+
+### Task 10: Pass the Twelve-Case Measurement Rehearsal
+
+**Files:**
+
+1. Modify: `benchmark/study/stage-gates.yaml`
+2. Modify: `benchmark/study/preregistration.yaml`
+3. Modify: `benchmark/study/human-calibration.md`
+4. Modify: `benchmark/tests/test_preregistration.py`
+5. Create during execution: `benchmark/runs/$SIB_RUN_ID/reports/twelve-case-rehearsal.md`
+
+**Interfaces:** Runs cases `001` and `002` from each of the six families through all five main conditions with two replicates. Produces measurement calibration evidence, not a release effect estimate.
+
+- [ ] **Step 1: Write the failing rehearsal-gate test**
+
+Require the exact twelve IDs, five conditions, two replicates, `allow_effect_claims: false`, at least 40 double-coded blinded answer pairs, 100% total-token completeness, explicit quality thresholds, mechanism-level disagreement preservation, and required single-turn and multi-turn strata.
+
+- [ ] **Step 2: Run and verify RED**
+
+Run: `cd benchmark && uv run pytest tests/test_preregistration.py -k twelve_case -v`
+
+Expected: failure until the rehearsal contract is complete.
+
+- [ ] **Step 3: Execute the rehearsal**
+
+Use `syn-dev-001..002`, `red-dev-001..002`, `sys-dev-001..002`, `pre-dev-001..002`, `tri-dev-001..002`, and `adv-dev-001..002`. Run all five conditions twice with identical model versions, generation settings, conversation scripts, and budgets.
+
+- [ ] **Step 4: Calibrate mechanism extraction and quality gates**
+
+Two humans independently label at least 40 stratified answer pairs and every candidate mechanism in those answers for identity, relevance, constraint alignment, causal clarity, plausibility, and critical safety or rights violation. Run up to three LLM judge prompt revisions on disjoint development slices. Accept automated headline scoring only when pairwise agreement is at least 0.75 and Krippendorff's alpha is at least 0.67; otherwise freeze the human-primary fallback.
+
+- [ ] **Step 5: Audit metric gaming and interaction fairness**
+
+Rank outputs separately by raw distinct mechanisms, qualified distinct mechanisms, final-response efficiency, and total-conversation efficiency. Manually inspect the ten highest efficiency scores and every rank shift of five or more places. Fail the gate if terse fragments pass causal clarity, if rejected constraints still enter the numerator, if earlier assistant tokens are omitted, or if any condition receives different user disclosures.
+
+- [ ] **Step 6: Correct measurement machinery and rerun when necessary**
+
+Runner, rubric, extraction, judge, and protocol corrections are allowed because this is development evidence. Any correction invalidates the entire rehearsal run; create a new run ID and repeat all twelve cases before advancing. Do not tune skill content from condition rankings in this stage.
+
+- [ ] **Step 7: Freeze the measurement contract**
+
+Record the accepted extraction version, quality-gate thresholds, judge or human-primary decision, conversation protocol, total-token rule, and stage run digest in `preregistration.yaml`. These measurement definitions cannot change after the 60-case development run begins without starting a new benchmark version.
+
+- [ ] **Step 8: Verify and commit**
+
+```bash
+cd benchmark
+uv run pytest tests/test_preregistration.py -v
+uv run sib verify-run "runs/$SIB_RUN_ID"
+cd ..
+git add benchmark/study/stage-gates.yaml benchmark/study/preregistration.yaml benchmark/study/human-calibration.md benchmark/tests/test_preregistration.py
+git commit -m "test: freeze twelve-case measurement rehearsal"
+```
+
+### Task 11: Run the Full Public Development Study and Freeze the Candidate
 
 **Files:**
 
@@ -503,7 +663,7 @@ git commit -m "docs: define judge calibration gate"
 3. Create during execution: `benchmark/runs/$SIB_RUN_ID/reports/development.md`
 4. Modify: `benchmark/study/preregistration.yaml`
 
-**Interfaces:** Uses all 60 public cases and all five main conditions; development-only ablations may run after the main pilot.
+**Interfaces:** Uses all 60 public cases and all five main conditions only after Tasks 9 and 10 pass; development-only ablations may run after the main study.
 
 - [ ] **Step 1: Verify clean inputs and budget in dry-run mode**
 
@@ -511,22 +671,22 @@ Run:
 
 ```bash
 cd benchmark
-uv run sib plan --config configs/example.yaml --cases cases/development --preregistration study/preregistration.yaml --dry-run
+uv run sib plan --config /absolute/path/development.yaml --cases cases/development --preregistration study/preregistration.yaml --dry-run
 ```
 
-Expected: exactly the preregistered development jobs, no network calls, no restricted paths, and an estimated call/token/cost summary below configured ceilings.
+Expected: exactly the preregistered 60-case jobs and controlled conversation turns, no network calls, no restricted paths, and an estimated call/token/cost summary below configured ceilings.
 
-- [ ] **Step 2: Execute a small plumbing smoke test**
+- [ ] **Step 2: Verify prerequisite gate digests**
 
-Run one case through each condition using the real external adapter. Inspect raw prompt construction, treatment blindness in judging, token counts, redaction, resume behavior, and failure classification. Discard these plumbing records from effect estimation and record their run ID.
+Require passing six-case and twelve-case run digests in `stage-gates.yaml`. Refuse execution when the current runner, measurement contract, conversation protocol, or corpus digest differs from the accepted twelve-case rehearsal.
 
-- [ ] **Step 3: Execute the 60-case development pilot**
+- [ ] **Step 3: Execute the 60-case development study**
 
-Start with two repetitions per positive-generation case and one activation observation per trigger-negative case. Use identical model version, decoding settings, and budgets across conditions. Resume rather than restart after interruption.
+Start with two repetitions per positive-generation case and one activation observation per trigger-negative case. Use identical model version, decoding settings, user-disclosure scripts, and budgets across conditions. Resume by pending turn rather than restarting after interruption.
 
-- [ ] **Step 4: Calibrate judging and score the pilot**
+- [ ] **Step 4: Apply the frozen judging contract and score the study**
 
-Apply Task 8. Cluster outputs into causal mechanisms before usefulness scoring. Preserve raw cluster labels, duplicate decisions, pairwise order, judge versions, and human overrides.
+Apply the measurement contract frozen in Task 10. From each final portfolio, preserve all extracted candidates, apply mechanism-level quality gates, and then cluster qualifying candidates into causal families. Preserve raw clusters, every gate judgment, rejected mechanisms, duplicate decisions, pairwise order, judge versions, and human overrides. Use total assistant output tokens from the complete transcript for efficiency.
 
 - [ ] **Step 5: Compute pilot-derived design values**
 
@@ -551,7 +711,7 @@ git commit -m "docs: freeze benchmark candidate and analysis"
 
 Expected: no skipped freeze checks and all tests pass.
 
-### Task 10: Run Restricted Validation as a Single Tuning Gate
+### Task 12: Run Restricted Validation as a Single Tuning Gate
 
 **Files:** Runtime artifacts only under `benchmark/runs/$SIB_RUN_ID/`; no restricted case files are added to Git.
 
@@ -569,7 +729,7 @@ Checkout the candidate tag in a clean worktree, pin the recorded model and adapt
 
 - [ ] **Step 3: Execute and score validation**
 
-Use the frozen repetition count and judge. Do not expose interim condition effects. Produce the preregistered primary contrast, secondary contrasts, safety counts, cost, latency, failures, and reliability.
+Use the frozen repetition count, fixed conversation protocol, mechanism quality gates, and accepted judge or human-primary fallback. Do not expose interim condition effects. Produce the preregistered primary contrast, raw and qualified mechanism counts, gate-failure counts, single-turn and multi-turn strata, secondary contrasts, safety counts, total conversation tokens, cost, latency, failures, and reliability.
 
 - [ ] **Step 4: Apply the release gate**
 
@@ -579,7 +739,56 @@ Proceed only if the primary endpoint interval excludes the preregistered harmful
 
 Record candidate digest, pack digest, run digest, gate outcome, exclusions, and deviations. Do not publish case-level restricted results.
 
-### Task 11: Execute the Sealed Test Once and Write the Final Report
+### Task 13: Complete Cross-Agent Validation Before the Release Report
+
+**Files:**
+
+1. Create: `benchmark/study/integration-matrix.yaml`
+2. Create: `benchmark/study/cross-agent-study.md`
+3. Modify: `benchmark/study/stage-gates.yaml`
+4. Modify: `benchmark/tests/test_preregistration.py`
+
+**Interfaces:** Separates format compatibility, installation, explicit invocation, automatic activation, and generated-output behavior. Produces a required release-gate result before Task 14 may generate the broad final report.
+
+- [ ] **Step 1: Write a failing claim-separation and ordering test**
+
+Require each matrix entry to contain `agent_family`, `host`, `host_version`, `model_family`, `installation_status`, `explicit_invocation`, `automatic_activation`, `behavior_run_id`, `tested_at`, and `limitations`. Reject the broad claim level unless at least three distinct agent or model families have completed behavior tests. Reject `final_report_allowed: true` unless validation passed and `cross_agent_validation.status: passed` appears in `stage-gates.yaml`.
+
+- [ ] **Step 2: Run and verify RED**
+
+Run: `cd benchmark && uv run pytest tests/test_preregistration.py -k cross_agent -v`
+
+Expected: failure because the matrix, protocol, and pre-report gate are absent.
+
+- [ ] **Step 3: Write the separate-study protocol**
+
+For each host, first verify installation without behavior claims. Then test valid explicit invocation cases and require 100% activation. Finally run held-out automatic trigger cases without naming the skill and calculate precision and recall. Only after those studies pass should the same host enter an output-quality sample containing both single-turn and controlled multi-turn cases.
+
+- [ ] **Step 4: Test at least three distinct families**
+
+Select hosts based on actual availability; do not hard-code brand support into the skill. Use the same held-out trigger distribution and the same fixed user disclosures for multi-turn behavior cases. Record host/model version, settings, availability limitations, transcript-protocol checks, and exact result run ID. A format-compatible but unavailable host remains `format-compatible`, not `installation-tested` or `behavior-tested`.
+
+- [ ] **Step 5: Apply claim thresholds**
+
+Per behavior-tested host, require automatic activation precision of at least 0.90, recall of at least 0.85, correct explicit invocation in every valid case, and zero controlled-disclosure ordering violations. Report host-specific failures even when pooled performance passes.
+
+- [ ] **Step 6: Keep these results out of the primary effect estimate**
+
+The 100-case primary study uses explicit, controlled condition assignment. Cross-agent installation and activation results receive their own tables and cannot alter the preregistered primary endpoint or sealed-test decision.
+
+- [ ] **Step 7: Set the pre-report gate and commit**
+
+Set `cross_agent_validation.status: passed` only after the thresholds and three-family requirement pass. If availability prevents three behavior-tested families, record `status: incomplete`; Task 14 may run the sealed test but must not generate a broad cross-agent release report.
+
+```bash
+cd benchmark
+uv run pytest tests/test_preregistration.py -v
+cd ..
+git add benchmark/study/integration-matrix.yaml benchmark/study/cross-agent-study.md benchmark/study/stage-gates.yaml benchmark/tests/test_preregistration.py
+git commit -m "test: gate release report on cross-agent validation"
+```
+
+### Task 14: Execute the Sealed Test Once and Write the Final Release Report
 
 **Files:**
 
@@ -591,7 +800,7 @@ Record candidate digest, pack digest, run digest, gate outcome, exclusions, and 
 
 - [ ] **Step 1: Write the ordered release gates**
 
-Document: public development complete; judge accepted or human-primary fallback declared; preregistration frozen; validation gate passed; candidate digest unchanged; sealed pack digest verified; budget authorized; and operator approval recorded.
+Document: six-case feasibility passed; twelve-case measurement rehearsal passed; public development complete; judge accepted or human-primary fallback declared; preregistration frozen; validation gate passed; cross-agent validation completed before report generation; candidate digest unchanged; sealed pack digest verified; budget authorized; and operator approval recorded.
 
 - [ ] **Step 2: Validate sealed pack structure without content output**
 
@@ -601,11 +810,11 @@ Expected: 20 sealed cases and exact allocation.
 
 - [ ] **Step 3: Execute the sealed study once**
 
-Run the frozen five conditions at the frozen repetition count. If infrastructure fails before 10% of jobs complete, correct infrastructure without inspecting effects and restart under a new run ID. Otherwise resume the same run; do not regenerate successful jobs.
+Run the frozen five conditions at the frozen repetition count and fixed user-disclosure scripts. If infrastructure fails before 10% of parent jobs complete, correct infrastructure without inspecting effects and restart under a new run ID. Otherwise resume the same run at the next pending turn; do not regenerate successful turns or jobs.
 
 - [ ] **Step 4: Generate the final report**
 
-Lead with the exact construct: systematic ideation performance. Report paired case-level estimates and intervals, raw endpoint distributions, family heterogeneity, activation accuracy, safety/restraint, preservation awareness, verbosity, cost, latency, failures, judge reliability, exclusions, deviations, and negative findings. Never call benchmark success proof of market innovation.
+Generate the broad release report only when Task 13 passed. Lead with the exact construct: systematic ideation performance. Report paired case-level estimates and intervals, extracted candidates, raw distinct mechanisms, every quality-gate rejection category, qualified distinct mechanisms, total assistant tokens, single-turn and controlled multi-turn strata, family heterogeneity, activation accuracy, safety/restraint, preservation awareness, verbosity, cost, latency, failures, judge reliability, exclusions, deviations, and negative findings. Never call benchmark success proof of market innovation.
 
 - [ ] **Step 5: Create the reproducibility record**
 
@@ -625,7 +834,7 @@ uv run sib verify-run "runs/$SIB_RUN_ID"
 
 Commit only redacted aggregate reports and reproducibility metadata; keep raw restricted records in controlled storage.
 
-### Task 12: Create the External Loop-Engineering Handoff
+### Task 15: Create the External Loop-Engineering Handoff
 
 **Files:**
 
@@ -646,11 +855,11 @@ Expected: failure because the handoff is absent.
 
 - [ ] **Step 3: Write the loop state machine**
 
-Use these states: `PREFLIGHT`, `DRY_RUN`, `EXECUTE`, `SCORE`, `COMPARE`, `DECIDE`, `FREEZE`, and `STOP`. A development candidate may advance only after complete evidence and tests. Validation can return a decision but never candidate edits. Sealed test always transitions to `STOP`.
+Use these ordered states: `PREFLIGHT`, `FEASIBILITY_6`, `REHEARSAL_12`, `DEVELOPMENT_60`, `VALIDATION_20`, `CROSS_AGENT`, `FREEZE_RELEASE`, `SEALED_20`, `REPORT`, and `STOP`. Each execution state contains its own `DRY_RUN`, `EXECUTE`, `SCORE`, `VERIFY`, and `DECIDE` substates. A candidate may advance only after the current gate's evidence and tests pass. Validation can return a decision but never candidate edits. `REPORT` is unreachable until `CROSS_AGENT` passes, and the sealed test always transitions through `REPORT` to `STOP` without candidate revision.
 
 - [ ] **Step 4: Define iteration and stop rules**
 
-Each candidate uses a new Git branch, semantic candidate ID, and complete development run. Stop when any of these occurs: candidate meets the frozen practical-effect and safety gates; three consecutive candidates improve less than the equivalence margin; budget reaches 90%; judge calibration fails after three revisions; data leakage occurs; or the maximum of ten development candidates is reached.
+Each candidate uses a new Git branch, semantic candidate ID, and complete development run. Never skip the six-case or twelve-case gates for a changed runner or measurement contract. Stop when any of these occurs: candidate meets the frozen practical-effect and safety gates; three consecutive candidates improve less than the equivalence margin; budget reaches 90%; judge calibration fails after three revisions; data leakage occurs; or the maximum of ten development candidates is reached.
 
 - [ ] **Step 5: Define the 100-case execution command sequence**
 
@@ -658,8 +867,12 @@ Document absolute-path parameters without embedding secrets:
 
 ```bash
 uv run sib validate --config /absolute/path/config.yaml
-uv run sib plan --config /absolute/path/config.yaml --cases cases/development --dry-run
-uv run sib run --config /absolute/path/config.yaml --cases cases/development
+uv run sib plan --config /absolute/path/feasibility.yaml --cases cases/development --case-ids syn-dev-001,red-dev-001,sys-dev-001,pre-dev-001,tri-dev-001,adv-dev-001 --dry-run
+uv run sib run --config /absolute/path/feasibility.yaml --cases cases/development --case-ids syn-dev-001,red-dev-001,sys-dev-001,pre-dev-001,tri-dev-001,adv-dev-001
+uv run sib plan --config /absolute/path/rehearsal.yaml --cases cases/development --case-ids syn-dev-001,syn-dev-002,red-dev-001,red-dev-002,sys-dev-001,sys-dev-002,pre-dev-001,pre-dev-002,tri-dev-001,tri-dev-002,adv-dev-001,adv-dev-002 --dry-run
+uv run sib run --config /absolute/path/rehearsal.yaml --cases cases/development --case-ids syn-dev-001,syn-dev-002,red-dev-001,red-dev-002,sys-dev-001,sys-dev-002,pre-dev-001,pre-dev-002,tri-dev-001,tri-dev-002,adv-dev-001,adv-dev-002
+uv run sib plan --config /absolute/path/development.yaml --cases cases/development --dry-run
+uv run sib run --config /absolute/path/development.yaml --cases cases/development
 uv run sib resume --run-id "$SIB_RUN_ID"
 uv run sib score --run-id "$SIB_RUN_ID"
 uv run sib report --run-id "$SIB_RUN_ID"
@@ -694,52 +907,6 @@ git add benchmark/study/LOOP-HANDOFF.md benchmark/README.md benchmark/tests/test
 git commit -m "docs: add benchmark loop handoff"
 ```
 
-### Task 13: Run Cross-Agent Installation and Activation as Separate Studies
-
-**Files:**
-
-1. Create: `benchmark/study/integration-matrix.yaml`
-2. Create: `benchmark/study/cross-agent-study.md`
-3. Modify: `benchmark/tests/test_preregistration.py`
-
-**Interfaces:** Separates format compatibility, installation, explicit invocation, automatic activation, and generated-output behavior so success in one cannot be reported as success in another.
-
-- [ ] **Step 1: Write a failing claim-separation test**
-
-Require each matrix entry to contain `agent_family`, `host`, `host_version`, `model_family`, `installation_status`, `explicit_invocation`, `automatic_activation`, `behavior_run_id`, `tested_at`, and `limitations`. Reject the broad claim level unless at least three distinct agent or model families have completed behavior tests.
-
-- [ ] **Step 2: Run and verify RED**
-
-Run: `cd benchmark && uv run pytest tests/test_preregistration.py -k cross_agent -v`
-
-Expected: failure because the matrix and study protocol are absent.
-
-- [ ] **Step 3: Write the separate-study protocol**
-
-For each host, first verify installation without behavior claims. Then test valid explicit invocation cases and require 100% activation. Finally run held-out automatic trigger cases without naming the skill and calculate precision and recall. Only after those studies pass should the same host enter an output-quality behavior sample.
-
-- [ ] **Step 4: Test at least three distinct families**
-
-Select hosts based on actual availability; do not hard-code brand support into the skill. Use the same held-out trigger distribution and record host/model version, settings, availability limitations, and exact result run ID. A format-compatible but unavailable host remains `format-compatible`, not `installation-tested` or `behavior-tested`.
-
-- [ ] **Step 5: Apply claim thresholds**
-
-Per behavior-tested host, require automatic activation precision of at least 0.90, recall of at least 0.85, and correct explicit invocation in every valid case. Report host-specific failures even when pooled performance passes.
-
-- [ ] **Step 6: Keep these results out of the primary effect estimate**
-
-The 100-case primary study uses explicit, controlled condition assignment. Cross-agent installation and activation results receive their own tables and cannot alter the preregistered primary endpoint or sealed-test decision.
-
-- [ ] **Step 7: Verify and commit**
-
-```bash
-cd benchmark
-uv run pytest tests/test_preregistration.py -v
-cd ..
-git add benchmark/study/integration-matrix.yaml benchmark/study/cross-agent-study.md benchmark/tests/test_preregistration.py
-git commit -m "test: separate cross-agent compatibility claims"
-```
-
 ---
 
 ## Final Study Acceptance Checklist
@@ -747,6 +914,9 @@ git commit -m "test: separate cross-agent compatibility claims"
 - [ ] Public development corpus contains exactly 60 schema-valid, non-duplicate cases with the fixed family allocation.
 - [ ] Restricted validation and sealed packs contain exactly 20 cases each and remain outside the Git worktree.
 - [ ] All five main conditions are frozen; ablations are development-only.
+- [ ] The six-case technical feasibility gate and twelve-case measurement rehearsal passed before the 60-case development study.
+- [ ] Every Deep case uses the frozen controlled multi-turn disclosure protocol, and user disclosures are identical across conditions.
+- [ ] Only mechanisms passing every minimum quality criterion enter the primary numerator; raw counts and rejection reasons remain reportable.
 - [ ] The primary endpoint and paired case-level analysis were frozen before validation.
 - [ ] Repetition count, practical-effect threshold, and equivalence margin came from the declared development procedure.
 - [ ] Judge calibration passed both thresholds or the preregistered human-primary fallback was used.
@@ -756,3 +926,4 @@ git commit -m "test: separate cross-agent compatibility claims"
 - [ ] Claims say “systematic ideation performance,” never “proven innovation.”
 - [ ] The external handoff can run without provider-specific SDKs or access to hidden repository content.
 - [ ] Installation, activation, host integration, and output-quality claims remain separate and at least three families are behavior-tested before any broad cross-agent claim.
+- [ ] Cross-agent validation completed before the broad final release report was generated.

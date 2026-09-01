@@ -10,6 +10,8 @@
 
 **Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md`
 
+**Approved Amendments:** The user's 2026-09-01 direction adds controlled multi-turn benchmarking, minimum mechanism quality gates, six-case and twelve-case feasibility stages, and cross-agent validation before the final release report. These later constraints supersede conflicting benchmark language in the specification.
+
 ## Global Constraints
 
 1. The canonical skill name is `systematic-innovation`.
@@ -23,7 +25,9 @@
 9. No copyrighted book text or unverified Rickards framework names may be shipped.
 10. No skill content is written before the no-skill baseline has been run and reviewed.
 11. Behavioral tests score observable output, not hidden reasoning or exact prose.
-12. Every task uses RED, GREEN, REFACTOR and ends in a focused commit.
+12. Deep scenarios use a fixed multi-turn disclosure script shared by baseline and treatment; Quick scenarios remain single-turn.
+13. A mechanism is counted as useful only after minimum relevance, constraint alignment, causal clarity, plausibility, and safety gates pass.
+14. Every task uses RED, GREEN, REFACTOR and ends in a focused commit.
 
 ---
 
@@ -66,7 +70,7 @@
 **Interfaces:**
 
 1. Consumes: The domains, modes, boundaries, and failure modes in the approved specification.
-2. Produces: `cases.json` containing objects with `id`, `domain`, `prompt`, `expected_mode`, `should_trigger`, and `target_failures`.
+2. Produces: `cases.json` containing objects with `id`, `domain`, `prompt`, `expected_mode`, `interaction_mode`, `user_turns`, `should_trigger`, and `target_failures`.
 
 - [ ] **Step 1: Write the failing pilot-manifest test**
 
@@ -96,6 +100,18 @@ class PilotManifestTests(unittest.TestCase):
         for case in cases:
             self.assertTrue(case["prompt"].strip(), case["id"])
             self.assertGreaterEqual(len(case["target_failures"]), 2, case["id"])
+
+    def test_deep_cases_have_controlled_multi_turn_scripts(self):
+        path = ROOT / "evals/pilot/cases.json"
+        cases = json.loads(path.read_text(encoding="utf-8"))["cases"]
+        for case in cases:
+            if case["expected_mode"] == "deep":
+                self.assertEqual(case["interaction_mode"], "controlled-multi-turn")
+                self.assertEqual(len(case["user_turns"]), 2)
+                self.assertIn("Produce your final portfolio", case["user_turns"][-1])
+            else:
+                self.assertEqual(case["interaction_mode"], "single-turn")
+                self.assertEqual(case["user_turns"], [])
 
 
 if __name__ == "__main__":
@@ -127,17 +143,25 @@ Use these exact scenario intents and natural-language prompts:
 
 Assign at least two `target_failures` per case from: `genericity`, `duplicate_mechanisms`, `missing_preservation`, `missing_system_map`, `premature_winner`, `implementation_drift`, `unsafe_provocation`, `question_overload`, `false_attribution`, and `incorrect_trigger`.
 
+Set Quick and trigger-negative cases to `interaction_mode: single-turn` with an empty `user_turns` array. Set the five Deep cases to `interaction_mode: controlled-multi-turn` and use these exact two follow-up disclosures after the first and second assistant turns, regardless of whether the assistant asks questions:
+
+1. `retail-retention`: “Additional context: customer ownership and individual accountability are valuable and must remain. The main failures are hoarded product knowledge, weak handoffs on days off, and resentment when one person helps another close.” Then: “Final context: managers can change team routines and recognition, but cannot remove commission or add substantial payroll. Produce your final portfolio now using all available information.”
+2. `permit-wait`: “Additional context: applicants repeat the same information across departments, while reviewers discover missing evidence late. Safety specialists are scarce and elected officials require an auditable decision trail.” Then: “Final context: the city can change sequencing, intake, triage, and information flow, but statutory reviews and public records must remain. Produce your final portfolio now using all available information.”
+3. `release-bottleneck`: “Additional context: the same evidence is recreated for testing, compliance, and operations. Most releases are low risk, but every release follows the process designed for the highest-risk change.” Then: “Final context: the team may redesign evidence, sequencing, ownership, and release boundaries, but cannot bypass mandatory controls. Produce your final portfolio now using all available information.”
+4. `teacher-fatigue`: “Additional context: teachers value peer support and local discretion. Previous programs added reporting and meetings but rarely removed older work.” Then: “Final context: the district has no new permanent staff budget and must preserve safeguarding and equitable student access. Produce your final portfolio now using all available information.”
+5. `library-access`: “Additional context: many affected residents have unreliable internet, limited transport, or shift work. Staff already handle outreach informally, which creates inconsistent service and burnout.” Then: “Final context: the library can change partnerships, scheduling, service boundaries, and circulation models, but cannot weaken patron privacy or add permanent staff. Produce your final portfolio now using all available information.”
+
 - [ ] **Step 4: Write the rubric and runbook**
 
-The rubric must define 0-to-3 anchored ratings for mechanism diversity, domain specificity, constraint relevance, system awareness, preservation awareness, uncertainty honesty, decision restraint, and usability. It must define a duplicate as the same causal mechanism presented with changed nouns or surface features.
+The rubric must define 0-to-3 anchored ratings for mechanism diversity, domain specificity, constraint relevance, system awareness, preservation awareness, uncertainty honesty, decision restraint, and usability. It must define a duplicate as the same causal mechanism presented with changed nouns or surface features. Before a mechanism contributes to any useful-mechanism count, require relevance at least 2, constraint alignment at least 2, causal clarity at least 2, plausibility at least 1, and no critical safety or rights violation. Preserve raw distinct-mechanism count separately.
 
-The runbook must require fresh contexts, identical prompts, raw output preservation, no skill or creativity preamble in RED, model and host metadata, and two pilot repetitions per trigger-positive case. Trigger-negative cases run once.
+The runbook must require fresh contexts, identical prompt and follow-up sequences, raw turn-by-turn preservation, no skill or creativity preamble in RED, model and host metadata, and two pilot repetitions per trigger-positive case. Trigger-negative cases run once. For controlled multi-turn cases, send the two scripted user disclosures after the first two assistant turns even if the assistant already proposes ideas; score the final assistant portfolio, but record total assistant output tokens across every turn.
 
 - [ ] **Step 5: Run the test and verify GREEN**
 
 Run: `python -m unittest tests.test_pilot_manifest -v`
 
-Expected: two tests pass.
+Expected: three tests pass.
 
 - [ ] **Step 6: Commit the corpus**
 
@@ -156,7 +180,7 @@ git commit -m "test: define systematic innovation pilot cases"
 **Interfaces:**
 
 1. Consumes: `evals/pilot/cases.json`, `evals/pilot/rubric.md`, and `evals/pilot/runbook.md`.
-2. Produces: One JSON object per run with `case_id`, `condition`, `replicate`, `host`, `model`, `prompt`, `response`, `ratings`, and `notes`.
+2. Produces: One JSON object per run with `case_id`, `condition`, `replicate`, `host`, `model`, `interaction_mode`, ordered `turns`, `final_response`, `total_assistant_output_tokens`, `ratings`, and `notes`.
 
 - [ ] **Step 1: Add an empty-result validation test**
 
@@ -170,11 +194,11 @@ Expected: `FAIL` because `baseline.jsonl` is absent.
 
 - [ ] **Step 3: Run the baseline in fresh contexts**
 
-For each trigger-positive case, dispatch two fresh no-skill runs using exactly the case prompt. For each trigger-negative case, record whether the host attempted to invoke an innovation workflow without explicitly installing this skill. Do not provide the rubric or intended answer to generators.
+For each trigger-positive case, dispatch two fresh no-skill runs using exactly the declared single-turn or controlled multi-turn script. For each trigger-negative case, record whether the host attempted to invoke an innovation workflow without explicitly installing this skill. Do not provide the rubric, gates, or intended answer to generators.
 
 - [ ] **Step 4: Score observable behavior**
 
-Read each raw response and assign rubric ratings with evidence excerpts no longer than one sentence. Record mechanism-family labels so repeated mechanisms can be counted.
+Read each complete transcript and assign rubric ratings with evidence excerpts no longer than one sentence. Extract mechanisms from the final portfolio, apply the minimum quality gates to each candidate mechanism, and then deduplicate qualifying mechanisms by causal family. Record raw and qualifying counts separately.
 
 - [ ] **Step 5: Write the failure analysis**
 
@@ -373,7 +397,7 @@ git commit -m "feat: add systematic innovation skill"
 
 - [ ] **Step 1: Run every positive case with the skill**
 
-Use fresh contexts and the same replicate counts. Explicitly invoke the skill so this task measures behavior rather than discovery.
+Use fresh contexts, identical scripted user turns, and the same replicate counts. Explicitly invoke the skill so this task measures behavior rather than discovery.
 
 - [ ] **Step 2: Run negative cases without explicit invocation**
 
