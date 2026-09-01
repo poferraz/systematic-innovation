@@ -1,7 +1,7 @@
 # Systematic Innovation Skill and Benchmark Design
 
 **Date:** 2026-08-31  
-**Status:** Approved design, pending implementation plan  
+**Status:** Approved behavioral and evaluation design; consolidated benchmark amendments approved
 **Project:** `systematic-innovation`
 
 ## 1. Summary
@@ -382,10 +382,10 @@ The benchmark measures **systematic ideation performance**, not realized innovat
 It has three separate studies:
 
 1. **Model behavior study:** Explicitly provide the same skill content in comparable model contexts.
-2. **Host integration study:** Test installation, discovery, reference loading, and capability fallback in coding agents.
+2. **Host integration study:** Test format conformance, installation, discovery, explicit activation, reference loading, capability fallback, and behavioral conformance in coding agents.
 3. **Automatic activation study:** Present prompts without naming the skill and measure activation precision and recall.
 
-Results from these studies are not combined as though model and host effects were interchangeable.
+Results from these studies are not combined as though model and host effects were interchangeable. Host evidence is reported by the independent compatibility dimensions defined in the approved repository-architecture specification; passing one dimension does not imply another passed.
 
 ## 18. Benchmark Experimental Conditions
 
@@ -401,6 +401,21 @@ The benchmark supports:
 Ablations are run only after the full treatment demonstrates an effect. They use the development set unless a later confirmatory ablation study is preregistered.
 
 All comparisons use comparable prompts, model versions, output budgets, and model parameters where controllable.
+
+### 18.1 Single-turn and controlled multi-turn protocols
+
+Quick cases remain single-turn. Deep cases use a controlled multi-turn script so every experimental condition receives byte-identical user disclosures in the same order.
+
+For each Deep case:
+
+1. The initial user prompt is identical across conditions except for the declared treatment preamble.
+2. The runner sends the first fixed user disclosure after the first assistant turn and the second fixed user disclosure after the second assistant turn, even if the assistant has already proposed possibilities.
+3. The declared maximum number of assistant turns is identical across conditions.
+4. The final assistant portfolio is the scored response.
+5. Tokens, cost, and latency from every assistant turn count toward efficiency.
+6. Every turn, retry, disclosure, and resume transition is preserved so information parity and ordering can be audited.
+
+The protocol prevents Deep mode from receiving extra information in one condition or hiding the cost of its questioning behavior.
 
 ## 19. Benchmark Cases and Splits
 
@@ -448,9 +463,17 @@ Valid alternatives receive credit and review. Failure to reproduce the expected 
 
 The primary endpoint is:
 
-> Paired change in useful distinct mechanisms per 1,000 output tokens.
+> Paired change in qualified useful distinct mechanisms per 1,000 total assistant output tokens.
 
-A mechanism is useful when it is causally distinct, relevant, sufficiently explained, compatible with stated constraints, and potentially valuable.
+A candidate mechanism enters the primary numerator only when it is causally distinct and passes every minimum quality gate:
+
+1. Relevance is at least 2 of 3.
+2. Constraint alignment is at least 2 of 3.
+3. Causal clarity is at least 2 of 3.
+4. Plausibility is at least 1 of 3.
+5. No critical safety or rights violation is present.
+
+Raw extracted mechanisms, raw distinct families, qualified candidates, qualified distinct families, and every gate-failure category remain separately reportable. The thresholded numerator cannot replace those underlying observations.
 
 ### 21.2 Confirmatory secondary endpoints
 
@@ -476,9 +499,9 @@ A mechanism is useful when it is causally distinct, relevant, sufficiently expla
 
 ### 21.4 Efficiency endpoints
 
-1. Useful mechanisms per 1,000 tokens.
-2. Useful mechanisms per minute.
-3. Useful mechanisms per dollar when cost data are available.
+1. Qualified useful mechanisms per 1,000 total assistant output tokens.
+2. Qualified useful mechanisms per minute.
+3. Qualified useful mechanisms per dollar when cost data are available.
 4. Human-rated value per 1,000 tokens.
 5. Question burden before the first useful output.
 
@@ -539,12 +562,18 @@ The loop is:
 4. Build the minimum skill that addresses observed failures.
 5. Iterate only on the public development set.
 6. Calibrate judges against blinded humans.
-7. Run restricted validation when development gates pass.
-8. Revise on development data when validation fails.
-9. Freeze a release candidate and analysis plan.
-10. Run the sealed test once.
-11. Publish results, limitations, costs, and failures.
-12. Retire any sealed cases that become development inputs.
+7. Pass a six-case technical feasibility stage covering the complete runner path, single-turn and controlled multi-turn protocols, append-only storage, token accounting, redaction, resume, judging, and reporting.
+8. Pass a twelve-case measurement rehearsal covering rubric usability, judge disagreement, human-calibration workflow, preliminary variance, ceiling and floor effects, failure rates, and primary-metric behavior.
+9. Run the full 60-case public development study and freeze the candidate, analysis decisions, repetition count, practical-effect threshold, and equivalence margins.
+10. Run restricted validation once as the preregistered release-eligibility gate.
+11. If validation fails, reject the candidate. Any later candidate revision must be justified only by public development evidence and must repeat the required development stages under a new version.
+12. Complete cross-agent installation, discovery, explicit activation, automatic activation where supported, and behavioral-conformance studies before generating a broad cross-agent final release report.
+13. Verify that the candidate and analysis remain frozen, then run the sealed test once.
+14. Publish results, limitations, costs, failures, and compatibility dimensions only when the applicable report gates pass.
+15. Transition to stop without revising the frozen candidate from sealed-test evidence.
+16. Retire and replace any restricted case before its content or diagnostic outcome becomes future development input.
+
+Restricted validation returns only the preregistered release-eligibility decision to the candidate-development role. Case-level outputs, strata, directionality, failure categories, examples, annotations, and hidden labels do not become revision input. The sealed test is terminal for the frozen candidate within that study.
 
 Candidate revisions never silently replace the released skill. Each candidate has its own version, Git commit, and result set.
 
@@ -565,12 +594,13 @@ The runner records:
 4. Skill version and Git commit.
 5. Agent host and model identifier.
 6. Model parameters where exposed.
-7. Prompt hash and raw prompt.
-8. Raw response.
-9. Tokens, cost, and latency when available.
-10. Judge outputs and deterministic measurements.
-11. Aggregate scores and errors.
-12. Timestamp.
+7. Prompt hashes and the ordered user disclosures supplied to each turn.
+8. The complete ordered conversation, including raw assistant turns after redaction.
+9. Final scored portfolio and total assistant output tokens across all turns.
+10. Tokens, cost, and latency by turn and in total when available.
+11. Judge outputs, quality-gate decisions, and deterministic measurements.
+12. Aggregate scores and errors.
+13. Timestamp.
 
 Raw results are append-only. The runner supports maximum calls, maximum cost, concurrency limits, a model allowlist, bounded retries, failure thresholds, resume behavior, credential redaction, dry runs, and development-only mode.
 
@@ -585,6 +615,8 @@ The skill itself requires no executable scripts or credentials. The benchmark ru
 5. Use explicit allowlists for executable adapters.
 6. Preserve raw evidence while redacting secrets.
 7. Stop when configured cost, failure, or retry limits are reached.
+
+Restricted execution additionally follows the approved repository-architecture specification: a frozen reviewed runner, clean worktree, dependency and pack digests, declared providers and egress, scoped credentials, controlled storage and retention, content-free public manifests, and explicit operator authorization are mandatory preconditions. The run fails closed when any restricted preflight condition is absent or mismatched.
 
 ## 27. Test-First Delivery Sequence
 
@@ -617,7 +649,11 @@ The provider-neutral benchmark runner also follows code-level test-driven develo
 
 Before restricted validation, the analysis plan freezes the minimum practically important improvement for the primary endpoint and practical-equivalence margins for relevance, usability, factual integrity, and high-stakes restraint. Those values are derived from the pilot scale and variance and cannot be changed after validation results are seen.
 
+The six-case technical feasibility stage and twelve-case measurement rehearsal must pass before the full 60-case public development study. The qualified-mechanism gates and total-assistant-token denominator must be frozen before restricted validation.
+
 Automatic activation must reach at least 0.90 precision and 0.85 recall on held-out trigger cases for each behavior-tested host. Explicit invocation must activate the skill in every valid explicit-invocation case. At least three distinct agent or model families must be behavior-tested before a broad cross-agent release claim.
+
+Cross-agent validation must complete before a broad cross-agent final release report is generated. If availability prevents this, the study may report narrower evidence but may not make or publish the broad claim.
 
 Automated pairwise judging must reach at least 75 percent agreement with blinded human judgments and Krippendorff's alpha of at least 0.67 on the calibration sample. If it does not, human judgments replace automated judgments for headline claims.
 
@@ -635,7 +671,7 @@ The initial release is ready when:
 10. It does not materially regress relevance, usability, factual integrity, or high-stakes restraint.
 11. Human calibration supports the automated judging method used for headline claims.
 12. Benchmark reports disclose efficiency, uncertainty, limitations, and failed cases.
-13. Compatibility claims distinguish behavior-tested, installation-tested, and format-compatible agents.
+13. Compatibility claims report format conformance, installation, discovery, explicit activation, automatic activation, and behavioral conformance independently, including failed, unsupported, not-claimed, not-assessed, and stale dimensions.
 
 ## 29. Delivery Phases
 
@@ -643,13 +679,17 @@ The initial release is ready when:
 2. Baseline RED scenario and result capture.
 3. Minimal portable skill.
 4. Skill validation and behavioral refinement.
-5. Public development benchmark.
-6. Provider-neutral runner.
+5. Provider-neutral runner.
+6. Public development corpus, restricted-pack contract, and preregistration.
 7. Judge calibration workflow.
-8. Restricted evaluation-pack format.
-9. Cross-agent installation and activation checks.
-10. External-tool handoff package.
-11. Release report based on preregistered evidence.
+8. Six-case technical feasibility stage.
+9. Twelve-case measurement rehearsal.
+10. Full 60-case public development benchmark and candidate freeze.
+11. Restricted validation gate.
+12. Cross-agent compatibility studies.
+13. Frozen sealed test.
+14. External-tool handoff package.
+15. Release report based on preregistered evidence and applicable compatibility gates.
 
 ## 30. Key Risks and Mitigations
 
@@ -667,7 +707,7 @@ The initial release is ready when:
 | Repeated tuning overfits the benchmark | Separate development, validation, and one-time sealed testing |
 | Agent and model effects are conflated | Run separate behavior, integration, and activation studies |
 | Autonomous loops overwrite good versions | Version every candidate and require release gates |
-| Universal compatibility is overstated | Publish tiered, evidence-based compatibility claims |
+| Universal compatibility is overstated | Publish a multidimensional compatibility matrix backed by host-specific evidence |
 
 ## 31. Sources Guiding the Design
 

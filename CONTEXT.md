@@ -4,7 +4,7 @@
 
 **Context established:** 2026-09-01
 
-**Status:** Git history recovered; behavioral design, three implementation plans, and the repository architecture specification are approved; coordinated planning is next; implementation has not started
+**Status:** Git history recovered; behavioral and repository-architecture specifications approved; coordinated implementation planning is next; implementation has not started
 
 **Purpose of this file:** Preserve the original intent, reasoning, evidence boundaries, decision history, and current state so a future person or coding agent can resume without relying on conversation memory.
 
@@ -18,7 +18,7 @@ Use this reading order:
 
 1. `CONTEXT.md` for intent, history, rationale, boundaries, and current state.
 2. `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` for the approved behavioral and evaluation design.
-3. `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md` for the approved architectural direction as captured in a draft specification pending written review.
+3. `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md` for the approved repository architecture.
 4. `docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md` for skill implementation tasks.
 5. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md` for benchmark-runner implementation tasks.
 6. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md` for corpus, study, calibration, staged execution, and reporting tasks.
@@ -359,7 +359,7 @@ If a restricted case influences development, it is retired and replaced. The sea
 
 ## 12. Four Approved Benchmark Corrections
 
-After reviewing the written implementation plans, the user required four explicit corrections. These are approved amendments and supersede conflicting earlier benchmark language.
+After reviewing the written implementation plans, the user required four explicit corrections. These decisions were later incorporated into and approved as part of the behavioral specification; the plans describe their execution but do not independently supersede the specification.
 
 ### 12.1 Controlled multi-turn benchmarking
 
@@ -658,6 +658,20 @@ The revised contract uses a compatibility evidence matrix; a fail-closed restric
 
 The behavioral specification and three existing plans were not modified during this correction. Their known contract and terminology conflicts must be surfaced during coordinated planning, and any required specification amendment must be approved before the affected execution work proceeds. The owner approved the revised written specification on 2026-09-01, closing the repository-architecture specification gate and authorizing coordinated planning subject to the specification-over-plan authority rule.
 
+### 19.4 Behavioral Contract Reconciliation and Approval (2026-09-01)
+
+The coordinated-planning preflight confirmed that all three existing plans contain amendment language claiming to supersede conflicting benchmark provisions in the behavioral specification. Under the approved repository-architecture authority model, a plan cannot perform that role.
+
+The underlying benchmark decisions were already explicitly owner-approved and recorded in sections 12.1 through 12.4 of this file. They were therefore incorporated into a consolidated draft amendment of `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` for written review:
+
+1. controlled multi-turn Deep cases with fixed disclosures, final-portfolio scoring, and all-turn efficiency accounting;
+2. the qualified-mechanism primary endpoint and exact minimum quality gates;
+3. six-case technical feasibility and twelve-case measurement rehearsal before the full public development study;
+4. cross-agent validation before a broad cross-agent final release report; and
+5. the compatibility matrix and restricted-evidence feedback and execution boundaries required by the approved repository architecture.
+
+The three implementation plans were not edited. The owner approved the consolidated written behavioral amendment on 2026-09-01. This closes the behavioral-contract reconciliation gate and authorizes coordinated implementation planning.
+
 ## 20. Current Repository-Quality Intent
 
 Before the architecture decision, the owner's intent established the following constraints; the approved direction in section 19.1 now gives them architectural form:
@@ -699,7 +713,7 @@ The first deliverable of that session was a reasoned recommendation, not a const
 
 The session described above was completed. It inspected the complete local Clief Notes Method repository, the current Prime Agent repository, current primary GitHub and Agent Skills guidance, and the existing project contract and plans. It separated observed practices from transferable principles, presented three adaptation approaches, and recommended Approach B.
 
-The owner approved Approach B and the three decisions recorded in section 19.1, approved correcting all six findings from the independent audit recorded in section 19.3, and approved the revised written repository-architecture specification. The current phase is coordinated planning. Before a coordinated implementation plan can govern work, it must identify cross-document conflicts and route any contract change through specification amendment and owner approval. Implementation has not been authorized.
+The owner approved Approach B and the three decisions recorded in section 19.1, approved correcting all six findings from the independent audit recorded in section 19.3, approved the revised written repository-architecture specification, and approved the consolidated behavioral amendment recorded in section 19.4. The current phase is coordinated implementation planning. Implementation has not been authorized.
 
 ## 22. Change Control for This Context
 
