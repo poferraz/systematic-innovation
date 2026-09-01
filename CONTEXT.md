@@ -4,7 +4,7 @@
 
 **Context established:** 2026-09-01
 
-**Status:** Design and implementation planning complete; implementation has not started
+**Status:** Git history recovered; behavioral design, three implementation plans, and the repository architecture specification are approved; coordinated planning is next; implementation has not started
 
 **Purpose of this file:** Preserve the original intent, reasoning, evidence boundaries, decision history, and current state so a future person or coding agent can resume without relying on conversation memory.
 
@@ -18,9 +18,10 @@ Use this reading order:
 
 1. `CONTEXT.md` for intent, history, rationale, boundaries, and current state.
 2. `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` for the approved behavioral and evaluation design.
-3. `docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md` for skill implementation tasks.
-4. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md` for benchmark-runner implementation tasks.
-5. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md` for corpus, study, calibration, staged execution, and reporting tasks.
+3. `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md` for the approved architectural direction as captured in a draft specification pending written review.
+4. `docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md` for skill implementation tasks.
+5. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md` for benchmark-runner implementation tasks.
+6. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md` for corpus, study, calibration, staged execution, and reporting tasks.
 
 If these documents appear to conflict, do not silently choose one. Identify the conflict and resolve it with the project owner. Later explicit approved decisions supersede earlier language, but they should be incorporated into the affected documents rather than left as oral history.
 
@@ -587,11 +588,11 @@ Public inspection identified mature engineering patterns including:
 
 The target is comparable engineering discipline and public-repository trust, not identical tooling, superficial badges, popularity metrics, or a copy of Prime Agent's TypeScript architecture.
 
-## 19. Repository Questions That Are Not Yet Approved
+## 19. Historical Repository Architecture Questions
 
 No fourth repository-quality plan has been approved or created.
 
-The following are open design questions, not settled requirements:
+The following questions were recorded before the full repository investigation. They are preserved as decision history. The 2026-09-01 approval described in section 19.1 resolves the architectural questions; exact implementation mechanics remain deferred until the written specification is approved and coordinated planning begins.
 
 1. Which `clief-notes-method` conventions should become canonical in this repository?
 2. Should the project use one editable skill authority and generated per-host distributions?
@@ -606,11 +607,60 @@ The following are open design questions, not settled requirements:
 11. How should the repository coordinate Python benchmark tooling with any distribution-building tooling?
 12. Which GitHub security features are free and portable, and which require documented fallbacks?
 
-These questions require investigation, alternatives, tradeoff analysis, and owner approval before a specification or implementation plan is written.
+These questions required investigation, alternatives, tradeoff analysis, and owner approval before a specification or implementation plan could be written. That architectural investigation is now complete; no implementation plan has yet been authorized.
+
+### 19.1 Approved Repository Architecture Direction (2026-09-01)
+
+The owner approved **Approach B: canonical core plus evidence shell**, together with three explicit decisions:
+
+1. `skills/systematic-innovation/` remains the one editable behavioral authority.
+2. A host adapter is created only after a demonstrated host-specific installation, discovery, activation, or behavioral delta shows that the canonical skill is insufficient.
+3. The prior Git history should be recovered before implementation begins rather than casually starting a new repository lineage.
+
+The approved approach places deterministic validation, release packaging, compatibility evidence, and repository governance around the canonical skill without making those mechanisms competing sources of behavior. Generated artifacts are derived and drift-checked; direct installation of the canonical skill remains the default.
+
+It also establishes three trust zones with different security needs:
+
+1. the public skill, safe to publish and load;
+2. the public benchmark laboratory, which contains executable tooling and public development evidence; and
+3. the restricted evaluation pack, kept outside public Git and automatic agent context.
+
+Compatibility is an evidence matrix rather than a binary badge or ordered ladder. Claims must report format conformance, installation, discovery, explicit activation, automatic activation, and behavioral conformance independently. Repository quality uses independent gates rather than a composite maturity score, and GitHub controls are added when the protected workflow or risk exists.
+
+The approach deliberately rejects duplicated project-state documentation, default per-host copies, premature archives and governance ceremony, and any use of restricted evaluation evidence for ordinary skill refinement.
+
+The reasoning is that this is the smallest architecture that combines provider neutrality with credible evidence and public-repository discipline. It transfers useful reference principles without copying private text or adopting the project-specific machinery of either reference repository.
+
+The written form of this direction is `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`. Following independent audit and correction, the owner approved the written specification on 2026-09-01. Coordinated implementation planning is now authorized; implementation remains a later phase with its own approval gate.
+
+### 19.2 Git Lineage Recovery (2026-09-01)
+
+The prior Git lineage was recovered from the owner-provided `systematic-innovation-session.bundle`. Git verified that the bundle is complete and internally valid. The recovered `main` branch contains four commits and ends at `648b62621d6a0eb5ac24685ca861f9928dca0006` (`docs: preserve systematic innovation context`).
+
+The history was attached without checking out or overwriting the working tree. The approved Approach B context update and draft repository-architecture specification remained intact as working changes. The bundle itself remains an untracked recovery artifact and should not be committed.
+
+No upstream remote was encoded by the bundle or invented during recovery. An `origin` should be configured only when the owner identifies or creates the intended public repository. This recovery resolves the third decision in section 19.1; implementation is no longer blocked by missing local Git history.
+
+### 19.3 Independent Architecture Audit and Approved Corrections (2026-09-01)
+
+The owner requested a fresh, independent audit of the draft repository-architecture specification. The audited draft had SHA-256 digest `24f4369283404955110511439b86a4aac964b24427fc140504b12a68732d79dc`. The review found that Approach B remained sound but the written contract required six corrections before approval:
+
+1. Compatibility dimensions are independent and cannot be represented honestly as one ordered ladder.
+2. Keeping restricted evidence outside Git is necessary but insufficient without trusted execution, provider handling, storage, retention, and audit controls.
+3. Plans must be explicitly subordinate to specifications and cannot amend them through supersession language.
+4. Development, restricted-validation, and sealed-test evidence need exact and different feedback permissions.
+5. Release digests and reproducibility do not establish authentic origin without verifiable provenance.
+6. Architecture acceptance needs explicit evidence and pass conditions rather than subjective completion language.
+
+The owner approved correcting all six findings. The draft specification was revised accordingly while preserving Approach B, provider neutrality, the benchmark's scientific design, and the three-plan review boundary.
+
+The revised contract uses a compatibility evidence matrix; a fail-closed restricted-run preflight tied to a frozen reviewed runner and declared custody policy; explicit specification-over-plan authority; development-only diagnostic feedback with validation as a release decision and sealed testing as terminal; reproducible and authenticated releases; and an architecture acceptance-evidence table.
+
+The behavioral specification and three existing plans were not modified during this correction. Their known contract and terminology conflicts must be surfaced during coordinated planning, and any required specification amendment must be approved before the affected execution work proceeds. The owner approved the revised written specification on 2026-09-01, closing the repository-architecture specification gate and authorizing coordinated planning subject to the specification-over-plan authority rule.
 
 ## 20. Current Repository-Quality Intent
 
-Although the architecture is open, the owner's intent is clear:
+Before the architecture decision, the owner's intent established the following constraints; the approved direction in section 19.1 now gives them architectural form:
 
 1. Bring the useful operating principles of `clief-notes-method` into `systematic-innovation`.
 2. Make the repository understandable to coding agents without relying on lost conversation context.
@@ -623,13 +673,13 @@ Although the architecture is open, the owner's intent is clear:
 9. Use evidence and regression gates rather than vanity scoring.
 10. Allow the repository to improve continually after the first release.
 
-The next design session must preserve this intent while remaining willing to reject unsuitable patterns from either reference repository.
+The approved direction preserves this intent while rejecting unsuitable patterns from both reference repositories.
 
-## 21. How the Next Design Session Should Proceed
+## 21. Historical Instructions for the Repository Design Session
 
-The next session should not begin with a predetermined list of files to create.
+The repository design session was instructed not to begin with a predetermined list of files to create.
 
-It should:
+It was required to:
 
 1. Read this context, the approved specification, and all three implementation plans.
 2. Inspect the complete private `clief-notes-method` repository locally.
@@ -643,7 +693,13 @@ It should:
 10. Recommend one approach and explain why it fits this project now.
 11. Obtain explicit owner approval before editing the design specification, creating a repository-quality specification, writing a fourth implementation plan, or implementing files.
 
-The first deliverable of that session is a reasoned recommendation, not a construction checklist.
+The first deliverable of that session was a reasoned recommendation, not a construction checklist.
+
+### 21.1 Outcome of the 2026-09-01 Design Session
+
+The session described above was completed. It inspected the complete local Clief Notes Method repository, the current Prime Agent repository, current primary GitHub and Agent Skills guidance, and the existing project contract and plans. It separated observed practices from transferable principles, presented three adaptation approaches, and recommended Approach B.
+
+The owner approved Approach B and the three decisions recorded in section 19.1, approved correcting all six findings from the independent audit recorded in section 19.3, and approved the revised written repository-architecture specification. The current phase is coordinated planning. Before a coordinated implementation plan can govern work, it must identify cross-document conflicts and route any contract change through specification amendment and owner approval. Implementation has not been authorized.
 
 ## 22. Change Control for This Context
 
