@@ -5,480 +5,702 @@ ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 ASSETS.mkdir(parents=True, exist_ok=True)
 
-# 1. Perfected Hero Banner (assets/banner.png)
-banner_html = """<!DOCTYPE html>
+COMMON_FONTS = """
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800;900&family=Fraunces:opsz,wght@9..144,800;9..144,900&family=Optima&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+"""
+
+# 1. HERO BANNER (assets/banner.png) - 1280x640
+banner_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,800;0,9..144,900;1,9..144,600&family=Libre+Baskerville:ital,wght@0,700;1,400;1,700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+{COMMON_FONTS}
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
     width: 1280px;
     height: 640px;
-    background: #1783be;
-    color: #d8ff55;
-    font-family: 'Fraunces', 'Times New Roman', serif;
+    background-color: #025d9c;
+    background-image:
+      linear-gradient(90deg, rgba(0,0,0,0.18) 0px, rgba(255,255,255,0.06) 28px, rgba(0,0,0,0.08) 34px, transparent 48px),
+      radial-gradient(circle at 35% 25%, rgba(255,255,255,0.06) 0%, transparent 65%);
+    color: #f5d818;
+    font-family: 'Fraunces', Georgia, serif;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 56px 84px 44px 84px;
+    padding: 58px 88px 52px 96px;
     position: relative;
     overflow: hidden;
-  }
+  }}
 
-  body::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 45% 25%, rgba(255,255,255,0.06) 0%, transparent 65%);
-    pointer-events: none;
-  }
-
-  .header-block {
-    position: relative;
-    z-index: 2;
-    max-width: 1112px;
-  }
-
-  .double-rule-top {
-    border-top: 3.5px solid #d8ff55;
-    border-bottom: 3.5px solid #d8ff55;
-    height: 9px;
-    margin-bottom: 26px;
+  .top-section {{
     width: 100%;
-  }
+  }}
 
-  .main-title {
-    font-size: 88px;
-    line-height: 0.92;
+  /* Exact thin-over-thick rule from the 1985 hardcover */
+  .rule-top-thin {{
+    height: 3px;
+    background: #f5d818;
+    width: 100%;
+    margin-bottom: 6px;
+  }}
+  .rule-top-thick {{
+    height: 7px;
+    background: #f5d818;
+    width: 100%;
+    margin-bottom: 22px;
+  }}
+
+  .title {{
+    font-family: 'Fraunces', serif;
+    font-size: 92px;
+    line-height: 0.94;
     font-weight: 900;
-    letter-spacing: -0.5px;
-    color: #d8ff55;
+    letter-spacing: -0.02em;
+    color: #f5d818;
     text-transform: uppercase;
-    font-variation-settings: 'opsz' 144, 'wght' 900;
-  }
+    font-variation-settings: 'opsz' 144, 'wght' 900, 'SOFT' 0;
+  }}
 
-  .rule-mid {
-    border-top: 3.5px solid #d8ff55;
+  .rule-mid-thick {{
+    height: 7px;
+    background: #f5d818;
+    width: 100%;
     margin-top: 22px;
     margin-bottom: 14px;
+  }}
+
+  .subtitle {{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #f5d818;
+    text-align: center;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }}
+
+  .rule-sub-thick {{
+    height: 7px;
+    background: #f5d818;
     width: 100%;
-  }
-
-  .subtitle {
-    font-family: 'Libre Baskerville', serif;
-    font-size: 32px;
-    line-height: 1.1;
-    font-style: italic;
-    font-weight: 700;
-    color: #d8ff55;
-    letter-spacing: 0.2px;
-  }
-
-  .rule-bottom {
-    border-top: 3.5px solid #d8ff55;
     margin-top: 14px;
-    width: 100%;
-  }
+  }}
 
-  /* Systems Linework Vector positioned with clean clearance */
-  .systems-grid {
-    position: absolute;
-    right: 84px;
-    bottom: 110px;
-    width: 450px;
-    height: 175px;
-    z-index: 1;
-  }
-
-  .footer-block {
-    position: relative;
-    z-index: 2;
+  /* Minimalist Systems Feedback Diagram in the open blue field */
+  .middle-section {{
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
-  }
+    align-items: center;
+    margin-top: 18px;
+  }}
 
-  .author-tag {
-    display: inline-block;
-  }
-
-  .author-name {
-    font-family: 'Fraunces', serif;
-    font-size: 38px;
+  .edition-note {{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.7;
+  }}
+  .edition-note strong {{
+    color: #f5d818;
     font-weight: 800;
-    color: #d8ff55;
-    letter-spacing: -0.2px;
-    display: inline-block;
-    padding-bottom: 6px;
-    border-bottom: 3.5px solid #d8ff55;
-  }
+  }}
 
-  .provenance-tag {
-    font-family: 'Space Grotesk', sans-serif;
+  .footer-section {{
+    width: 100%;
+  }}
+
+  .footer-row {{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }}
+
+  .author {{
+    font-family: 'Fraunces', serif;
+    font-size: 46px;
+    font-weight: 900;
+    color: #f5d818;
+    letter-spacing: -0.02em;
+  }}
+
+  .meta-right {{
+    font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 2px;
+    color: #f5d818;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #ffffff;
-    opacity: 0.92;
-    text-align: right;
-    line-height: 1.6;
-  }
+  }}
 
-  .provenance-tag span {
-    color: #d8ff55;
-  }
+  .rule-bottom {{
+    height: 4px;
+    background: #f5d818;
+    width: 100%;
+  }}
 </style>
 </head>
 <body>
-  <div class="header-block">
-    <div class="double-rule-top"></div>
-    <div class="main-title">
+  <div class="top-section">
+    <div class="rule-top-thin"></div>
+    <div class="rule-top-thick"></div>
+    <div class="title">
       SYSTEMATIC<br>
       INNOVATION
     </div>
-    <div class="rule-mid"></div>
+    <div class="rule-mid-thick"></div>
     <div class="subtitle">A Systems Approach to LLM Ideation</div>
-    <div class="rule-bottom"></div>
+    <div class="rule-sub-thick"></div>
   </div>
 
-  <div class="systems-grid">
-    <svg viewBox="0 0 450 175" width="100%" height="100%">
-      <!-- Outer Boundary -->
-      <rect x="5" y="10" width="440" height="155" rx="3" fill="#136fa3" fill-opacity="0.25" stroke="#d8ff55" stroke-width="1.5" stroke-dasharray="5,5"/>
-      <text x="20" y="30" fill="#d8ff55" font-family="'Space Grotesk', sans-serif" font-size="9" font-weight="700" letter-spacing="1.5">SOCIO-TECHNICAL SELECTION ENVIRONMENT (RICKARDS 1985)</text>
+  <div class="middle-section">
+    <div class="edition-note">
+      <strong>Agent Skills Standard</strong> · Pure Markdown<br>
+      Grounded in <strong>Stimulating Innovation</strong> (1985)
+    </div>
 
-      <!-- Search Node -->
-      <rect x="25" y="55" width="95" height="46" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="1.5"/>
-      <text x="72" y="78" text-anchor="middle" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" letter-spacing="1">SEARCH</text>
-      <text x="72" y="91" text-anchor="middle" fill="#d8ff55" font-family="'Space Grotesk', sans-serif" font-size="8">7 REASONING CELLS</text>
+    <svg width="520" height="108" viewBox="0 0 520 108">
+      <rect x="2" y="14" width="136" height="54" fill="none" stroke="#f5d818" stroke-width="2.5"/>
+      <text x="70" y="38" text-anchor="middle" fill="#f5d818" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" letter-spacing="1">1. PRESERVE</text>
+      <text x="70" y="55" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">System Scan</text>
 
-      <!-- Arrow 1 -->
-      <line x1="120" y1="78" x2="168" y2="78" stroke="#d8ff55" stroke-width="1.8"/>
-      <polygon points="168,78 160,74 160,82" fill="#d8ff55"/>
+      <line x1="138" y1="41" x2="188" y2="41" stroke="#f5d818" stroke-width="2.5"/>
+      <polygon points="188,41 178,35 178,47" fill="#f5d818"/>
 
-      <!-- Center Transformation Node -->
-      <rect x="168" y="48" width="115" height="60" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="2"/>
-      <text x="225" y="74" text-anchor="middle" fill="#d8ff55" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" letter-spacing="1">MECHANISM</text>
-      <text x="225" y="89" text-anchor="middle" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700">LEDGER</text>
-      <text x="225" y="100" text-anchor="middle" fill="#c3ebff" font-family="'Space Grotesk', sans-serif" font-size="7.5">DEDUPLICATION GATE</text>
+      <rect x="188" y="14" width="144" height="54" fill="#f5d818" stroke="#f5d818" stroke-width="2.5"/>
+      <text x="260" y="38" text-anchor="middle" fill="#025d9c" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" letter-spacing="1">2. TRANSFORM</text>
+      <text x="260" y="55" text-anchor="middle" fill="#025d9c" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="700">7 Reasoning Cells</text>
 
-      <!-- Arrow 2 -->
-      <line x1="283" y1="78" x2="330" y2="78" stroke="#d8ff55" stroke-width="1.8"/>
-      <polygon points="330,78 322,74 322,82" fill="#d8ff55"/>
+      <line x1="332" y1="41" x2="382" y2="41" stroke="#f5d818" stroke-width="2.5"/>
+      <polygon points="382,41 372,35 372,47" fill="#f5d818"/>
 
-      <!-- Output Node -->
-      <rect x="330" y="55" width="95" height="46" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="1.5"/>
-      <text x="377" y="78" text-anchor="middle" fill="#ffffff" font-family="'Space Grotesk', sans-serif" font-size="10" font-weight="700" letter-spacing="1">PORTFOLIO</text>
-      <text x="377" y="91" text-anchor="middle" fill="#d8ff55" font-family="'Space Grotesk', sans-serif" font-size="8">6 DISCLOSURE LAYERS</text>
+      <rect x="382" y="14" width="136" height="54" fill="none" stroke="#f5d818" stroke-width="2.5"/>
+      <text x="450" y="38" text-anchor="middle" fill="#f5d818" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" letter-spacing="1">3. VALIDATE</text>
+      <text x="450" y="55" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Learning Probes</text>
 
-      <!-- Feedback Loop Bottom -->
-      <path d="M 377 101 L 377 140 L 72 140 L 72 101" fill="none" stroke="#d8ff55" stroke-width="1.5"/>
-      <polygon points="72,101 68,109 76,109" fill="#d8ff55"/>
-      <text x="225" y="134" text-anchor="middle" fill="#d8ff55" font-family="'Space Grotesk', sans-serif" font-size="8.5" font-weight="700" letter-spacing="1">LEARNING LOOPS &amp; RECEPTIVITY INOCULATION</text>
+      <path d="M 450 68 L 450 96 L 70 96 L 70 68" fill="none" stroke="#f5d818" stroke-width="2" stroke-dasharray="5,5"/>
+      <polygon points="70,68 65,77 75,77" fill="#f5d818"/>
+      <text x="260" y="90" text-anchor="middle" fill="#f5d818" font-family="'JetBrains Mono', monospace" font-size="10" font-weight="700" letter-spacing="1">SELECTION ENVIRONMENT FEEDBACK</text>
     </svg>
   </div>
 
-  <div class="footer-block">
-    <div class="author-tag">
-      <div class="author-name">Tudor Rickards</div>
+  <div class="footer-section">
+    <div class="footer-row">
+      <div class="author">After Tudor Rickards</div>
+      <div class="meta-right">Pilot Lift: +162% Causal Density · 0% Roadmap Drift</div>
     </div>
-    <div class="provenance-tag">
-      <span>Stimulating Innovation</span> (1985) · Frances Pinter<br>
-      Provider-Neutral Agent Skill · Agent Skills Standard
+    <div class="rule-bottom"></div>
+  </div>
+</body>
+</html>
+"""
+
+# 2. DISTILLED COMPARISON GRAPHIC (assets/comparison.png) - 1280x420
+comparison_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+{COMMON_FONTS}
+<style>
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    width: 1280px;
+    height: 420px;
+    background: #025d9c;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 36px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 3px solid #f5d818;
+    border-bottom: 6px solid #f5d818;
+    padding: 12px 0;
+  }}
+  .header h2 {{
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #f5d818;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }}
+  .header span {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f5d818;
+    text-transform: uppercase;
+  }}
+  .grid {{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px;
+    height: 275px;
+    margin-top: 24px;
+  }}
+  .panel {{
+    border: 2.5px solid rgba(255,255,255,0.28);
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: rgba(1, 52, 92, 0.55);
+  }}
+  .panel.active {{
+    border: 3px solid #f5d818;
+    background: #014c82;
+  }}
+  .panel-title {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }}
+  .panel-title h3 {{
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff;
+  }}
+  .panel.active .panel-title h3 {{
+    color: #f5d818;
+  }}
+  .badge {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    color: #ffffff;
+  }}
+  .panel.active .badge {{
+    background: #f5d818;
+    color: #025d9c;
+    border-color: #f5d818;
+  }}
+  .boxes {{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+  }}
+  .box {{
+    height: 76px;
+    border: 2px dashed rgba(255,255,255,0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6px;
+  }}
+  .box .lbl {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.7);
+  }}
+  .box .sub {{
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 4px;
+  }}
+  .panel.active .box {{
+    border: 2px solid #f5d818;
+    background: rgba(245, 216, 24, 0.1);
+  }}
+  .panel.active .box .lbl {{
+    color: #f5d818;
+  }}
+  .panel.active .box .sub {{
+    color: #ffffff;
+    font-weight: 600;
+  }}
+  .footer-bar {{
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 600;
+    padding-top: 12px;
+    border-top: 1.5px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.85);
+  }}
+  .panel.active .footer-bar {{
+    border-top: 2px solid #f5d818;
+    color: #f5d818;
+    font-weight: 700;
+  }}
+</style>
+</head>
+<body>
+  <div class="header">
+    <h2>Mode Collapse vs. Mechanism Diversity</h2>
+    <span>22 Fresh-Context Pilot Runs</span>
+  </div>
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-title">
+        <h3>Vanilla LLM Brainstorming</h3>
+        <span class="badge">0.90 MECH / 1K TOK</span>
+      </div>
+      <div class="boxes">
+        <div class="box"><span class="lbl">IDEA 1</span><span class="sub">Same Lever</span></div>
+        <div class="box"><span class="lbl">IDEA 2</span><span class="sub">Same Lever</span></div>
+        <div class="box"><span class="lbl">IDEA 3</span><span class="sub">Same Lever</span></div>
+        <div class="box"><span class="lbl">IDEA 4</span><span class="sub">Same Lever</span></div>
+        <div class="box"><span class="lbl">IDEA 5</span><span class="sub">Same Lever</span></div>
+      </div>
+      <div class="footer-bar">
+        <span>✕ 0/10 Turn-1 Discovery</span>
+        <span>✕ 55% Duplicate Collapse</span>
+        <span>✕ 90% Roadmap Drift</span>
+      </div>
+    </div>
+
+    <div class="panel active">
+      <div class="panel-title">
+        <h3>Systematic Innovation</h3>
+        <span class="badge">2.35 MECH / 1K TOK (+162%)</span>
+      </div>
+      <div class="boxes">
+        <div class="box"><span class="lbl">LEVER A</span><span class="sub">Incentives</span></div>
+        <div class="box"><span class="lbl">LEVER B</span><span class="sub">Queue Rule</span></div>
+        <div class="box"><span class="lbl">LEVER C</span><span class="sub">Info Schema</span></div>
+        <div class="box"><span class="lbl">LEVER D</span><span class="sub">Inversion</span></div>
+        <div class="box"><span class="lbl">LEVER E</span><span class="sub">Subtraction</span></div>
+      </div>
+      <div class="footer-bar">
+        <span>✓ 10/10 Turn-1 Restraint</span>
+        <span>✓ 100% Preservation Scan</span>
+        <span>✓ 1–2 Wk Probes</span>
+      </div>
     </div>
   </div>
 </body>
 </html>
 """
 
-# 2. Authentic Editorial Comparison Card (assets/comparison.svg)
-comparison_svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="100%" height="100%" style="background:#0e2438; font-family:'Helvetica Neue', Arial, sans-serif;">
-  <defs>
-    <style>
-      .title-serif { font-family:'Georgia', serif; }
-      .mono-label { font-family:'SF Mono', Menlo, Consolas, monospace; }
-    </style>
-  </defs>
+# 3. DISTILLED ARCHITECTURE PIPELINE (assets/system-architecture.png) - 1280x360
+arch_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+{COMMON_FONTS}
+<style>
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    width: 1280px;
+    height: 360px;
+    background: #025d9c;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 36px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 3px solid #f5d818;
+    border-bottom: 6px solid #f5d818;
+    padding: 12px 0;
+  }}
+  .header h2 {{
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #f5d818;
+    text-transform: uppercase;
+  }}
+  .header span {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f5d818;
+    text-transform: uppercase;
+  }}
+  .flow {{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-top: 22px;
+  }}
+  .step {{
+    border: 2.5px solid #f5d818;
+    background: #014c82;
+    padding: 18px 16px;
+    height: 145px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .step.highlight {{
+    background: #f5d818;
+    color: #025d9c;
+  }}
+  .num {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #f5d818;
+    letter-spacing: 0.08em;
+  }}
+  .step.highlight .num {{
+    color: #025d9c;
+  }}
+  .step h4 {{
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #ffffff;
+  }}
+  .step.highlight h4 {{
+    color: #025d9c;
+  }}
+  .step p {{
+    font-size: 12.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.88);
+  }}
+  .step.highlight p {{
+    color: #013c66;
+    font-weight: 700;
+  }}
+  .feedback {{
+    border-top: 3px solid #f5d818;
+    padding-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #f5d818;
+    letter-spacing: 0.05em;
+  }}
+</style>
+</head>
+<body>
+  <div class="header">
+    <h2>Five-Stage Systems Architecture</h2>
+    <span>Rickards (1985) Search &amp; Selection Model</span>
+  </div>
 
-  <!-- Header -->
-  <text x="600" y="46" text-anchor="middle" fill="#d8ff55" font-size="24" font-weight="700" class="title-serif" letter-spacing="0.5">THE ARCHITECTURAL CONTRAST</text>
-  <text x="600" y="72" text-anchor="middle" fill="#a0c8e0" font-size="13">Why default LLM brainstorming collapses into pseudo-variety and how Tudor Rickards's systems model fixes it</text>
+  <div class="flow">
+    <div class="step">
+      <div class="num">01 · LAYER 1</div>
+      <h4>Preservation Scan</h4>
+      <p>Protect core anchors &amp; map boundaries</p>
+    </div>
+    <div class="step">
+      <div class="num">02 · QUARANTINE</div>
+      <h4>Fluency Depletion</h4>
+      <p>Set aside top 2–3 default cliches</p>
+    </div>
+    <div class="step highlight">
+      <div class="num">03 · SEARCH</div>
+      <h4>7 Reasoning Cells</h4>
+      <p>Inversion, Synectics, Unbundling, Purge</p>
+    </div>
+    <div class="step">
+      <div class="num">04 · LAYER 2</div>
+      <h4>Mechanism Ledger</h4>
+      <p>Enforce 5 structural dimensions</p>
+    </div>
+    <div class="step">
+      <div class="num">05 · LAYERS 3–6</div>
+      <h4>Action Portfolio</h4>
+      <p>Ch. 8 Receptivity &amp; 1–2 Wk Probes</p>
+    </div>
+  </div>
 
-  <!-- Left Card: Vanilla Default -->
-  <g transform="translate(60, 100)">
-    <rect width="520" height="370" rx="4" fill="#091b2c" stroke="#25425d" stroke-width="1.5"/>
-    <rect x="0" y="0" width="520" height="4" fill="#ff6b81"/>
-
-    <text x="28" y="36" fill="#ff94a4" font-size="11" font-weight="700" class="mono-label" letter-spacing="1.5">WITHOUT THE SKILL · VANILLA LLM</text>
-    <text x="28" y="66" fill="#ffffff" font-size="18" font-weight="700" class="title-serif">The "Obvious Listicle" Anti-Pattern</text>
-
-    <line x1="28" y1="84" x2="492" y2="84" stroke="#1f374e" stroke-width="1"/>
-
-    <!-- Point 1 -->
-    <text x="28" y="116" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
-    <text x="50" y="116" fill="#ffffff" font-size="13" font-weight="700">Top-of-Mind Mode Collapse</text>
-    <text x="50" y="136" fill="#8eaabf" font-size="12" line-height="1.4">Dumps immediate memory cliches (2-2-2 meal plans, NFC stickers, cash bonuses) across independent runs.</text>
-
-    <!-- Point 2 -->
-    <text x="28" y="176" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
-    <text x="50" y="176" fill="#ffffff" font-size="13" font-weight="700">Duplicate Mechanism Families (0.55 Collapse Ratio)</text>
-    <text x="50" y="196" fill="#8eaabf" font-size="12">Generates 6–10 numbered ideas that merely re-word a single causal lever (e.g. 5 minor commission variations).</text>
-
-    <!-- Point 3 -->
-    <text x="28" y="236" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
-    <text x="50" y="236" fill="#ffffff" font-size="13" font-weight="700">Zero Turn-1 Restraint (0/10 Runs)</text>
-    <text x="50" y="256" fill="#8eaabf" font-size="12">Dumps 2,000+ words on Turn 1 without asking discovery questions or identifying non-negotiable anchors.</text>
-
-    <!-- Point 4 -->
-    <text x="28" y="296" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
-    <text x="50" y="296" fill="#ffffff" font-size="13" font-weight="700">Premature 90-Day Implementation Roadmaps</text>
-    <text x="50" y="316" fill="#8eaabf" font-size="12">Burns tokens hallucinating multi-phase Gantt execution schedules and forces an unearned single winner.</text>
-
-    <!-- Metric Tag -->
-    <rect x="28" y="338" width="464" height="22" rx="2" fill="#140b10" stroke="#4a1520" stroke-width="1"/>
-    <text x="260" y="353" text-anchor="middle" fill="#ff94a4" font-size="10" font-weight="700" class="mono-label">PILOT EFFICIENCY: 0.897 MECHANISMS / 1K TOKENS</text>
-  </g>
-
-  <!-- Right Card: Systematic Innovation -->
-  <g transform="translate(620, 100)">
-    <rect width="520" height="370" rx="4" fill="#1783be" stroke="#d8ff55" stroke-width="1.5"/>
-    <rect x="0" y="0" width="520" height="4" fill="#d8ff55"/>
-
-    <text x="28" y="36" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label" letter-spacing="1.5">WITH SYSTEMATIC-INNOVATION SKILL</text>
-    <text x="28" y="66" fill="#ffffff" font-size="18" font-weight="700" class="title-serif">The Systems-Aware Possibility Portfolio</text>
-
-    <line x1="28" y1="84" x2="492" y2="84" stroke="#2594d1" stroke-width="1"/>
-
-    <!-- Point 1 -->
-    <text x="28" y="116" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
-    <text x="50" y="116" fill="#ffffff" font-size="13" font-weight="700">Initial Fluency Depletion (Quarantined Tropes)</text>
-    <text x="50" y="136" fill="#e0f2fe" font-size="12">Names and explicitly sets aside the top 2–3 default memory-dump tropes before populating candidates.</text>
-
-    <!-- Point 2 -->
-    <text x="28" y="176" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
-    <text x="50" y="176" fill="#ffffff" font-size="13" font-weight="700">Causally Diverse Mechanism Ledger (+162% Density)</text>
-    <text x="50" y="196" fill="#e0f2fe" font-size="12">Every candidate operates across distinct levers (incentives, queues, information schemas, time, roles, subtraction).</text>
-
-    <!-- Point 3 -->
-    <text x="28" y="236" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
-    <text x="50" y="236" fill="#ffffff" font-size="13" font-weight="700">Disciplined Turn-1 Restraint (10/10 Runs)</text>
-    <text x="50" y="256" fill="#e0f2fe" font-size="12">Outputs a concise Preservation Scan, 4 targeted discovery questions, and 3 contrasting seeds (&lt;450 tokens).</text>
-
-    <!-- Point 4 -->
-    <text x="28" y="296" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
-    <text x="50" y="296" fill="#ffffff" font-size="13" font-weight="700">Spotlight Signals &amp; 1–2 Week Learning Probes</text>
-    <text x="50" y="316" fill="#e0f2fe" font-size="12">Preserves problem-owner agency; concludes with reversible low-cost micro-experiments instead of roadmaps.</text>
-
-    <!-- Metric Tag -->
-    <rect x="28" y="338" width="464" height="22" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="1"/>
-    <text x="260" y="353" text-anchor="middle" fill="#d8ff55" font-size="10" font-weight="700" class="mono-label">PILOT EFFICIENCY: 2.352 MECHANISMS / 1K TOKENS (+162%)</text>
-  </g>
-</svg>
+  <div class="feedback">
+    <span>▲ DEEP MODE: TURN-1 RESTRAINT (&le; 4 Questions + 3 Seeds)</span>
+    <span>QUICK MODE: SINGLE-TURN 6-LAYER PORTFOLIO ▲</span>
+  </div>
+</body>
+</html>
 """
 
-# 3. Authentic Systems Architecture Diagram (assets/system-architecture.svg)
-architecture_svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 540" width="100%" height="100%" style="background:#0e2438; font-family:'Helvetica Neue', Arial, sans-serif;">
-  <defs>
-    <style>
-      .title-serif { font-family:'Georgia', serif; }
-      .mono-label { font-family:'SF Mono', Menlo, Consolas, monospace; }
-    </style>
-  </defs>
+# 4. DISTILLED WORKFLOW DEMO (assets/quick-demo.png) - 1280x400
+demo_html = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+{COMMON_FONTS}
+<style>
+  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
+  body {{
+    width: 1280px;
+    height: 400px;
+    background: #025d9c;
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    padding: 36px 56px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .header {{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 3px solid #f5d818;
+    border-bottom: 6px solid #f5d818;
+    padding: 12px 0;
+  }}
+  .header h2 {{
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 900;
+    color: #f5d818;
+    text-transform: uppercase;
+  }}
+  .header span {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #f5d818;
+  }}
+  .turns {{
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    gap: 32px;
+    height: 255px;
+    margin-top: 20px;
+  }}
+  .card {{
+    background: #014c82;
+    border: 2.5px solid #f5d818;
+    padding: 22px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }}
+  .card-head {{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid rgba(245,216,24,0.35);
+    padding-bottom: 10px;
+  }}
+  .card-head h3 {{
+    font-family: 'Fraunces', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #f5d818;
+  }}
+  .pill {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: #f5d818;
+    color: #025d9c;
+    padding: 3px 9px;
+  }}
+  .items {{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }}
+  .item {{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 14px;
+    line-height: 1.35;
+  }}
+  .item strong {{
+    color: #f5d818;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    min-width: 125px;
+  }}
+  .note {{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: #f5d818;
+    border-top: 1.5px solid rgba(245,216,24,0.35);
+    padding-top: 8px;
+  }}
+</style>
+</head>
+<body>
+  <div class="header">
+    <h2>Interactive Protocol: Deep Mode In Action</h2>
+    <span>Case: Retail Commission Teamwork</span>
+  </div>
 
-  <text x="600" y="46" text-anchor="middle" fill="#d8ff55" font-size="24" font-weight="700" class="title-serif" letter-spacing="0.5">THE SYSTEMATIC INNOVATION PIPELINE</text>
-  <text x="600" y="72" text-anchor="middle" fill="#a0c8e0" font-size="13">Structured Transformation of Complex Socio-Technical Contradictions into Non-Obvious Possibility Portfolios</text>
+  <div class="turns">
+    <div class="card">
+      <div class="card-head">
+        <h3>Turn 1: Diagnostic Restraint</h3>
+        <span class="pill">413 TOKENS</span>
+      </div>
+      <div class="items">
+        <div class="item"><strong>PRESERVE</strong><span>100% individual customer ownership &amp; commission</span></div>
+        <div class="item"><strong>QUARANTINE</strong><span>Team pool splits, paid CRM software, cash spiffs</span></div>
+        <div class="item"><strong>DISCOVER</strong><span>4 surgical questions on day-off handoffs &amp; quotes</span></div>
+        <div class="item"><strong>3 SEEDS</strong><span>Contrasting 1-sentence directional previews</span></div>
+      </div>
+      <div class="note">✓ Zero premature solution dumping before constraints</div>
+    </div>
 
-  <!-- Horizontal connector line -->
-  <line x1="140" y1="210" x2="1060" y2="210" stroke="#254a6b" stroke-width="2"/>
-
-  <!-- Stage 1 -->
-  <g transform="translate(60, 110)">
-    <rect width="190" height="220" rx="3" fill="#13334d" stroke="#2b5e85" stroke-width="1.5"/>
-    <rect x="0" y="0" width="190" height="4" fill="#d8ff55"/>
-    <text x="95" y="32" text-anchor="middle" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label">STAGE 1 · LAYER 1</text>
-    <text x="95" y="60" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" class="title-serif">Preservation Scan</text>
-    <line x1="20" y1="74" x2="170" y2="74" stroke="#234b6b" stroke-width="1"/>
-    <text x="95" y="100" text-anchor="middle" fill="#b8d4e8" font-size="11">Core Contradiction</text>
-    <text x="95" y="122" text-anchor="middle" fill="#b8d4e8" font-size="11">Non-Negotiable Anchors</text>
-    <text x="95" y="144" text-anchor="middle" fill="#b8d4e8" font-size="11">System Boundary Mapping</text>
-    <rect x="20" y="175" width="150" height="24" rx="2" fill="#0b2031" stroke="#3b7aab" stroke-width="1"/>
-    <text x="95" y="191" text-anchor="middle" fill="#d8ff55" font-size="9" font-weight="700" class="mono-label">PROTECT WHAT WORKS</text>
-  </g>
-
-  <!-- Stage 2 -->
-  <g transform="translate(280, 110)">
-    <rect width="190" height="220" rx="3" fill="#13334d" stroke="#2b5e85" stroke-width="1.5"/>
-    <rect x="0" y="0" width="190" height="4" fill="#d8ff55"/>
-    <text x="95" y="32" text-anchor="middle" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label">STAGE 2 · CONTROL</text>
-    <text x="95" y="60" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" class="title-serif">Fluency Depletion</text>
-    <line x1="20" y1="74" x2="170" y2="74" stroke="#234b6b" stroke-width="1"/>
-    <text x="95" y="100" text-anchor="middle" fill="#b8d4e8" font-size="11">Top-of-Mind Tropes</text>
-    <text x="95" y="122" text-anchor="middle" fill="#b8d4e8" font-size="11">Internet Memory Dumps</text>
-    <text x="95" y="144" text-anchor="middle" fill="#b8d4e8" font-size="11">Discard 2-3 Defaults</text>
-    <rect x="20" y="175" width="150" height="24" rx="2" fill="#0b2031" stroke="#3b7aab" stroke-width="1"/>
-    <text x="95" y="191" text-anchor="middle" fill="#d8ff55" font-size="9" font-weight="700" class="mono-label">ANTI-TROPE QUARANTINE</text>
-  </g>
-
-  <!-- Stage 3 -->
-  <g transform="translate(500, 110)">
-    <rect width="200" height="220" rx="3" fill="#13334d" stroke="#2b5e85" stroke-width="1.5"/>
-    <rect x="0" y="0" width="200" height="4" fill="#d8ff55"/>
-    <text x="100" y="32" text-anchor="middle" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label">STAGE 3 · SEARCH</text>
-    <text x="100" y="60" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" class="title-serif">7 Reasoning Cells</text>
-    <line x1="20" y1="74" x2="180" y2="74" stroke="#234b6b" stroke-width="1"/>
-    <text x="100" y="98" text-anchor="middle" fill="#b8d4e8" font-size="10.5">Boundary Relaxation &amp; Inversion</text>
-    <text x="100" y="118" text-anchor="middle" fill="#b8d4e8" font-size="10.5">Analogy (Synectics)</text>
-    <text x="100" y="138" text-anchor="middle" fill="#b8d4e8" font-size="10.5">Unbundling &amp; Subtraction</text>
-    <text x="100" y="158" text-anchor="middle" fill="#b8d4e8" font-size="10.5">Perspective Shift &amp; Constraint</text>
-    <rect x="25" y="175" width="150" height="24" rx="2" fill="#0b2031" stroke="#3b7aab" stroke-width="1"/>
-    <text x="100" y="191" text-anchor="middle" fill="#d8ff55" font-size="9" font-weight="700" class="mono-label">10 INNOVATION LENSES</text>
-  </g>
-
-  <!-- Stage 4 -->
-  <g transform="translate(730, 110)">
-    <rect width="190" height="220" rx="3" fill="#13334d" stroke="#2b5e85" stroke-width="1.5"/>
-    <rect x="0" y="0" width="190" height="4" fill="#d8ff55"/>
-    <text x="95" y="32" text-anchor="middle" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label">STAGE 4 · LAYER 2</text>
-    <text x="95" y="60" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" class="title-serif">Mechanism Ledger</text>
-    <line x1="20" y1="74" x2="170" y2="74" stroke="#234b6b" stroke-width="1"/>
-    <text x="95" y="100" text-anchor="middle" fill="#b8d4e8" font-size="11">5 Structural Dimensions</text>
-    <text x="95" y="122" text-anchor="middle" fill="#b8d4e8" font-size="11">Causal Lever Enforcement</text>
-    <text x="95" y="144" text-anchor="middle" fill="#b8d4e8" font-size="11">Deduplication Gate</text>
-    <rect x="20" y="175" width="150" height="24" rx="2" fill="#0b2031" stroke="#3b7aab" stroke-width="1"/>
-    <text x="95" y="191" text-anchor="middle" fill="#d8ff55" font-size="9" font-weight="700" class="mono-label">ZERO PSEUDO-VARIETY</text>
-  </g>
-
-  <!-- Stage 5 -->
-  <g transform="translate(950, 110)">
-    <rect width="190" height="220" rx="3" fill="#1783be" stroke="#d8ff55" stroke-width="1.5"/>
-    <rect x="0" y="0" width="190" height="4" fill="#d8ff55"/>
-    <text x="95" y="32" text-anchor="middle" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label">STAGE 5 · LAYERS 3-6</text>
-    <text x="95" y="60" text-anchor="middle" fill="#ffffff" font-size="15" font-weight="700" class="title-serif">Portfolio &amp; Action</text>
-    <line x1="20" y1="74" x2="170" y2="74" stroke="#237ab5" stroke-width="1"/>
-    <text x="95" y="98" text-anchor="middle" fill="#ffffff" font-size="10.5">4–7 Distinct Possibilities</text>
-    <text x="95" y="118" text-anchor="middle" fill="#ffffff" font-size="10.5">Rickards Ch. 8 Receptivity</text>
-    <text x="95" y="138" text-anchor="middle" fill="#ffffff" font-size="10.5">Yes-But Hearing Defense</text>
-    <text x="95" y="158" text-anchor="middle" fill="#ffffff" font-size="10.5">Spotlight Signals</text>
-    <rect x="20" y="175" width="150" height="24" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="1"/>
-    <text x="95" y="191" text-anchor="middle" fill="#d8ff55" font-size="9" font-weight="700" class="mono-label">1-2 WK LEARNING PROBES</text>
-  </g>
-
-  <!-- Bottom Proof Bar -->
-  <g transform="translate(60, 360)">
-    <rect width="1080" height="135" rx="3" fill="#102a42" stroke="#244d70" stroke-width="1.5"/>
-    <text x="32" y="36" fill="#d8ff55" font-size="13" font-weight="700" class="mono-label" letter-spacing="1">EMPIRICAL VALIDATION RECORD (PILOT CORPUS · N=22 RUNS)</text>
-    <text x="32" y="56" fill="#8eaabf" font-size="11">Independently extracted candidates scored via judge-free Vendi Scores (VSk) across 12 cross-domain cases.</text>
-
-    <line x1="32" y1="68" x2="1048" y2="68" stroke="#1d4263" stroke-width="1"/>
-
-    <g transform="translate(32, 85)">
-      <text x="0" y="24" fill="#d8ff55" font-size="28" font-weight="700" class="title-serif">+162%</text>
-      <text x="110" y="22" fill="#ffffff" font-size="12" font-weight="600">Causal Mechanism Density</text>
-      <text x="110" y="36" fill="#8eaabf" font-size="10.5">0.897 → 2.352 mechanisms/1k tok</text>
-    </g>
-
-    <g transform="translate(390, 85)">
-      <text x="0" y="24" fill="#38ef7d" font-size="28" font-weight="700" class="title-serif">-35%</text>
-      <text x="85" y="22" fill="#ffffff" font-size="12" font-weight="600">Multi-Turn Churn</text>
-      <text x="85" y="36" fill="#8eaabf" font-size="10.5">6,422 → 4,170 output tokens</text>
-    </g>
-
-    <g transform="translate(680, 85)">
-      <text x="0" y="24" fill="#d8ff55" font-size="28" font-weight="700" class="title-serif">100%</text>
-      <text x="85" y="22" fill="#ffffff" font-size="12" font-weight="600">Turn-1 Restraint &amp; Precision</text>
-      <text x="85" y="36" fill="#8eaabf" font-size="10.5">10/10 questions; 0 false triggers</text>
-    </g>
-
-    <g transform="translate(940, 85)">
-      <text x="0" y="24" fill="#38ef7d" font-size="28" font-weight="700" class="title-serif">0%</text>
-      <text x="50" y="22" fill="#ffffff" font-size="12" font-weight="600">Roadmap Drift</text>
-      <text x="50" y="36" fill="#8eaabf" font-size="10.5">Zero unearned winners</text>
-    </g>
-  </g>
-</svg>
+    <div class="card">
+      <div class="card-head">
+        <h3>Turn 2: Six-Layer Portfolio</h3>
+        <span class="pill">6 DISTINCT LEVERS</span>
+      </div>
+      <div class="items">
+        <div class="item"><strong>P1 INCENTIVE</strong><span>90/10 Prepared Handoff Card vs. 75/25 Cold Rescue</span></div>
+        <div class="item"><strong>P2 QUEUE</strong><span>Up-Queue Podium Immunity while assisting peers</span></div>
+        <div class="item"><strong>P3 SCHEMA</strong><span>Back-of-Tag Field Notes crediting Category Curators</span></div>
+        <div class="item"><strong>P4 CH. 8 PATH</strong><span>3 Stakeholder Hearings + 5-day paper card probe</span></div>
+      </div>
+      <div class="note">✓ 8.2x efficiency lift over vanilla baseline (1.36 vs 0.17)</div>
+    </div>
+  </div>
+</body>
+</html>
 """
 
-# 4. Authentic Terminal Demo (assets/terminal-demo.svg)
-terminal_svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="100%" height="100%" style="background:#0e2438; font-family:'SF Mono', Menlo, Consolas, monospace;">
-  <!-- Window Header -->
-  <g transform="translate(60, 30)">
-    <rect width="1080" height="520" rx="6" fill="#091b2c" stroke="#25425d" stroke-width="1.5"/>
-    <rect width="1080" height="36" rx="6" fill="#132c42"/>
-    <rect y="26" width="1080" height="10" fill="#132c42"/>
-
-    <!-- Window Dots -->
-    <circle cx="22" cy="18" r="5" fill="#ff5f56"/>
-    <circle cx="38" cy="18" r="5" fill="#ffbd2e"/>
-    <circle cx="54" cy="18" r="5" fill="#27c93f"/>
-
-    <text x="540" y="23" text-anchor="middle" fill="#8eaabf" font-size="11" font-weight="600" font-family="'Helvetica Neue', Arial, sans-serif">Interactive Session — Deep Mode Iterative Discovery</text>
-
-    <!-- Turn 1: User -->
-    <text x="24" y="68" fill="#38bdf8" font-size="12" font-weight="700">user@org:~$</text>
-    <text x="140" y="68" fill="#f8fafc" font-size="12">"Our furniture store sells well, but salespeople hoard customer info because commission</text>
-    <text x="140" y="86" fill="#f8fafc" font-size="12">rewards individual performance. Help me find innovative ways to improve teamwork without removing commission."</text>
-
-    <!-- Turn 1: Assistant Restraint -->
-    <rect x="24" y="108" width="1032" height="154" rx="3" fill="#0f2b42" stroke="#1d4d73" stroke-width="1"/>
-    <text x="40" y="130" fill="#d8ff55" font-size="11" font-weight="700">● AGENT (Turn 1 Restraint — 380 tokens)</text>
-
-    <text x="40" y="154" fill="#a0c8e0" font-size="11.5"><tspan fill="#d8ff55" font-weight="700">System &amp; Preservation Scan:</tspan> Core contradiction: Individual commission incentive vs. shared customer handoff.</text>
-    <text x="40" y="172" fill="#a0c8e0" font-size="11.5">Non-negotiable anchor: Customer ownership &amp; sales credit remain intact ($0 added store payroll).</text>
-    <text x="40" y="190" fill="#a0c8e0" font-size="11.5">Quarantined Tropes: Team commission pool, mandatory CRM compliance software, management bonuses.</text>
-
-    <text x="40" y="214" fill="#ffffff" font-size="11.5" font-weight="700">Discovery Questions (4 targeted):</text>
-    <text x="40" y="232" fill="#cbd5e1" font-size="11">1. Who handles returning walk-ins when the original salesperson is off?  2. Are custom room quotes paper or digital?</text>
-    <text x="40" y="248" fill="#d8ff55" font-size="11">Provisional Seeds: Seed A (Asymmetric Assist Fee), Seed B (Up-Queue Podium Immunity), Seed C (Back-of-Tag Notes).</text>
-
-    <!-- Turn 2: User Clarification -->
-    <text x="24" y="294" fill="#38bdf8" font-size="12" font-weight="700">user@org:~$</text>
-    <text x="140" y="294" fill="#f8fafc" font-size="12">"Customer ownership must remain 100%. Days-off coverage is the main failure. Managers can change floor rules."</text>
-
-    <!-- Turn 2: Full Portfolio Output -->
-    <rect x="24" y="316" width="1032" height="186" rx="3" fill="#13334d" stroke="#256594" stroke-width="1"/>
-    <text x="40" y="338" fill="#d8ff55" font-size="11" font-weight="700">● AGENT (Six-Layer Innovation Portfolio Generated)</text>
-
-    <text x="40" y="362" fill="#38bdf8" font-size="11" font-weight="700">P1 [Incentive Unbundling]</text>
-    <text x="220" y="362" fill="#f1f5f9" font-size="11">Preparedness Split: 90% Owner / 10% Covering Rep if CRM card pre-filled; 75/25 if cold handoff.</text>
-
-    <text x="40" y="384" fill="#38bdf8" font-size="11" font-weight="700">P2 [Queue Priority]</text>
-    <text x="220" y="384" fill="#f1f5f9" font-size="11">Up-Queue Immunity: Covering a teammate freezes your #1 door rotation spot. Zero walk-in penalty.</text>
-
-    <text x="40" y="406" fill="#38bdf8" font-size="11" font-weight="700">P3 [Information Schema]</text>
-    <text x="220" y="406" fill="#f1f5f9" font-size="11">Open Handoff Dossier: 3-item physical tag on bestselling sectional frames credits Category Curators.</text>
-
-    <text x="40" y="428" fill="#38bdf8" font-size="11" font-weight="700">P4 [Role Separation]</text>
-    <text x="220" y="428" fill="#f1f5f9" font-size="11">Owner-Triggered Micro-Assists: Fixed 10-minute second-voice closing assist without commission dilution.</text>
-
-    <text x="40" y="452" fill="#d8ff55" font-size="11" font-weight="700">Rickards Ch. 8 Receptivity:</text>
-    <text x="220" y="452" fill="#cbd5e1" font-size="11">Rule of Three Hearings (Closer, Covering Rep, Sales Manager) inoculates against "Yes, but..." pushback.</text>
-
-    <text x="40" y="474" fill="#38ef7d" font-size="11" font-weight="700">1-2 Week Low-Cost Probe:</text>
-    <text x="220" y="474" fill="#86efac" font-size="11">5-day Paper Handoff Card trial on Sectionals before making software changes. Fully reversible.</text>
-  </g>
-</svg>
-"""
-
-# Render Banner with Playwright at 2x resolution
 with sync_playwright() as p:
     browser = p.chromium.launch()
-    page = browser.new_page(viewport={"width": 1280, "height": 640}, device_scale_factor=2)
-    page.set_content(banner_html, wait_until="networkidle")
-    page.screenshot(path=str(ASSETS / "banner.png"))
+
+    # 1. Banner
+    p1 = browser.new_page(viewport={"width": 1280, "height": 640}, device_scale_factor=2)
+    p1.set_content(banner_html, wait_until="networkidle")
+    p1.screenshot(path=str(ASSETS / "banner.png"))
+
+    # 2. Comparison
+    p2 = browser.new_page(viewport={"width": 1280, "height": 420}, device_scale_factor=2)
+    p2.set_content(comparison_html, wait_until="networkidle")
+    p2.screenshot(path=str(ASSETS / "comparison.png"))
+
+    # 3. System Architecture
+    p3 = browser.new_page(viewport={"width": 1280, "height": 360}, device_scale_factor=2)
+    p3.set_content(arch_html, wait_until="networkidle")
+    p3.screenshot(path=str(ASSETS / "system-architecture.png"))
+
+    # 4. Quick Demo
+    p4 = browser.new_page(viewport={"width": 1280, "height": 400}, device_scale_factor=2)
+    p4.set_content(demo_html, wait_until="networkidle")
+    p4.screenshot(path=str(ASSETS / "quick-demo.png"))
+
     browser.close()
 
-# Write SVGs
-(ASSETS / "comparison.svg").write_text(comparison_svg, encoding="utf-8")
-(ASSETS / "system-architecture.svg").write_text(architecture_svg, encoding="utf-8")
-(ASSETS / "terminal-demo.svg").write_text(terminal_svg, encoding="utf-8")
-
-print("All branding assets generated successfully:")
-print(" - assets/banner.png (Book cover aesthetic, 2x retina)")
-print(" - assets/comparison.svg (Editorial contrast card)")
-print(" - assets/system-architecture.svg (Editorial pipeline diagram)")
-print(" - assets/terminal-demo.svg (Editorial terminal demo)")
+print("Rendered all 4 unified brand assets at 2x Retina in #025d9c & #f5d818")

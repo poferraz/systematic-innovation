@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Systematic Innovation: A Systems Approach to LLM Ideation" width="100%" style="border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+  <img src="assets/banner.png" alt="Systematic Innovation: A Systems Approach to LLM Ideation" width="100%">
 </p>
 
 <p align="center">
@@ -7,11 +7,11 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square" alt="License: MIT"></a>
-  <a href="skills/systematic-innovation/SKILL.md"><img src="https://img.shields.io/badge/Standard-Agent%20Skills-00f2fe.svg?style=flat-square" alt="Agent Skills Standard"></a>
-  <a href="evals/pilot/treatment-analysis.md"><img src="https://img.shields.io/badge/Pilot%20Benchmark-%2B162%25%20Causal%20Density-10b981.svg?style=flat-square" alt="Pilot Benchmark: +162% Causal Density"></a>
-  <a href="tests/"><img src="https://img.shields.io/badge/Tests-22%20Passing-success.svg?style=flat-square" alt="Tests: 22 Passing"></a>
-  <a href="SECURITY.md"><img src="https://img.shields.io/badge/Security-Isolated%20Markdown-94a3b8.svg?style=flat-square" alt="Security: Isolated Markdown"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-025d9c.svg?style=flat-square" alt="License: MIT"></a>
+  <a href="skills/systematic-innovation/SKILL.md"><img src="https://img.shields.io/badge/Standard-Agent%20Skills-f5d818.svg?style=flat-square" alt="Agent Skills Standard"></a>
+  <a href="evals/pilot/treatment-analysis.md"><img src="https://img.shields.io/badge/Pilot%20Lift-%2B162%25%20Causal%20Density-025d9c.svg?style=flat-square" alt="Pilot Lift: +162% Causal Density"></a>
+  <a href="tests/"><img src="https://img.shields.io/badge/Tests-22%20Passing-f5d818.svg?style=flat-square" alt="Tests: 22 Passing"></a>
+  <a href="SECURITY.md"><img src="https://img.shields.io/badge/Runtime-Pure%20Markdown-025d9c.svg?style=flat-square" alt="Runtime: Pure Markdown"></a>
 </p>
 
 ---
@@ -23,7 +23,7 @@ When asked to brainstorm or solve complex organizational problems, foundation mo
 **`systematic-innovation`** transforms ordinary AI ideation through socio-technical systems theory (Tudor Rickards, *Stimulating Innovation: A Systems Approach*, 1985) and modern empirical LLM ideation science (2024–2026).
 
 <p align="center">
-  <img src="assets/comparison.svg" alt="Vanilla LLM vs Systematic Innovation" width="100%">
+  <img src="assets/comparison.png" alt="Mode Collapse vs. Mechanism Diversity" width="100%">
 </p>
 
 Instead of generic solution dumps, `systematic-innovation` delivers:
@@ -38,7 +38,7 @@ Instead of generic solution dumps, `systematic-innovation` delivers:
 ## Interactive Walkthrough & Quick Demos
 
 <p align="center">
-  <img src="assets/terminal-demo.svg" alt="Terminal Demo - Deep Mode Session" width="100%">
+  <img src="assets/quick-demo.png" alt="Interactive Protocol: Deep Mode In Action" width="100%">
 </p>
 
 ### Deep Mode (Multi-Turn Iterative Discovery)
@@ -60,7 +60,7 @@ Triggered when the user explicitly requests immediate ideas, brainstorms, or pro
 ## The Systematic Innovation Pipeline
 
 <p align="center">
-  <img src="assets/system-architecture.svg" alt="Systematic Innovation Pipeline Architecture" width="100%">
+  <img src="assets/system-architecture.png" alt="Five-Stage Systems Architecture" width="100%">
 </p>
 
 ### Methodology: Seven Reasoning Cells & Ten Lenses
