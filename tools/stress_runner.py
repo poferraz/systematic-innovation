@@ -2,6 +2,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import hashlib
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
 import subprocess
 import tempfile
@@ -68,6 +71,7 @@ def build_initial_command(codex: str, model: str, output_path: Path, workdir: Pa
     return [
         codex,
         "exec",
+        "--json",
         "--ignore-user-config",
         "--ignore-rules",
         "--skip-git-repo-check",
@@ -89,7 +93,7 @@ def _execute(
     prompt: str,
     output_path: Path,
     session_id: str | None,
-) -> tuple[str, str]:
+) -> tuple[str, str, dict]:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("", encoding="utf-8")
     if session_id is None:
@@ -99,6 +103,7 @@ def _execute(
             codex,
             "exec",
             "resume",
+            "--json",
             session_id,
             "--ignore-user-config",
             "--ignore-rules",
@@ -120,6 +125,19 @@ def _execute(
     combined = result.stdout or ""
     if result.returncode != 0:
         raise RuntimeError(f"Codex runner failed ({result.returncode}):\n{combined[-4000:]}")
+    events = []
+    for line in combined.splitlines():
+        try:
+            event = json.loads(line)
+        except ValueError:
+            continue
+        if isinstance(event, dict):
+            events.append(event)
+    for event in events:
+        if event.get("type") == "thread.started":
+            session_id = event["thread_id"]
+    usage = next((event.get("usage", {}) for event in reversed(events)
+                  if event.get("type") == "turn.completed"), {})
     if session_id is None:
         match = SESSION_RE.search(combined)
         if not match:
@@ -128,7 +146,7 @@ def _execute(
     response = output_path.read_text(encoding="utf-8")
     if not response.strip():
         raise RuntimeError(f"Codex runner returned no final message:\n{combined[-4000:]}")
-    return response, session_id
+    return response, session_id, usage
 
 
 def run_case(
@@ -138,22 +156,40 @@ def run_case(
     skill_dir: Path,
     model: str,
     codex: str,
+    progress_path: Path | None = None,
 ) -> dict:
     prompts = build_user_prompts(case, condition, skill_dir)
     turns: list[dict] = []
     session_id: str | None = None
+    prompt_digest = hashlib.sha256(json.dumps(prompts).encode()).hexdigest()
+    if progress_path and progress_path.exists():
+        saved = json.loads(progress_path.read_text())
+        if saved["prompt_digest"] != prompt_digest or saved["model"] != model:
+            raise ValueError("Resume inputs differ from saved conversation")
+        turns, session_id = saved["turns"], saved["session_id"]
     with tempfile.TemporaryDirectory(prefix="systematic-innovation-stress-") as tmp:
         output = Path(tmp) / "last-message.md"
         for turn_index, prompt in enumerate(prompts, start=1):
-            assistant, session_id = _execute(codex, model, prompt, output, session_id)
+            if turn_index <= len(turns):
+                continue
+            executed = _execute(codex, model, prompt, output, session_id)
+            assistant, session_id = executed[:2]
+            usage = executed[2] if len(executed) > 2 else {}
             turns.append(
                 {
                     "turn_index": turn_index,
                     "user": prompt,
                     "assistant": assistant,
-                    "assistant_tokens": count_tokens(assistant),
+                    "assistant_tokens": usage.get("output_tokens"),
+                    "assistant_tokens_estimate": count_tokens(assistant),
                 }
             )
+            if progress_path:
+                progress_path.parent.mkdir(parents=True, exist_ok=True)
+                temporary = progress_path.with_suffix(".tmp")
+                temporary.write_text(json.dumps({"prompt_digest": prompt_digest, "model": model,
+                    "session_id": session_id, "turns": turns}) + "\n")
+                temporary.replace(progress_path)
 
     return {
         "case_id": case["id"],
@@ -163,12 +199,16 @@ def run_case(
         "interaction_mode": case["interaction_mode"],
         "expected_mode": case["expected_mode"],
         "should_trigger": case["should_trigger"],
-        "topology": case["topology"],
-        "preserve": case["preserve"],
-        "primary_source": case["primary_source"],
+        "topology": case.get("topology", "pilot"),
+        "preserve": case.get("preserve", []),
+        "primary_source": case.get("primary_source"),
+        "prompt_digest": prompt_digest,
+        "token_accounting": "provider" if all(turn["assistant_tokens"] is not None for turn in turns) else "unavailable",
+        "skill_pack_sha256": hashlib.sha256(load_skill_pack(skill_dir).encode()).hexdigest() if condition == "skill_treatment" else None,
         "turns": turns,
         "final_response": turns[-1]["assistant"],
-        "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in turns),
+        "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else None,
+        "total_assistant_output_tokens_estimate": sum(turn["assistant_tokens_estimate"] for turn in turns),
         "turn_1_question_count": sum(
             1 for line in turns[0]["assistant"].splitlines() if line.strip().endswith("?")
         ),
@@ -184,6 +224,10 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--case", action="append", help="Limit to a case id; repeatable")
     parser.add_argument("--model", default="gpt-5.6-luna")
     parser.add_argument("--codex", default="/Users/poferraz/.local/bin/codex")
+    parser.add_argument("--replicates", type=int, help="Override manifest repetitions")
+    parser.add_argument("--jobs", type=int, default=1, choices=(1, 2, 3))
+    parser.add_argument("--max-calls", type=int, default=600)
+    parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args(argv)
 
 
@@ -197,24 +241,56 @@ def main(argv: Sequence[str] | None = None) -> int:
         if missing:
             raise SystemExit(f"Unknown case ids: {sorted(missing)}")
 
+    jobs = [(case, condition, replicate)
+            for condition in args.conditions for case in cases
+            for replicate in range(1, (args.replicates or int(case.get("replicates", 2 if case["should_trigger"] else 1))) + 1)]
+    calls = sum(1 + len(case.get("user_turns", [])) for case, _, _ in jobs)
+    if calls > args.max_calls:
+        raise ValueError(f"Plan exceeds maximum calls: {calls} > {args.max_calls}")
+    print(f"Plan: {len(jobs)} conversations, {calls} assistant calls", flush=True)
+    if args.dry_run:
+        return 0
     args.output.mkdir(parents=True, exist_ok=True)
+    manifest = {"model": args.model, "conditions": args.conditions,
+        "cases_sha256": hashlib.sha256(args.cases.read_bytes()).hexdigest(),
+        "skill_pack_sha256": hashlib.sha256(load_skill_pack(args.skill).encode()).hexdigest(),
+        "replicates": args.replicates, "case_ids": [case["id"] for case in cases]}
+    manifest_path = args.output / "manifest.json"
+    if not manifest_path.exists() and any(args.output.glob("*.jsonl")):
+        raise ValueError("Existing results have no manifest; use a new output directory")
+    if manifest_path.exists():
+        if json.loads(manifest_path.read_text()) != manifest:
+            raise ValueError("Run inputs changed; use a new output directory")
+    else:
+        manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+    completed = set()
     for condition in args.conditions:
-        records: list[dict] = []
         output_path = args.output / f"{condition}.jsonl"
-        for case in cases:
-            for replicate in range(1, int(case["replicates"]) + 1):
-                record = run_case(case, condition, replicate, args.skill, args.model, args.codex)
-                records.append(record)
-                print(
-                    f"{condition} {case['id']} replicate {replicate}: "
-                    f"{record['total_assistant_output_tokens']} tokens",
-                    flush=True,
-                )
-        output_path.write_text(
-            "\n".join(json.dumps(record) for record in records) + "\n",
-            encoding="utf-8",
-        )
-        print(f"Wrote {len(records)} records to {output_path}", flush=True)
+        if output_path.exists():
+            for line in output_path.read_text().splitlines():
+                record = json.loads(line)
+                key = (record["case_id"], record["condition"], record["replicate"])
+                if key in completed:
+                    raise ValueError("Duplicate completed conversation")
+                completed.add(key)
+    with ThreadPoolExecutor(max_workers=args.jobs) as pool:
+        futures = {}
+        for case, condition, replicate in jobs:
+            if (case["id"], condition, replicate) in completed:
+                continue
+            progress = args.output / "progress" / f"{condition}-{case['id']}-{replicate}.json"
+            future = pool.submit(run_case, case, condition, replicate, args.skill,
+                                 args.model, args.codex, progress)
+            futures[future] = (case["id"], condition, replicate)
+        for future in as_completed(futures):
+            record = future.result()
+            output_path = args.output / f"{record['condition']}.jsonl"
+            with output_path.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps(record) + "\n")
+                handle.flush()
+                os.fsync(handle.fileno())
+            print(f"Saved {record['condition']} {record['case_id']} rep {record['replicate']}: "
+                  f"{record['total_assistant_output_tokens']} provider output tokens", flush=True)
     return 0
 
 

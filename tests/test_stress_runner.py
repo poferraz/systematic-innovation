@@ -69,3 +69,41 @@ class StressRunnerCommandTests(unittest.TestCase):
         self.assertIn("--skip-git-repo-check", command)
         self.assertIn("-C", command)
         self.assertIn("/tmp", command)
+
+class StressPersistenceTests(unittest.TestCase):
+    def test_interruption_keeps_completed_turn_and_resume_skips_it(self):
+        import tempfile
+        from unittest.mock import patch
+        from tools.stress_runner import run_case
+        case = {"id": "resume", "prompt": "Initial", "user_turns": ["Final"],
+                "interaction_mode": "controlled-multi-turn", "expected_mode": "deep",
+                "should_trigger": True, "topology": "test", "preserve": [], "primary_source": "test"}
+        with tempfile.TemporaryDirectory() as tmp:
+            progress = Path(tmp) / "turns.json"
+            with patch("tools.stress_runner._execute", side_effect=[("First", "session"), RuntimeError("transport")]):
+                with self.assertRaisesRegex(RuntimeError, "transport"):
+                    run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "model", "codex", progress_path=progress)
+            self.assertEqual(json.loads(progress.read_text())["turns"][0]["assistant"], "First")
+            with patch("tools.stress_runner._execute", return_value=("Last", "session")) as external:
+                record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "model", "codex", progress_path=progress)
+            self.assertEqual(external.call_count, 1)
+            self.assertEqual([turn["assistant"] for turn in record["turns"]], ["First", "Last"])
+
+    def test_unmanifested_existing_results_are_not_relabelled(self):
+        import tempfile
+        from tools.stress_runner import main
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / "cases.json"
+            cases.write_text(json.dumps({"cases": [{"id": "one", "prompt": "New prompt", "replicates": 1,
+                "should_trigger": True, "user_turns": []}]}))
+            output = root / "out"
+            output.mkdir()
+            original = json.dumps({"case_id": "one", "condition": "baseline_clean", "replicate": 1,
+                                   "model": "old-model", "final_response": "Old answer"}) + "\n"
+            result = output / "baseline_clean.jsonl"
+            result.write_text(original)
+            with self.assertRaisesRegex(ValueError, "manifest"):
+                main(["--cases", str(cases), "--output", str(output), "--conditions", "baseline_clean"])
+            self.assertEqual(result.read_text(), original)
+            self.assertFalse((output / "manifest.json").exists())

@@ -80,6 +80,30 @@ def dominant_lever(text: str) -> str:
     return best_lever
 
 
+def _normalize_causal_lever(value: str) -> str:
+    value = re.sub(r"[*_`]", "", value or "").strip().lower()
+    value = re.sub(r"\s+", " ", value)
+    value = value.strip(" .;:-")
+    return value or "unknown"
+
+
+def _mechanism_record(value: str | dict[str, str]) -> dict[str, str]:
+    if isinstance(value, dict):
+        record = dict(value)
+        raw_text = record.get("text", "")
+        fields = _parse_structured_fields(raw_text)
+    else:
+        raw_text = str(value)
+        fields = _parse_structured_fields(raw_text)
+        record = {"text": raw_text}
+    for key, val in fields.items():
+        record.setdefault(key, val)
+    record["text"] = raw_text
+    record.setdefault("causal_lever", record.get("lever", ""))
+    record["causal_lever"] = _normalize_causal_lever(record.get("causal_lever", ""))
+    return record
+
+
 def content_features(text: str) -> Counter[str]:
     words = [_stem(w) for w in WORD_RE.findall(text.lower()) if w not in STOPWORDS]
     counts: Counter[str] = Counter()
@@ -90,11 +114,36 @@ def content_features(text: str) -> Counter[str]:
         w1, w2 = sorted((words[i], words[i + 1]))
         if w1 != w2:
             counts[f"bg:{w1}_{w2}"] += 1.0
-    lowered = set(WORD_RE.findall(text.lower()))
-    for lever, kw_set in CAUSAL_LEVER_KEYWORDS.items():
-        overlap = len(lowered & kw_set)
-        if overlap:
-            counts[f"lever:{lever}"] += 3.0 * overlap
+    return counts
+
+
+def mechanism_features(mechanism: str | dict[str, str]) -> Counter[str]:
+    record = _mechanism_record(mechanism)
+    counts: Counter[str] = Counter()
+    field_weights = {
+        "intervention_point": 2.0,
+        "causal_chain": 2.5,
+        "causal_lever": 5.0,
+        "preserve_check": 0.5,
+    }
+    for field, weight in field_weights.items():
+        value = record.get(field, "")
+        if field == "causal_lever" and value == "unknown":
+            continue
+        for word in WORD_RE.findall(value.lower()):
+            stemmed = _stem(word)
+            if stemmed not in STOPWORDS and len(stemmed) >= 3:
+                counts[f"{field}:{stemmed}"] += weight
+    title = record.get("title", "")
+    for word in WORD_RE.findall(title.lower()):
+        stemmed = _stem(word)
+        if stemmed not in STOPWORDS and len(stemmed) >= 3:
+            counts[f"title:{stemmed}"] += 1.0
+    lever = record.get("causal_lever", "")
+    if lever and lever != "unknown":
+        counts[f"lever_exact:{lever}"] += 8.0
+    if not counts:
+        counts.update(content_features(record.get("text", "")))
     return counts
 
 
@@ -110,56 +159,42 @@ def cosine_similarity(c1: Counter[str], c2: Counter[str]) -> float:
 
 
 def _jacobi_eigenvalues(matrix: list[list[float]], max_sweeps: int = 50) -> list[float]:
+    """Cyclic Jacobi sweeps, not a fixed number of individual rotations."""
     n = len(matrix)
-    if n == 0:
-        return []
-    if n == 1:
-        return [matrix[0][0]]
     a = [row[:] for row in matrix]
     for _ in range(max_sweeps):
-        max_val = 0.0
-        p, q = 0, 1
-        for i in range(n):
-            for j in range(i + 1, n):
-                if abs(a[i][j]) > max_val:
-                    max_val = abs(a[i][j])
-                    p, q = i, j
-        if max_val < 1e-10:
-            break
-        diff = a[q][q] - a[p][p]
-        if abs(a[p][q]) < 1e-15:
-            t = 0.0
-        elif abs(diff) < 1e-12:
-            t = 1.0 if a[p][q] > 0 else -1.0
-        else:
-            phi = diff / (2.0 * a[p][q])
-            t = 1.0 / (abs(phi) + math.sqrt(phi * phi + 1.0))
-            if phi < 0:
-                t = -t
-        c = 1.0 / math.sqrt(1.0 + t * t)
-        s = t * c
-        tau = s / (1.0 + c)
-        apq = a[p][q]
-        a[p][q] = 0.0
-        a[q][p] = 0.0
-        a[p][p] -= t * apq
-        a[q][q] += t * apq
-        for r in range(n):
-            if r != p and r != q:
-                arp = a[r][p]
-                arq = a[r][q]
-                a[r][p] = arp - s * (arq + tau * arp)
-                a[p][r] = a[r][p]
-                a[r][q] = arq + s * (arp - tau * arq)
-                a[q][r] = a[r][q]
-    return [max(0.0, a[i][i]) for i in range(n)]
+        largest = 0.0
+        for p in range(n):
+            for q in range(p + 1, n):
+                apq = a[p][q]
+                largest = max(largest, abs(apq))
+                if abs(apq) < 1e-13:
+                    continue
+                phi = (a[q][q] - a[p][p]) / (2 * apq)
+                t = math.copysign(1.0, phi) / (abs(phi) + math.hypot(phi, 1.0))
+                c = 1.0 / math.sqrt(1 + t * t)
+                sn = t * c
+                a[p][p] -= t * apq
+                a[q][q] += t * apq
+                a[p][q] = a[q][p] = 0.0
+                for r in range(n):
+                    if r in (p, q):
+                        continue
+                    arp, arq = a[r][p], a[r][q]
+                    a[r][p] = a[p][r] = c * arp - sn * arq
+                    a[r][q] = a[q][r] = sn * arp + c * arq
+        if largest < 1e-11:
+            return [max(0.0, a[i][i]) for i in range(n)]
+    raise ArithmeticError("Similarity-kernel eigensolver did not converge")
 
 
-def compute_vendi_score(texts: list[str]) -> float:
+def compute_vendi_score(texts: list[str] | list[dict[str, str]], k: float = 1.0) -> float:
+    if not math.isfinite(k) or k <= 0:
+        raise ValueError("Vendi order must be positive and finite")
     n = len(texts)
     if n <= 1:
         return float(n)
-    feats = [content_features(t) for t in texts]
+    feats = [mechanism_features(t) for t in texts]
     kernel = [[0.0] * n for _ in range(n)]
     for i in range(n):
         kernel[i][i] = 1.0 / n
@@ -171,20 +206,29 @@ def compute_vendi_score(texts: list[str]) -> float:
     total = sum(eigenvalues)
     if total <= 0:
         return 1.0
-    entropy = 0.0
-    for lam in eigenvalues:
-        p = lam / total
-        if p > 1e-12:
-            entropy -= p * math.log(p)
+    probabilities = [max(0.0, eigenvalue) / total for eigenvalue in eigenvalues]
+    if abs(k - 1.0) < 1e-12:
+        entropy = 0.0
+        for probability in probabilities:
+            if probability > 1e-12:
+                entropy -= probability * math.log(probability)
+    else:
+        entropy = (1.0 / (1.0 - k)) * math.log(
+            sum(probability ** k for probability in probabilities if probability > 1e-15)
+        )
     return round(math.exp(entropy), 3)
 
 
-def cluster_mechanisms(texts: list[str], similarity_threshold: float = 0.26) -> list[list[int]]:
+def cluster_mechanisms(
+    texts: list[str] | list[dict[str, str]],
+    similarity_threshold: float = 0.26,
+) -> list[list[int]]:
     n = len(texts)
     if n == 0:
         return []
-    feats = [content_features(t) for t in texts]
-    levers = [dominant_lever(t) for t in texts]
+    records = [_mechanism_record(text) for text in texts]
+    feats = [mechanism_features(record) for record in records]
+    levers = [record.get("causal_lever", "unknown") for record in records]
     parent = list(range(n))
 
     def find(x: int) -> int:
@@ -201,7 +245,22 @@ def cluster_mechanisms(texts: list[str], similarity_threshold: float = 0.26) -> 
     for i in range(n):
         for j in range(i + 1, n):
             sim = cosine_similarity(feats[i], feats[j])
-            if sim >= similarity_threshold or (levers[i] == levers[j] and sim >= 0.16):
+            structural_fields = ("intervention_point", "causal_chain")
+            if all(records[index].get(field) for index in (i, j) for field in structural_fields):
+                point_sim, chain_sim = (
+                    cosine_similarity(content_features(records[i][field]), content_features(records[j][field]))
+                    for field in structural_fields
+                )
+                # Labels can differ for the same operation, and match for different operations.
+                if point_sim >= 0.45 and chain_sim >= 0.65:
+                    union(i, j)
+                continue
+            both_explicit = levers[i] != "unknown" and levers[j] != "unknown"
+            if both_explicit and levers[i] != levers[j]:
+                continue
+            if both_explicit and levers[i] == levers[j] and sim >= max(0.16, similarity_threshold * 0.75):
+                union(i, j)
+            elif not both_explicit and sim >= similarity_threshold:
                 union(i, j)
 
     groups: dict[int, list[int]] = {}
@@ -211,9 +270,110 @@ def cluster_mechanisms(texts: list[str], similarity_threshold: float = 0.26) -> 
     return list(groups.values())
 
 
+FIELD_ALIASES: dict[str, str] = {
+    "intervention point": "intervention_point",
+    "intervention": "intervention_point",
+    "causal chain": "causal_chain",
+    "causal mechanism chain": "causal_chain",
+    "causal lever": "causal_lever",
+    "causal lever type": "causal_lever",
+    "lever": "causal_lever",
+    "preserve check": "preserve_check",
+    "preservation check": "preserve_check",
+    "preservation & constraint check": "preserve_check",
+    "causal lever type": "causal_lever",
+    "preservation and constraint check": "preserve_check",
+    "principal actor": "principal_actor",
+    "changed flow": "changed_flow",
+    "intended effect": "intended_effect",
+    "principal constraint": "principal_constraint",
+}
+
+
+def _clean_field_value(value: str) -> str:
+    value = value.strip().strip("*_`|")
+    value = re.sub(r"\s+", " ", value)
+    return value.strip(" .;:-")
+
+
+def _parse_structured_fields(text: str) -> dict[str, str]:
+    fields: dict[str, str] = {}
+    segments = re.split(r"\s*\|\s*", text)
+    for segment in segments:
+        match = re.match(r"^\*{0,2}([^:*]+?)\*{0,2}\s*:\s*(.+)$", segment, re.IGNORECASE)
+        if not match:
+            continue
+        label = _clean_field_value(match.group(1)).lower().replace("**", "")
+        key = FIELD_ALIASES.get(label)
+        if key:
+            fields[key] = _clean_field_value(match.group(2))
+    for line in text.splitlines():
+        match = re.match(r"^\s*(?:[-*+]\s*)?\*{0,2}([^:*]+?)\*{0,2}\s*:\s*(.+)$", line, re.IGNORECASE)
+        if not match:
+            continue
+        label = _clean_field_value(match.group(1)).lower().replace("**", "")
+        key = FIELD_ALIASES.get(label)
+        if key and key not in fields:
+            fields[key] = _clean_field_value(match.group(2))
+    return fields
+
+
+def _extract_ledger_fields(lines: list[str]) -> dict[str, dict[str, str]]:
+    ledger: dict[str, dict[str, str]] = {}
+    header: list[str] | None = None
+    for raw_line in lines:
+        line = raw_line.strip()
+        if not line.startswith("|"):
+            continue
+        cells = [re.sub(r"[*`]", "", cell).strip() for cell in line.strip("|").split("|")]
+        if cells and all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
+            continue
+        normalized = [cell.lower() for cell in cells]
+        if any(cell in FIELD_ALIASES for cell in normalized):
+            header = normalized
+            continue
+        id_match = re.match(r"^(P\d+)\b", cells[0] if cells else "", re.IGNORECASE)
+        if not header or not id_match:
+            continue
+        candidate_id = id_match.group(1).upper()
+        row: dict[str, str] = {}
+        for index, label in enumerate(header):
+            key = FIELD_ALIASES.get(label)
+            if key and index < len(cells):
+                row[key] = _clean_field_value(cells[index])
+        if row:
+            ledger[candidate_id] = row
+    return ledger
+
+
+def _extract_compact_candidates(lines: list[str]) -> list[dict[str, str]]:
+    candidates: list[dict[str, str]] = []
+    for line in lines:
+        match = re.match(r"^\s*(P\d+)\s*:\s*(.+)$", line.strip(), re.IGNORECASE)
+        if not match:
+            continue
+        candidate_id, body = match.groups()
+        title_match = re.match(r"^([^|]+)", body)
+        title = _clean_field_value(title_match.group(1)) if title_match else candidate_id
+        fields = _parse_structured_fields(body)
+        fields["title"] = title
+        fields["text"] = f"{candidate_id}: {body}"
+        fields.setdefault("causal_lever", "")
+        fields["causal_lever"] = _normalize_causal_lever(fields["causal_lever"])
+        fields["lever"] = fields["causal_lever"] or dominant_lever(body)
+        candidates.append(fields)
+    return candidates
+
+
 def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     """Extract top-level candidate mechanism blocks from a portfolio response."""
     lines = markdown_text.splitlines()
+    if "no compliant" in markdown_text.lower() and "boundary re-anchor" in markdown_text.lower():
+        return []
+    compact_candidates = _extract_compact_candidates(lines)
+    if compact_candidates:
+        return compact_candidates
+    ledger = _extract_ledger_fields(lines)
     heading_re = re.compile(
         r"^(#{2,4})\s+(?:"
         r"(?:Approach|Alternative|Portfolio\s+(?:Component|Element)|Movement|Concept|Idea|Possibility|POSS)\s*[-:]?\s*[A-Z0-9]+[:.\s—-]*|"
@@ -287,11 +447,14 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     for title, body_lines in sections:
         body_text = "\n".join(body_lines).strip()
         if len(body_text) >= 40:
-            candidates.append({
-                "title": title,
-                "lever": dominant_lever(f"{title} {body_text}"),
-                "text": f"{title}: {body_text}",
-            })
+            candidate_text = f"{title}: {body_text}"
+            fields = _parse_structured_fields(body_text)
+            fields.update(ledger.get(f"P{len(candidates) + 1}", {}))
+            fields["title"] = title
+            fields["text"] = candidate_text
+            fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
+            fields["lever"] = fields["causal_lever"] or dominant_lever(candidate_text)
+            candidates.append(fields)
 
     if not candidates:
         for line in lines:
@@ -307,3 +470,120 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
 
     return candidates
 
+
+
+def detect_preservation_violations(
+    candidates: list[str] | list[dict[str, str]],
+    preserve_invariants: list[str],
+) -> list[dict[str, int | str]]:
+    """Flag auditable gaps and explicit contradictions; this is not a semantic R5 judge."""
+    issues: list[dict[str, int | str]] = []
+    if not preserve_invariants:
+        return issues
+    for index, candidate in enumerate(candidates, start=1):
+        record = _mechanism_record(candidate)
+        check = record.get("preserve_check", "").lower()
+        if not check:
+            issues.append({"candidate": index, "reason": "missing_preserve_check"})
+        # Inspect the actual proposal too: a blanket self-check cannot certify it.
+        text = record.get("text", "") + "\n" + check
+        for clause in re.split(r"[.;\n]|\b(?:while|but|whereas)\b", text.lower()):
+            for verb in re.finditer(r"\b(remove|eliminate|reduce|weaken|bypass|evade|hide|falsify)\b", clause):
+                prefix = clause[:verb.start()]
+                if re.search(r"\b(?:not|never|without|no)\b[^,;]{0,40}$", prefix):
+                    continue
+                target = clause[verb.end():verb.end() + 80]
+                if any(invariant.lower() in target for invariant in preserve_invariants):
+                    issues.append({"candidate": index, "reason": "breaks_preserved_asset"})
+                    break
+            else:
+                continue
+            break
+    return issues
+
+
+def _learning_probe_texts(response: str) -> list[str]:
+    compact_match = re.search(r"\bL6\s*:\s*(.+)$", response, re.IGNORECASE | re.MULTILINE)
+    if compact_match:
+        block = compact_match.group(1)
+        return [probe.strip() for probe in re.split(r"\bProbe\s+\d+\s*:", block) if probe.strip()]
+    layer_match = re.search(
+        r"#+\s*(?:Layer\s*6|Learning\s*Probes)\b",
+        response,
+        re.IGNORECASE,
+    )
+    if not layer_match:
+        return []
+    block = response[layer_match.end():]
+    probes = []
+    bullet_re = re.compile(r"^(\s*)(?:[-*]|\d+[.)])\s+(.+)$")
+    bullets = [match for line in block.splitlines() if (match := bullet_re.match(line))]
+    minimum_indent = min((len(match.group(1)) for match in bullets), default=0)
+    for line in block.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if stripped.startswith("#"):
+            break
+        bullet = bullet_re.match(line)
+        if bullet and len(bullet.group(1)) == minimum_indent:
+            probes.append(bullet.group(2).strip())
+        elif probes:
+            probes[-1] += " " + stripped
+    return probes
+
+
+def assess_falsifiability(response: str) -> dict[str, int | float]:
+    probes = _learning_probe_texts(response)
+    falsifiable = 0
+    threshold_re = re.compile(
+        r"(?:fewer than|at least|more than|below|above|exceeds?|under|less than|[<>≤≥]=?)\s*\d+(?:\.\d+)?|\d+(?:\.\d+)?\s*%",
+        re.IGNORECASE,
+    )
+    sample_re = re.compile(
+        r"\b\d+\s*(?:eligible\s+)?(?:bookings?|appointments?|patients?|participants?|visits?|slots?|sessions?|cases?|requests?|observations?|handoffs?|runs?|shifts?|items?|orders?|cycles?)\b",
+        re.IGNORECASE,
+    )
+    horizon_re = re.compile(r"\b\d+\s*(?:hours?|weeks?|days?|months?)\b", re.IGNORECASE)
+    fallback_re = re.compile(
+        r"\b(?:otherwise|if not|revert|revise|stop|abandon|fallback|discontinue)\b",
+        re.IGNORECASE,
+    )
+    number_words = {"one": "1", "two": "2", "three": "3", "four": "4", "five": "5",
+                    "six": "6", "seven": "7", "eight": "8", "nine": "9", "ten": "10"}
+    decision_re = re.compile(r"(?:\bif\b|\bunless\b|disconfirmation threshold:|failure threshold:)([^.;\n]*)", re.IGNORECASE)
+    for probe in probes:
+        probe = re.sub(r"\b(" + "|".join(number_words) + r")\b",
+                       lambda match: number_words[match.group().lower()], probe, flags=re.IGNORECASE)
+        outcome_rule = any(threshold_re.search(match.group(1)) for match in decision_re.finditer(probe))
+        if (outcome_rule and sample_re.search(probe)
+                and horizon_re.search(probe) and fallback_re.search(probe)):
+            falsifiable += 1
+    rate = round(falsifiable / len(probes), 3) if probes else 0.0
+    return {"probe_count": len(probes), "falsifiable_count": falsifiable, "rate": rate}
+
+
+def count_discovery_questions(response: str) -> int:
+    lines = response.splitlines()
+    portfolio_marker = re.compile(
+        r"^\s*(?:#+\s*)?(?:P\d+\b|Layer\s*[23]\b|Possibility\s+Portfolio|Mechanism\s+Ledger)",
+        re.IGNORECASE,
+    )
+    prefix: list[str] = []
+    for line in lines:
+        if portfolio_marker.match(line):
+            break
+        prefix.append(line)
+    question_re = re.compile(
+        r"^\s*(?:[-*\d.]+\s*)?(?:what|which|where|who|how|do|does|did|can|is|are|should|will|would)\b.*\?\s*$",
+        re.IGNORECASE,
+    )
+    return sum(bool(question_re.match(line)) for line in prefix)
+
+
+def count_words(text: str) -> int:
+    return len(re.findall(r"\S+", text))
+
+
+def count_word_budget_compliance(text: str, word_limit: int) -> bool:
+    return count_words(text) <= word_limit

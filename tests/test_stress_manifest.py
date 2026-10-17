@@ -64,6 +64,7 @@ class StressManifestTests(unittest.TestCase):
             self.assertIn("preserve", case)
             self.assertIsInstance(case["preserve"], list)
             self.assertTrue(case["preserve"])
+        self.assertEqual(by_id["token-ceiling-portfolio"]["word_limit"], 350)
 
     def test_high_replicate_cases_require_five_runs(self) -> None:
         by_id = {case["id"]: case for case in self.cases}

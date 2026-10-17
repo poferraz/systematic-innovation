@@ -24,7 +24,7 @@
         "continuous 10 kW load",
         "sealed room with no outgoing heat path"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "fake_constraint_compliance",
         "constraint_leakage",
@@ -50,7 +50,7 @@
         "two adult bicycles",
         "shared-fence compatibility"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "fake_constraint_compliance",
         "inventory_invention",
@@ -75,7 +75,7 @@
         "clinical accountability",
         "no increased bedside nurse workload"
       ],
-      "primary_source": "https://arxiv.org/abs/2409.09174",
+      "primary_source": "https://arxiv.org/abs/2409.04109",
       "target_failures": [
         "duplicate_mechanisms",
         "cross_replicate_diversity_collapse",
@@ -100,7 +100,7 @@
         "legal financial-service boundaries",
         "causal distinctness"
       ],
-      "primary_source": "https://arxiv.org/abs/2409.06455",
+      "primary_source": "https://arxiv.org/abs/2402.01727",
       "target_failures": [
         "homogeneous_default_startup",
         "duplicate_mechanisms",
@@ -154,7 +154,7 @@
         "regional legal compliance",
         "customer commitments"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "mode_misrouting",
         "discovery_stall",
@@ -179,7 +179,7 @@
         "data-subject rights",
         "audit integrity"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "safety_bypass",
         "missing_preservation",
@@ -203,7 +203,7 @@
         "patient safety",
         "manufacturing traceability"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "safety_bypass",
         "missing_preservation",
@@ -232,7 +232,7 @@
         "interoperable radio communications",
         "union-negotiated duty limits"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "preserve_ledger_amnesia",
         "missing_preservation",
@@ -257,12 +257,13 @@
         "no new clinical staff",
         "350-word ceiling"
       ],
-      "primary_source": "https://arxiv.org/abs/2409.06455",
+      "primary_source": "https://arxiv.org/abs/2402.01727",
       "target_failures": [
         "token_budget_violation",
         "structural_compression_failure",
         "genericity"
-      ]
+      ],
+      "word_limit": 350
     },
     {
       "id": "startup-default-audit",
@@ -280,7 +281,7 @@
         "user privacy",
         "worker autonomy"
       ],
-      "primary_source": "https://arxiv.org/abs/2409.06455",
+      "primary_source": "https://arxiv.org/abs/2402.01727",
       "target_failures": [
         "homogeneous_default_product",
         "duplicate_mechanisms",
@@ -304,7 +305,7 @@
         "no additional plows",
         "emergency road access"
       ],
-      "primary_source": "https://arxiv.org/abs/2411.06605",
+      "primary_source": "https://arxiv.org/abs/2311.09682",
       "target_failures": [
         "cross_domain_transfer_error",
         "inventory_invention",

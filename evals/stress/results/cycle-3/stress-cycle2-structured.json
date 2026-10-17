@@ -1,0 +1,696 @@
+{
+  "record_count": 25,
+  "aggregate": {
+    "candidate_count": 4.36,
+    "distinct_mechanism_clusters": 4.24,
+    "lever_coverage": 0.56,
+    "preservation_violation_count": 0.04,
+    "falsifiability_rate": 0.02,
+    "discovery_question_count": 0.0
+  },
+  "aggregate_vendi": {
+    "k_0_5": 4.324,
+    "k_1": 4.288,
+    "k_2": 4.216
+  },
+  "per_case": {
+    "macgyver-overconstrained": {
+      "runs": 3,
+      "mean_candidates": 0.0,
+      "mean_distinct_clusters": 0.0,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 0.0,
+      "mean_vendi_k_1": 0.0,
+      "mean_vendi_k_2": 0.0,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 0.0,
+        "1.0": 0.0,
+        "2.0": 0.0
+      }
+    },
+    "research-idea-exhaustion": {
+      "runs": 5,
+      "mean_candidates": 5.8,
+      "mean_distinct_clusters": 5.8,
+      "mean_lever_coverage": 1.0,
+      "mean_vendi_k_0_5": 5.772,
+      "mean_vendi_k_1": 5.743,
+      "mean_vendi_k_2": 5.683,
+      "mean_preservation_violations": 0.2,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 28.283,
+        "1.0": 27.517,
+        "2.0": 25.805
+      }
+    },
+    "startup-homogenization": {
+      "runs": 5,
+      "mean_candidates": 5.0,
+      "mean_distinct_clusters": 4.6,
+      "mean_lever_coverage": 0.2,
+      "mean_vendi_k_0_5": 4.943,
+      "mean_vendi_k_1": 4.884,
+      "mean_vendi_k_2": 4.766,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 24.091,
+        "1.0": 22.999,
+        "2.0": 20.269
+      }
+    },
+    "triz-thermal-contradiction": {
+      "runs": 3,
+      "mean_candidates": 5.0,
+      "mean_distinct_clusters": 4.667,
+      "mean_lever_coverage": 0.667,
+      "mean_vendi_k_0_5": 4.902,
+      "mean_vendi_k_1": 4.807,
+      "mean_vendi_k_2": 4.629,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 14.394,
+        "1.0": 13.733,
+        "2.0": 12.291
+      }
+    },
+    "organizational-complexity-single-turn": {
+      "runs": 3,
+      "mean_candidates": 5.667,
+      "mean_distinct_clusters": 5.667,
+      "mean_lever_coverage": 0.333,
+      "mean_vendi_k_0_5": 5.622,
+      "mean_vendi_k_1": 5.576,
+      "mean_vendi_k_2": 5.479,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 16.604,
+        "1.0": 16.187,
+        "2.0": 15.297
+      }
+    },
+    "cross-domain-recombination": {
+      "runs": 3,
+      "mean_candidates": 5.0,
+      "mean_distinct_clusters": 5.0,
+      "mean_lever_coverage": 1.0,
+      "mean_vendi_k_0_5": 4.993,
+      "mean_vendi_k_1": 4.986,
+      "mean_vendi_k_2": 4.97,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 14.894,
+        "1.0": 14.785,
+        "2.0": 14.553
+      }
+    },
+    "token-ceiling-portfolio": {
+      "runs": 3,
+      "mean_candidates": 2.667,
+      "mean_distinct_clusters": 2.667,
+      "mean_lever_coverage": 0.667,
+      "mean_vendi_k_0_5": 2.66,
+      "mean_vendi_k_1": 2.653,
+      "mean_vendi_k_2": 2.64,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.167,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": 0.667,
+      "cross_run_vendi": {
+        "0.5": 7.951,
+        "1.0": 7.901,
+        "2.0": 7.798
+      }
+    }
+  },
+  "records": [
+    {
+      "case_id": "macgyver-overconstrained",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 0,
+      "distinct_mechanism_clusters": 0,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 0.0,
+        "1.0": 0.0,
+        "2.0": 0.0
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 16,
+      "word_budget_compliant": null,
+      "word_count": 799,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2778
+    },
+    {
+      "case_id": "macgyver-overconstrained",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 0,
+      "distinct_mechanism_clusters": 0,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 0.0,
+        "1.0": 0.0,
+        "2.0": 0.0
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 4,
+      "word_budget_compliant": null,
+      "word_count": 738,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2474
+    },
+    {
+      "case_id": "macgyver-overconstrained",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 0,
+      "distinct_mechanism_clusters": 0,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 0.0,
+        "1.0": 0.0,
+        "2.0": 0.0
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 656,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2181
+    },
+    {
+      "case_id": "research-idea-exhaustion",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 5.975,
+        "1.0": 5.949,
+        "2.0": 5.895
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1589,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2231
+    },
+    {
+      "case_id": "research-idea-exhaustion",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 5.985,
+        "1.0": 5.97,
+        "2.0": 5.941
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 18,
+      "word_budget_compliant": null,
+      "word_count": 1921,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2771
+    },
+    {
+      "case_id": "research-idea-exhaustion",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.991,
+        "1.0": 4.983,
+        "2.0": 4.965
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1946,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2745
+    },
+    {
+      "case_id": "research-idea-exhaustion",
+      "condition": "skill_treatment",
+      "replicate": 4,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 5.96,
+        "1.0": 5.917,
+        "2.0": 5.825
+      },
+      "preservation_violation_count": 1,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1924,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2775
+    },
+    {
+      "case_id": "research-idea-exhaustion",
+      "condition": "skill_treatment",
+      "replicate": 5,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 5.95,
+        "1.0": 5.898,
+        "2.0": 5.787
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 18,
+      "word_budget_compliant": null,
+      "word_count": 1668,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2475
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 4.905,
+        "1.0": 4.806,
+        "2.0": 4.606
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1347,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1924
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 4.95,
+        "1.0": 4.901,
+        "2.0": 4.804
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1133,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1626
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 4.91,
+        "1.0": 4.817,
+        "2.0": 4.628
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 6,
+      "word_budget_compliant": null,
+      "word_count": 1250,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1830
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "skill_treatment",
+      "replicate": 4,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 4.958,
+        "1.0": 4.915,
+        "2.0": 4.824
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1204,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1753
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "skill_treatment",
+      "replicate": 5,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.992,
+        "1.0": 4.983,
+        "2.0": 4.966
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1181,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1769
+    },
+    {
+      "case_id": "triz-thermal-contradiction",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.942,
+        "1.0": 4.881,
+        "2.0": 4.753
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 24,
+      "word_budget_compliant": null,
+      "word_count": 1416,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 6553
+    },
+    {
+      "case_id": "triz-thermal-contradiction",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 4.799,
+        "1.0": 4.61,
+        "2.0": 4.274
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 18,
+      "word_budget_compliant": null,
+      "word_count": 1274,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 6371
+    },
+    {
+      "case_id": "triz-thermal-contradiction",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.966,
+        "1.0": 4.931,
+        "2.0": 4.86
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 24,
+      "word_budget_compliant": null,
+      "word_count": 1462,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 7098
+    },
+    {
+      "case_id": "organizational-complexity-single-turn",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 5.93,
+        "1.0": 5.856,
+        "2.0": 5.696
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 18,
+      "word_budget_compliant": null,
+      "word_count": 1606,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2210
+    },
+    {
+      "case_id": "organizational-complexity-single-turn",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 5.968,
+        "1.0": 5.936,
+        "2.0": 5.868
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 15,
+      "word_budget_compliant": null,
+      "word_count": 1339,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1880
+    },
+    {
+      "case_id": "organizational-complexity-single-turn",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.967,
+        "1.0": 4.935,
+        "2.0": 4.873
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 15,
+      "word_budget_compliant": null,
+      "word_count": 1514,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2170
+    },
+    {
+      "case_id": "cross-domain-recombination",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 5.988,
+        "1.0": 5.976,
+        "2.0": 5.95
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1551,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2201
+    },
+    {
+      "case_id": "cross-domain-recombination",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 4.992,
+        "1.0": 4.984,
+        "2.0": 4.967
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 3,
+      "word_budget_compliant": null,
+      "word_count": 1554,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2212
+    },
+    {
+      "case_id": "cross-domain-recombination",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "single-turn",
+      "candidate_count": 4,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 3.999,
+        "1.0": 3.997,
+        "2.0": 3.994
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 12,
+      "word_budget_compliant": null,
+      "word_count": 1465,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2103
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 0,
+      "distinct_mechanism_clusters": 0,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 0.0,
+        "1.0": 0.0,
+        "2.0": 0.0
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.5,
+      "falsifiable_probe_count": 1,
+      "learning_probe_count": 2,
+      "word_budget_compliant": true,
+      "word_count": 289,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 391
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 4,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 3.99,
+        "1.0": 3.98,
+        "2.0": 3.961
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 2,
+      "word_budget_compliant": false,
+      "word_count": 352,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 486
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "skill_treatment",
+      "replicate": 3,
+      "interaction_mode": "single-turn",
+      "candidate_count": 4,
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 3.99,
+        "1.0": 3.979,
+        "2.0": 3.959
+      },
+      "preservation_violation_count": 0,
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 2,
+      "word_budget_compliant": true,
+      "word_count": 276,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 378
+    }
+  ]
+}

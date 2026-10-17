@@ -72,3 +72,26 @@ Additional baseline failures:
 3. The unchanged scorer still reports zero candidates for the compact budget response because its extractor expects Markdown headings/numbered sections, and it still undercounts causal families in TRIZ and research ideation.
 
 **Root cause of improvement:** explicit channel and budget precedence removed ambiguity between substantive complexity and execution availability. A dedicated contradiction re-anchor stopped prohibited relaxations from being numbered as portfolio candidates. The remaining failures are scorer precision and one residual compact-budget overflow, both targeted in Cycle 3.
+
+## Cycle 3 — Recovered scorer work and causal-field precision
+
+**Recovery:** Resumed from commits `38f8a74` (Cycle 1) and `da237d1` (Cycle 2). The interrupted session left a failing legacy parser test and preliminary derived summaries. These preliminary `*-structured.json` summaries are retained for traceability and superseded by `*-audited.json`, not evidence of a passing scorer.
+
+**RED → GREEN:** The legacy extractor prepended the title to the first body line, preventing the anchored causal-chain label from matching. Parsing the body independently fixes it. Additional failing regression cases caught negative bypass statements misread as violations, blanket preservation assertions hiding explicit removal, identical lever labels merging different structural operations, renamed lever labels splitting identical operations, missing horizon/sample/decision rules, and nested probe bullets split into separate probes. A fresh independent review found the 50-rotation eigensolver inflated a pool of 60 identical mechanisms to VS1=2.122 (VS0.5=4.342); cyclic Jacobi sweeps restore exactly 1 at all three orders. The TRIZ fixture now uses actual differing physical operations instead of six identical placeholder chains.
+
+**Rescoring on a single audited measurement version (means over records):**
+
+| Evidence | Runs | Candidates | Clusters | Lever coverage | VS 0.5 / 1 / 2 | Missing checks | Bounded-probe rate |
+| :-- | --: | --: | --: | --: | :-- | --: | --: |
+| pilot-baseline | 22 | 5.409 | 5.0 | 0.0 | 5.338 / 5.273 / 5.156 | 0.0 | 0.0 |
+| pilot-treatment | 22 | 5.0 | 4.818 | 0.727 | 4.873 / 4.803 / 4.706 | 0.0 | 0.0 |
+| stress-cycle1 | 42 | 4.357 | 3.786 | 0.676 | 3.882 / 3.746 / 3.654 | 3.333 | 0.0 |
+| stress-cycle2 | 25 | 4.36 | 4.12 | 0.775 | 4.242 / 4.154 / 4.032 | 0.0 | 0.1 |
+
+These are structural lexical diagnostics, not qualified useful mechanisms or the approved primary endpoint. Cross-cycle averages are not paired effects: Cycle 2 retested a subset and has a different case mix. The unchanged Cycle 1 raw TRIZ responses can now be examined without the old full-block causal-keyword amplification. Human causal-equivalence review remains necessary; Vendi depends on the declared lexical kernel. Missing checks and explicit contradiction flags are reported separately. A missing check is not an established R5 violation; a self-check is not evidence of semantic compliance. Pilot preservation is not assessed without a manifest invariant list. Historical token counts remain unverified regex estimates and cannot substantiate provider-token efficiency.
+
+**Evidence-integrity corrections:** Primary-source checks corrected three unrelated arXiv links in the current manifest/mapping; historical raw records remain intact. The runner now saves each completed turn, rejects changed resume inputs, appends complete records with fsync, and captures provider output usage separately from regex estimates. A transport-interruption test verifies the first turn survives and is skipped on resume.
+
+**Status:** Cycle 3 measurement repairs verified by deterministic regression tests; no claim of global optimality, zero hallucinations, calibrated quality, or release readiness. Cycles 4 and 5 remain pending real model execution.
+
+**Cycle 3 final verification:** 61 unit/authority tests passed on CPython 3.13; skill validator exited 0; `git diff --check` exited 0. The independent review also found and prompted regression coverage for unmanifested legacy results being relabelled on resume and discovery questions being omitted from prior turns. Both are fixed. Command prefix: `UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python`; the temporary cache override is required by the desktop filesystem sandbox.
