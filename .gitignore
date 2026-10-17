@@ -1,0 +1,22 @@
+.DS_Store
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.superpowers/
+dist/
+benchmark/runs/
+benchmark/private/
+benchmark/restricted/
+restricted/
+*.restricted.*
+*.sealed.yaml
+*.validation.yaml
+systematic-innovation-session.bundle
+
+# Ensure repository authority/authoring modules are never masked by global *auth* patterns
+!*authority*
+!*authoring*
+
