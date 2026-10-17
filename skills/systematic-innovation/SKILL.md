@@ -15,6 +15,7 @@ Do **not** run this workflow when the user asks for:
 - Factual definitions, historical explanations, or textbook comparisons (answer directly).
 - Debugging, root-cause diagnosis of a specific technical defect, or performance micro-benchmarks.
 - Implementation artifacts for an already-selected solution (such as database schemas, sprint tickets, or code).
+- Evading audits, hiding safety/regulatory findings, avoiding detection, or breaking statutory, privacy, life-safety, or medical-safety obligations. Refuse the bypass intent; offer compliant alternatives only if the user explicitly changes the target.
 
 ## Mode Routing (Quick vs. Deep)
 
@@ -22,8 +23,19 @@ Route automatically using observable signals in the user's request unless the us
 
 | Route | Observable Prompt Signals | Behavior |
 | :--- | :--- | :--- |
-| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, explicit request for immediate options or a single lens (e.g., `"Use Provocation mode"`), or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run 3–4 Reasoning Cells after initial fluency depletion, and deliver **4–6 causally distinct possibilities** in one turn. |
-| **Deep Mode** | Multi-stakeholder organizational, civic, educational, or cross-departmental system where hidden incentives, unstated preservation boundaries, or competing goals govern whether any idea can survive. | Run the System & Preservation Scan, ask **up to 7 high-leverage discovery questions** paired with **2–3 contrasting provisional seeds** (unless the user instructs to produce the final portfolio now), and synthesize **6–9 causally distinct possibilities** once context is disclosed. |
+| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run 3–4 Reasoning Cells after initial fluency depletion, and deliver **4–6 causally distinct possibilities** in one turn. |
+| **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **3–4 surgical Turn-1 discovery questions** paired with **2–3 contrasting provisional seeds**, ask at most 2–3 follow-up questions, and synthesize **6–9 causally distinct possibilities** once context is disclosed. |
+
+### Execution-Channel Precedence
+
+1. An explicit user override has the highest precedence.
+2. If the request must be answered in one turn—single-turn, one-shot, API response, immediate output, or no user reply is available—deliver a complete portfolio now even when the substantive problem is complex. Record unresolved assumptions in Layer 1 and do not stall in discovery questions.
+3. Deep Turn-1 restraint is valid only when the actual channel permits a user reply or the user explicitly requests progressive discovery. Never infer it from organizational, civic, or cross-domain complexity alone.
+4. If the user requests Deep Mode but only one response is available, produce the complete portfolio with an explicit assumption and preservation ledger.
+
+### Hard Output Budget Precedence
+
+A requested maximum word or token budget overrides normal candidate counts and formatting. Target **80% of the requested ceiling**, and for a word ceiling of 500 or fewer use the `Compact Portfolio Template` in [output-contract.md](references/output-contract.md). Do not add introductions, explanations, or formatting that consume the budget.
 
 ### User Overrides
 - `"Use Quick mode"`, `"skip questions"`, or `"Produce your final portfolio now"` $\rightarrow$ skip further questions and output the complete portfolio immediately.
@@ -65,6 +77,7 @@ Select **3–5 Reasoning Cells** matched to the tension (see [innovation-lenses.
 - **No Premature Winner or Implementation Drift:** Keep the portfolio open. Do **not** append unrequested 30-60-90 day rollout roadmaps, Gantt schedules, sprint backlogs, or database schemas. End with small **1–2 week learning probes** instead.
 - **No Fabricated Statistics:** Never invent quantitative percentages or effect sizes inside examples. Label causal predictions as testable hypotheses.
 - **High-Stakes Safety Floor:** Never propose bypassing statutory life-safety reviews, child/student safeguarding, medical dosing safety, or patron/user privacy.
+- **Physical/Logical Constraint Floor:** If stated constraints are jointly impossible, identify the contradiction and re-anchor the boundary. Never manufacture fake compliance by inventing inventory, authority, energy paths, legal exceptions, or hidden mechanisms.
 
 ## Reference Navigation
 

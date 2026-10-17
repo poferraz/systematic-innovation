@@ -44,3 +44,31 @@ Additional baseline failures:
 5. **Preservation and falsifiability were prose expectations, not explicit candidate-level required fields.**
 
 **Cycle 1 result:** failures documented; no skill behavior changes made.
+
+## Cycle 2 — Mode Routing & Structural Contract Hardening
+
+**Target:** Remove Quick/Deep Turn-1 oscillation, make tight budgets override formatting, prevent impossible constraints from masquerading as compliant candidates, and tighten Layer 1–6 structural anchors.
+
+**Canonical changes:** `SKILL.md` now gives execution-channel precedence, hard output-budget precedence, explicit safety-bypass non-trigger behavior, and a physical/logical constraint floor. `deep-mode.md` now requires actual interaction availability before Turn-1 restraint. `output-contract.md` now requires explicit causal fields, candidate-level `Preserve check`, a contradiction re-anchor outside the numbered portfolio, falsifiable probes with threshold/sample/horizon/fallback, and a plain-text Compact Portfolio Template for word ceilings of 500 or fewer. These changes remain inside the canonical skill authority and preserve the verified Rickards provenance boundaries.
+
+**Retest evidence:** 25 fresh-context runs in `evals/stress/results/cycle-2-retest/`, followed by isolated budget probes preserved in `cycle-2-budget-retest/`, `cycle-2-budget-final/`, `cycle-2-budget-template/`, and `cycle-2-budget-template-final/`. The combined unchanged-scorer summary is `evals/stress/results/cycle-2-summary.json`.
+
+### Before/after
+
+| Flaw | Cycle 1 baseline | Cycle 2 retest | Result |
+| :-- | :-- | :-- | :-- |
+| Actual single-turn discovery stalls | 6 / 6 affected cross-domain, organizational, startup, and research runs | 0 / 6 affected runs delivered complete portfolios | Improved |
+| `cross-domain-recombination` extraction | 0 candidates, 3 runs | 5.00 mean candidates; word counts 1,551 / 1,554 / 1,465 | Improved |
+| `organizational-complexity-single-turn` | 1 run asked 8 questions and withheld portfolio | 3 / 3 complete portfolios; 0 Turn-1 questions | Improved |
+| `token-ceiling-portfolio` | 0 / 3 at or below 350 words (492 / 461 / 472) | 2 / 3 at or below 350 words (289 / 352 / 276) | Improved, not fully resolved |
+| Over-constrained thermodynamic response | 4 mean numbered boundary relaxations | 0 extracted candidates; all three responses report no compliant solution | Improved |
+| TRIZ current-scorer cluster count | 1.00 mean cluster | 2.00 mean cluster | Improved, but still not causally trustworthy |
+| `startup-homogenization` Turn-1 restraint | 1 run asked 4 questions | 5 / 5 complete portfolios; 0 Turn-1 questions | Improved |
+
+**Unresolved after Cycle 2:**
+
+1. `token-ceiling-portfolio` replicate 2 used the Compact Portfolio Template but reached 352 words. Two words over the ceiling is a real failure, so the token-budget gate is not closed.
+2. The unchanged question metric counts every `?` in the response. `research-idea-exhaustion` replicate 2 contains five content-level research questions inside a complete portfolio, so the raw count reports 5 even though it is not a discovery stall. Cycle 3 must replace this with a discovery-block parser.
+3. The unchanged scorer still reports zero candidates for the compact budget response because its extractor expects Markdown headings/numbered sections, and it still undercounts causal families in TRIZ and research ideation.
+
+**Root cause of improvement:** explicit channel and budget precedence removed ambiguity between substantive complexity and execution availability. A dedicated contradiction re-anchor stopped prohibited relaxations from being numbered as portfolio candidates. The remaining failures are scorer precision and one residual compact-budget overflow, both targeted in Cycle 3.

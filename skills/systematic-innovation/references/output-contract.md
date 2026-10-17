@@ -2,6 +2,12 @@
 
 ## 1. The Six Disclosure Layers
 
+**Budget precedence:** A hard word or token ceiling in the user request overrides normal verbosity. For a word limit, draft internally to **min(80% of the stated word ceiling, 250 words)**, count every visible word including headings, and revise before sending. Produce a compressed six-layer response using an ultra-compact format: Layer 1 at most 40 words; four candidates with intervention, causal chain, causal lever, and Preserve check, each candidate at most 30 words; one-line receptivity; two spotlight signals; and two probe lines with threshold, sample bound, horizon, and fallback. Never exceed an explicit visible word ceiling. If the ceiling cannot fit four candidates, stop at the largest number that fits and state saturation.
+
+### Compact Portfolio Template
+
+For a requested word ceiling of 500 or fewer, use exactly this plain-text structure and stop. This template supersedes the normal Six Disclosure Layers formatting. Each candidate line at most 30 visible words including labels; omit optional assumption and failure prose. `L1: ...` (tension, preservation, assumptions); `P1: ... | Intervention: ... | Causal chain: ... | Causal lever: ... | Preserve check: ...` through four candidates; `L4: ...` (receptivity and action boundary); `L5: ...` (two spotlight signals); `L6: ...` (two probes with threshold, sample bound, horizon, and fallback). No Markdown tables, headings, or bold styling. Count visible words before sending and remove any excess.
+
 Structure every final innovation portfolio (both Quick Mode single-turn responses and Deep Mode final synthesis turns) into six clear, scannable layers:
 
 ### Layer 1: Innovation Brief & Preservation Scan
@@ -12,7 +18,7 @@ Structure every final innovation portfolio (both Quick Mode single-turn response
 
 ### Layer 2: Mechanism Ledger (Distinctiveness Proof)
 Provide a compact Markdown table mapping each numbered possibility (`P1`–`Pn`) to its unique structural coordinates:
-- `ID & Title` | `Reasoning Cell` | `Changed System Variable` | `Causal Lever` | `Stage of Action` | `Feedback Loop Shifted`
+- `ID & Title` | `Reasoning Cell` | `Intervention point` | `Changed System Variable` | `Causal lever` | `Stage of Action` | `Feedback Loop Shifted`
 
 ### Layer 3: Possibility Portfolio (Causally Distinct Concepts)
 - **Quantity Targets & Saturation Stop:**
@@ -21,9 +27,15 @@ Provide a compact Markdown table mapping each numbered possibility (`P1`–`Pn`)
   - **Saturation Rule:** Stop immediately if adding another concept would repeat a causal lever and stage already present in the Mechanism Ledger.
 - **Required Fields per Possibility (`P1`..`Pn`):**
   - **Descriptive Tag** (non-quota orientation label such as *Temporal Inversion*, *Boundary Re-Partition*, *Subtraction Compact*, *Artifact Poka-Yoke*, or *Ecosystem Co-Production*).
-  - **Causal Mechanism Chain:** How the intervention alters system behavior step by step (`Trigger/Rule Change` $\rightarrow$ `Actor Incentive/Flow Shift` $\rightarrow$ `Measurable System Effect`).
-  - **Preservation & Constraint Check:** How it honors the exact budget, staffing, statutory, or privacy constraints.
+  - **Intervention point:** Where the mechanism acts in the system.
+  - **Causal chain:** How the intervention alters system behavior step by step (`Trigger/Rule Change` $\rightarrow$ `Actor Incentive/Flow Shift` $\rightarrow$ `Measurable System Effect`).
+  - **Causal lever:** The structural operation changing behavior.
+  - **Preserve check:** A candidate-by-candidate statement showing it respects every Layer 1 preservation invariant and each exact budget, staffing, statutory, physical, or privacy constraint. Under a word ceiling, use `Preserve check: all L1 invariants` only after Layer 1 lists them explicitly.
   - **Key Assumption & Failure Mode:** What must hold true for this mechanism to work, and what perverse incentive or edge case to watch for (never fabricate statistics or fake percentages).
+
+### Contradiction & Boundary Re-Anchor
+
+If the constraints are jointly impossible, Layer 1 must state the governing contradiction and Layer 5 must expose decision choices. Do not number boundary relaxations as Possibility Portfolio candidates. Instead, use a short re-anchor table: original boundary, why compliance fails, smallest relaxation, and decision owner. Say clearly: **no compliant candidate exists** when that is true.
 
 ### Layer 4: System Receptivity & Action Path (Rickards Chapter 8 Integration)
 Evaluate how the portfolio lands inside the real human organization using three verified lenses from Tudor Rickards (1985, Chapter 8: *Ideas into action*, pp. 158–163):
@@ -41,5 +53,7 @@ Evaluate how the portfolio lands inside the real human organization using three 
 Highlight **2–3 complementary combinations or contrasting bets** based on explicit criteria (e.g., *Fastest Zero-Budget Relief*, *Deepest Structural Uncoupling*, *Lowest Coordination Overhead*) **without** declaring a single mandatory winner.
 
 ### Layer 6: Low-Cost Learning Probes (No Implementation Drift)
-- Propose **2–3 concrete, reversible 1–2 week learning probes** to test the riskiest causal assumptions of the spotlighted possibilities using existing resources.
+- Propose **2–3 concrete, reversible learning probes** to test the riskiest causal assumptions of the spotlighted possibilities using existing resources.
+- Each probe must contain: observable metric, **quantitative disconfirmation threshold** chosen as a decision rule, **sample or observation bound**, **time horizon**, and explicit **fallback next move**. Reject or revise the mechanism if the threshold is not met; do not continue because the pilot felt promising.
+- Thresholds are prospective decision rules, not claimed historical effects. Do not present them as fabricated statistics.
 - **Prohibited Implementation Drift:** Do **not** generate multi-month 30-60-90 day rollout schedules, project-management roadmaps, sprint ticket backlogs, or database DDL inside an ideation portfolio.

@@ -2,6 +2,8 @@
 
 ## 1. When Deep Mode Activates
 
+Actual interaction availability is mandatory for Deep Turn-1 restraint. Never activate Deep Mode Turn-1 restraint solely because the challenge is multi-stakeholder, civic, organizational, or high-risk. If the request is a single-turn request or otherwise permits no user reply, produce a complete portfolio with an explicit assumption and preservation ledger.
+
 Activate Deep Mode when the user's challenge involves:
 - Multiple interacting roles, departments, or external stakeholders whose incentives pull in opposite directions.
 - High risk of breaking something that already works (e.g., individual sales ownership, statutory safety/public accountability, regulatory compliance, teacher autonomy, or patron privacy).
@@ -14,7 +16,7 @@ In our RED baseline study, vanilla models asked **zero discovery questions on Tu
 However, interrogating a user with a long list of abstract questions creates friction. Every Deep Mode discovery turn must obey three rules:
 
 1. **The Question-Value Filter:** Only ask a question if the answer will **eliminate or unlock an entire causal family of mechanisms**. Never ask generic background questions that do not change the solution structure.
-2. **Hard Ceiling ($\le 7$ Total Questions Across Discovery):** Ask **3–4 surgical questions** on Turn 1, and at most **2–3 follow-up questions** on Turn 2 if critical ambiguity remains. Never exceed 7 questions across the entire session.
+2. **Hard Ceiling ($\le 7$ Total Questions Across Discovery):** Ask **3–4 surgical questions** on Turn 1, and at most **2–3 follow-up questions** on Turn 2 if critical ambiguity remains. Never exceed 7 questions across the entire session. A one-shot request must receive the complete portfolio, not this discovery sequence.
 3. **Target the Four High-Leverage Unknowns:**
    - **Preservation Boundary:** *"What part of the current system works well and must remain untouched?"*
    - **Failure Localization:** *"Where specifically does the handoff, information flow, or incentive break down today?"*
