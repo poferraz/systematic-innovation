@@ -36,6 +36,53 @@ class PilotManifestTests(unittest.TestCase):
                 self.assertEqual(case["interaction_mode"], "single-turn")
                 self.assertEqual(case["user_turns"], [])
 
+    def test_baseline_results_cover_all_cases(self) -> None:
+        cases_path = ROOT / "evals/pilot/cases.json"
+        results_path = ROOT / "evals/pilot/results/baseline.jsonl"
+        self.assertTrue(results_path.is_file(), "evals/pilot/results/baseline.jsonl is missing")
+        cases = json.loads(cases_path.read_text(encoding="utf-8"))["cases"]
+        records = [
+            json.loads(line)
+            for line in results_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        required_keys = {
+            "case_id",
+            "condition",
+            "replicate",
+            "host",
+            "model",
+            "interaction_mode",
+            "turns",
+            "final_response",
+            "total_assistant_output_tokens",
+            "ratings",
+            "notes",
+        }
+        for record in records:
+            self.assertTrue(required_keys.issubset(record.keys()), record.get("case_id"))
+
+        for case in cases:
+            vanilla_records = [
+                r
+                for r in records
+                if r["case_id"] == case["id"] and r["condition"] == "vanilla"
+            ]
+            if case["should_trigger"]:
+                self.assertEqual(
+                    len(vanilla_records),
+                    2,
+                    f"Expected 2 vanilla baseline records for positive case {case['id']}",
+                )
+                self.assertEqual({r["replicate"] for r in vanilla_records}, {1, 2})
+            else:
+                self.assertEqual(
+                    len(vanilla_records),
+                    1,
+                    f"Expected 1 vanilla baseline observation for negative case {case['id']}",
+                )
+
 
 if __name__ == "__main__":
     unittest.main()
+
