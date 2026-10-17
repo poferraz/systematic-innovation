@@ -1,0 +1,354 @@
+{
+  "cases": [
+    {
+      "id": "trig-pos-01",
+      "prompt": "We need to reduce patient discharge wait times in our regional hospital without compromising discharge care planning or adding nursing staff.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_healthcare_flow"
+    },
+    {
+      "id": "trig-pos-02",
+      "prompt": "Brainstorm structurally different ways for a public transit agency to address off-peak fare evasion while preserving dignity and accessibility.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_transit_policy"
+    },
+    {
+      "id": "trig-pos-03",
+      "prompt": "Our software team has a chronic staging bottleneck where 10 services compete for 2 shared test environments. Give us non-obvious alternatives.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_devops_bottleneck"
+    },
+    {
+      "id": "trig-pos-04",
+      "prompt": "Every time we incentivize sales reps to find new accounts, they ignore existing enterprise renewals. Help us find systemic compensation models.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_incentive_conflict"
+    },
+    {
+      "id": "trig-pos-05",
+      "prompt": "How can a community college improve student completion in developmental math without lowering academic rigor or increasing class sizes?",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_higher_ed"
+    },
+    {
+      "id": "trig-pos-06",
+      "prompt": "Generate fundamentally different approaches for a grocery delivery co-op to handle last-mile perishables during summer heatwaves with zero cold-chain vans.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_logistics_physical"
+    },
+    {
+      "id": "trig-pos-07",
+      "prompt": "We need innovative operational models to handle volunteer burnout at our 24/7 crisis hotline without turning away callers.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_nonprofit_burnout"
+    },
+    {
+      "id": "trig-pos-08",
+      "prompt": "Our manufacturing plant loses 4 hours per changeover between packaging formats. We want systemic mechanisms to collapse changeover time.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_manufacturing_lean"
+    },
+    {
+      "id": "trig-pos-09",
+      "prompt": "Find causally distinct ways for an open-source library to fund security maintenance without corporate lock-in or intrusive telemetry.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_open_source_sustainability"
+    },
+    {
+      "id": "trig-pos-10",
+      "prompt": "A coastal city needs innovative ways to reduce storm drain trash blockages during torrential rains without deploying municipal divers into flooded drains.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_civic_infrastructure"
+    },
+    {
+      "id": "trig-pos-11",
+      "prompt": "Our subscription media app has high churn after month 1. Explore non-obvious retention mechanisms that do not rely on dark patterns or discounts.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_consumer_retention"
+    },
+    {
+      "id": "trig-pos-12",
+      "prompt": "How could a rural medical clinic provide continuous chronic disease monitoring for elderly patients who lack broadband and smartphones?",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_health_access"
+    },
+    {
+      "id": "trig-pos-13",
+      "prompt": "We want innovative mechanisms to prevent code review pile-ups where pull requests sit unreviewed for 5 days without mandating daily reviewer shifts.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_engineering_workflow"
+    },
+    {
+      "id": "trig-pos-14",
+      "prompt": "Small-scale organic farmers cannot compete with distributor volume requirements. Brainstorm systemic ways to aggregate supply without high middlemen fees.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_agri_cooperative"
+    },
+    {
+      "id": "trig-pos-15",
+      "prompt": "Our hotel chain wastes 30% of buffet breakfast food daily. How can we eliminate food waste while maintaining the perceived abundance guests expect?",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_hospitality_waste"
+    },
+    {
+      "id": "trig-pos-16",
+      "prompt": "Help us design alternative organizational models for an all-remote engineering org where juniors feel mentored without dragging seniors into 6 hours of pairing.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_remote_mentorship"
+    },
+    {
+      "id": "trig-pos-17",
+      "prompt": "Municipal water utility needs to detect customer pipeline leaks quickly where smart water meters are politically rejected by citizens.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_utility_sensing"
+    },
+    {
+      "id": "trig-pos-18",
+      "prompt": "A public university library needs innovative physical and procedural mechanisms to handle rare manuscript access requests from independent researchers.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_archival_access"
+    },
+    {
+      "id": "trig-pos-19",
+      "prompt": "Explore systemic ways for an independent game studio to combat toxic voice chat without listening to private conversations or banning voice altogether.",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_gaming_safety"
+    },
+    {
+      "id": "trig-pos-20",
+      "prompt": "How might a municipal shelter re-architect intake to reduce dog stress and kennel barking without redesigning physical walls?",
+      "category": "positive",
+      "should_trigger": true,
+      "intent_type": "ideation_animal_welfare"
+    },
+    {
+      "id": "trig-neg-01",
+      "prompt": "Write a Python function using regex to validate email addresses according to RFC 5322.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_code_function"
+    },
+    {
+      "id": "trig-neg-02",
+      "prompt": "What year was Tudor Rickards published in Frances Pinter, and what is the exact title of his 1985 book?",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "fact_lookup_bibliographic"
+    },
+    {
+      "id": "trig-neg-03",
+      "prompt": "Debug this JavaScript TypeError: Cannot read properties of undefined (reading map) at TableComponent.jsx:42.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "debugging_code_stacktrace"
+    },
+    {
+      "id": "trig-neg-04",
+      "prompt": "Translate this legal contract confidentiality clause from English into Brazilian Portuguese.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "translation_legal"
+    },
+    {
+      "id": "trig-neg-05",
+      "prompt": "Summarize this 10-K earnings release into bullet points covering Q3 revenue, net income, and FY guidance.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "summarization_financial"
+    },
+    {
+      "id": "trig-neg-06",
+      "prompt": "Create a PostgreSQL schema with primary keys, foreign keys, and indexes for an e-commerce order management system.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_sql_schema"
+    },
+    {
+      "id": "trig-neg-07",
+      "prompt": "What is the capital of Australia, and what is its current population according to the latest census?",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "fact_lookup_geography"
+    },
+    {
+      "id": "trig-neg-08",
+      "prompt": "Convert this CSS flexbox layout to CSS grid so that items wrap evenly across 3 columns.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "refactoring_css_layout"
+    },
+    {
+      "id": "trig-neg-09",
+      "prompt": "Write unit tests using pytest for this binary search tree insertion and deletion implementation.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_unit_tests"
+    },
+    {
+      "id": "trig-neg-10",
+      "prompt": "Explain how the Raft consensus algorithm handles leader election when network partitions occur.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "explanation_distributed_systems"
+    },
+    {
+      "id": "trig-neg-11",
+      "prompt": "Format this unformatted JSON string into indented valid JSON and sort the keys alphabetically.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "formatting_json"
+    },
+    {
+      "id": "trig-neg-12",
+      "prompt": "Write a Dockerfile for a multi-stage Go build that outputs a minimal distroless container image.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_dockerfile"
+    },
+    {
+      "id": "trig-neg-13",
+      "prompt": "Proofread this email to a client for grammar, spelling, and professional tone.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "copywriting_proofreading"
+    },
+    {
+      "id": "trig-neg-14",
+      "prompt": "What are the main differences between TCP and UDP at the transport layer of the OSI model?",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "fact_lookup_networking"
+    },
+    {
+      "id": "trig-neg-15",
+      "prompt": "Write an Ansible playbook to install Nginx, copy an SSL certificate, and reload the service.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_devops_script"
+    },
+    {
+      "id": "trig-neg-16",
+      "prompt": "Extract all telephone numbers and physical postal addresses from this unstructured customer email text.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "data_extraction_text"
+    },
+    {
+      "id": "trig-neg-17",
+      "prompt": "Calculate the compound annual growth rate (CAGR) from ,000 in 2018 to ,000 in 2024.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "calculation_financial_math"
+    },
+    {
+      "id": "trig-neg-18",
+      "prompt": "Write a bash script that finds all files modified in the last 7 days and archives them into a tar.gz file.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "implementation_bash_utility"
+    },
+    {
+      "id": "trig-neg-19",
+      "prompt": "What is the syntax for declaring an enum in TypeScript, and how does it compile to JavaScript?",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "fact_lookup_language_syntax"
+    },
+    {
+      "id": "trig-neg-20",
+      "prompt": "Generate a markdown comparison table comparing Redis vs Memcached on persistence, data types, and replication.",
+      "category": "negative",
+      "should_trigger": false,
+      "intent_type": "comparison_technical_table"
+    },
+    {
+      "id": "trig-bound-01",
+      "prompt": "We have hit a wall trying to get doctors to complete electronic health record charts before leaving the clinic.",
+      "category": "boundary",
+      "should_trigger": true,
+      "intent_type": "boundary_persistent_behavior_wall"
+    },
+    {
+      "id": "trig-bound-02",
+      "prompt": "Is there any way to make technical customer support scalable without replacing support reps with hallucinating AI chatbots?",
+      "category": "boundary",
+      "should_trigger": true,
+      "intent_type": "boundary_systemic_scaling_alternative"
+    },
+    {
+      "id": "trig-bound-03",
+      "prompt": "Our open-source project keeps getting flooded with low-quality PRs for Hacktoberfest. What can we do differently?",
+      "category": "boundary",
+      "should_trigger": true,
+      "intent_type": "boundary_incentive_overflow"
+    },
+    {
+      "id": "trig-bound-04",
+      "prompt": "Rethink how a company handles software deprecation notices so users actually take action before the sunset deadline.",
+      "category": "boundary",
+      "should_trigger": true,
+      "intent_type": "boundary_temporal_inversion_prompt"
+    },
+    {
+      "id": "trig-bound-05",
+      "prompt": "Our gym has overcrowding from 5 PM to 7 PM and is dead the rest of the day. Equipment and space cannot be expanded.",
+      "category": "boundary",
+      "should_trigger": true,
+      "intent_type": "boundary_capacity_arbitrage"
+    },
+    {
+      "id": "trig-bound-06",
+      "prompt": "How do I optimize this SQL query that is timing out on a table with 10 million rows?",
+      "category": "boundary",
+      "should_trigger": false,
+      "intent_type": "boundary_sql_query_optimization"
+    },
+    {
+      "id": "trig-bound-07",
+      "prompt": "Compare AWS Lambda vs Cloudflare Workers for running an authentication webhook in terms of cold starts and pricing.",
+      "category": "boundary",
+      "should_trigger": false,
+      "intent_type": "boundary_architecture_comparison"
+    },
+    {
+      "id": "trig-bound-08",
+      "prompt": "Refactor this 200-line React component into smaller reusable hooks and child components to improve maintainability.",
+      "category": "boundary",
+      "should_trigger": false,
+      "intent_type": "boundary_code_refactoring"
+    },
+    {
+      "id": "trig-bound-09",
+      "prompt": "What are the top 5 design patterns recommended by the Gang of Four book for managing object creation?",
+      "category": "boundary",
+      "should_trigger": false,
+      "intent_type": "boundary_design_pattern_lookup"
+    },
+    {
+      "id": "trig-bound-10",
+      "prompt": "Help me write an OKR scorecard for our engineering team for Q4 with 3 objectives and 4 key results each.",
+      "category": "boundary",
+      "should_trigger": false,
+      "intent_type": "boundary_management_template_writing"
+    }
+  ]
+}
