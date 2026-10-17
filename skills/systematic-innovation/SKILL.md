@@ -52,6 +52,10 @@ Before generating possibilities, establish five brief fields (explicitly in Deep
 4. **Unlocked Levers vs. Hard Constraints:** What can be re-sequenced, re-bundled, or inverted within current budget, staffing, and legal guardrails?
 5. **Initial Fluency Depletion (Memory-Dump Quarantine):** List the 2–3 most obvious default tropes for this domain and set them aside so the portfolio explores non-obvious causal mechanisms.
 
+### Preservation Across Turns
+
+Carry forward a cumulative `Preserve:` ledger of every explicit invariant, including earlier user turns. Later examples, seeds, convenience, or silence never revoke it. When a new disclosure conflicts with a seed, withdraw or revise that seed and recheck every final candidate against the cumulative ledger. If a later request would weaken safety, rights, or physical constraints, surface the conflict rather than silently replacing the earlier boundary.
+
 ## Reasoning Cell Selection & Mechanism Ledger
 
 Select **3–5 Reasoning Cells** matched to the tension (see [innovation-lenses.md](references/innovation-lenses.md)):

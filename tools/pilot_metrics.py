@@ -298,23 +298,15 @@ def _clean_field_value(value: str) -> str:
 
 def _parse_structured_fields(text: str) -> dict[str, str]:
     fields: dict[str, str] = {}
-    segments = re.split(r"\s*\|\s*", text)
-    for segment in segments:
-        match = re.match(r"^\*{0,2}([^:*]+?)\*{0,2}\s*:\s*(.+)$", segment, re.IGNORECASE)
-        if not match:
-            continue
-        label = _clean_field_value(match.group(1)).lower().replace("**", "")
-        key = FIELD_ALIASES.get(label)
-        if key:
-            fields[key] = _clean_field_value(match.group(2))
+    labels = "|".join(re.escape(label) for label in sorted(FIELD_ALIASES, key=len, reverse=True))
+    field_re = re.compile(r"(?<!\w)(?:\*\*)?(" + labels + r")\s*(?:\*\*)?\s*:\s*(?:\*\*)?", re.IGNORECASE)
     for line in text.splitlines():
-        match = re.match(r"^\s*(?:[-*+]\s*)?\*{0,2}([^:*]+?)\*{0,2}\s*:\s*(.+)$", line, re.IGNORECASE)
-        if not match:
-            continue
-        label = _clean_field_value(match.group(1)).lower().replace("**", "")
-        key = FIELD_ALIASES.get(label)
-        if key and key not in fields:
-            fields[key] = _clean_field_value(match.group(2))
+        matches = list(field_re.finditer(line))
+        for index, match in enumerate(matches):
+            end = matches[index + 1].start() if index + 1 < len(matches) else len(line)
+            label = match.group(1).lower()
+            key = FIELD_ALIASES[label]
+            fields.setdefault(key, _clean_field_value(line[match.end():end]))
     return fields
 
 
@@ -349,13 +341,15 @@ def _extract_ledger_fields(lines: list[str]) -> dict[str, dict[str, str]]:
 def _extract_compact_candidates(lines: list[str]) -> list[dict[str, str]]:
     candidates: list[dict[str, str]] = []
     for line in lines:
-        match = re.match(r"^\s*(P\d+)\s*:\s*(.+)$", line.strip(), re.IGNORECASE)
+        match = re.match(r"^\s*(P\d+)\b\s*(?:[:—–-]\s*)?(.+)$", line.strip(), re.IGNORECASE)
         if not match:
             continue
         candidate_id, body = match.groups()
         title_match = re.match(r"^([^|]+)", body)
         title = _clean_field_value(title_match.group(1)) if title_match else candidate_id
         fields = _parse_structured_fields(body)
+        if not any(field in fields for field in ("intervention_point", "causal_chain", "causal_lever")):
+            continue
         fields["title"] = title
         fields["text"] = f"{candidate_id}: {body}"
         fields.setdefault("causal_lever", "")
@@ -487,10 +481,10 @@ def detect_preservation_violations(
             issues.append({"candidate": index, "reason": "missing_preserve_check"})
         # Inspect the actual proposal too: a blanket self-check cannot certify it.
         text = record.get("text", "") + "\n" + check
-        for clause in re.split(r"[.;\n]|\b(?:while|but|whereas)\b", text.lower()):
+        for clause in re.split(r"[.;\n]|\b(?:while|but|whereas|without|and retain|and preserve)\b", text.lower()):
             for verb in re.finditer(r"\b(remove|eliminate|reduce|weaken|bypass|evade|hide|falsify)\b", clause):
                 prefix = clause[:verb.start()]
-                if re.search(r"\b(?:not|never|without|no)\b[^,;]{0,40}$", prefix):
+                if re.search(r"\b(?:not|never|without|no|cannot|can't)\b[^,;]{0,40}$", prefix):
                     continue
                 target = clause[verb.end():verb.end() + 80]
                 if any(invariant.lower() in target for invariant in preserve_invariants):
@@ -555,7 +549,11 @@ def assess_falsifiability(response: str) -> dict[str, int | float]:
     for probe in probes:
         probe = re.sub(r"\b(" + "|".join(number_words) + r")\b",
                        lambda match: number_words[match.group().lower()], probe, flags=re.IGNORECASE)
-        outcome_rule = any(threshold_re.search(match.group(1)) for match in decision_re.finditer(probe))
+        outcome_rule = any(
+            threshold_re.search(match.group(1))
+            and not re.search(r"\b(?:participants?|patients?|interviews?|bookings?)\s+(?:are\s+)?available\b", match.group(1), re.IGNORECASE)
+            for match in decision_re.finditer(probe)
+        )
         if (outcome_rule and sample_re.search(probe)
                 and horizon_re.search(probe) and fallback_re.search(probe)):
             falsifiable += 1

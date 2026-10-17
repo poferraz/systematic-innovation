@@ -17,7 +17,7 @@ from tools.pilot_metrics import (
 )
 
 
-def score_record(record: dict, case: dict | None = None) -> dict:
+def score_record(record: dict, case: dict | None = None, provider_usage_cumulative: bool = False) -> dict:
     case = case or {}
     response = record.get("final_response", "")
     candidates = extract_candidate_mechanisms(response)
@@ -48,7 +48,7 @@ def score_record(record: dict, case: dict | None = None) -> dict:
         "missing_preserve_check_count": sum(issue["reason"] == "missing_preserve_check" for issue in preservation_violations),
         "preservation_audit_flags": preservation_violations,
         "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification" if invariants else "not_assessed_no_manifest_invariants",
-        "token_accounting": record.get("token_accounting", "legacy_estimate_unverified"),
+        "token_accounting": "corrected_cli_cumulative" if provider_usage_cumulative else record.get("token_accounting", "legacy_estimate_unverified"),
         "falsifiability_rate": falsifiability["rate"],
         "falsifiable_probe_count": falsifiability["falsifiable_count"],
         "learning_probe_count": falsifiability["probe_count"],
@@ -62,9 +62,11 @@ def score_record(record: dict, case: dict | None = None) -> dict:
             count_discovery_questions(turn.get("assistant", ""))
             for turn in record.get("turns", [{"assistant": response}])
         ),
-        "total_assistant_output_tokens": record.get(
-            "total_assistant_output_tokens", 0
+        "total_assistant_output_tokens": (
+            record.get("turns", [{}])[-1].get("assistant_tokens")
+            if provider_usage_cumulative else record.get("total_assistant_output_tokens")
         ),
+        "original_reported_total_assistant_output_tokens": record.get("total_assistant_output_tokens"),
     }
 
 
@@ -73,10 +75,10 @@ def _mean(values: Sequence[float | int | None]) -> float | None:
     return round(sum(present) / len(present), 3) if present else None
 
 
-def summarize_results(records: Sequence[dict], cases: Sequence[dict]) -> dict:
+def summarize_results(records: Sequence[dict], cases: Sequence[dict], provider_usage_cumulative: bool = False) -> dict:
     cases_by_id = {case["id"]: case for case in cases}
     scored = [
-        score_record(record, cases_by_id.get(record.get("case_id"), {}))
+        score_record(record, cases_by_id.get(record.get("case_id"), {}), provider_usage_cumulative)
         for record in records
     ]
     grouped: dict[str, list[dict]] = defaultdict(list)
@@ -152,6 +154,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--results", type=Path, required=True)
     parser.add_argument("--cases", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--provider-usage-cumulative", action="store_true", help="Explicit correction for pre-fix CLI 0.162 cumulative counters; raw records are preserved")
     return parser.parse_args(argv)
 
 
@@ -163,7 +166,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         if line.strip()
     ]
     cases = json.loads(args.cases.read_text(encoding="utf-8"))["cases"]
-    summary = summarize_results(records, cases)
+    summary = summarize_results(records, cases, args.provider_usage_cumulative)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
     print(f"Scored {summary['record_count']} records -> {args.output}")

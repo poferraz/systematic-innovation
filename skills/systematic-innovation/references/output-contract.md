@@ -6,7 +6,7 @@
 
 ### Compact Portfolio Template
 
-For a requested word ceiling of 500 or fewer, use exactly this plain-text structure and stop. This template supersedes the normal Six Disclosure Layers formatting. Each candidate line at most 30 visible words including labels; omit optional assumption and failure prose. `L1: ...` (tension, preservation, assumptions); `P1: ... | Intervention: ... | Causal chain: ... | Causal lever: ... | Preserve check: ...` through four candidates; `L4: ...` (receptivity and action boundary); `L5: ...` (two spotlight signals); `L6: ...` (two probes with threshold, sample bound, horizon, and fallback). No Markdown tables, headings, or bold styling. Count visible words before sending and remove any excess.
+For a requested word ceiling of 500 or fewer, use exactly this plain-text structure and stop. This template supersedes the normal Six Disclosure Layers formatting. Each candidate line at most 30 visible words including labels; omit optional assumption and failure prose. `L1: ...` (tension, preservation, assumptions); `P1: ... | Intervention: ... | Causal chain: ... | Causal lever: ... | Preserve check: ...` through four candidates; `L4: ...` (receptivity and action boundary); `L5: ...` (two spotlight signals); `L6: ...` (two probes with threshold, sample bound, horizon, and fallback). No Markdown tables, headings, or bold styling. Allocate at most 40 words to L1, 120 total to P1–P4, 30 total to L4–L5, and 60 total to L6. These are maxima, not quotas. Count visible words before sending and remove any excess.
 
 Structure every final innovation portfolio (both Quick Mode single-turn responses and Deep Mode final synthesis turns) into six clear, scannable layers:
 

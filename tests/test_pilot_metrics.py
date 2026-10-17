@@ -249,3 +249,42 @@ class ConversationBurdenTests(unittest.TestCase):
                             {"assistant": "P1: Complete portfolio"}],
                   "final_response": "P1: Complete portfolio"}
         self.assertEqual(score_record(record)["discovery_question_count"], 1)
+
+class LexicalScreenBoundaryTests(unittest.TestCase):
+    def test_protection_clause_is_not_the_target_of_waste_reduction(self):
+        for text in ("Reduce waiting time without bypassing safety reviews.",
+                     "Remove duplicate paperwork and retain safety reviews."):
+            self.assertEqual(detect_preservation_violations([{"preserve_check": text}], ["safety reviews"]), [])
+
+    def test_participant_availability_is_not_an_outcome_threshold(self):
+        self.assertEqual(assess_falsifiability(
+            "L6: Probe 1: Interview 20 participants for 2 weeks; revise questions if at least 20 participants are available."
+        )["rate"], 0.0)
+
+class CumulativeUsageRescoringTests(unittest.TestCase):
+    def test_explicit_cumulative_mode_retains_and_corrects_original_total(self):
+        from tools.score_eval_results import score_record
+        record = {"token_accounting": "provider", "total_assistant_output_tokens": 30,
+                  "turns": [{"assistant_tokens": 5}, {"assistant_tokens": 10}, {"assistant_tokens": 15}]}
+        scored = score_record(record, provider_usage_cumulative=True)
+        self.assertEqual(scored["total_assistant_output_tokens"], 15)
+        self.assertEqual(scored["original_reported_total_assistant_output_tokens"], 30)
+
+class ObservedCompactFormatTests(unittest.TestCase):
+    def test_em_dash_and_inline_fields_are_extracted(self):
+        response = '''L1: Preserve continuity.
+P1 — Timing | Intervention: booking | Causal chain: adapt arrival windows | Causal lever: temporal inversion | Preserve check: continuity remains.
+P2 Recovery | Intervention: follow-up. Causal chain: rebook missed visits. Causal lever: feedback. Preserve check: no new staff.
+L4: P1 is locally actionable.
+'''
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[0]['causal_chain'], 'adapt arrival windows')
+        self.assertEqual(rows[1]['intervention_point'], 'follow-up')
+        self.assertEqual(rows[1]['causal_lever'], 'feedback')
+
+class ModalNegationTests(unittest.TestCase):
+    def test_cannot_remove_is_a_prohibition_not_a_proposal(self):
+        self.assertEqual(detect_preservation_violations([
+            {"preserve_check": "Relay rules cannot remove rural coverage."}
+        ], ["rural coverage"]), [])

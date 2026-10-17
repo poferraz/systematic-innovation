@@ -107,3 +107,19 @@ class StressPersistenceTests(unittest.TestCase):
                 main(["--cases", str(cases), "--output", str(output), "--conditions", "baseline_clean"])
             self.assertEqual(result.read_text(), original)
             self.assertFalse((output / "manifest.json").exists())
+
+class ProviderAccountingTests(unittest.TestCase):
+    def test_resumed_usage_is_differenced_not_summed(self):
+        from unittest.mock import patch
+        from tools.stress_runner import run_case
+        case = {"id": "usage", "prompt": "Initial", "user_turns": ["More", "Final"],
+                "interaction_mode": "controlled-multi-turn", "expected_mode": "deep", "should_trigger": True}
+        with patch("tools.stress_runner._execute", side_effect=[
+            ("alpha", "session", {"output_tokens": 5}),
+            ("beta", "session", {"output_tokens": 10}),
+            ("gamma", "session", {"output_tokens": 15}),
+        ]):
+            record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "model", "codex")
+        self.assertEqual(record["total_assistant_output_tokens"], 15)
+        self.assertEqual([turn["assistant_tokens"] for turn in record["turns"]], [5, 5, 5])
+        self.assertEqual([turn["provider_usage_cumulative"]["output_tokens"] for turn in record["turns"]], [5, 10, 15])

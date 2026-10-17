@@ -35,3 +35,7 @@ Stop asking questions and produce the complete **Six-Layer Innovation Portfolio*
 1. The user provides the preservation boundary, core failure points, and authority/resource constraints.
 2. Two discovery exchanges have occurred.
 3. The user explicitly instructs: *"Produce your final portfolio now"*, *"Skip questions"*, or *"Use Quick mode"*.
+
+## 5. Cumulative Preservation and Revision
+
+Keep the preservation ledger cumulative across all turns, including after an early synthesis. Repeat its material constraints in the final brief and check each candidate's resource demand and causal chain against it. New disclosures can invalidate a seed; explicitly retire or revise the affected seed. Never treat the newest message as permission to forget an earlier invariant.

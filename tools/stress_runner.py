@@ -175,12 +175,16 @@ def run_case(
             executed = _execute(codex, model, prompt, output, session_id)
             assistant, session_id = executed[:2]
             usage = executed[2] if len(executed) > 2 else {}
+            previous_counter = turns[-1].get("provider_usage_cumulative", {}).get("output_tokens", 0) if turns else 0
+            counter = usage.get("output_tokens")
+            output_tokens = counter - previous_counter if counter is not None and previous_counter is not None and counter >= previous_counter else None
             turns.append(
                 {
                     "turn_index": turn_index,
                     "user": prompt,
                     "assistant": assistant,
-                    "assistant_tokens": usage.get("output_tokens"),
+                    "assistant_tokens": output_tokens,
+                    "provider_usage_cumulative": usage,
                     "assistant_tokens_estimate": count_tokens(assistant),
                 }
             )
@@ -203,7 +207,7 @@ def run_case(
         "preserve": case.get("preserve", []),
         "primary_source": case.get("primary_source"),
         "prompt_digest": prompt_digest,
-        "token_accounting": "provider" if all(turn["assistant_tokens"] is not None for turn in turns) else "unavailable",
+        "token_accounting": "provider_cumulative_differenced" if all(turn["assistant_tokens"] is not None for turn in turns) else "unavailable",
         "skill_pack_sha256": hashlib.sha256(load_skill_pack(skill_dir).encode()).hexdigest() if condition == "skill_treatment" else None,
         "turns": turns,
         "final_response": turns[-1]["assistant"],
@@ -253,7 +257,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     args.output.mkdir(parents=True, exist_ok=True)
     manifest = {"model": args.model, "conditions": args.conditions,
         "cases_sha256": hashlib.sha256(args.cases.read_bytes()).hexdigest(),
-        "skill_pack_sha256": hashlib.sha256(load_skill_pack(args.skill).encode()).hexdigest(),
+        "skill_pack_sha256": hashlib.sha256(load_skill_pack(args.skill).encode()).hexdigest() if "skill_treatment" in args.conditions else None,
         "replicates": args.replicates, "case_ids": [case["id"] for case in cases]}
     manifest_path = args.output / "manifest.json"
     if not manifest_path.exists() and any(args.output.glob("*.jsonl")):

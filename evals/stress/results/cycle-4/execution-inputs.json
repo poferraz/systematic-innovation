@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-10-17T23:38:48.705305+00:00",
+  "base_revision": "362e158ae43f376839f8e87c3703891c7b2d785a",
+  "modified_inputs": true,
+  "sha256": {
+    "skills/systematic-innovation/SKILL.md": "4b4c0487b4fa0a85f0eb9cccf3fead6db8b3a746e8b4d272b8a0cdaebda0bc5d",
+    "skills/systematic-innovation/references/innovation-lenses.md": "252030cddfb76358ec4bd36e2e5aeacb34c38272fcc9d9c2656b30bd0adc8291",
+    "skills/systematic-innovation/references/output-contract.md": "a3fb9b8af3727c33b8d260179da1b3458dd1af206ff5d54532b4856c8e1d3679",
+    "skills/systematic-innovation/references/evidence.md": "282deee88ed5b6e0800401414090e0ad8b4b9e0afff2ab752416a526fa1064bd",
+    "skills/systematic-innovation/references/deep-mode.md": "84fe149e48ef309ce338e80158aa40aa0d0a2d3635e77b35a34063727a7fdd8c",
+    "tools/stress_runner.py": "d346a5a305082ef7e2c2280d0ecadd8486b99a4cbaa282e2dc4b4ab1d952f309",
+    "tools/pilot_metrics.py": "d589a0df54ba3d0746358beb7cc39d27660404ecb8b6f00fe085f79457a69491",
+    "tools/score_eval_results.py": "cc9b6139e9d02cc8f7cc0d0b9d0c09b9cf15ef7a35ff35631fcf57ab1b9791ea",
+    "evals/stress/cases.json": "f1ec7587d0d8fd4b6e162e7426271d86e75cb9e639259db10f4afe7a9b3ecfc5"
+  },
+  "purpose": "Cycle 4 public development run; never restricted validation; provider output tokens when available; no calibrated quality judgment"
+}

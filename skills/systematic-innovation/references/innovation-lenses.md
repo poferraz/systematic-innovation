@@ -2,7 +2,7 @@
 
 ## 1. Initial Fluency Depletion (Countering RLHF Homogenization)
 
-Empirical studies ofboth human R&D groups (Rickards, 1975, 1978) and instruction-tuned language models show that the first 2–4 ideas retrieved for any problem are dominated by high-probability memory dumps and conventional internet tropes.
+Rickards's work on initial fluency and later LLM ideation studies motivate checking familiar associations before structural transformation. The quarantine procedure below is an AI-native adaptation, not a universal empirical claim about the first few ideas.
 
 Before populating the portfolio:
 1. **Name the Default Tropes (1–2 lines):** Explicitly state the 2–3 most predictable textbook or internet answers for the prompt (e.g., *"Standard reminders / gamified streaks / NFC cap stickers"*, or *"2-2-2 meal rules / moving condiments to crisper drawers"*).
@@ -35,7 +35,7 @@ Each Reasoning Cell applies a distinct cognitive operator. Select **3–4 cells*
 - **Operator:** State the core contradiction (*"Improving X normally degrades Y"*). Resolve it without adding budget by separating the conflicting requirements:
   - **In Time:** Perform heavy preparation during off-peak troughs so peak-hour execution is zero-friction.
   - **In Space / Scope:** Partition high-risk/high-security zones from low-risk self-service zones.
-  - **By Condition:** Apply strict human scrutiny to the 10–15% high-variance tail while automating or pre-certifying the 85–90% standard envelope.
+  - **By Condition:** Separate exception handling from standard cases only where measured risk and mandatory controls permit it; do not invent exception rates or imply pre-certification authority.
   - **By Waste Conversion:** Use an existing byproduct, idle wait window, or mandatory touchpoint as the carrier for the solution.
 
 ### Cell D: Morphological Combination
@@ -79,3 +79,9 @@ Before finalizing the portfolio, compare every pair of candidates `(P_a, P_b)`:
    - **Relevance & Constraint Alignment:** Directly addresses the prompt tension and honors all stated budget, staffing, privacy, and statutory constraints.
    - **Causal Clarity:** Explains the concrete step-by-step cause-and-effect chain (`Action $\rightarrow$ Intermediate System Shift $\rightarrow$ Outcome`).
    - **Plausibility & Safety:** Operates within real-world physical, legal, and safeguarding boundaries.
+
+## 5. Adversarial Feasibility and Preservation Check
+
+Before recording a candidate, enumerate the resources it consumes and the authority it needs. Distinguish supplied inventory from a newly required resource; never smuggle in extra materials, equipment, staff, consent, or permissions through an analogy. Check geometry and capacity as well as labels: a proposed enclosure needs sufficient coverage and a thermal buffer only delays heat accumulation unless there is a valid outgoing heat path. Label unknown dimensions and operating conditions rather than asserting feasibility.
+
+On every new user disclosure, revisit all earlier preservation commitments. Re-test the actual causal chain, not just its `Preserve check` sentence. A nominally compliant candidate that adds hidden workload, transfers a burden to an unconsenting actor, or weakens a preserved service is a revision or rejection. Discard a transferred mechanism when its source-domain assumptions fail in the target environment. Regulatory evasion and concealment are prohibited targets; compliant reframing must not supply the missing bypass technique.
