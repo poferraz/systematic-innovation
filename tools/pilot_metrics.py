@@ -216,8 +216,8 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     lines = markdown_text.splitlines()
     heading_re = re.compile(
         r"^(#{2,4})\s+(?:"
-        r"(?:Approach|Alternative|Portfolio\s+(?:Component|Element)|Movement|Concept|Idea|Possibility)\s+[A-Z0-9]+[:.\s—-]*|"
-        r"(?:[0-9]+\.[0-9]+|[0-9]+|[A-I])[.)\s:—-]+"
+        r"(?:Approach|Alternative|Portfolio\s+(?:Component|Element)|Movement|Concept|Idea|Possibility|POSS)\s*[-:]?\s*[A-Z0-9]+[:.\s—-]*|"
+        r"(?:P[0-9]+|POSS-[0-9]+|[0-9]+\.[0-9]+|[0-9]+|[A-Z])[.)\s:—-]+"
         r")(.+)$",
         re.IGNORECASE,
     )
@@ -228,6 +228,14 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
         "target assumption", "taken-for-granted", "formal provocations",
         "provocations (po", "system architecture", "integrated", "recommended",
         "systemic failure", "four-part", "4-part", "4-pillar", "portfolio of",
+        "layer 1", "layer 2", "layer 4", "layer 5", "layer 6",
+        "receptivity", "spotlight", "probe", "hearing", "objection",
+        "problem-owner", "three hearings", "action path", "preservation scan",
+        "mechanism ledger",
+    )
+    seed_re = re.compile(
+        r"^\s*[-*]\s+\*\*Seed\s+([A-Z0-9]+)(?:[:\s-]([^*]+))?\*\*:?\s*(.+)$",
+        re.IGNORECASE,
     )
 
     sections: list[tuple[str, list[str]]] = []
@@ -235,6 +243,21 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     cur_lines: list[str] = []
 
     for line in lines:
+        stripped_lower = line.strip().lower()
+        if any(
+            stripped_lower.startswith(p)
+            for p in [
+                "## layer 4", "### layer 4", "#### layer 4",
+                "## layer 5", "## layer 6",
+                "## system receptivity", "### system receptivity",
+            ]
+        ):
+            if cur_title and cur_lines:
+                sections.append((cur_title, cur_lines))
+            cur_title = None
+            cur_lines = []
+            break
+
         m = heading_re.match(line.strip())
         if m:
             title = m.group(2).strip().strip("*")
@@ -269,4 +292,18 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
                 "lever": dominant_lever(f"{title} {body_text}"),
                 "text": f"{title}: {body_text}",
             })
+
+    if not candidates:
+        for line in lines:
+            sm = seed_re.match(line.strip())
+            if sm:
+                seed_id, seed_sub, seed_text = sm.group(1), sm.group(2) or "", sm.group(3).strip()
+                title = f"Seed {seed_id}: {seed_sub}".strip().strip(":")
+                candidates.append({
+                    "title": title,
+                    "lever": dominant_lever(f"{title} {seed_text}"),
+                    "text": f"{title}: {seed_text}",
+                })
+
     return candidates
+

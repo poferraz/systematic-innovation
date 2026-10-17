@@ -82,7 +82,54 @@ class PilotManifestTests(unittest.TestCase):
                     f"Expected 1 vanilla baseline observation for negative case {case['id']}",
                 )
 
+    def test_treatment_results_cover_all_cases(self) -> None:
+        cases_path = ROOT / "evals/pilot/cases.json"
+        results_path = ROOT / "evals/pilot/results/treatment.jsonl"
+        self.assertTrue(results_path.is_file(), "evals/pilot/results/treatment.jsonl is missing")
+        cases = json.loads(cases_path.read_text(encoding="utf-8"))["cases"]
+        records = [
+            json.loads(line)
+            for line in results_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
+        required_keys = {
+            "case_id",
+            "condition",
+            "replicate",
+            "host",
+            "model",
+            "interaction_mode",
+            "turns",
+            "final_response",
+            "total_assistant_output_tokens",
+            "ratings",
+            "notes",
+        }
+        for record in records:
+            self.assertTrue(required_keys.issubset(record.keys()), record.get("case_id"))
+
+        for case in cases:
+            treatment_records = [
+                r
+                for r in records
+                if r["case_id"] == case["id"] and r["condition"] == "treatment"
+            ]
+            if case["should_trigger"]:
+                self.assertEqual(
+                    len(treatment_records),
+                    2,
+                    f"Expected 2 treatment records for positive case {case['id']}",
+                )
+                self.assertEqual({r["replicate"] for r in treatment_records}, {1, 2})
+            else:
+                self.assertEqual(
+                    len(treatment_records),
+                    1,
+                    f"Expected 1 treatment observation for negative case {case['id']}",
+                )
+
 
 if __name__ == "__main__":
     unittest.main()
+
 
