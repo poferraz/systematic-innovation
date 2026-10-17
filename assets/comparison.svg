@@ -1,85 +1,82 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="100%" height="100%" style="background:#090d16; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" width="100%" height="100%" style="background:#0e2438; font-family:'Helvetica Neue', Arial, sans-serif;">
   <defs>
-    <linearGradient id="red-tint" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#241318" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#180d12" stop-opacity="0.9"/>
-    </linearGradient>
-    <linearGradient id="green-tint" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#0f261d" stop-opacity="0.9"/>
-      <stop offset="100%" stop-color="#0a1913" stop-opacity="0.9"/>
-    </linearGradient>
+    <style>
+      .title-serif { font-family:'Georgia', serif; }
+      .mono-label { font-family:'SF Mono', Menlo, Consolas, monospace; }
+    </style>
   </defs>
 
-  <text x="600" y="44" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="700">BEHAVIORAL CONTRAST: VANILLA LLM VS. SYSTEMATIC INNOVATION</text>
-  <text x="600" y="68" text-anchor="middle" fill="#8899b5" font-size="13">Why ordinary AI brainstorming fails in production and how the systems approach fixes it</text>
+  <!-- Header -->
+  <text x="600" y="46" text-anchor="middle" fill="#d8ff55" font-size="24" font-weight="700" class="title-serif" letter-spacing="0.5">THE ARCHITECTURAL CONTRAST</text>
+  <text x="600" y="72" text-anchor="middle" fill="#a0c8e0" font-size="13">Why default LLM brainstorming collapses into pseudo-variety and how Tudor Rickards's systems model fixes it</text>
 
-  <!-- Left: Vanilla Card -->
-  <g transform="translate(60, 95)">
-    <rect width="520" height="345" rx="12" fill="url(#red-tint)" stroke="#5c1d29" stroke-width="1.5"/>
-    <rect x="0" y="0" width="520" height="6" rx="3" fill="#f43f5e"/>
+  <!-- Left Card: Vanilla Default -->
+  <g transform="translate(60, 100)">
+    <rect width="520" height="370" rx="4" fill="#091b2c" stroke="#25425d" stroke-width="1.5"/>
+    <rect x="0" y="0" width="520" height="4" fill="#ff6b81"/>
 
-    <text x="24" y="38" fill="#fda4af" font-size="12" font-weight="700" letter-spacing="1">WITHOUT THE SKILL: VANILLA LLM</text>
-    <text x="24" y="64" fill="#ffffff" font-size="17" font-weight="600">The "Obvious Listicle" Anti-Pattern</text>
+    <text x="28" y="36" fill="#ff94a4" font-size="11" font-weight="700" class="mono-label" letter-spacing="1.5">WITHOUT THE SKILL · VANILLA LLM</text>
+    <text x="28" y="66" fill="#ffffff" font-size="18" font-weight="700" class="title-serif">The "Obvious Listicle" Anti-Pattern</text>
 
-    <line x1="24" y1="80" x2="496" y2="80" stroke="#3b1720" stroke-width="1"/>
+    <line x1="28" y1="84" x2="492" y2="84" stroke="#1f374e" stroke-width="1"/>
 
-    <!-- Bullet 1 -->
-    <circle cx="36" cy="110" r="8" fill="#4c1420"/>
-    <text x="36" y="114" text-anchor="middle" fill="#f43f5e" font-size="11" font-weight="800">✕</text>
-    <text x="56" y="114" fill="#e2e8f0" font-size="13" font-weight="600">Surface Mode Collapse</text>
-    <text x="56" y="132" fill="#94a3b8" font-size="12">Dumps top-of-mind internet tropes (2-2-2 meal rules, NFC pill caps, cash bounties) on repeat.</text>
+    <!-- Point 1 -->
+    <text x="28" y="116" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
+    <text x="50" y="116" fill="#ffffff" font-size="13" font-weight="700">Top-of-Mind Mode Collapse</text>
+    <text x="50" y="136" fill="#8eaabf" font-size="12" line-height="1.4">Dumps immediate memory cliches (2-2-2 meal plans, NFC stickers, cash bonuses) across independent runs.</text>
 
-    <!-- Bullet 2 -->
-    <circle cx="36" cy="165" r="8" fill="#4c1420"/>
-    <text x="36" y="169" text-anchor="middle" fill="#f43f5e" font-size="11" font-weight="800">✕</text>
-    <text x="56" y="169" fill="#e2e8f0" font-size="13" font-weight="600">Duplicate Mechanism Collapse (0.55 ratio)</text>
-    <text x="56" y="187" fill="#94a3b8" font-size="12">Generates 6–10 numbered ideas that are merely wording variations of a single causal lever.</text>
+    <!-- Point 2 -->
+    <text x="28" y="176" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
+    <text x="50" y="176" fill="#ffffff" font-size="13" font-weight="700">Duplicate Mechanism Families (0.55 Collapse Ratio)</text>
+    <text x="50" y="196" fill="#8eaabf" font-size="12">Generates 6–10 numbered ideas that merely re-word a single causal lever (e.g. 5 minor commission variations).</text>
 
-    <!-- Bullet 3 -->
-    <circle cx="36" cy="220" r="8" fill="#4c1420"/>
-    <text x="36" y="224" text-anchor="middle" fill="#f43f5e" font-size="11" font-weight="800">✕</text>
-    <text x="56" y="224" fill="#e2e8f0" font-size="13" font-weight="600">Zero Turn-1 Restraint (0/10 runs)</text>
-    <text x="56" y="242" fill="#94a3b8" font-size="12">Prematurely dumps 2,000+ words of answers without asking clarifying discovery questions.</text>
+    <!-- Point 3 -->
+    <text x="28" y="236" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
+    <text x="50" y="236" fill="#ffffff" font-size="13" font-weight="700">Zero Turn-1 Restraint (0/10 Runs)</text>
+    <text x="50" y="256" fill="#8eaabf" font-size="12">Dumps 2,000+ words on Turn 1 without asking discovery questions or identifying non-negotiable anchors.</text>
 
-    <!-- Bullet 4 -->
-    <circle cx="36" cy="275" r="8" fill="#4c1420"/>
-    <text x="36" y="279" text-anchor="middle" fill="#f43f5e" font-size="11" font-weight="800">✕</text>
-    <text x="56" y="279" fill="#e2e8f0" font-size="13" font-weight="600">Mandated 90-Day Implementation Roadmaps</text>
-    <text x="56" y="297" fill="#94a3b8" font-size="12">Hallucinates multi-month Gantt execution schedules and forces an unearned winner.</text>
+    <!-- Point 4 -->
+    <text x="28" y="296" fill="#ff6b81" font-size="14" font-weight="700">✕</text>
+    <text x="50" y="296" fill="#ffffff" font-size="13" font-weight="700">Premature 90-Day Implementation Roadmaps</text>
+    <text x="50" y="316" fill="#8eaabf" font-size="12">Burns tokens hallucinating multi-phase Gantt execution schedules and forces an unearned single winner.</text>
+
+    <!-- Metric Tag -->
+    <rect x="28" y="338" width="464" height="22" rx="2" fill="#140b10" stroke="#4a1520" stroke-width="1"/>
+    <text x="260" y="353" text-anchor="middle" fill="#ff94a4" font-size="10" font-weight="700" class="mono-label">PILOT EFFICIENCY: 0.897 MECHANISMS / 1K TOKENS</text>
   </g>
 
-  <!-- Right: Systematic Innovation Card -->
-  <g transform="translate(620, 95)">
-    <rect width="520" height="345" rx="12" fill="url(#green-tint)" stroke="#1a533c" stroke-width="1.5"/>
-    <rect x="0" y="0" width="520" height="6" rx="3" fill="#10b981"/>
+  <!-- Right Card: Systematic Innovation -->
+  <g transform="translate(620, 100)">
+    <rect width="520" height="370" rx="4" fill="#1783be" stroke="#d8ff55" stroke-width="1.5"/>
+    <rect x="0" y="0" width="520" height="4" fill="#d8ff55"/>
 
-    <text x="24" y="38" fill="#6ee7b7" font-size="12" font-weight="700" letter-spacing="1">WITH SYSTEMATIC-INNOVATION SKILL</text>
-    <text x="24" y="64" fill="#ffffff" font-size="17" font-weight="600">The Systems-Aware Possibility Portfolio</text>
+    <text x="28" y="36" fill="#d8ff55" font-size="11" font-weight="700" class="mono-label" letter-spacing="1.5">WITH SYSTEMATIC-INNOVATION SKILL</text>
+    <text x="28" y="66" fill="#ffffff" font-size="18" font-weight="700" class="title-serif">The Systems-Aware Possibility Portfolio</text>
 
-    <line x1="24" y1="80" x2="496" y2="80" stroke="#123829" stroke-width="1"/>
+    <line x1="28" y1="84" x2="492" y2="84" stroke="#2594d1" stroke-width="1"/>
 
-    <!-- Bullet 1 -->
-    <circle cx="36" cy="110" r="8" fill="#0d3b28"/>
-    <text x="36" y="114" text-anchor="middle" fill="#10b981" font-size="11" font-weight="800">✓</text>
-    <text x="56" y="114" fill="#e2e8f0" font-size="13" font-weight="600">Initial Fluency Depletion</text>
-    <text x="56" y="132" fill="#94a3b8" font-size="12">Explicitly quarantines the top 2–3 default memory-dump tropes before generating ideas.</text>
+    <!-- Point 1 -->
+    <text x="28" y="116" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
+    <text x="50" y="116" fill="#ffffff" font-size="13" font-weight="700">Initial Fluency Depletion (Quarantined Tropes)</text>
+    <text x="50" y="136" fill="#e0f2fe" font-size="12">Names and explicitly sets aside the top 2–3 default memory-dump tropes before populating candidates.</text>
 
-    <!-- Bullet 2 -->
-    <circle cx="36" cy="165" r="8" fill="#0d3b28"/>
-    <text x="36" y="169" text-anchor="middle" fill="#10b981" font-size="11" font-weight="800">✓</text>
-    <text x="56" y="169" fill="#e2e8f0" font-size="13" font-weight="600">Causally Diverse Mechanism Ledger (+162% Density)</text>
-    <text x="56" y="187" fill="#94a3b8" font-size="12">Every candidate operates across distinct levers (incentives, queues, information schemas, time, roles).</text>
+    <!-- Point 2 -->
+    <text x="28" y="176" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
+    <text x="50" y="176" fill="#ffffff" font-size="13" font-weight="700">Causally Diverse Mechanism Ledger (+162% Density)</text>
+    <text x="50" y="196" fill="#e0f2fe" font-size="12">Every candidate operates across distinct levers (incentives, queues, information schemas, time, roles, subtraction).</text>
 
-    <!-- Bullet 3 -->
-    <circle cx="36" cy="220" r="8" fill="#0d3b28"/>
-    <text x="36" y="224" text-anchor="middle" fill="#10b981" font-size="11" font-weight="800">✓</text>
-    <text x="56" y="224" fill="#e2e8f0" font-size="13" font-weight="600">Disciplined Turn-1 Restraint (10/10 runs)</text>
-    <text x="56" y="242" fill="#94a3b8" font-size="12">Outputs a concise Preservation Scan, 4 targeted discovery questions, and 3 seeds (&lt;450 tokens).</text>
+    <!-- Point 3 -->
+    <text x="28" y="236" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
+    <text x="50" y="236" fill="#ffffff" font-size="13" font-weight="700">Disciplined Turn-1 Restraint (10/10 Runs)</text>
+    <text x="50" y="256" fill="#e0f2fe" font-size="12">Outputs a concise Preservation Scan, 4 targeted discovery questions, and 3 contrasting seeds (&lt;450 tokens).</text>
 
-    <!-- Bullet 4 -->
-    <circle cx="36" cy="275" r="8" fill="#0d3b28"/>
-    <text x="36" y="279" text-anchor="middle" fill="#10b981" font-size="11" font-weight="800">✓</text>
-    <text x="56" y="279" fill="#e2e8f0" font-size="13" font-weight="600">Spotlight Signals &amp; 1–2 Week Learning Probes</text>
-    <text x="56" y="297" fill="#94a3b8" font-size="12">Preserves human decision agency; concludes with reversible low-cost empirical micro-experiments.</text>
+    <!-- Point 4 -->
+    <text x="28" y="296" fill="#d8ff55" font-size="14" font-weight="700">✓</text>
+    <text x="50" y="296" fill="#ffffff" font-size="13" font-weight="700">Spotlight Signals &amp; 1–2 Week Learning Probes</text>
+    <text x="50" y="316" fill="#e0f2fe" font-size="12">Preserves problem-owner agency; concludes with reversible low-cost micro-experiments instead of roadmaps.</text>
+
+    <!-- Metric Tag -->
+    <rect x="28" y="338" width="464" height="22" rx="2" fill="#0f5a85" stroke="#d8ff55" stroke-width="1"/>
+    <text x="260" y="353" text-anchor="middle" fill="#d8ff55" font-size="10" font-weight="700" class="mono-label">PILOT EFFICIENCY: 2.352 MECHANISMS / 1K TOKENS (+162%)</text>
   </g>
 </svg>
