@@ -6,11 +6,11 @@
 
 **Architecture:** Public development cases and all study protocols live in Git. Restricted validation and sealed-test cases use the same schema but live in an operator-supplied directory outside the repository. Deep cases use fixed disclosure scripts so every condition receives identical information across controlled turns. The study advances through six-case technical feasibility, twelve-case measurement rehearsal, full public development, restricted validation, cross-agent validation, and one sealed test, with explicit gates preventing premature scale or repeated tuning against held-out evidence.
 
-**Tech Stack:** YAML, JSON Schema, Markdown, Python 3.11+, pytest, the `systematic-innovation-bench` CLI from the runner plan, Git
+**Tech Stack:** YAML, JSON Schema, Markdown, CPython 3.13 development runtime with 3.11-3.14 compatibility, uv 0.12.8, pytest, the `systematic-innovation-bench` CLI from the runner plan, Git
 
-**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md`
+**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` and `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`
 
-**Approved Amendments:** The user's 2026-09-01 direction adds controlled multi-turn benchmarking, minimum mechanism quality gates, six-case and twelve-case feasibility stages, and cross-agent validation before the final release report. These later constraints supersede conflicting benchmark language in the specification.
+**Contract Alignment:** Both specifications are approved and authoritative within their scopes. This plan executes them and does not amend or supersede either contract.
 
 ## Global Constraints
 
@@ -52,7 +52,7 @@
 | `benchmark/study/human-calibration.md` | Annotator training, adjudication, and judge acceptance protocol |
 | `benchmark/study/stage-gates.yaml` | Exact six-case, twelve-case, development, validation, cross-agent, and sealed advancement rules |
 | `benchmark/study/release-gates.md` | Ordered development, validation, freeze, sealed-test, and release gates |
-| `benchmark/study/integration-matrix.yaml` | Installation, explicit invocation, and activation claims by host |
+| `benchmark/study/integration-matrix.yaml` | Independent format, installation, discovery, activation, and behavioral-conformance evidence by host |
 | `benchmark/study/cross-agent-study.md` | Protocol for separate host-integration and activation studies |
 | `benchmark/study/LOOP-HANDOFF.md` | Provider-neutral instructions for repeated external execution |
 | `benchmark/src/systematic_innovation_bench/restricted.py` | Private-pack validation and content-free summaries |
@@ -748,11 +748,11 @@ Record candidate digest, pack digest, run digest, gate outcome, exclusions, and 
 3. Modify: `benchmark/study/stage-gates.yaml`
 4. Modify: `benchmark/tests/test_preregistration.py`
 
-**Interfaces:** Separates format compatibility, installation, explicit invocation, automatic activation, and generated-output behavior. Produces a required release-gate result before Task 14 may generate the broad final report.
+**Interfaces:** Separates format conformance, installation, discovery, explicit activation, automatic activation, and behavioral conformance. Produces a required release-gate result before Task 14 may generate the broad final report.
 
 - [ ] **Step 1: Write a failing claim-separation and ordering test**
 
-Require each matrix entry to contain `agent_family`, `host`, `host_version`, `model_family`, `installation_status`, `explicit_invocation`, `automatic_activation`, `behavior_run_id`, `tested_at`, and `limitations`. Reject the broad claim level unless at least three distinct agent or model families have completed behavior tests. Reject `final_report_allowed: true` unless validation passed and `cross_agent_validation.status: passed` appears in `stage-gates.yaml`.
+Require each matrix entry to contain `agent_family`, `host`, `host_version`, `model_family`, `skill_revision`, `artifact_digest`, `format_version`, `format_conformance`, `installation`, `discovery`, `explicit_activation`, `automatic_activation`, `behavioral_conformance`, `installation_procedure`, `invocation_mode`, `test_scenario`, `tested_at`, `review_after`, `run_ids`, `claim_profiles`, and `limitations`. Validate every dimension against its specification-defined states, and reject any implication that one passing dimension causes another to pass. Reject the broad claim profile unless at least three distinct agent or model families have completed behavioral-conformance tests. Reject `final_report_allowed: true` unless validation passed and `cross_agent_validation.status: passed` appears in `stage-gates.yaml`.
 
 - [ ] **Step 2: Run and verify RED**
 
@@ -762,15 +762,15 @@ Expected: failure because the matrix, protocol, and pre-report gate are absent.
 
 - [ ] **Step 3: Write the separate-study protocol**
 
-For each host, first verify installation without behavior claims. Then test valid explicit invocation cases and require 100% activation. Finally run held-out automatic trigger cases without naming the skill and calculate precision and recall. Only after those studies pass should the same host enter an output-quality sample containing both single-turn and controlled multi-turn cases.
+For each host, assess format conformance, installation, discovery, explicit activation, automatic activation where claimed and supported, and behavioral conformance independently. Test valid explicit invocation cases and require 100% activation. Run held-out automatic-trigger cases without naming the skill only where the host claims automatic discovery, then calculate precision and recall. Behavioral-conformance samples contain both single-turn and controlled multi-turn cases and retain their own result even when another dimension fails or is unsupported.
 
 - [ ] **Step 4: Test at least three distinct families**
 
-Select hosts based on actual availability; do not hard-code brand support into the skill. Use the same held-out trigger distribution and the same fixed user disclosures for multi-turn behavior cases. Record host/model version, settings, availability limitations, transcript-protocol checks, and exact result run ID. A format-compatible but unavailable host remains `format-compatible`, not `installation-tested` or `behavior-tested`.
+Select hosts based on actual availability; do not hard-code brand support into the skill. Use the same held-out trigger distribution and the same fixed user disclosures for multi-turn behavior cases. Record host/model version, settings, availability limitations, transcript-protocol checks, and exact result run IDs. Use `not-supported`, `not-claimed`, `not-assessed`, or `stale` exactly where the evidence model requires them; never replace the matrix with a compatibility tier or badge.
 
 - [ ] **Step 5: Apply claim thresholds**
 
-Per behavior-tested host, require automatic activation precision of at least 0.90, recall of at least 0.85, correct explicit invocation in every valid case, and zero controlled-disclosure ordering violations. Report host-specific failures even when pooled performance passes.
+Per host with `behavioral_conformance: passed` that claims automatic activation, require precision of at least 0.90 and recall of at least 0.85. Require correct explicit activation in every valid explicit case and zero controlled-disclosure ordering violations for behavioral conformance. Report every host-specific dimension and failure even when a broad claim profile passes.
 
 - [ ] **Step 6: Keep these results out of the primary effect estimate**
 
@@ -778,7 +778,7 @@ The 100-case primary study uses explicit, controlled condition assignment. Cross
 
 - [ ] **Step 7: Set the pre-report gate and commit**
 
-Set `cross_agent_validation.status: passed` only after the thresholds and three-family requirement pass. If availability prevents three behavior-tested families, record `status: incomplete`; Task 14 may run the sealed test but must not generate a broad cross-agent release report.
+Set `cross_agent_validation.status: passed` only after the thresholds and three-family requirement pass. If availability prevents three distinct families from recording `behavioral_conformance: passed`, record `status: incomplete`; Task 14 may run the sealed test but must not generate a broad cross-agent release report.
 
 ```bash
 cd benchmark
@@ -925,5 +925,5 @@ git commit -m "docs: add benchmark loop handoff"
 - [ ] Reports disclose quality, safety, efficiency, failures, disagreement, deviations, and null or negative results.
 - [ ] Claims say “systematic ideation performance,” never “proven innovation.”
 - [ ] The external handoff can run without provider-specific SDKs or access to hidden repository content.
-- [ ] Installation, activation, host integration, and output-quality claims remain separate and at least three families are behavior-tested before any broad cross-agent claim.
+- [ ] Format, installation, discovery, explicit activation, automatic activation, and behavioral-conformance claims remain separate, and at least three distinct families record `behavioral_conformance: passed` before any broad cross-agent claim.
 - [ ] Cross-agent validation completed before the broad final release report was generated.

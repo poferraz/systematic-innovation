@@ -6,11 +6,11 @@
 
 **Architecture:** The installable skill lives under `skills/systematic-innovation/` and contains a concise router plus four conditional references. A small standard-library validator checks structure and portability. Behavioral RED and GREEN outputs are preserved separately from the skill so the instructions are written in response to observed failures rather than intuition alone.
 
-**Tech Stack:** Open Agent Skills Markdown, Python 3.11 standard library, `unittest`, JSON, Git
+**Tech Stack:** Open Agent Skills Markdown, CPython 3.13 standard library with 3.11-3.14 compatibility, `unittest`, JSON, Git
 
-**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md`
+**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` and `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`
 
-**Approved Amendments:** The user's 2026-09-01 direction adds controlled multi-turn benchmarking, minimum mechanism quality gates, six-case and twelve-case feasibility stages, and cross-agent validation before the final release report. These later constraints supersede conflicting benchmark language in the specification.
+**Contract Alignment:** Both specifications are approved and authoritative within their scopes. This plan executes them and does not amend or supersede either contract.
 
 ## Global Constraints
 
@@ -350,7 +350,7 @@ Keep detailed cell operators, Deep questions, portfolio templates, and evidence 
 
 - [ ] **Step 3: Write `innovation-lenses.md`**
 
-Define the seven Reasoning Cells, ten lenses, cell output contract, parallel and sequential fallback, mechanism-ledger fields, structural dimensions, duplicate test, cross-pollination, and Provocation boundaries.
+Define the seven Reasoning Cells, ten lenses (including multiple redefinition across analytic, empathic, motivational, metaphorical, and boundary-relaxed modes, and synectic excursions), initial fluency depletion (discarding top-of-mind memory-dump tropes before ledger entry), cell output contract, parallel and sequential fallback, mechanism-ledger fields, structural dimensions, duplicate test, cross-pollination, and Provocation boundaries.
 
 - [ ] **Step 4: Write `deep-mode.md`**
 
@@ -358,11 +358,11 @@ Define the question-value test, up-to-seven limit, contrasting provisional seeds
 
 - [ ] **Step 5: Write `output-contract.md`**
 
-Define the six disclosure layers, Quick and Deep quantity targets, saturation stop, portfolio tags as non-quotas, spotlight signals, receptivity notes, and prohibited implementation drift.
+Define the six disclosure layers, Quick and Deep quantity targets, saturation stop, portfolio tags as non-quotas, spotlight signals, receptivity notes (including Rickards's three problem-owner questions, mission-orientated versus negotiative versus participative boundary modes, and *Yes-but* inoculation), and prohibited implementation drift.
 
 - [ ] **Step 6: Write `evidence.md`**
 
-Create separate tables for verified principles, adapted methods, and original AI mechanisms. Include source links from section 31 of the specification. Explicitly mark reconstructed Rickards framework names and the twelve-chapter table as unverified and excluded.
+Create separate tables for verified principles, adapted methods, and original AI mechanisms. Include the verified nine-chapter bibliographic structure and figures of Rickards (1985), *Stimulating Innovation: A Systems Approach* (Frances Pinter, London, `pp. xi + 221`, ISBN `0-86187-512-5`), and source links from section 31 of the specification. Explicitly mark reconstructed Rickards framework names and the twelve-chapter table as unverified and excluded.
 
 - [ ] **Step 7: Run validation and verify GREEN**
 

@@ -6,11 +6,11 @@
 
 **Architecture:** A Python package under `benchmark/` owns typed records, case validation, job planning, controlled conversation state, append-only storage, adapters, scoring, statistics, and reporting. Multi-turn cases replay the same fixed user-disclosure schedule in every condition, and the final portfolio is scored while all assistant tokens count toward efficiency. The default inbox/outbox protocol works with any external tool capable of reading and writing JSONL, while a constrained subprocess adapter supports local coding-agent CLIs without embedding provider-specific logic in the core.
 
-**Tech Stack:** Python 3.11+, Pydantic 2, PyYAML 6, NumPy 2, pytest 8, Ruff, Mypy, JSONL, Markdown
+**Tech Stack:** CPython 3.13 development runtime with 3.11-3.14 compatibility, uv 0.12.8, Pydantic 2, PyYAML 6, NumPy 2, pytest 8, Ruff, Mypy, JSONL, Markdown
 
-**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md`
+**Spec:** `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` and `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`
 
-**Approved Amendments:** The user's 2026-09-01 direction adds controlled multi-turn benchmarking, minimum mechanism quality gates, six-case and twelve-case feasibility stages, and cross-agent validation before the final release report. These later constraints supersede conflicting benchmark language in the specification.
+**Contract Alignment:** Both specifications are approved and authoritative within their scopes. This plan executes them and does not amend or supersede either contract.
 
 ## Global Constraints
 
@@ -613,8 +613,9 @@ git commit -m "feat: secure local benchmark adapters"
 1. Produces: `score_deterministic(job, response) -> dict[str, float | int | bool]`.
 2. Produces: `mechanism_signature(mechanism: Mechanism) -> tuple[str, ...]`.
 3. Produces: `passes_quality_gate(quality: MechanismQuality) -> bool`.
-4. Produces: `distinct_mechanism_count(mechanisms: Sequence[Mechanism]) -> int` for the disclosed raw count.
+4. Produces: `distinct_mechanism_count(mechanisms: Sequence[Mechanism]) -> int` for the disclosed raw count (using normalized structural signatures plus semantic/token-jaccard equivalence clustering so free-text phrasing variations of the same causal mechanism collapse into one family).
 5. Produces: `qualified_distinct_mechanism_count(mechanisms: Sequence[Mechanism]) -> int` for the primary numerator.
+6. Produces: `vendi_score(mechanisms: Sequence[Mechanism]) -> float` (judge-free eigenvalue entropy $\exp(-\sum_i \lambda_i \log \lambda_i)$ of the normalized mechanism similarity matrix $K/n$) and `bipartite_mechanism_recovery(candidates: Sequence[Mechanism], gold_mechanisms: Sequence[str], threshold: float = 0.5) -> dict[str, float | int]` (one-to-one maximum-weight Hungarian matching).
 
 - [ ] **Step 1: Write failing deterministic tests**
 
@@ -622,7 +623,7 @@ Test status, per-turn and total token counts, latency, output presence, requeste
 
 - [ ] **Step 2: Write failing mechanism tests**
 
-Use fixtures where two differently named ideas share the same intervention, actor, flow, and effect; require one raw mechanism family. Use fixtures with a different causal flow but similar wording; require two raw families. Add exact quality-gate fixtures:
+Use fixtures where two differently named ideas share the same intervention, actor, flow, and effect (including paraphrased free-text descriptions of the same flow and operation); require one raw mechanism family. Use fixtures with a different causal flow but similar wording; require two raw families. Test that `vendi_score` returns `1.0` for identical mechanisms and `N` for orthogonal mechanisms, and that `bipartite_mechanism_recovery` enforces one-to-one matching so multiple paraphrases of one hidden mechanism count at most once. Add exact quality-gate fixtures:
 
 ```python
 def test_minimum_quality_gate_is_conjunctive():
@@ -653,9 +654,9 @@ Run: `cd benchmark && uv run pytest tests/test_deterministic_scoring.py tests/te
 
 Expected: import failure.
 
-- [ ] **Step 4: Implement objective checks and structured signatures**
+- [ ] **Step 4: Implement objective checks, equivalence clustering, Vendi Score, and bipartite matching**
 
-Mechanism identity uses normalized intervention point, changed flow, causal operation, and intended effect. Actor changes alone create variants unless a second structural dimension changes. `passes_quality_gate` returns true only for relevance at least 2 of 3, constraint alignment at least 2 of 3, causal clarity at least 2 of 3, plausibility at least 1 of 3, and no critical safety or rights violation. Preserve every extracted candidate and raw family before filtering. Apply the gate to candidates, then deduplicate the qualifying candidates by causal signature. Keep the semantic ratings outside deterministic extraction and preserve their judge evidence.
+Mechanism identity combines normalized intervention point, changed flow, causal operation, and intended effect with token/semantic equivalence clustering so paraphrased free-text extractions of the same causal mechanism merge into one family. Actor changes alone create variants unless a second structural dimension changes. `passes_quality_gate` returns true only for relevance at least 2 of 3, constraint alignment at least 2 of 3, causal clarity at least 2 of 3, plausibility at least 1 of 3, and no critical safety or rights violation. Preserve every extracted candidate and raw family before filtering. Apply the gate to candidates, then deduplicate the qualifying candidates by causal signature and equivalence cluster. Implement `vendi_score` via eigenvalues of the normalized similarity matrix $K/n$ and `bipartite_mechanism_recovery` via one-to-one maximum-weight assignment. Keep the semantic ratings outside deterministic extraction and preserve their judge evidence.
 
 - [ ] **Step 5: Run tests and commit**
 

@@ -4,7 +4,7 @@
 
 **Context established:** 2026-09-01
 
-**Status:** Git history recovered; behavioral and repository-architecture specifications approved; coordinated implementation planning is next; implementation has not started
+**Status:** Behavioral and repository-architecture specifications approved with 2026-10-17 primary-source and quantitative benchmark amendments; coordinated and component plans aligned; Phase 1 implementation (core skill + 12-case empirical pilot) authorized
 
 **Purpose of this file:** Preserve the original intent, reasoning, evidence boundaries, decision history, and current state so a future person or coding agent can resume without relying on conversation memory.
 
@@ -19,9 +19,10 @@ Use this reading order:
 1. `CONTEXT.md` for intent, history, rationale, boundaries, and current state.
 2. `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` for the approved behavioral and evaluation design.
 3. `docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md` for the approved repository architecture.
-4. `docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md` for skill implementation tasks.
-5. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md` for benchmark-runner implementation tasks.
-6. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md` for corpus, study, calibration, staged execution, and reporting tasks.
+4. `docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md` for cross-plan ownership and execution order.
+5. `docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md` for skill implementation tasks.
+6. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md` for benchmark-runner implementation tasks.
+7. `docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md` for corpus, study, calibration, staged execution, and reporting tasks.
 
 If these documents appear to conflict, do not silently choose one. Identify the conflict and resolve it with the project owner. Later explicit approved decisions supersede earlier language, but they should be incorporated into the affected documents rather than left as oral history.
 
@@ -95,11 +96,25 @@ This produced the project's three provenance classes:
 
 | Class | Meaning | Examples |
 | --- | --- | --- |
-| Verified principles | Principles supported by reliable sources | Systemic innovation, mental stuckness, reframing before ideation, creative climate, divergent versus convergent work, purpose connection, preservation of existing value |
-| Adapted methods | Established techniques used in an adapted AI workflow | Objective laddering, assumption reversal, analogy, morphological recombination, constraint transformation, leverage analysis, stakeholder and incentive analysis |
+| Verified principles | Principles supported by reliable sources | Systemic innovation, mental stuckness, reframing before ideation, creative climate, divergent versus convergent work, purpose connection, preservation of existing value, search constrained by a selection environment, three problem-owner questions, mission-orientated versus negotiative versus participative boundary modes, initial fluency depletion |
+| Adapted methods | Established techniques used in an adapted AI workflow | Objective laddering, multiple redefinition modes, assumption reversal, synectic excursions and analogy, morphological recombination, constraint transformation, leverage analysis, stakeholder and incentive analysis |
 | Original AI mechanisms | Behaviors designed specifically for this skill | Adaptive Quick and Deep routing, Reasoning Cells, mechanism ledger, mechanism-level duplicate detection, saturation stopping, progressive disclosure, capability fallback |
 
 Normal outputs should use concise method labels. Detailed provenance can be supplied when requested. The internal evidence reference must preserve the three-way distinction.
+
+### 4.5 Primary-Source Book Scan and Empirical R&D Literature (Verified 2026-10-17)
+
+On 2026-10-17, a 10-page owner scan of Tudor Rickards's 1985 book *Stimulating Innovation: A Systems Approach* (Frances Pinter, London, `pp. xi + 221`, ISBN `0-86187-512-5`) was audited alongside Rickards's empirical studies (*R&D Management* 1973, 1975; *Journal of Management Studies* 1978; *Contemporary Psychology* review by Rousseau 1987).
+
+The scan verified the exact nine-chapter structure and twelve figures of the 1985 book (confirming that the earlier twelve-chapter table in the unverified research report was a hallucination and remains excluded) and established four primary-source concepts from Chapter 6, Chapter 8 (*Ideas into action*, pp. 158–163), and the R&D studies:
+
+1. **Search/select sequences inside a selection environment:** Innovation is modeled as coupled search and selection under uncertainty constrained by an organizational selection environment (Figure 2.3 and Figure 6.1).
+2. **Three problem-owner questions (p. 160):** Closing down under uncertainty for a bounded problem-owner centers on: (a) Is the idea new to the problem-owner/system? (b) Is it relevant to the mission or project goal? (c) Is it actionable through the problem-owner's own resources?
+3. **Sub-system overflow and three action modes (pp. 159–163):** Solving sub-problems within local boundaries fails when systemic problems overflow spheres of responsibility (the problem of integration). Rickards distinguishes:
+   - *Contractual / mission-orientated:* Clearly bounded mission and problem-owner with actionable local resources.
+   - *Negotiative:* Two or more interest groups share neither goals nor beliefs about how goals are reached; requires challenging the initial brief and finding creative win-win resolutions where new goals emerge rather than splitting the difference.
+   - *Participative:* Shared system-wide mission where specific goals emerge through discovery and felt needs (Action Research tradition).
+4. **Initial fluency depletion and the Yes-But reflex (p. 159; Rickards 1975, 1978):** Conventional brainstorming produces top-of-mind memory dumps with low speculation until structural operators (multiple redefinition across analytic, empathic, motivational, metaphorical, and boundary-relaxed modes; morphological synthesis; synectic excursions) intervene. New ideas also face habitual *Yes-but* rejection before receiving a fair hearing.
 
 ## 5. Design Interview and Resulting Direction
 
@@ -670,7 +685,18 @@ The underlying benchmark decisions were already explicitly owner-approved and re
 4. cross-agent validation before a broad cross-agent final release report; and
 5. the compatibility matrix and restricted-evidence feedback and execution boundaries required by the approved repository architecture.
 
-The three implementation plans were not edited. The owner approved the consolidated written behavioral amendment on 2026-09-01. This closes the behavioral-contract reconciliation gate and authorizes coordinated implementation planning.
+The three implementation plans were not edited during the 2026-09-01 amendment commit, and were subsequently updated in the working tree alongside `docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md`.
+
+### 19.5 Primary-Source Verification, Quantitative Benchmark Audit, and Phase 1 Authorization (2026-10-17)
+
+On 2026-10-17, the owner requested a comprehensive audit of the approved specifications and plans alongside deep research into Tudor Rickards's book, the methodology, empirical LLM ideation literature (2024–2026), and quantitative benchmarking methods.
+
+The audit identified four actionable improvements, all of which the owner explicitly approved on 2026-10-17:
+
+1. **Primary-source enrichment from the scanned 1985 book (`Ideas in Action - Stimulating Innovation - Tudor Rickards.pdf`):** Incorporate the verified nine-chapter bibliographic structure and figures in `references/evidence.md`; Rickards's three problem-owner questions (p. 160), his mission-orientated versus negotiative versus participative boundary-overflow modes (pp. 159–163), and *Yes-but* inoculation (p. 159) in `references/output-contract.md`; and initial fluency depletion (Rickards 1975, 1978), multiple redefinition modes, and synectic excursions in `references/innovation-lenses.md`.
+2. **Fix for free-text string-tuple mechanism deduplication:** Replace naive raw-string tuple equality alone with normalized structural signatures plus semantic/equivalence clustering so free-text phrasing variations of the same causal mechanism do not artificially inflate distinct-mechanism counts.
+3. **Judge-free mathematical diversity and ground-truth recovery metrics:** Report the Vendi Score ($\text{VS}_k$, eigenvalue entropy of the mechanism similarity kernel, Friedman & Dieng 2023) and duplicate collapse ratio as judge-free mathematical diversity measures, and use one-to-one bipartite Hungarian matching for hidden-mechanism recovery in synthetic and counterfactual-rediscovery cases so multiple paraphrases of one known mechanism cannot inflate recall.
+4. **Phased execution to produce empirical numbers early:** Authorize immediate execution of Phase 1 (aligning and committing specifications/plans, establishing root authority routing, building the 12-case RED/GREEN pilot corpus and skill validator, running the no-skill RED baseline and format-matched control, authoring `skills/systematic-innovation/`, and running the GREEN evaluation to report paired quantitative numbers).
 
 ## 20. Current Repository-Quality Intent
 
@@ -709,11 +735,11 @@ It was required to:
 
 The first deliverable of that session was a reasoned recommendation, not a construction checklist.
 
-### 21.1 Outcome of the 2026-09-01 Design Session
+### 21.1 Outcome of the 2026-09-01 and 2026-10-17 Sessions
 
-The session described above was completed. It inspected the complete local Clief Notes Method repository, the current Prime Agent repository, current primary GitHub and Agent Skills guidance, and the existing project contract and plans. It separated observed practices from transferable principles, presented three adaptation approaches, and recommended Approach B.
+The 2026-09-01 session inspected the complete local Clief Notes Method repository, the current Prime Agent repository, current primary GitHub and Agent Skills guidance, and the existing project contract and plans. It separated observed practices from transferable principles, presented three adaptation approaches, and recommended Approach B.
 
-The owner approved Approach B and the three decisions recorded in section 19.1, approved correcting all six findings from the independent audit recorded in section 19.3, approved the revised written repository-architecture specification, and approved the consolidated behavioral amendment recorded in section 19.4. The current phase is coordinated implementation planning. Implementation has not been authorized.
+The owner approved Approach B and the three decisions recorded in section 19.1, approved correcting all six findings from the independent audit recorded in section 19.3, approved the revised written repository-architecture specification, and approved the consolidated behavioral amendment recorded in section 19.4. On 2026-10-17, following the primary-source book scan and quantitative benchmark audit recorded in sections 4.5 and 19.5, the owner approved the primary-source and quantitative benchmark amendments and authorized Phase 1 implementation.
 
 ## 22. Change Control for This Context
 

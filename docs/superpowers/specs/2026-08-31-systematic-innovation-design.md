@@ -53,27 +53,28 @@ The skill uses three provenance classes.
 
 ### 4.1 Verified principles
 
-These are principles supported by reliable sources:
+These are principles supported by reliable sources, including verified primary-source excerpts from Tudor Rickards's *Stimulating Innovation: A Systems Approach* (Frances Pinter, London, 1985) and empirical R&D studies (Rickards 1973, 1975; Rickards & Freedman 1978):
 
-1. Innovation is systemic rather than exclusively individual.
-2. Mental stuckness and habitual framing obstruct creative progress.
-3. Problem reframing should precede solution generation.
-4. Creative thinking interacts with organizational context and climate.
-5. Divergent exploration and convergent evaluation serve different purposes.
-6. Meaningful innovation connects to a clear purpose, need, or performance objective.
+1. Innovation is systemic rather than exclusively individual, operating as search and selection constrained by an organizational selection environment.
+2. Mental stuckness, habitual framing, and initial top-of-mind fluency depletion obstruct speculative progress unless structural operators intervene.
+3. Problem reframing and boundary examination should precede solution generation.
+4. Creative thinking interacts with organizational context, climate, and defensive routines such as automatic *Yes-but* rejection.
+5. Divergent exploration (search) and convergent evaluation (closing down under uncertainty) serve different purposes.
+6. Meaningful innovation connects to a clear purpose, need, or performance objective and is tested for a bounded problem-owner by three questions: Is it new to the system, relevant to the goal, and actionable with available resources?
 7. Existing strengths and legitimate constraints should not be discarded merely to appear novel.
+8. Sub-system problem solving cannot achieve system-wide change when problems overflow authority boundaries; action strategies differ across contractual/mission-orientated, negotiative (creative win-win goal emergence across conflicting groups), and participative (discovery from felt needs) modes.
 
 ### 4.2 Adapted methods
 
 The skill may use established methods with accurate attribution when detailed provenance is requested:
 
-1. Objective laddering and reframing.
+1. Objective laddering and multiple problem redefinition (analytic, empathic, motivational, metaphorical, and boundary-relaxed modes).
 2. Assumption reversal.
 3. Morphological recombination.
-4. Synectics and analogy.
+4. Synectic excursions and analogy.
 5. Constraint transformation.
 6. Feedback and leverage analysis.
-7. Stakeholder and incentive analysis.
+7. Stakeholder, incentive, and boundary-integration analysis.
 8. Sustaining and disruptive innovation distinctions.
 
 ### 4.3 Original AI mechanisms
@@ -89,7 +90,7 @@ The following are project-original behavioral mechanisms:
 7. Progressive output disclosure.
 8. Cross-agent capability fallback.
 
-Normal user output shows concise method labels. Detailed sources are provided on request. The internal evidence reference must separate verified claims, adapted methods, and original mechanisms.
+Normal user output shows concise method labels. Detailed sources are provided on request. The internal evidence reference must separate verified claims, adapted methods, and original mechanisms, include the verified nine-chapter bibliographic structure of Rickards (1985), and explicitly exclude the unverified twelve-chapter reconstruction.
 
 ## 5. Core Behavioral Architecture
 
@@ -210,18 +211,18 @@ Provocation mode requires Contrarian and Boundary Reframing. It challenges assum
 
 Cells select from these operators as appropriate:
 
-1. Objective reframing.
+1. Objective reframing and multiple redefinition (analytic, empathic, motivational, metaphorical, and boundary-relaxed formulations).
 2. System and feedback analysis.
 3. Constraint removal, inversion, exploitation, or redesign.
 4. Assumption reversal.
 5. Morphological recombination.
-6. Analogy and mechanism transfer.
+6. Synectic excursions and mechanism transfer.
 7. Stakeholder or decision-right inversion.
 8. Temporal transformation.
 9. Scale transformation.
 10. Subtraction.
 
-Lenses are selected for the challenge rather than used as a mandatory checklist.
+Lenses are selected for the challenge rather than used as a mandatory checklist. Before recording candidates in the ledger, cells explicitly deplete and discard top-of-mind conventional memory-dump associations so that recorded possibilities reflect structural operator transformations.
 
 ## 11. Mechanism Ledger
 
@@ -309,12 +310,12 @@ The user may expand, compare, combine, challenge, or generate another cell pass.
 
 Every possibility receives a concise note covering:
 
-1. Required cooperation.
-2. Principal resistance.
+1. Required cooperation and system boundary mode (*mission-orientated* within a single problem-owner's resources, *negotiative* across conflicting interest groups requiring creative win-win goal emergence, or *participative* emerging through system-wide discovery and felt needs).
+2. Principal resistance and likely *Yes-but* reflex.
 3. Preservation risk.
 4. Major unknown.
 
-Spotlighted possibilities may additionally identify supporting and opposing incentives, structural dependencies, required capabilities, burdens of change, negative externalities, and existing strengths used or protected.
+Spotlighted possibilities additionally evaluate the three problem-owner questions (new to the system, relevant to the mission/goal, actionable with available resources), identify supporting and opposing incentives, structural dependencies, required capabilities, burdens of change, negative externalities, existing strengths used or protected, and how the core mechanism can survive initial *Yes-but* rejection.
 
 The skill may identify several different signals, including strongest fit, boldest departure, lowest friction, highest upside, highest uncertainty, and best combination candidate. It does not aggregate these into a universal ranking or declare a winner.
 
@@ -455,7 +456,7 @@ Scoring distinguishes:
 4. Relevant but weak mechanism.
 5. Invalid or irrelevant output.
 
-Valid alternatives receive credit and review. Failure to reproduce the expected wording is not failure.
+Valid alternatives receive credit and review. Failure to reproduce the expected wording is not failure. Hidden-mechanism recovery uses one-to-one maximum-weight bipartite matching (the Hungarian algorithm) between extracted candidate mechanisms and the known ground-truth mechanisms so multiple paraphrases of one known mechanism cannot inflate recall.
 
 ## 21. Benchmark Outcomes
 
@@ -478,19 +479,20 @@ Raw extracted mechanisms, raw distinct families, qualified candidates, qualified
 ### 21.2 Confirmatory secondary endpoints
 
 1. Total distinct mechanism count.
-2. Useful mechanism proportion.
-3. Duplicate reduction.
-4. Genericity reduction.
-5. Constraint responsiveness.
-6. System awareness.
-7. Preservation awareness.
-8. Ideation-scope compliance.
-9. Hidden-mechanism recovery.
-10. Human pairwise preference.
+2. Judge-free mathematical mechanism diversity via the Vendi Score ($\text{VS}_k$, eigenvalue entropy of the normalized mechanism similarity kernel) and duplicate collapse ratio.
+3. Useful mechanism proportion.
+4. Duplicate reduction.
+5. Genericity reduction.
+6. Constraint responsiveness.
+7. System awareness.
+8. Preservation awareness.
+9. Ideation-scope compliance.
+10. Hidden-mechanism recovery (via one-to-one bipartite Hungarian matching).
+11. Human and length-controlled pairwise preference.
 
 ### 21.3 Exploratory endpoints
 
-1. Receptivity analysis.
+1. Receptivity and boundary-mode analysis (mission-orientated, negotiative, participative).
 2. Cross-domain transfer.
 3. Provocation quality.
 4. Combination quality.
@@ -515,9 +517,9 @@ Evaluation uses four layers.
 
 Record completion, required fields, idea counts, token use, latency, scope violations, hidden identifiers, errors, and metadata.
 
-### 22.2 Structured mechanism extraction
+### 22.2 Structured mechanism extraction and equivalence clustering
 
-Normalize each candidate into intervention point, actor, changed flow, causal mechanism, intended effect, and principal constraint. Semantic clustering assists but does not decide mechanism identity alone.
+Normalize each candidate into intervention point, actor, changed flow, causal mechanism, intended effect, and principal constraint. Because free-text extraction of the same underlying mechanism can vary in phrasing, mechanism family identity combines normalized structural signatures with semantic/equivalence clustering rather than relying solely on brittle exact string-tuple equality. Also compute the judge-free Vendi Score ($\text{VS}_k = \exp(-\sum_i \lambda_i \log \lambda_i)$) over the mechanism similarity kernel matrix $K/n$ to quantify effective unique mechanisms independently of LLM judge ratings.
 
 ### 22.3 Blind LLM judging
 
@@ -723,3 +725,11 @@ The initial release is ready when:
 10. [Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena](https://arxiv.org/abs/2306.05685)
 11. [LiveBench](https://arxiv.org/abs/2406.19314)
 12. [LiveIdeaBench](https://arxiv.org/abs/2412.17596)
+13. [Tudor Rickards (1975), Brainstorming: An examination of idea production rate and level of speculation in real managerial situations, *R&D Management*](https://doi.org/10.1111/j.1467-9310.1975.tb01238.x)
+14. [Tudor Rickards & B. L. Freedman (1978), Procedures for managers in idea-deficient situations, *Journal of Management Studies*](https://doi.org/10.1111/j.1467-6486.1978.tb00908.x)
+15. [Denise M. Rousseau (1987), Unfreezing Perspectives on Innovation (Review of Rickards 1985), *Contemporary Psychology*](https://doi.org/10.1037/026952)
+16. [The Vendi Score: A Diversity Evaluation Metric for Machine Learning](https://arxiv.org/abs/2210.02410)
+17. [NoveltyBench: Evaluating Language Models for Humanlike Diversity](https://arxiv.org/abs/2504.05228)
+18. [MacGyver: Are Large Language Models Creative Problem Solvers?](https://arxiv.org/abs/2311.09682)
+19. [SciMON: Scientific Inspiration Machines Optimized for Novelty](https://arxiv.org/abs/2305.14259)
+20. [Length-Controlled AlpacaEval: A Simple Way to Debias Automatic Evaluators](https://arxiv.org/abs/2404.04475)
