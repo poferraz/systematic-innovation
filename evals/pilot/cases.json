@@ -1,0 +1,192 @@
+{
+  "version": "1.0.0",
+  "cases": [
+    {
+      "id": "retail-retention",
+      "domain": "commercial-retail",
+      "prompt": "Our furniture store sells well, but strong salespeople stop sharing information because commission rewards individual performance. Help me find innovative ways to improve teamwork without removing commission.",
+      "expected_mode": "deep",
+      "interaction_mode": "controlled-multi-turn",
+      "user_turns": [
+        "Additional context: customer ownership and individual accountability are valuable and must remain. The main failures are hoarded product knowledge, weak handoffs on days off, and resentment when one person helps another close.",
+        "Final context: managers can change team routines and recognition, but cannot remove commission or add substantial payroll. Produce your final portfolio now using all available information."
+      ],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "missing_preservation",
+        "missing_system_map",
+        "premature_winner"
+      ]
+    },
+    {
+      "id": "permit-wait",
+      "domain": "public-sector",
+      "prompt": "A city wants to reduce small-business permit wait times while preserving safety review and public accountability. Generate meaningfully different approaches.",
+      "expected_mode": "deep",
+      "interaction_mode": "controlled-multi-turn",
+      "user_turns": [
+        "Additional context: applicants repeat the same information across departments, while reviewers discover missing evidence late. Safety specialists are scarce and elected officials require an auditable decision trail.",
+        "Final context: the city can change sequencing, intake, triage, and information flow, but statutory reviews and public records must remain. Produce your final portfolio now using all available information."
+      ],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "missing_preservation",
+        "missing_system_map"
+      ]
+    },
+    {
+      "id": "ignored-reminders",
+      "domain": "healthcare-behavior",
+      "prompt": "Users keep ignoring our medication reminder app. Give me fresh ideas that are not just more notifications, badges, or AI personalization.",
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "unsafe_provocation"
+      ]
+    },
+    {
+      "id": "release-bottleneck",
+      "domain": "software-engineering",
+      "prompt": "A software team releases once every eight weeks because testing, compliance, and operations sign-off happen sequentially. Brainstorm systemic alternatives.",
+      "expected_mode": "deep",
+      "interaction_mode": "controlled-multi-turn",
+      "user_turns": [
+        "Additional context: the same evidence is recreated for testing, compliance, and operations. Most releases are low risk, but every release follows the process designed for the highest-risk change.",
+        "Final context: the team may redesign evidence, sequencing, ownership, and release boundaries, but cannot bypass mandatory controls. Produce your final portfolio now using all available information."
+      ],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "missing_system_map",
+        "implementation_drift"
+      ]
+    },
+    {
+      "id": "teacher-fatigue",
+      "domain": "education",
+      "prompt": "Teachers are exhausted by disconnected innovation initiatives. How could a school district improve student support without launching another burdensome program?",
+      "expected_mode": "deep",
+      "interaction_mode": "controlled-multi-turn",
+      "user_turns": [
+        "Additional context: teachers value peer support and local discretion. Previous programs added reporting and meetings but rarely removed older work.",
+        "Final context: the district has no new permanent staff budget and must preserve safeguarding and equitable student access. Produce your final portfolio now using all available information."
+      ],
+      "should_trigger": true,
+      "target_failures": [
+        "missing_preservation",
+        "genericity",
+        "duplicate_mechanisms",
+        "premature_winner"
+      ]
+    },
+    {
+      "id": "food-bank-mismatch",
+      "domain": "nonprofit-logistics",
+      "prompt": "Our food bank receives plenty of donations, but not the items families need when they need them. We have almost no technology budget.",
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "missing_system_map"
+      ]
+    },
+    {
+      "id": "meal-planning",
+      "domain": "personal-systems",
+      "prompt": "I keep buying groceries with good intentions and wasting food by the end of the week. Help me invent a better personal system.",
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "question_overload"
+      ]
+    },
+    {
+      "id": "warehouse-returns",
+      "domain": "operations-supply-chain",
+      "prompt": "Returned products sit for weeks before anyone decides whether to restock, repair, discount, or discard them. Find non-obvious operational models.",
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "implementation_drift"
+      ]
+    },
+    {
+      "id": "library-access",
+      "domain": "civic-community",
+      "prompt": "A rural library wants to expand access for people who cannot visit during opening hours, but it cannot hire more staff or weaken privacy.",
+      "expected_mode": "deep",
+      "interaction_mode": "controlled-multi-turn",
+      "user_turns": [
+        "Additional context: many affected residents have unreliable internet, limited transport, or shift work. Staff already handle outreach informally, which creates inconsistent service and burnout.",
+        "Final context: the library can change partnerships, scheduling, service boundaries, and circulation models, but cannot weaken patron privacy or add permanent staff. Produce your final portfolio now using all available information."
+      ],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "duplicate_mechanisms",
+        "missing_preservation",
+        "missing_system_map"
+      ]
+    },
+    {
+      "id": "provocation",
+      "domain": "customer-service",
+      "prompt": "Use Provocation mode on the assumption that a customer-support department must answer every customer question itself.",
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": true,
+      "target_failures": [
+        "genericity",
+        "unsafe_provocation",
+        "false_attribution"
+      ]
+    },
+    {
+      "id": "fact-lookup",
+      "domain": "knowledge-retrieval",
+      "prompt": "What is the difference between sustaining and disruptive innovation?",
+      "expected_mode": "none",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": false,
+      "target_failures": [
+        "incorrect_trigger",
+        "question_overload"
+      ]
+    },
+    {
+      "id": "implementation-only",
+      "domain": "software-delivery",
+      "prompt": "We selected a self-service returns portal. Create the implementation tickets and database schema.",
+      "expected_mode": "none",
+      "interaction_mode": "single-turn",
+      "user_turns": [],
+      "should_trigger": false,
+      "target_failures": [
+        "incorrect_trigger",
+        "implementation_drift"
+      ]
+    }
+  ]
+}
