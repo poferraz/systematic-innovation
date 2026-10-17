@@ -30,6 +30,43 @@ class CanonicalSkillPortabilityTests(unittest.TestCase):
         errors = validate_skill(SKILL_DIR)
         self.assertEqual(errors, [])
 
+    def test_readme_has_required_sections_and_empirical_benchmarks(self) -> None:
+        root = SKILL_DIR.parent.parent
+        readme_path = root / "README.md"
+        self.assertTrue(readme_path.is_file(), "README.md is missing")
+        content = readme_path.read_text(encoding="utf-8")
+        required_substrings = [
+            "systematic-innovation",
+            "Value Proposition",
+            "Quick Mode",
+            "Deep Mode",
+            "Installation",
+            "Supported Standard",
+            "Methodology",
+            "Evidence Limits",
+            "Empirical Benchmark",
+        ]
+        for sub in required_substrings:
+            self.assertIn(sub.lower(), content.lower(), f"README.md missing section or concept: {sub}")
+
+    def test_license_is_valid_mit(self) -> None:
+        root = SKILL_DIR.parent.parent
+        license_path = root / "LICENSE"
+        self.assertTrue(license_path.is_file(), "LICENSE is missing")
+        content = license_path.read_text(encoding="utf-8")
+        self.assertIn("MIT License", content)
+        self.assertIn("Permission is hereby granted, free of charge", content)
+
+    def test_security_policy_covers_reporting_and_isolation(self) -> None:
+        root = SKILL_DIR.parent.parent
+        sec_path = root / "SECURITY.md"
+        self.assertTrue(sec_path.is_file(), "SECURITY.md is missing")
+        content = sec_path.read_text(encoding="utf-8")
+        self.assertIn("Security", content)
+        self.assertIn("Reporting", content)
+        self.assertIn("credentials", content.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
+
