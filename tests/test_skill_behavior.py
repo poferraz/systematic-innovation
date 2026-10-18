@@ -43,6 +43,7 @@ class SkillBehaviorContractTests(unittest.TestCase):
         self.assertIn("supersedes the normal Six Disclosure Layers formatting", contract)
         self.assertIn("Each candidate line at most 30 visible words including labels", contract)
         self.assertIn("omit optional assumption and failure prose", contract)
+        self.assertIn("L6: ... (user-directed continuation; no automatic experiments)", contract)
 
     def test_impossible_constraints_do_not_become_noncompliant_candidates(self) -> None:
         contract = read("references/output-contract.md")
@@ -62,8 +63,9 @@ class SkillBehaviorContractTests(unittest.TestCase):
             self.assertIn(anchor, contract)
         self.assertIn("every Layer 1 preservation invariant", contract)
 
-    def test_learning_probes_are_falsifiable_with_bounds_and_fallback(self) -> None:
+    def test_requested_experiments_are_falsifiable_with_bounds_and_fallback(self) -> None:
         contract = read("references/output-contract.md")
+        self.assertIn("Only when the user explicitly requests experiments", contract)
         for anchor in (
             "quantitative disconfirmation threshold",
             "sample or observation bound",
@@ -73,6 +75,119 @@ class SkillBehaviorContractTests(unittest.TestCase):
             self.assertIn(anchor, contract)
         self.assertIn("Reject or revise the mechanism if", contract)
 
+
+    def test_portfolio_targets_match_approved_specification(self) -> None:
+        skill = read("SKILL.md")
+        contract = read("references/output-contract.md")
+        self.assertIn("**10 to 15 distinct possibilities**", skill)
+        self.assertIn("**15 to 24 distinct possibilities**", skill)
+        self.assertIn("**Quick Mode:** **10 to 15**", contract)
+        self.assertIn("**Deep Mode:** **15 to 24**", contract)
+        self.assertIn("targets, not quotas", contract)
+
+    def test_deep_discovery_asks_one_question_at_a_time(self) -> None:
+        skill = read("SKILL.md")
+        deep = read("references/deep-mode.md")
+        self.assertIn("one question at a time", skill)
+        self.assertIn("Ask exactly one decision-relevant question", deep)
+        self.assertIn("Do not batch discovery questions", deep)
+        self.assertIn("Never exceed 7 total questions", deep)
+
+    def test_experiments_appear_only_after_explicit_request(self) -> None:
+        skill = read("SKILL.md")
+        contract = read("references/output-contract.md")
+        self.assertIn("Only when the user explicitly requests experiments", skill)
+        self.assertIn("No experiment, pilot, rollout, or implementation plan appears automatically", contract)
+        self.assertIn("If the user explicitly requests experiments", contract)
+        self.assertIn("### Layer 6: User-Directed Continuation", contract)
+        self.assertNotIn("Low-Cost Learning Probes", contract)
+
+    def test_disclosure_layers_match_approved_contract(self) -> None:
+        contract = read("references/output-contract.md")
+        for heading in (
+            "### Layer 1: Innovation Brief",
+            "### Layer 2: System Snapshot",
+            "### Layer 3: Complete Portfolio",
+            "### Layer 4: Possibility Spotlights",
+            "### Layer 5: Connections and Tensions",
+            "### Layer 6: User-Directed Continuation",
+        ):
+            self.assertIn(heading, contract)
+
+    def test_reasoning_cells_match_approved_specification(self) -> None:
+        skill = read("SKILL.md")
+        lenses = read("references/innovation-lenses.md")
+        for cell in (
+            "System Dynamics",
+            "Human Value",
+            "Operational Reality",
+            "Boundary Reframing",
+            "Mechanism Transfer",
+            "Contrarian",
+            "Futures",
+        ):
+            self.assertIn(cell, skill)
+            self.assertIn(cell, lenses)
+        self.assertNotIn("Cell A:", lenses)
+        self.assertNotIn("Cell G:", lenses)
+
+    def test_reasoning_cells_are_original_ai_mechanisms(self) -> None:
+        evidence = read("references/evidence.md")
+        lenses = read("references/innovation-lenses.md")
+        self.assertIn("Reasoning Cells as explicit cognitive operators", evidence)
+        self.assertIn("Project-original AI-native mechanism", lenses)
+        self.assertNotIn("Seven Reasoning Cells (Cells A–G)", evidence)
+
+    def test_provenance_table_lists_all_original_ai_mechanisms(self) -> None:
+        evidence = read("references/evidence.md")
+        for mechanism in (
+            "Quick and Deep routing",
+            "Perspective Council presentation layer",
+            "Reasoning Cells as explicit cognitive operators",
+            "Mechanism ledger",
+            "Mechanism-level duplicate detection",
+            "Saturation-based stopping",
+            "Progressive output disclosure",
+            "Cross-agent capability fallback",
+        ):
+            self.assertIn(mechanism, evidence)
+
+    def test_reasoning_cells_match_approved_specification(self) -> None:
+        skill = read("SKILL.md")
+        lenses = read("references/innovation-lenses.md")
+        for cell in (
+            "System Dynamics",
+            "Human Value",
+            "Operational Reality",
+            "Boundary Reframing",
+            "Mechanism Transfer",
+            "Contrarian",
+            "Futures",
+        ):
+            self.assertIn(cell, skill)
+            self.assertIn(cell, lenses)
+        self.assertIn("Provocation mode requires Contrarian and Boundary Reframing", skill)
+        self.assertIn("System Dynamics plus two selected Reasoning Cells", skill)
+        self.assertIn("five or six selected Reasoning Cells", skill)
+        self.assertIn("Two to four candidate mechanisms", lenses)
+        self.assertIn("System Dynamics plus two selected Reasoning Cells", skill)
+        self.assertIn("five or six selected Reasoning Cells", skill)
+        self.assertIn("Two to four candidate mechanisms", lenses)
+
+    def test_original_ai_mechanisms_are_not_attributed_to_rickards(self) -> None:
+        evidence = read("references/evidence.md")
+        for mechanism in (
+            "Quick and Deep routing",
+            "Perspective Council presentation layer",
+            "Reasoning Cells as explicit cognitive operators",
+            "Mechanism ledger",
+            "Mechanism-level duplicate detection",
+            "Saturation-based stopping",
+            "Progressive output disclosure",
+            "Cross-agent capability fallback",
+        ):
+            self.assertIn(mechanism, evidence)
+        self.assertNotIn("Seven Reasoning Cells (Cells A–G)", evidence)
 
 if __name__ == "__main__":
     unittest.main()

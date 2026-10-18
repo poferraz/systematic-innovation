@@ -23,8 +23,8 @@ Route automatically using observable signals in the user's request unless the us
 
 | Route | Observable Prompt Signals | Behavior |
 | :--- | :--- | :--- |
-| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run 3–4 Reasoning Cells after initial fluency depletion, and deliver **4–6 causally distinct possibilities** in one turn. |
-| **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **3–4 surgical Turn-1 discovery questions** paired with **2–3 contrasting provisional seeds**, ask at most 2–3 follow-up questions, and synthesize **6–9 causally distinct possibilities** once context is disclosed. |
+| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and deliver **10 to 15 distinct possibilities** in one turn. |
+| **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **one question at a time** (never more than seven total) paired with **2–3 contrasting provisional seeds**, then synthesize **15 to 24 distinct possibilities** once context is disclosed. |
 
 ### Execution-Channel Precedence
 
@@ -40,7 +40,7 @@ A requested maximum word or token budget overrides normal candidate counts and f
 ### User Overrides
 - `"Use Quick mode"`, `"skip questions"`, or `"Produce your final portfolio now"` $\rightarrow$ skip further questions and output the complete portfolio immediately.
 - `"Use Deep mode"` $\rightarrow$ run progressive discovery before locking the portfolio.
-- `"Use Provocation mode"` $\rightarrow$ include Cell F (Provocation & Movement) as a primary generator with explicit safety and feasibility extraction.
+- `"Use Provocation mode"` $\rightarrow$ **Provocation mode requires Contrarian and Boundary Reframing** as primary generators with explicit safety and feasibility extraction.
 
 ## The Innovation Brief & Preservation Scan
 
@@ -58,14 +58,15 @@ Carry forward a cumulative `Preserve:` ledger of every explicit invariant, inclu
 
 ## Reasoning Cell Selection & Mechanism Ledger
 
-Select **3–5 Reasoning Cells** matched to the tension (see [innovation-lenses.md](references/innovation-lenses.md)):
-- **Cell A:** Reframing & Boundary Shift (Multiple Redefinition Modes)
-- **Cell B:** Preservation & Inversion
-- **Cell C:** Contradiction & Resource Reuse
-- **Cell D:** Morphological Combination
-- **Cell E:** Far-Domain Analogy & Synectic Excursions
-- **Cell F:** Provocation & Movement (`Po`)
-- **Cell G:** Failure, Misuse & Adoption Critics
+Quick Mode uses **System Dynamics plus two selected Reasoning Cells**. Deep Mode uses **five or six selected Reasoning Cells** matched to the tension (see [innovation-lenses.md](references/innovation-lenses.md)):
+
+- **System Dynamics:** Change feedback, dependencies, delays, or leverage points.
+- **Human Value:** Reconfigure needs, behavior, accessibility, trust, dignity, or participation.
+- **Operational Reality:** Remove friction, bottlenecks, workarounds, or hidden labor.
+- **Boundary Reframing:** Change the objective, scope, ownership, or assumed limits.
+- **Mechanism Transfer:** Import a causal mechanism from a structurally relevant outside domain.
+- **Contrarian:** Reverse one named assumption and trace the consequences.
+- **Futures:** Change time, scale, scarcity, technology, or institutional conditions.
 
 ### Distinctiveness & Saturation Rules
 1. Track every candidate in an explicit **Mechanism Ledger** across four structural dimensions:
@@ -74,11 +75,11 @@ Select **3–5 Reasoning Cells** matched to the tension (see [innovation-lenses.
    - **Timing / Stage of Action** (upstream pre-condition, point-of-action, in-transit, post-event audit)
    - **Feedback Loop Altered**
 2. **Duplicate Test:** If two ideas use the same causal lever at the same stage with different nouns or channels (e.g., a QR code flyer, a shelf tag, and a checkout card all signaling donor need at a store), **merge them into one mechanism family**.
-3. **Saturation Stop:** Stop adding options as soon as additional candidates repeat an existing ledger mechanism. Four genuinely distinct mechanisms beat eight padded variations.
+3. **Saturation Stop:** These are targets, not quotas. Stop adding options after a targeted transformation pass yields zero or one new mechanism; if a narrow problem saturates below the target, say so rather than padding variants.
 
 ## Ideation-Only & High-Stakes Guardrails
 
-- **No Premature Winner or Implementation Drift:** Keep the portfolio open. Do **not** append unrequested 30-60-90 day rollout roadmaps, Gantt schedules, sprint backlogs, or database schemas. End with small **1–2 week learning probes** instead.
+- **No Premature Winner or Implementation Drift:** Keep the portfolio open. Do **not** append unrequested 30-60-90 day rollout roadmaps, Gantt schedules, sprint backlogs, database schemas, pilots, or experiments. Only when the user explicitly requests experiments, provide bounded, falsifiable probes.
 - **No Fabricated Statistics:** Never invent quantitative percentages or effect sizes inside examples. Label causal predictions as testable hypotheses.
 - **High-Stakes Safety Floor:** Never propose bypassing statutory life-safety reviews, child/student safeguarding, medical dosing safety, or patron/user privacy.
 - **Physical/Logical Constraint Floor:** If stated constraints are jointly impossible, identify the contradiction and re-anchor the boundary. Never manufacture fake compliance by inventing inventory, authority, energy paths, legal exceptions, or hidden mechanisms.

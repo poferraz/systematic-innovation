@@ -15,3 +15,9 @@ Sources: [approved behavioral specification](../../docs/superpowers/specs/2026-0
 The Cycle 4 changes do not amend these boundaries: they add cumulative preservation, material/authority checks, and budget allocations. Cycle 5 evaluates that frozen candidate and cannot establish approved-spec conformance on the mismatched boundaries. Any restored or amended candidate needs its own retained run evidence; results for the current candidate must not be relabelled as results for a later revision.
 
 No calibrated LLM judge or human evaluation was performed in this exploratory recovery. Generic creative controls are neither format-matched controls nor component ablations. Primary qualified-useful-mechanism and release claims remain unavailable.
+
+## Owner Decision and Resolution Status
+
+On 2026-10-17, the owner chose to restore the approved behavioral contract rather than amend it. The canonical skill pack was updated to use Quick 10–15 and Deep 15–24 targets, one Deep discovery question at a time with a seven-question ceiling, user-directed continuation with experiments only on explicit request, the approved six disclosure layers, the approved Reasoning Cell names, and project-original classification for those cells. The changes are enforced by contract regressions and the skill validator.
+
+The table above remains a historical audit of the frozen candidate evaluated in Cycles 1–6. Those raw runs are not evidence for the restored candidate; a later performance claim requires fresh runs with retained records.

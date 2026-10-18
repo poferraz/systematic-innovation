@@ -708,7 +708,7 @@ Recovery also found unrelated arXiv links in the benchmark mapping and cumulativ
 
 No calibrated LLM judge or human evaluation has been performed in this exploratory recovery, and generic creative controls cannot substitute for format-matched or established-method controls. Qualified primary effects, calibrated quality/safety, broad host compatibility, and release eligibility remain unverified. No restricted evaluation pack was accessed.
 
-The recovered canonical skill also differs from the approved behavioral specification in quantity targets, batched discovery, disclosure layers, automatic learning probes, and cell/provenance classification. These findings are recorded in [`evals/stress/contract-findings.md`](evals/stress/contract-findings.md). The owner was asked whether to restore the approved contract or approve an explicit amendment; that decision remains pending. Current stress runs preserve the frozen candidate and do not amend the approved specifications or establish conformance on these mismatched boundaries.
+The recovered canonical skill also differed from the approved behavioral specification in quantity targets, batched discovery, disclosure layers, automatic learning probes, and cell/provenance classification. These findings are recorded in [`evals/stress/contract-findings.md`](evals/stress/contract-findings.md). On 2026-10-17, the owner directed restoration of the approved contract across those boundaries. The canonical skill pack was then aligned and regression-tested; earlier Cycle 1–5 runs remain frozen evidence for the prior candidate and are not relabelled as evidence for the restored candidate. Future performance claims require fresh retained runs of the restored revision.
 
 ## 20. Current Repository-Quality Intent
 
