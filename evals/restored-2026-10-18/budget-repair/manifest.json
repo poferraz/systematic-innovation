@@ -1,0 +1,12 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+  "skill_pack_sha256": "86294149f54b02c7d64234612559745265d71b50de2ec4010d502a5606fc6b5c",
+  "replicates": 2,
+  "case_ids": [
+    "tight-budget"
+  ]
+}

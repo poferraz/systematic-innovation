@@ -1,0 +1,18 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "baseline_clean",
+    "control_creative",
+    "control_format",
+    "skill_treatment"
+  ],
+  "cases_sha256": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+  "skill_pack_sha256": "a1d454b84f9c05db5d020e88ba55b89cd1924b9062ab0b54543130559891793e",
+  "replicates": null,
+  "case_ids": [
+    "experiments-off",
+    "experiments-on",
+    "tight-budget",
+    "negative"
+  ]
+}

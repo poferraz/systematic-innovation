@@ -1,0 +1,16 @@
+WARN `--no-project` was provided, but no project was found
+test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown (tests.test_restored_measurement.RestoredMeasurementTests.test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown) ... ERROR
+
+======================================================================
+ERROR: test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown (tests.test_restored_measurement.RestoredMeasurementTests.test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 77, in test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown
+    self.assertEqual(record["turns"][0]["transport"]["events"], [{"type": "first"}])
+                     ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+KeyError: 'transport'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.022s
+
+FAILED (errors=1)

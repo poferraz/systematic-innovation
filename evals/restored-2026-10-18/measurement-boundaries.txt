@@ -1,0 +1,12 @@
+WARN `--no-project` was provided, but no project was found
+test_continuation_choices_are_not_learning_probes (tests.test_restored_measurement.RestoredMeasurementTests.test_continuation_choices_are_not_learning_probes) ... ok
+test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) ... ok
+test_format_matched_control_preserves_identical_disclosures (tests.test_restored_measurement.RestoredMeasurementTests.test_format_matched_control_preserves_identical_disclosures) ... ok
+test_later_nonproposal_sections_do_not_leak_into_plain_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_later_nonproposal_sections_do_not_leak_into_plain_portfolio) ... ok
+test_nonproposal_containers_do_not_become_portfolios (tests.test_restored_measurement.RestoredMeasurementTests.test_nonproposal_containers_do_not_become_portfolios) ... ok
+test_test_method_names_are_not_silently_overwritten (tests.test_restored_measurement.RestoredMeasurementTests.test_test_method_names_are_not_silently_overwritten) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.010s
+
+OK

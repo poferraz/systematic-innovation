@@ -1,0 +1,10 @@
+{
+  "version": "restored-diagnostic-1",
+  "scope": "raw syntactic diagnostics; all semantic quality and primary effect unknown",
+  "sources": {
+    "tools/restored_review.py": "9e8811bf250269b7f50efc66b4b5792f851e9f602adb20e6a8cbfca264933027",
+    "tools/pilot_metrics.py": "96dfb5d7e214b48b446af3478f520ab7c7c6be5d69306da58645fb5e0fb108e9",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
+  },
+  "human_calibration": "not performed"
+}

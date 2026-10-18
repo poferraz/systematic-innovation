@@ -1,0 +1,109 @@
+"""Versioned public diagnostic measurements and unrated blind review inputs.
+
+This module never assigns semantic quality or calls lexical clusters causal truth.
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import random
+import re
+from pathlib import Path
+
+from tools.pilot_metrics import extract_candidate_mechanisms
+from tools.score_eval_results import score_record
+
+
+VERSION = "restored-diagnostic-4"
+GATES = ("relevance", "constraint_alignment", "causal_clarity", "plausibility", "critical_safety_or_rights")
+
+
+def measure_record(record: dict, case: dict) -> dict:
+    candidates = extract_candidate_mechanisms(record.get("final_response", ""))
+    rows = []
+    for candidate in candidates:
+        # Only explicit rejection labels are screened. Unmarked infeasibility
+        # and subtle rejection remain unresolved human-review questions.
+        explicit_rejection = bool(re.match(
+            r"^(?:P\d+\s*[:—-]\s*)?(?:rejected|infeasible|not feasible|not a proposal)\b",
+            candidate.get("title", ""), re.I))
+        rows.append({**candidate, "explicit_status": "rejected" if explicit_rejection else "unvalidated",
+                     "quality": {gate: None for gate in GATES}, "causal_family": None})
+    turns = record.get("turns", [])
+    deltas = [turn.get("assistant_tokens") for turn in turns]
+    counters = [turn.get("provider_usage_cumulative", {}).get("output_tokens") for turn in turns]
+    total = record.get("total_assistant_output_tokens")
+    valid = (bool(turns) and all(isinstance(x, int) and x >= 0 for x in deltas + counters)
+             and total == sum(deltas) == counters[-1]
+             and deltas == [counters[0], *[b-a for a, b in zip(counters, counters[1:])]])
+    diagnostics = score_record(record, case)
+    return {
+        "measurement_version": VERSION,
+        "case_id": record.get("case_id"), "condition": record.get("condition"),
+        "replicate": record.get("replicate"), "raw_candidate_blocks": len(rows),
+        "explicitly_rejected_blocks": sum(row["explicit_status"] == "rejected" for row in rows),
+        "extracted_candidates": rows,
+        "lexical_family_count_diagnostic": diagnostics["distinct_mechanism_clusters"],
+        "semantic_distinct_mechanism_families": None,
+        "qualified_useful_distinct_mechanisms": None,
+        "gate_failures": {gate: None for gate in GATES}, "primary_endpoint": None,
+        "human_calibration": "not performed", "total_output_tokens": total if valid else None,
+        "usage_integrity": "consistent cumulative counters" if valid else "missing or inconsistent",
+        "input_tokens": record.get("total_input_tokens"),
+        "latency_seconds": record.get("total_latency_seconds"), "cost": record.get("monetary_cost"),
+        "final_word_count": diagnostics["word_count"],
+        "word_budget_compliant": diagnostics["word_budget_compliant"],
+        "discovery_questions_diagnostic": diagnostics["discovery_question_count"],
+        "assistant_turns": len(turns),
+        "preservation_and_scope_semantic_failures": None,
+        "structural_diagnostics": diagnostics,
+    }
+
+
+def blind_answers(records: list[dict], cases: dict[str, dict]) -> tuple[list[dict], dict]:
+    shuffled = list(enumerate(records))
+    random.Random(20261018).shuffle(shuffled)
+    packet, key = [], {}
+    for index, (source_index, row) in enumerate(shuffled, 1):
+        answer_id = f"A{index:04d}"
+        case = cases[row["case_id"]]
+        packet.append({"answer_id": answer_id,
+                       "user_disclosures": [case["prompt"], *case.get("user_turns", [])],
+                       "assistant_turns": [turn["assistant"] for turn in row["turns"]],
+                       "final_response": row["final_response"],
+                       "extraction_review": {"misses": None, "false_positives": None},
+                       "mechanism_ratings": None, "preservation_and_scope_failures": None,
+                       "abstention_reason": None})
+        key[answer_id] = {"source_index": source_index, "case_id": row["case_id"],
+                          "condition": row.get("condition"), "replicate": row.get("replicate"),
+                          "source": row.get("source")}
+    return packet, key
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--cases", type=Path, required=True)
+    parser.add_argument("--results", type=Path, nargs="+", required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    if args.output.exists():
+        raise ValueError("Use a new measurement directory; prior measurements are immutable")
+    cases = {c["id"]: c for c in json.loads(args.cases.read_text())["cases"]}
+    records = [{**json.loads(line), "source": str(path)} for path in args.results
+               for line in path.read_text().splitlines() if line.strip()]
+    measured = [measure_record(row, cases[row["case_id"]]) for row in records]
+    packet, key = blind_answers(records, cases)
+    args.output.mkdir(parents=True)
+    artifacts = {"measurements.json": measured, "human-answers.json": packet, "assignment-key.json": key,
+                 "provenance.json": {"measurement_version": VERSION, "inputs": {
+                     str(path): hashlib.sha256(path.read_bytes()).hexdigest()
+                     for path in [args.cases, *args.results, Path(__file__),
+                                  Path("tools/pilot_metrics.py"), Path("tools/score_eval_results.py")]}}}
+    for name, data in artifacts.items():
+        (args.output / name).write_text(json.dumps(data, indent=2) + "\n")
+    print(f"Retained {len(measured)} diagnostic records and unrated blind answers")
+
+
+if __name__ == "__main__":
+    main()

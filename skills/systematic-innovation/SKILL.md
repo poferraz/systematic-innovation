@@ -23,7 +23,7 @@ Route automatically using observable signals in the user's request unless the us
 
 | Route | Observable Prompt Signals | Behavior |
 | :--- | :--- | :--- |
-| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and deliver **10 to 15 distinct possibilities** in one turn. |
+| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and target **10 to 15 distinct possibilities** in one turn. |
 | **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **one question at a time** (never more than seven total) paired with **2–3 contrasting provisional seeds**, then synthesize **15 to 24 distinct possibilities** once context is disclosed. |
 
 ### Execution-Channel Precedence
@@ -37,6 +37,8 @@ Route automatically using observable signals in the user's request unless the us
 
 A requested maximum word or token budget overrides normal candidate counts and formatting. Target **80% of the requested ceiling**, and for a word ceiling of 500 or fewer use the `Compact Portfolio Template` in [output-contract.md](references/output-contract.md). Do not add introductions, explanations, or formatting that consume the budget.
 
+Choose the number of entries from that word allowance before drafting. If normal breadth plus essential fields cannot fit, explicitly label the portfolio **budget-limited** and give fewer complete possibilities. The count target never authorizes a word-limit overrun; fewer under an explicit user budget is different from mechanism saturation.
+
 ### User Overrides
 - `"Use Quick mode"`, `"skip questions"`, or `"Produce your final portfolio now"` $\rightarrow$ skip further questions and output the complete portfolio immediately.
 - `"Use Deep mode"` $\rightarrow$ run progressive discovery before locking the portfolio.
@@ -44,13 +46,18 @@ A requested maximum word or token budget overrides normal candidate counts and f
 
 ## The Innovation Brief & Preservation Scan
 
-Before generating possibilities, establish five brief fields (explicitly in Deep Mode; concisely in Quick Mode):
+Establish all eight Innovation Brief fields, inferring and labelling material unknowns in Quick Mode and asking only decision-relevant questions in Deep Mode. Combine fields in concise prose rather than repeating them in multiple inventories:
 
-1. **Perceived Mess vs. Operational Tension:** What symptom is being reported versus what structural conflict keeps recreating it?
-2. **System Actors & Boundary Overflows:** Who owns the problem, who bears the friction, and which adjacent teams or external actors are affected?
-3. **Preservation Inventory (What Works & Must Remain):** Which existing incentives, statutory reviews, safety/privacy floors, or cultural strengths must **not** be broken?
-4. **Unlocked Levers vs. Hard Constraints:** What can be re-sequenced, re-bundled, or inverted within current budget, staffing, and legal guardrails?
-5. **Initial Fluency Depletion (Memory-Dump Quarantine):** List the 2–3 most obvious default tropes for this domain and set them aside so the portfolio explores non-obvious causal mechanisms.
+1. **Desired change:** What should become meaningfully different?
+2. **Beneficiary:** Who should experience that difference?
+3. **Current insufficiency:** What symptom and structural tension keep recurring?
+4. **Existing strengths:** What already works?
+5. **Preservation requirements:** What must not be lost?
+6. **Nonnegotiable constraints:** Which resource, authority, safety, privacy, or physical limits bind?
+7. **Success signals:** What observable change would matter? Label inferred signals.
+8. **Dominant frame:** How is the problem currently understood?
+
+Map actors, incentives, flows, boundary overflows, dependencies, delays, failed approaches, burdens of change, and leverage points. Quarantine the 2–3 most obvious default tropes before structural generation. Stakeholder reactions are hypotheses, never invented research.
 
 ### Preservation Across Turns
 
@@ -69,12 +76,8 @@ Quick Mode uses **System Dynamics plus two selected Reasoning Cells**. Deep Mode
 - **Futures:** Change time, scale, scarcity, technology, or institutional conditions.
 
 ### Distinctiveness & Saturation Rules
-1. Track every candidate in an explicit **Mechanism Ledger** across four structural dimensions:
-   - **Changed Variable / Object**
-   - **Causal Lever Type** (e.g., temporal inversion, boundary re-partition, incentive unbundling, physical poka-yoke, subtraction/sunset, information schema unification, peer/ecosystem co-production)
-   - **Timing / Stage of Action** (upstream pre-condition, point-of-action, in-transit, post-event audit)
-   - **Feedback Loop Altered**
-2. **Duplicate Test:** If two ideas use the same causal lever at the same stage with different nouns or channels (e.g., a QR code flyer, a shelf tag, and a checkout card all signaling donor need at a store), **merge them into one mechanism family**.
+1. Maintain a **Mechanism Ledger** recording mechanism family, intervention point, principal actor, changed flow, intended effect, variants, and origin (cell and lens). Compare causal operation and structural coordinates, including timing, decision rights, incentives, scale, and feedback. Portfolio fields can carry these coordinates without a second printed ledger.
+2. **Duplicate Test:** A possibility is distinct if its causal mechanism is genuinely different, or if at least two structural dimensions differ meaningfully. Shared lever labels or stages alone do not establish equivalence. Merge actual wording/channel variants (such as QR flyers and shelf tags conveying the same donor-need signal), preserving genuinely different operations even when their labels match.
 3. **Saturation Stop:** These are targets, not quotas. Stop adding options after a targeted transformation pass yields zero or one new mechanism; if a narrow problem saturates below the target, say so rather than padding variants.
 
 ## Ideation-Only & High-Stakes Guardrails

@@ -1,0 +1,15 @@
+{
+  "starting_revision": "a36903a",
+  "pack_sha256": "9160efd81c8813302934c354505d6a7bba97bb1d2b7303575e40cf8252cf2777",
+  "files": {
+    "skills/systematic-innovation/SKILL.md": "943a31144ecc7f8898adc000d210672442b19e975bd96239fc7a8153564ad689",
+    "skills/systematic-innovation/references/deep-mode.md": "28ff788317125aa2995a58e267f4fde925ef68f0147a99fc6a7e855f2761f0ae",
+    "skills/systematic-innovation/references/evidence.md": "e1d7f2e67371efa02c5a8d97f89e5bf9f3ccf2cd6615796852917c6f36364cb3",
+    "skills/systematic-innovation/references/innovation-lenses.md": "79ee3e8d69df28290672ff9a8aa39061ffa7fe9ef34cc297dac667af59889cee",
+    "skills/systematic-innovation/references/output-contract.md": "4c2a5bd46e5b9f78fd4004ea94ade3d61ad98034a2e05969f0f2e8870009d304"
+  },
+  "retest_conversations": 20,
+  "retest_calls": 26,
+  "replicates_per_case": 2,
+  "measurement": "restored-diagnostic-2"
+}

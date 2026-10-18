@@ -1,0 +1,12 @@
+{
+  "pack_sha256": "0a8389fcbf500b0108cd970aeb70e142f84be4dec41ed98b77b2f5654d444c39",
+  "files": {
+    "skills/systematic-innovation/SKILL.md": "a50e582ac682d5bf95bf91559d1531e69949e902ff0978973dcc44c507ad3769",
+    "skills/systematic-innovation/references/deep-mode.md": "28ff788317125aa2995a58e267f4fde925ef68f0147a99fc6a7e855f2761f0ae",
+    "skills/systematic-innovation/references/evidence.md": "e1d7f2e67371efa02c5a8d97f89e5bf9f3ccf2cd6615796852917c6f36364cb3",
+    "skills/systematic-innovation/references/innovation-lenses.md": "79ee3e8d69df28290672ff9a8aa39061ffa7fe9ef34cc297dac667af59889cee",
+    "skills/systematic-innovation/references/output-contract.md": "c3216735a282314145ea959751fcc06bcb0ee59c780dcc847887dbccd5776577"
+  },
+  "change_since_final_freeze": "router quantity targets and explicit budget-limited count precedence only",
+  "holdout_hash": "4ec9065160fb125177d4b037a839d99073cf9bf4ef9bc95c971e67ef696e1b53"
+}

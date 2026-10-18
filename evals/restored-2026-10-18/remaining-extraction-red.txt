@@ -1,0 +1,36 @@
+WARN `--no-project` was provided, but no project was found
+test_continuation_choices_are_not_learning_probes (tests.test_restored_measurement.RestoredMeasurementTests.test_continuation_choices_are_not_learning_probes) ... ok
+test_control_table_is_the_portfolio_instead_of_selected_detail_headings (tests.test_restored_measurement.RestoredMeasurementTests.test_control_table_is_the_portfolio_instead_of_selected_detail_headings) ... ok
+test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) ... ok
+test_format_matched_control_preserves_identical_disclosures (tests.test_restored_measurement.RestoredMeasurementTests.test_format_matched_control_preserves_identical_disclosures) ... ok
+test_later_nonproposal_sections_do_not_leak_into_plain_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_later_nonproposal_sections_do_not_leak_into_plain_portfolio) ... ok
+test_nonproposal_containers_do_not_become_portfolios (tests.test_restored_measurement.RestoredMeasurementTests.test_nonproposal_containers_do_not_become_portfolios) ... ok
+test_numbered_name_column_in_control_table_is_a_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_numbered_name_column_in_control_table_is_a_portfolio) ... FAIL
+test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights) ... ok
+test_observed_ways_to_improve_container_keeps_short_bold_bullets (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_ways_to_improve_container_keeps_short_bold_bullets) ... FAIL
+test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown (tests.test_restored_measurement.RestoredMeasurementTests.test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown) ... ok
+test_requested_experiment_in_continuation_layer_is_still_detected (tests.test_restored_measurement.RestoredMeasurementTests.test_requested_experiment_in_continuation_layer_is_still_detected) ... ok
+test_test_method_names_are_not_silently_overwritten (tests.test_restored_measurement.RestoredMeasurementTests.test_test_method_names_are_not_silently_overwritten) ... ok
+
+======================================================================
+FAIL: test_numbered_name_column_in_control_table_is_a_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_numbered_name_column_in_control_table_is_a_portfolio)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 94, in test_numbered_name_column_in_control_table_is_a_portfolio
+    self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_observed_ways_to_improve_container_keeps_short_bold_bullets (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_ways_to_improve_container_keeps_short_bold_bullets)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 101, in test_observed_ways_to_improve_container_keeps_short_bold_bullets
+    self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2
+
+----------------------------------------------------------------------
+Ran 12 tests in 0.052s
+
+FAILED (failures=2)

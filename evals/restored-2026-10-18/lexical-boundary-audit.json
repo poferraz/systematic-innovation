@@ -1,0 +1,44 @@
+{
+  "paraphrases": {
+    "input": [
+      {
+        "intervention_point": "donation intake",
+        "causal_chain": "combine pickups by street to shorten volunteer travel"
+      },
+      {
+        "intervention_point": "receiving donated goods",
+        "causal_chain": "collect contributions on neighbourhood circuits so drivers cover fewer miles"
+      }
+    ],
+    "lexical_clusters": [
+      [
+        0
+      ],
+      [
+        1
+      ]
+    ],
+    "hand_authored_expected_families": 1,
+    "interpretation": "semantic fixture expectation, not human-calibrated corpus labels"
+  },
+  "different_order_similar_words": {
+    "input": [
+      {
+        "intervention_point": "returned item routing",
+        "causal_chain": "send every returned item to repair before checking resale value"
+      },
+      {
+        "intervention_point": "returned item routing",
+        "causal_chain": "send every returned item to resale before checking repair value"
+      }
+    ],
+    "lexical_clusters": [
+      [
+        0,
+        1
+      ]
+    ],
+    "hand_authored_expected_families": 2,
+    "interpretation": "semantic fixture expectation, not human-calibrated corpus labels"
+  }
+}

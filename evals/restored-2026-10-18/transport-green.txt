@@ -1,0 +1,27 @@
+WARN `--no-project` was provided, but no project was found
+test_continuation_choices_are_not_learning_probes (tests.test_restored_measurement.RestoredMeasurementTests.test_continuation_choices_are_not_learning_probes) ... ok
+test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) ... ok
+test_format_matched_control_preserves_identical_disclosures (tests.test_restored_measurement.RestoredMeasurementTests.test_format_matched_control_preserves_identical_disclosures) ... ok
+test_later_nonproposal_sections_do_not_leak_into_plain_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_later_nonproposal_sections_do_not_leak_into_plain_portfolio) ... ok
+test_nonproposal_containers_do_not_become_portfolios (tests.test_restored_measurement.RestoredMeasurementTests.test_nonproposal_containers_do_not_become_portfolios) ... ok
+test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown (tests.test_restored_measurement.RestoredMeasurementTests.test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown) ... ok
+test_test_method_names_are_not_silently_overwritten (tests.test_restored_measurement.RestoredMeasurementTests.test_test_method_names_are_not_silently_overwritten) ... ok
+test_two_controllers_cannot_append_the_same_completed_job (tests.test_stress_runner.ConcurrentRunSafetyTests.test_two_controllers_cannot_append_the_same_completed_job) ... Plan: 1 conversations, 1 assistant calls
+Saved baseline_clean one rep 1: 5 provider output tokens
+Plan: 1 conversations, 1 assistant calls
+ok
+test_legacy_cumulative_progress_requires_explicit_migration (tests.test_stress_runner.LegacyProgressAccountingTests.test_legacy_cumulative_progress_requires_explicit_migration) ... ok
+test_resumed_usage_is_differenced_not_summed (tests.test_stress_runner.ProviderAccountingTests.test_resumed_usage_is_differenced_not_summed) ... ok
+test_interruption_keeps_completed_turn_and_resume_skips_it (tests.test_stress_runner.StressPersistenceTests.test_interruption_keeps_completed_turn_and_resume_skips_it) ... ok
+test_unmanifested_existing_results_are_not_relabelled (tests.test_stress_runner.StressPersistenceTests.test_unmanifested_existing_results_are_not_relabelled) ... Plan: 1 conversations, 1 assistant calls
+ok
+test_initial_command_supports_isolated_non_repo_root (tests.test_stress_runner.StressRunnerCommandTests.test_initial_command_supports_isolated_non_repo_root) ... ok
+test_controls_do_not_embed_skill_behavior (tests.test_stress_runner.StressRunnerTests.test_controls_do_not_embed_skill_behavior) ... ok
+test_expected_run_count_matches_manifest_replicates (tests.test_stress_runner.StressRunnerTests.test_expected_run_count_matches_manifest_replicates) ... ok
+test_multi_turn_prompts_preserve_turn_boundaries (tests.test_stress_runner.StressRunnerTests.test_multi_turn_prompts_preserve_turn_boundaries) ... ok
+test_treatment_prompt_loads_the_complete_canonical_skill_pack (tests.test_stress_runner.StressRunnerTests.test_treatment_prompt_loads_the_complete_canonical_skill_pack) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.144s
+
+OK

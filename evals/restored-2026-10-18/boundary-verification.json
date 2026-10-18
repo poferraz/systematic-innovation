@@ -1,0 +1,15 @@
+{
+  "authority_errors": [],
+  "core_lines": 96,
+  "core_bytes": 9817,
+  "canonical_markdown_bytes": 34336,
+  "canonical_files": 5,
+  "final_frozen_hashes_match": true,
+  "holdout_bytes_unchanged": true,
+  "item_completed_types": {
+    "agent_message": 109
+  },
+  "credential_pattern_flags": [],
+  "restricted_material_accessed": false,
+  "diff_check_exit": 0
+}

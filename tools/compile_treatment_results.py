@@ -78,6 +78,13 @@ def extract_user_and_assistant_messages(log_path: pathlib.Path) -> tuple[list[st
 
 
 def main() -> None:
+    raise RuntimeError(
+        "The historical importer is disabled: it assigns unverified quality ratings "
+        "and treats extracted blocks as qualified mechanisms. Historical results must "
+        "remain unchanged; use the retained raw data and calibrated review workflow."
+    )
+
+    # Unreachable historical implementation retained for provenance, not reuse.
     cases = {c["id"]: c for c in json.loads(CASES_PATH.read_text(encoding="utf-8"))["cases"]}
     records: list[dict] = []
 

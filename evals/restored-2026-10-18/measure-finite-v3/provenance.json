@@ -1,0 +1,11 @@
+{
+  "measurement_version": "restored-diagnostic-3",
+  "inputs": {
+    "evals/restored-2026-10-18/saturation-reproducer.json": "e0183725881532f1c3f7790177f12e92abc44575d2f9641140b420256a3e009b",
+    "evals/restored-2026-10-18/finite-saturation/starting.jsonl": "bbda8da9253824e8f37a227ad0bb61dff331437c77f33c710df1a34e766b05dc",
+    "evals/restored-2026-10-18/finite-saturation/final.jsonl": "1e8a4858bd5026100f2eb6b19800582d5820503a6b1be738eb96d35b871ada76",
+    "/Users/poferraz/Documents/Development/active/systematic-innovation/tools/restored_review.py": "09b86a5c304149f8d9fa954ae02f0b96c4cfa069cb5cd214a5a7dbe7ba75bc03",
+    "tools/pilot_metrics.py": "b56463f2709b4c7f54e54c69c8b9349295f946f703c6769fc7b12f444af32766",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
+  }
+}

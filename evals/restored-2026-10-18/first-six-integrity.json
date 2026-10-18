@@ -1,0 +1,13 @@
+{
+  "status": "diagnostic integrity checks passed; formal feasibility gate not run",
+  "conversations": 28,
+  "assistant_turns": 40,
+  "exact_disclosures": true,
+  "cumulative_usage_consistent": true,
+  "raw_sha256": {
+    "evals/restored-2026-10-18/before-six/baseline_clean.jsonl": "48c7e6908e60f73af0fddca2d85720c5457e9093f66766275d4a2e0e95d2f7bc",
+    "evals/restored-2026-10-18/before-six/control_creative.jsonl": "ce136d11d32451bc49354bd805383dbf72588879909f093593ca85d1c003c0ca",
+    "evals/restored-2026-10-18/before-six/control_format.jsonl": "d1939b2ff370344cf68bdc9659fb4b9b5f54e09bbcea5b8a434e56a9253a5df6",
+    "evals/restored-2026-10-18/before-six/skill_treatment.jsonl": "6a6809a5b3beb31fe82ce99d73d0f71d029a14d12b00f5d1f2cf6f30b5513475"
+  }
+}

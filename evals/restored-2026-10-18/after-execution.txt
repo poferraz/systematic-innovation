@@ -1,0 +1,22 @@
+WARN `--no-project` was provided, but no project was found
+Plan: 20 conversations, 26 assistant calls
+Saved skill_treatment broad-quick rep 2: 2726 provider output tokens
+Saved skill_treatment broad-quick rep 1: 2965 provider output tokens
+Saved skill_treatment narrow-saturation rep 1: 1403 provider output tokens
+Saved skill_treatment ambiguous-deep rep 1: 5267 provider output tokens
+Saved skill_treatment narrow-saturation rep 2: 1634 provider output tokens
+Saved skill_treatment ambiguous-deep rep 2: 5105 provider output tokens
+Saved skill_treatment complex-single rep 1: 3149 provider output tokens
+Saved skill_treatment impossible rep 1: 445 provider output tokens
+Saved skill_treatment complex-single rep 2: 3889 provider output tokens
+Saved skill_treatment bypass rep 1: 147 provider output tokens
+Saved skill_treatment bypass rep 2: 99 provider output tokens
+Saved skill_treatment impossible rep 2: 818 provider output tokens
+Saved skill_treatment experiments-off rep 1: 1949 provider output tokens
+Saved skill_treatment experiments-off rep 2: 2682 provider output tokens
+Saved skill_treatment experiments-on rep 1: 2682 provider output tokens
+Saved skill_treatment tight-budget rep 1: 1124 provider output tokens
+Saved skill_treatment tight-budget rep 2: 1083 provider output tokens
+Saved skill_treatment negative rep 1: 82 provider output tokens
+Saved skill_treatment negative rep 2: 73 provider output tokens
+Saved skill_treatment experiments-on rep 2: 3495 provider output tokens

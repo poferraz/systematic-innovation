@@ -35,15 +35,25 @@ class SkillBehaviorContractTests(unittest.TestCase):
         self.assertIn("Never exceed", contract)
         self.assertIn("80% of the stated word ceiling", contract)
         self.assertIn("ultra-compact format", contract)
-        self.assertIn("min(80% of the stated word ceiling, 250 words)", contract)
-        self.assertIn("Layer 1 at most 40 words", contract)
-        self.assertIn("each candidate at most 30 words", contract)
         self.assertIn("Compact Portfolio Template", contract)
-        self.assertIn("No Markdown tables, headings, or bold styling", contract)
-        self.assertIn("supersedes the normal Six Disclosure Layers formatting", contract)
-        self.assertIn("Each candidate line at most 30 visible words including labels", contract)
-        self.assertIn("omit optional assumption and failure prose", contract)
-        self.assertIn("L6: ... (user-directed continuation; no automatic experiments)", contract)
+        self.assertNotIn("four candidate lines", contract)
+        self.assertNotIn("250 words", contract)
+        self.assertNotIn("state saturation", contract)
+
+    def test_brief_and_portfolio_retain_approved_information(self) -> None:
+        # Static completeness lint; fresh model outputs are reviewed separately.
+        skill = read("SKILL.md")
+        for field in ("Desired change", "Beneficiary", "Current insufficiency", "Existing strengths",
+                      "Preservation requirements", "Nonnegotiable constraints", "Success signals", "Dominant frame"):
+            self.assertIn(field, skill)
+        contract = read("references/output-contract.md")
+        for field in ("Intended value", "Portfolio category", "Originating lens",
+                      "Required cooperation", "Principal resistance", "Preservation risk", "Major unknown"):
+            self.assertIn(field, contract)
+
+    def test_duplicate_labels_do_not_define_causal_equivalence(self) -> None:
+        self.assertNotIn("Same lever + same stage = merge", read("references/innovation-lenses.md"))
+        self.assertNotIn("same causal lever at the same stage", read("SKILL.md"))
 
     def test_impossible_constraints_do_not_become_noncompliant_candidates(self) -> None:
         contract = read("references/output-contract.md")
@@ -93,6 +103,11 @@ class SkillBehaviorContractTests(unittest.TestCase):
         self.assertIn("Do not batch discovery questions", deep)
         self.assertIn("Never exceed 7 total questions", deep)
 
+    def test_deep_discovery_has_no_fixed_two_exchange_shortcut(self) -> None:
+        # Contract lint only; the four-turn behavioral reproducer supplies evidence.
+        deep = read("references/deep-mode.md")
+        self.assertNotIn("Two discovery exchanges have occurred", deep)
+
     def test_experiments_appear_only_after_explicit_request(self) -> None:
         skill = read("SKILL.md")
         contract = read("references/output-contract.md")
@@ -114,7 +129,7 @@ class SkillBehaviorContractTests(unittest.TestCase):
         ):
             self.assertIn(heading, contract)
 
-    def test_reasoning_cells_match_approved_specification(self) -> None:
+    def test_reasoning_cell_taxonomy_has_no_retired_cell_labels(self) -> None:
         skill = read("SKILL.md")
         lenses = read("references/innovation-lenses.md")
         for cell in (

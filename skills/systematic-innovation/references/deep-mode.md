@@ -11,9 +11,9 @@ Activate Deep Mode when the user's challenge involves:
 
 ## 2. One Question at a Time & the Seven-Question Ceiling
 
-In our RED baseline study, vanilla models asked **zero discovery questions on Turn 1** across 100% of Deep cases and immediately proposed ideas that violated unstated payroll, statutory, or staffing constraints. Batching questions, however, creates friction and invites partial answers. Deep discovery therefore obeys four rules:
+Ask only when an answer can change the objective, system boundary, preservation needs, cell selection, constraints, or evaluation criteria. Deep discovery obeys four rules:
 
-1. **The Question-Value Filter:** Only ask a question if the answer will **eliminate or unlock an entire causal family of mechanisms**. Never ask generic background questions that do not change the solution structure.
+1. **The Question-Value Filter:** Ask about a material unknown that can change one of those decisions. Never ask generic background questions whose answers cannot change the portfolio.
 2. **Ask exactly one decision-relevant question per discovery turn.** Do not batch discovery questions. Ask the highest-leverage unknown, wait for the answer, then decide whether another question is justified.
 3. **Never exceed 7 total questions across the entire session.** Stop earlier when the answer cannot change the portfolio. A one-shot request must receive the complete portfolio, not this discovery sequence.
 4. **Target the Four High-Leverage Unknowns:**
@@ -32,7 +32,7 @@ Never return a bare question without immediate value. On each discovery turn, pa
 
 Stop asking questions and produce the complete **Six-Layer Innovation Portfolio** immediately when any of the following occurs:
 1. The user provides the preservation boundary, core failure points, and authority/resource constraints.
-2. Two discovery exchanges have occurred.
+2. Seven total discovery questions have been asked. The number of exchanges alone is not a sufficient-context test; three to seven questions is normal for a genuinely ambiguous challenge, with earlier stopping when sufficient.
 3. The user explicitly instructs: *"Produce your final portfolio now"*, *"Skip questions"*, or *"Use Quick mode"*.
 
 ## 5. Cumulative Preservation and Revision

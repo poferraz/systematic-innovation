@@ -1,0 +1,10 @@
+{
+  "version": "restored-diagnostic-7",
+  "sources": {
+    "tools/pilot_metrics.py": "a62145df8552b7baacbeb56658caf114f5c549812cd390e46c39f6b25f9de3e3",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tools/restored_review.py": "c53f8b1f7547186b34df35cce06d46154d03d0233249ce6b0829454b718ba394",
+    "evals/restored-2026-10-18/summarize.py": "84cb7f12e7ad84b1ee9b08c8270d1861c36c051c7c64201d8d12e98008f905c7"
+  },
+  "reason": "Unbulleted candidate-local receptivity fields require the same field-versus-section distinction. Final development measurement; no further model calls."
+}

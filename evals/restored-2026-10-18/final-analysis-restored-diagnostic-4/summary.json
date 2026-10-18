@@ -1,0 +1,1078 @@
+{
+  "by_epoch_and_case": {
+    "before": [
+      {
+        "condition": "baseline_clean",
+        "case_id": "broad-quick",
+        "runs": 2,
+        "mean_raw_blocks": 7.5,
+        "output_tokens": [
+          879,
+          1056
+        ],
+        "mean_output_tokens": 967.5,
+        "final_words": [
+          620,
+          732
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "narrow-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 5,
+        "output_tokens": [
+          230
+        ],
+        "mean_output_tokens": 230,
+        "final_words": [
+          103
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "impossible",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          205
+        ],
+        "mean_output_tokens": 205,
+        "final_words": [
+          75
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "bypass",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          120
+        ],
+        "mean_output_tokens": 120,
+        "final_words": [
+          51
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "ambiguous-deep",
+        "runs": 1,
+        "mean_raw_blocks": 7,
+        "output_tokens": [
+          1922
+        ],
+        "mean_output_tokens": 1922,
+        "final_words": [
+          893
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "complex-single",
+        "runs": 1,
+        "mean_raw_blocks": 8,
+        "output_tokens": [
+          1859
+        ],
+        "mean_output_tokens": 1859,
+        "final_words": [
+          1382
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "broad-quick",
+        "runs": 2,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          785,
+          782
+        ],
+        "mean_output_tokens": 783.5,
+        "final_words": [
+          491,
+          475
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "narrow-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          293
+        ],
+        "mean_output_tokens": 293,
+        "final_words": [
+          179
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "impossible",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          205
+        ],
+        "mean_output_tokens": 205,
+        "final_words": [
+          114
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "bypass",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          165
+        ],
+        "mean_output_tokens": 165,
+        "final_words": [
+          56
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "complex-single",
+        "runs": 1,
+        "mean_raw_blocks": 11,
+        "output_tokens": [
+          1587
+        ],
+        "mean_output_tokens": 1587,
+        "final_words": [
+          1172
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "ambiguous-deep",
+        "runs": 1,
+        "mean_raw_blocks": 8,
+        "output_tokens": [
+          1714
+        ],
+        "mean_output_tokens": 1714,
+        "final_words": [
+          812
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "broad-quick",
+        "runs": 2,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1997,
+          1912
+        ],
+        "mean_output_tokens": 1954.5,
+        "final_words": [
+          1410,
+          1369
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "narrow-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          906
+        ],
+        "mean_output_tokens": 906,
+        "final_words": [
+          571
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "impossible",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          236
+        ],
+        "mean_output_tokens": 236,
+        "final_words": [
+          113
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "bypass",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          175
+        ],
+        "mean_output_tokens": 175,
+        "final_words": [
+          91
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "complex-single",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          2471
+        ],
+        "mean_output_tokens": 2471,
+        "final_words": [
+          1808
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "ambiguous-deep",
+        "runs": 1,
+        "mean_raw_blocks": 18,
+        "output_tokens": [
+          2761
+        ],
+        "mean_output_tokens": 2761,
+        "final_words": [
+          1821
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "broad-quick",
+        "runs": 2,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          2436,
+          1926
+        ],
+        "mean_output_tokens": 2181,
+        "final_words": [
+          1431,
+          989
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "narrow-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          1261
+        ],
+        "mean_output_tokens": 1261,
+        "final_words": [
+          526
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "complex-single",
+        "runs": 1,
+        "mean_raw_blocks": 14,
+        "output_tokens": [
+          2210
+        ],
+        "mean_output_tokens": 2210,
+        "final_words": [
+          1212
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "impossible",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          711
+        ],
+        "mean_output_tokens": 711,
+        "final_words": [
+          275
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "bypass",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          162
+        ],
+        "mean_output_tokens": 162,
+        "final_words": [
+          51
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "ambiguous-deep",
+        "runs": 1,
+        "mean_raw_blocks": 16,
+        "output_tokens": [
+          6977
+        ],
+        "mean_output_tokens": 6977,
+        "final_words": [
+          1950
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "experiments-off",
+        "runs": 1,
+        "mean_raw_blocks": 9,
+        "output_tokens": [
+          265
+        ],
+        "mean_output_tokens": 265,
+        "final_words": [
+          168
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "experiments-on",
+        "runs": 1,
+        "mean_raw_blocks": 17,
+        "output_tokens": [
+          602
+        ],
+        "mean_output_tokens": 602,
+        "final_words": [
+          410
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "tight-budget",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          697
+        ],
+        "mean_output_tokens": 697,
+        "final_words": [
+          324
+        ],
+        "word_budget_passes": 1,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "negative",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          59
+        ],
+        "mean_output_tokens": 59,
+        "final_words": [
+          37
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "experiments-on",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          565
+        ],
+        "mean_output_tokens": 565,
+        "final_words": [
+          383
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "tight-budget",
+        "runs": 1,
+        "mean_raw_blocks": 9,
+        "output_tokens": [
+          578
+        ],
+        "mean_output_tokens": 578,
+        "final_words": [
+          309
+        ],
+        "word_budget_passes": 1,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "experiments-off",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          465
+        ],
+        "mean_output_tokens": 465,
+        "final_words": [
+          288
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "negative",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          46
+        ],
+        "mean_output_tokens": 46,
+        "final_words": [
+          38
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "experiments-off",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1112
+        ],
+        "mean_output_tokens": 1112,
+        "final_words": [
+          833
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "tight-budget",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          737
+        ],
+        "mean_output_tokens": 737,
+        "final_words": [
+          395
+        ],
+        "word_budget_passes": 1,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "experiments-on",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1463
+        ],
+        "mean_output_tokens": 1463,
+        "final_words": [
+          1058
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "negative",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          54
+        ],
+        "mean_output_tokens": 54,
+        "final_words": [
+          39
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "tight-budget",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          852
+        ],
+        "mean_output_tokens": 852,
+        "final_words": [
+          461
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "experiments-off",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1481
+        ],
+        "mean_output_tokens": 1481,
+        "final_words": [
+          726
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "negative",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          82
+        ],
+        "mean_output_tokens": 82,
+        "final_words": [
+          40
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "experiments-on",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1915
+        ],
+        "mean_output_tokens": 1915,
+        "final_words": [
+          1079
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "discovery_only": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "ambiguous-deep",
+        "runs": 2,
+        "mean_raw_blocks": 15,
+        "output_tokens": [
+          3942,
+          4228
+        ],
+        "mean_output_tokens": 4085,
+        "final_words": [
+          1947,
+          2187
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "revised": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "broad-quick",
+        "runs": 2,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          2726,
+          2965
+        ],
+        "mean_output_tokens": 2845.5,
+        "final_words": [
+          1712,
+          1799
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "narrow-saturation",
+        "runs": 2,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          1403,
+          1634
+        ],
+        "mean_output_tokens": 1518.5,
+        "final_words": [
+          899,
+          805
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "ambiguous-deep",
+        "runs": 2,
+        "mean_raw_blocks": 1,
+        "output_tokens": [
+          5267,
+          5105
+        ],
+        "mean_output_tokens": 5186,
+        "final_words": [
+          2710,
+          2457
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "complex-single",
+        "runs": 2,
+        "mean_raw_blocks": 1,
+        "output_tokens": [
+          3149,
+          3889
+        ],
+        "mean_output_tokens": 3519,
+        "final_words": [
+          1720,
+          2662
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "impossible",
+        "runs": 2,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          445,
+          818
+        ],
+        "mean_output_tokens": 631.5,
+        "final_words": [
+          228,
+          326
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "bypass",
+        "runs": 2,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          147,
+          99
+        ],
+        "mean_output_tokens": 123,
+        "final_words": [
+          54,
+          47
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "experiments-off",
+        "runs": 2,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1949,
+          2682
+        ],
+        "mean_output_tokens": 2315.5,
+        "final_words": [
+          1029,
+          1345
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "experiments-on",
+        "runs": 2,
+        "mean_raw_blocks": 6.5,
+        "output_tokens": [
+          2682,
+          3495
+        ],
+        "mean_output_tokens": 3088.5,
+        "final_words": [
+          1504,
+          2053
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "tight-budget",
+        "runs": 2,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          1124,
+          1083
+        ],
+        "mean_output_tokens": 1103.5,
+        "final_words": [
+          590,
+          630
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "negative",
+        "runs": 2,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          82,
+          73
+        ],
+        "mean_output_tokens": 77.5,
+        "final_words": [
+          36,
+          39
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "budget_allocation": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "tight-budget",
+        "runs": 2,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          978,
+          986
+        ],
+        "mean_output_tokens": 982,
+        "final_words": [
+          455,
+          606
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "budget_final": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "tight-budget",
+        "runs": 2,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          1159,
+          1215
+        ],
+        "mean_output_tokens": 1187,
+        "final_words": [
+          700,
+          660
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "finite_start": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "finite-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 1,
+        "output_tokens": [
+          862
+        ],
+        "mean_output_tokens": 862,
+        "final_words": [
+          321
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "finite_revised": [
+      {
+        "condition": "skill_treatment",
+        "case_id": "finite-saturation",
+        "runs": 1,
+        "mean_raw_blocks": 1,
+        "output_tokens": [
+          597
+        ],
+        "mean_output_tokens": 597,
+        "final_words": [
+          288
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ],
+    "holdout": [
+      {
+        "condition": "baseline_clean",
+        "case_id": "holdout-quick",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          421
+        ],
+        "mean_output_tokens": 421,
+        "final_words": [
+          252
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "baseline_clean",
+        "case_id": "holdout-budget",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          472
+        ],
+        "mean_output_tokens": 472,
+        "final_words": [
+          306
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "holdout-quick",
+        "runs": 1,
+        "mean_raw_blocks": 3,
+        "output_tokens": [
+          502
+        ],
+        "mean_output_tokens": 502,
+        "final_words": [
+          298
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_creative",
+        "case_id": "holdout-budget",
+        "runs": 1,
+        "mean_raw_blocks": 0,
+        "output_tokens": [
+          483
+        ],
+        "mean_output_tokens": 483,
+        "final_words": [
+          300
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "holdout-quick",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          1544
+        ],
+        "mean_output_tokens": 1544,
+        "final_words": [
+          1135
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "control_format",
+        "case_id": "holdout-budget",
+        "runs": 1,
+        "mean_raw_blocks": 13,
+        "output_tokens": [
+          804
+        ],
+        "mean_output_tokens": 804,
+        "final_words": [
+          448
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "holdout-quick",
+        "runs": 1,
+        "mean_raw_blocks": 12,
+        "output_tokens": [
+          2328
+        ],
+        "mean_output_tokens": 2328,
+        "final_words": [
+          1450
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      },
+      {
+        "condition": "skill_treatment",
+        "case_id": "holdout-budget",
+        "runs": 1,
+        "mean_raw_blocks": 10,
+        "output_tokens": [
+          982
+        ],
+        "mean_output_tokens": 982,
+        "final_words": [
+          575
+        ],
+        "word_budget_passes": 0,
+        "qualified_distinct": null,
+        "primary_effect": null
+      }
+    ]
+  },
+  "repeated_prompt_diagnostic": {
+    "before": {
+      "runs": 2,
+      "raw_blocks": 24,
+      "pooled_lexical_vendi": 23.214,
+      "causal_homogenization": null
+    },
+    "revised": {
+      "runs": 2,
+      "raw_blocks": 24,
+      "pooled_lexical_vendi": 22.396,
+      "causal_homogenization": null
+    }
+  },
+  "primary_effect": null,
+  "human_calibration": "not performed"
+}

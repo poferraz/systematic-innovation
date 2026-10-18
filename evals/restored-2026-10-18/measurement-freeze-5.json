@@ -1,0 +1,10 @@
+{
+  "version": "restored-diagnostic-5",
+  "sources": {
+    "tools/pilot_metrics.py": "afe3abed0d10178047f9368a0d44589b3764c34d39daad14a7eecc64a9b11009",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tools/restored_review.py": "80470740a5aceeb366435f8a7f3cbc8dadbd6a32d1f0ee9212999c790d4703ee",
+    "evals/restored-2026-10-18/summarize.py": "84cb7f12e7ad84b1ee9b08c8270d1861c36c051c7c64201d8d12e98008f905c7"
+  },
+  "reason": "Final observed Selected details and connections section boundary; raw evidence unchanged, all epochs rescored. Remaining free-form misses are documented, not treated as zeros."
+}

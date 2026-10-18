@@ -1,0 +1,7 @@
+WARN `--no-project` was provided, but no project was found
+test_unverified_historical_import_cannot_write_new_quality_claims (tests.test_legacy_import_guard.LegacyImportGuardTests.test_unverified_historical_import_cannot_write_new_quality_claims) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.003s
+
+OK

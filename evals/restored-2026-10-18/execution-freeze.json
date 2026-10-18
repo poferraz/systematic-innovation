@@ -1,0 +1,19 @@
+{
+  "hashes": {
+    "cases.json": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+    "public-holdout.json": "4ec9065160fb125177d4b037a839d99073cf9bf4ef9bc95c971e67ef696e1b53",
+    "starting-prompts.json": "02391bfa18f8500388d8acb56a9807360f6349c8e7f9551ea2a108ba06aa6b0a",
+    "stress_runner.py": "402cd562468f9b704b3bee624c24831eaf34930ae643af46290ccb75fa8e4292",
+    "pilot_metrics.py": "96dfb5d7e214b48b446af3478f520ab7c7c6be5d69306da58645fb5e0fb108e9",
+    "score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
+  },
+  "initial_conversations": 44,
+  "initial_calls": 56,
+  "temperature": null,
+  "seed": null,
+  "output_token_cap": null,
+  "reasoning_effort": "CLI default, unexposed",
+  "tools": "same read-only host capabilities; events retained; no research requested",
+  "cost": null,
+  "formal_stages": "not run; diagnostic only"
+}

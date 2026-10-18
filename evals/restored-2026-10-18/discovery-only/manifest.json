@@ -1,0 +1,12 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+  "skill_pack_sha256": "b7da8b3b369c55919935d25341f59adc3b7e27f7ed75731d947f113648cc9dd3",
+  "replicates": 2,
+  "case_ids": [
+    "ambiguous-deep"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": "restored-diagnostic-6",
+  "sources": {
+    "tools/pilot_metrics.py": "0458dd4db4fa4bc7887f43f3c2fe5eeb73ff210e7ff7eefb79ccddffea751d51",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tools/restored_review.py": "e9c8a6293f48cb1953e58efa5b9692d095f39f28d0adb1d8003bc62754eb637c",
+    "evals/restored-2026-10-18/summarize.py": "84cb7f12e7ad84b1ee9b08c8270d1861c36c051c7c64201d8d12e98008f905c7"
+  },
+  "reason": "Actual candidate-local Receptivity bullets were mistaken for later layers. Final measurement applied identically to all 80 raw conversations; prior versions retained."
+}

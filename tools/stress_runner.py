@@ -8,13 +8,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
 import subprocess
 import tempfile
+import time
 from pathlib import Path
 from typing import Sequence
 
 from tools.pilot_metrics import count_tokens
 
 
-CONDITIONS = ("baseline_clean", "control_creative", "skill_treatment")
+CONDITIONS = ("baseline_clean", "control_creative", "control_format", "skill_treatment")
 SESSION_RE = re.compile(r"session id:\s*([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})")
 
 
@@ -49,6 +50,18 @@ def build_user_prompts(case: dict, condition: str, skill_dir: Path) -> list[str]
             "You are a creative brainstorming assistant. Generate imaginative, useful ideas "
             "and explain key trade-offs. Use only the information supplied by the user.\n\n"
             + prompt
+        )
+        return [first, *followups]
+
+    if condition == "control_format":
+        target = "15 to 24" if case.get("expected_mode") == "deep" else "10 to 15"
+        first = (
+            "When the request calls for alternatives, present a brief, context, a portfolio, "
+            "selected details, connections, and continuation choices. "
+            f"Target {target} possibilities, subject to the user's constraints and output budget. "
+            "For each, give a name, mechanism, intended value, category, method label, main "
+            "uncertainty, and fit note. Develop five to seven selected possibilities if space "
+            "permits. Answer other requests directly.\n\n" + prompt
         )
         return [first, *followups]
 
@@ -93,7 +106,7 @@ def _execute(
     prompt: str,
     output_path: Path,
     session_id: str | None,
-) -> tuple[str, str, dict]:
+) -> tuple[str, str, dict, dict]:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("", encoding="utf-8")
     if session_id is None:
@@ -113,6 +126,7 @@ def _execute(
             str(output_path),
             "-",
         ]
+    started = time.monotonic()
     result = subprocess.run(
         command,
         input=prompt,
@@ -146,7 +160,12 @@ def _execute(
     response = output_path.read_text(encoding="utf-8")
     if not response.strip():
         raise RuntimeError(f"Codex runner returned no final message:\n{combined[-4000:]}")
-    return response, session_id, usage
+    return response, session_id, usage, {
+        "latency_seconds": time.monotonic() - started,
+        "events": events,
+        "command": command,
+        "returncode": result.returncode,
+    }
 
 
 def run_case(
@@ -177,6 +196,7 @@ def run_case(
             executed = _execute(codex, model, prompt, output, session_id)
             assistant, session_id = executed[:2]
             usage = executed[2] if len(executed) > 2 else {}
+            transport = executed[3] if len(executed) > 3 else {}
             previous_counter = turns[-1].get("provider_usage_cumulative", {}).get("output_tokens", 0) if turns else 0
             counter = usage.get("output_tokens")
             output_tokens = counter - previous_counter if counter is not None and previous_counter is not None and counter >= previous_counter else None
@@ -187,6 +207,7 @@ def run_case(
                     "assistant": assistant,
                     "assistant_tokens": output_tokens,
                     "provider_usage_cumulative": usage,
+                    "transport": transport,
                     "assistant_tokens_estimate": count_tokens(assistant),
                 }
             )
@@ -215,6 +236,10 @@ def run_case(
         "final_response": turns[-1]["assistant"],
         "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else None,
         "total_assistant_output_tokens_estimate": sum(turn["assistant_tokens_estimate"] for turn in turns),
+        "total_input_tokens": turns[-1].get("provider_usage_cumulative", {}).get("input_tokens"),
+        "total_latency_seconds": sum(turn["transport"]["latency_seconds"] for turn in turns)
+            if all(turn.get("transport", {}).get("latency_seconds") is not None for turn in turns) else None,
+        "monetary_cost": None,
         "turn_1_question_count": sum(
             1 for line in turns[0]["assistant"].splitlines() if line.strip().endswith("?")
         ),

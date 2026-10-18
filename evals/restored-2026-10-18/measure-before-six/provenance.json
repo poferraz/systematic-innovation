@@ -1,0 +1,13 @@
+{
+  "measurement_version": "restored-diagnostic-1",
+  "inputs": {
+    "evals/restored-2026-10-18/cases.json": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+    "evals/restored-2026-10-18/before-six/baseline_clean.jsonl": "48c7e6908e60f73af0fddca2d85720c5457e9093f66766275d4a2e0e95d2f7bc",
+    "evals/restored-2026-10-18/before-six/control_creative.jsonl": "ce136d11d32451bc49354bd805383dbf72588879909f093593ca85d1c003c0ca",
+    "evals/restored-2026-10-18/before-six/control_format.jsonl": "d1939b2ff370344cf68bdc9659fb4b9b5f54e09bbcea5b8a434e56a9253a5df6",
+    "evals/restored-2026-10-18/before-six/skill_treatment.jsonl": "6a6809a5b3beb31fe82ce99d73d0f71d029a14d12b00f5d1f2cf6f30b5513475",
+    "/Users/poferraz/Documents/Development/active/systematic-innovation/tools/restored_review.py": "9e8811bf250269b7f50efc66b4b5792f851e9f602adb20e6a8cbfca264933027",
+    "tools/pilot_metrics.py": "96dfb5d7e214b48b446af3478f520ab7c7c6be5d69306da58645fb5e0fb108e9",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
+  }
+}

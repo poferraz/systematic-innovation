@@ -1,0 +1,16 @@
+WARN `--no-project` was provided, but no project was found
+test_candidate_local_receptivity_is_not_a_later_disclosure_layer (tests.test_restored_measurement.RestoredMeasurementTests.test_candidate_local_receptivity_is_not_a_later_disclosure_layer) ... FAIL
+
+======================================================================
+FAIL: test_candidate_local_receptivity_is_not_a_later_disclosure_layer (tests.test_restored_measurement.RestoredMeasurementTests.test_candidate_local_receptivity_is_not_a_later_disclosure_layer)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 122, in test_candidate_local_receptivity_is_not_a_later_disclosure_layer
+    self.assertEqual(len(extract_candidate_mechanisms(plain_fields)), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)

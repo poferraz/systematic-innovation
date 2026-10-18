@@ -1,0 +1,16 @@
+WARN `--no-project` was provided, but no project was found
+test_control_table_is_the_portfolio_instead_of_selected_detail_headings (tests.test_restored_measurement.RestoredMeasurementTests.test_control_table_is_the_portfolio_instead_of_selected_detail_headings) ... FAIL
+
+======================================================================
+FAIL: test_control_table_is_the_portfolio_instead_of_selected_detail_headings (tests.test_restored_measurement.RestoredMeasurementTests.test_control_table_is_the_portfolio_instead_of_selected_detail_headings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 80, in test_control_table_is_the_portfolio_instead_of_selected_detail_headings
+    self.assertEqual(len(candidates), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)

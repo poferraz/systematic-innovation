@@ -1,0 +1,19 @@
+{
+  "revision": "a36903acb56b50ff8146ba2cef653876f7c43688",
+  "branch": "stress-test/five-cycle-refinement",
+  "files": {
+    "skills/systematic-innovation/SKILL.md": "d580c21e87a2eec72647424716949cc97df29065e9beba84cbe404c950558b1c",
+    "skills/systematic-innovation/references/deep-mode.md": "e1918820e07a0d631b40d51b1979de32ac8471615983e1d4aeff1f2fae10026c",
+    "skills/systematic-innovation/references/evidence.md": "5f9167c1e45500051a4416c11c244b7e54b0eb2e69cf024e22e779aa38de28fb",
+    "skills/systematic-innovation/references/innovation-lenses.md": "21776796c4428039185cb291b65c6095245124e70c27c063ee5b7ecafd503b29",
+    "skills/systematic-innovation/references/output-contract.md": "39b6d76b8a56f3b8e13c9e2150edbe6c39330cbc4b6872e50c8b9293f135a35e",
+    "tools/stress_runner.py": "e54318594d2c9beecbe1df8b633b2343ebaec7b9c6a60c6dab73ff2d7126966f",
+    "tools/pilot_metrics.py": "5b862553fb348b96e982a334c608ab50838eb549b424e8f09a4b6ee37bc68043",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tests/test_skill_behavior.py": "2835cfc4abe3d2aff7661f6da012a9d0eef688934bb9c45f5055bc1ba275a805"
+  },
+  "starting_pack_sha256": "a1d454b84f9c05db5d020e88ba55b89cd1924b9062ab0b54543130559891793e",
+  "measurement_version": "cycle-6-starting",
+  "model": "gpt-5.6-luna",
+  "cli": "0.162.1"
+}

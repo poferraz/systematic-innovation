@@ -1,0 +1,16 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "baseline_clean",
+    "control_creative",
+    "control_format",
+    "skill_treatment"
+  ],
+  "cases_sha256": "4ec9065160fb125177d4b037a839d99073cf9bf4ef9bc95c971e67ef696e1b53",
+  "skill_pack_sha256": "0a8389fcbf500b0108cd970aeb70e142f84be4dec41ed98b77b2f5654d444c39",
+  "replicates": null,
+  "case_ids": [
+    "holdout-quick",
+    "holdout-budget"
+  ]
+}

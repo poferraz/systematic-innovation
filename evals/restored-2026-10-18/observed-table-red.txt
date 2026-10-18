@@ -1,0 +1,33 @@
+WARN `--no-project` was provided, but no project was found
+test_continuation_choices_are_not_learning_probes (tests.test_restored_measurement.RestoredMeasurementTests.test_continuation_choices_are_not_learning_probes) ... ok
+test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) ... ok
+test_format_matched_control_preserves_identical_disclosures (tests.test_restored_measurement.RestoredMeasurementTests.test_format_matched_control_preserves_identical_disclosures) ... ok
+test_later_nonproposal_sections_do_not_leak_into_plain_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_later_nonproposal_sections_do_not_leak_into_plain_portfolio) ... ok
+test_nonproposal_containers_do_not_become_portfolios (tests.test_restored_measurement.RestoredMeasurementTests.test_nonproposal_containers_do_not_become_portfolios) ... ok
+test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights) ... FAIL
+test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown (tests.test_restored_measurement.RestoredMeasurementTests.test_raw_transport_metadata_survives_and_unknown_cost_stays_unknown) ... ok
+test_requested_experiment_in_continuation_layer_is_still_detected (tests.test_restored_measurement.RestoredMeasurementTests.test_requested_experiment_in_continuation_layer_is_still_detected) ... FAIL
+test_test_method_names_are_not_silently_overwritten (tests.test_restored_measurement.RestoredMeasurementTests.test_test_method_names_are_not_silently_overwritten) ... ok
+
+======================================================================
+FAIL: test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 60, in test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights
+    self.assertEqual(len(candidates), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_requested_experiment_in_continuation_layer_is_still_detected (tests.test_restored_measurement.RestoredMeasurementTests.test_requested_experiment_in_continuation_layer_is_still_detected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 67, in test_requested_experiment_in_continuation_layer_is_still_detected
+    self.assertEqual(assess_falsifiability(response)["probe_count"], 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.032s
+
+FAILED (failures=2)

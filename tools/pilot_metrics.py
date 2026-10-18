@@ -382,7 +382,9 @@ def _extract_p_candidate_blocks(lines: list[str]) -> list[dict[str, str]]:
     current: tuple[str, str, list[str]] | None = None
     for line in lines[start:]:
         cleaned = plain(line)
-        if later_layer.match(cleaned):
+        candidate_field = current and (re.match(r"^\s*[-*]\s+", line) or (
+            not re.match(r"^\s*#", line) and re.match(r"^(?:System )?Receptivity\s*:", cleaned, re.I)))
+        if later_layer.match(cleaned) and not candidate_field:
             break
         match = header.match(cleaned) or alternate_header.match(cleaned)
         if match:
@@ -435,7 +437,7 @@ def _extract_control_portfolio(markdown_text: str) -> list[dict[str, str]]:
 
     lines = markdown_text.splitlines()
     # Table fallback precedes lists so a subsequent limitations list is not a portfolio.
-    proposal_headers = {"idea", "research idea", "arrangement", "recombination", "model"}
+    proposal_headers = {"idea", "research idea", "arrangement", "recombination", "model", "possibility"}
     table_rows = []
     in_table = False
     for line in lines:
@@ -445,7 +447,8 @@ def _extract_control_portfolio(markdown_text: str) -> list[dict[str, str]]:
             in_table = False
             continue
         cells = [cell.strip().strip("*") for cell in line.strip("|").split("|")]
-        if any(cell.lower() in proposal_headers for cell in cells):
+        if (any(cell.lower() in proposal_headers for cell in cells)
+                or {"name", "mechanism"}.issubset({cell.lower() for cell in cells})):
             in_table = True
             continue
         if not in_table or all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
@@ -459,7 +462,7 @@ def _extract_control_portfolio(markdown_text: str) -> list[dict[str, str]]:
     numbered = re.compile(r"^\d+[.)]\s+\*\*(.+?)\*\*(.*)$")
     bullet = re.compile(r"^[-*]\s+\*\*(.+?)\*\*(.*)$")
     metadata = {"benefit", "trade-off", "tradeoff", "risk", "primary outcome", "secondary outcomes", "safety guardrail", "implementation outcomes", "nurse workload outcomes", "non-inferiority guardrail"}
-    proposal_cue = re.compile(r"\b(?:portfolio|ideas|options|directions|approaches|models|recombinations|arrangements)\b", re.IGNORECASE)
+    proposal_cue = re.compile(r"\b(?:portfolio|ideas|options|directions|approaches|models|recombinations|arrangements|ways to improve)\b", re.IGNORECASE)
     excluded_section = re.compile(r"^#{1,6}\s+(?:limits?|limitations?|constraints?|guardrails?|what is not feasible|risks?)\b", re.IGNORECASE)
     for pattern in (numbered, bullet):
         rows = []
@@ -492,17 +495,113 @@ def _extract_control_portfolio(markdown_text: str) -> list[dict[str, str]]:
     return []
 
 
+def _extract_plain_portfolio(text: str) -> list[dict[str, str]]:
+    """Bounded fallback for explicitly labelled containers, not arbitrary prose."""
+    container = re.compile(r"^(?:#{1,6}\s*)?(?:possible approaches|possibilities|portfolio|ideas|options)\s*:?\s*$", re.I)
+    stop = re.compile(r"^(?:#{1,6}\s*)?(?:constraints?|examples?|implementation(?: steps)?|refusal|rejected(?: ideas)?|limitations?|risks?|connections?|continuation)\b", re.I)
+    lines = text.splitlines()
+    start = next((i + 1 for i, line in enumerate(lines) if container.match(line.strip())), None)
+    if start is None:
+        return []
+    block = []
+    for line in lines[start:]:
+        if stop.match(line.strip()):
+            break
+        block.append(line)
+    # Tables and explicitly identified P blocks have dedicated parsers.
+    if any(line.lstrip().startswith("|") or re.match(r"\s*P\d+\b", line) for line in block):
+        return []
+    markers = re.compile(r"^(?:#{1,6}\s+|\d+[.)]\s+|[-*]\s+)(.+)$")
+    rows: list[tuple[str, list[str]]] = []
+    current = None
+    if any(markers.match(line) for line in block):
+        for line in block:
+            match = markers.match(line)
+            if match:
+                current = (match.group(1), [match.group(1)])
+                rows.append(current)
+            elif current:
+                current[1].append(line)
+    else:
+        for paragraph in re.split(r"\n\s*\n", "\n".join(block).strip()):
+            # Title-colon paragraphs only; free prose remains a review dependency.
+            if re.match(r"[^:\n]{2,80}:\s+\S", paragraph):
+                rows.append((paragraph.split(":", 1)[0], [paragraph]))
+    results = []
+    for title, body in rows:
+        body_text = "\n".join(body).strip()
+        if len(body_text) < 40:
+            continue
+        fields = _parse_structured_fields(body_text)
+        fields.update(title=_clean_field_value(title), text=body_text)
+        fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
+        fields["lever"] = fields["causal_lever"]
+        results.append(fields)
+    return results
+
+
 def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     """Extract top-level candidate mechanism blocks from a portfolio response."""
+    # Exclude explicitly nonproposal containers before any layout-specific path.
+    # A nested table does not become a proposal by acquiring a familiar header.
+    filtered = []
+    blocked_level = None
+    excluded = re.compile(r"^(?:examples?|rejected(?: ideas)?|constraints?|implementation(?: steps)?|refusal|spotlights?|selected (?:possibilities|details)|(?:user.directed )?continuation)\b", re.I)
+    for line in markdown_text.splitlines():
+        heading = re.match(r"^\s*(#{1,6})\s+(.+)", line)
+        if heading:
+            level = len(heading.group(1))
+            if blocked_level is not None and level <= blocked_level:
+                blocked_level = None
+            if blocked_level is None and excluded.match(heading.group(2)):
+                blocked_level = level
+        if blocked_level is None:
+            filtered.append(line)
+    markdown_text = "\n".join(filtered)
     lines = markdown_text.splitlines()
     if "no compliant" in markdown_text.lower() and "boundary re-anchor" in markdown_text.lower():
         return []
+    # Explicit P IDs inside portfolio tables are proposals, not just ledger rows.
+    portfolio_start = next((i + 1 for i, line in enumerate(lines)
+                            if re.match(r"^\s*#+\s*Layer\s*3\b", line, re.I)), None)
+    table_candidates = []
+    if portfolio_start is not None:
+        for line in lines[portfolio_start:]:
+            if re.match(r"^\s*#+\s*Layer\s*[456]\b", line, re.I):
+                break
+            cells = [cell.strip().replace("**", "") for cell in line.strip().strip("|").split("|")]
+            if not line.lstrip().startswith("|") or len(cells) < 2:
+                continue
+            match = re.match(r"^(P\d+)\b\s*[:—–-]?\s*(.*)", cells[0], re.I)
+            if match and len(" ".join(cells[1:])) >= 40:
+                body = " | ".join(cells)
+                fields = _parse_structured_fields(body)
+                fields.update(candidate_id=match.group(1).upper(), title=match.group(2), text=body)
+                fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
+                fields["lever"] = fields["causal_lever"]
+                table_candidates.append(fields)
+    if table_candidates:
+        return table_candidates
     explicit_candidates = _extract_p_candidate_blocks(lines)
     if explicit_candidates:
         return explicit_candidates
     compact_candidates = _extract_compact_candidates(lines)
     if compact_candidates:
         return compact_candidates
+    plain_candidates = _extract_plain_portfolio(markdown_text)
+    if plain_candidates:
+        return plain_candidates
+    if any(line.lstrip().startswith("|") and any(
+        cell.strip().strip("*").lower() in {"possibility", "idea", "research idea", "arrangement", "recombination", "model"}
+        for cell in line.strip().strip("|").split("|")) for line in lines):
+        table_candidates = _extract_control_portfolio(markdown_text)
+        if table_candidates:
+            return table_candidates
+    if any(line.lstrip().startswith("|") and {"name", "mechanism"}.issubset(
+        {cell.strip().strip("*").lower() for cell in line.strip().strip("|").split("|")}) for line in lines):
+        table_candidates = _extract_control_portfolio(markdown_text)
+        if table_candidates:
+            return table_candidates
     ledger = _extract_ledger_fields(lines)
     heading_re = re.compile(
         r"^(#{1,4})\s+(?:"
@@ -639,6 +738,8 @@ def _learning_probe_texts(response: str) -> list[str]:
     compact_match = re.search(r"\bL6\s*:\s*(.+)$", response, re.IGNORECASE | re.MULTILINE)
     if compact_match:
         block = compact_match.group(1)
+        if not re.search(r"\b(?:Probe\s+P?\d+\s*:|experiment\s+\d+\s*:)", block, re.I):
+            return []
         return [probe.strip() for probe in re.split(r"\bProbe\s+P?\d+\s*:", block) if probe.strip()]
     layer_match = re.search(
         r"#+\s*(?:Layer\s*6|Learning\s*Probes)\b",
@@ -646,6 +747,10 @@ def _learning_probe_texts(response: str) -> list[str]:
         re.IGNORECASE,
     )
     if not layer_match:
+        return []
+    heading = response[layer_match.start():].splitlines()[0]
+    if (re.search(r"user.directed continuation", heading, re.I)
+            and not re.search(r"\b(?:probe|experiment)\s+\d+\s*:", response[layer_match.end():], re.I)):
         return []
     block = response[layer_match.end():]
     probes = []

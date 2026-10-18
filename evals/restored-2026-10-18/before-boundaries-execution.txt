@@ -1,0 +1,18 @@
+WARN `--no-project` was provided, but no project was found
+Plan: 16 conversations, 16 assistant calls
+Saved baseline_clean experiments-off rep 1: 265 provider output tokens
+Saved baseline_clean experiments-on rep 1: 602 provider output tokens
+Saved baseline_clean tight-budget rep 1: 697 provider output tokens
+Saved baseline_clean negative rep 1: 59 provider output tokens
+Saved control_creative experiments-on rep 1: 565 provider output tokens
+Saved control_creative tight-budget rep 1: 578 provider output tokens
+Saved control_creative experiments-off rep 1: 465 provider output tokens
+Saved control_creative negative rep 1: 46 provider output tokens
+Saved control_format experiments-off rep 1: 1112 provider output tokens
+Saved control_format tight-budget rep 1: 737 provider output tokens
+Saved control_format experiments-on rep 1: 1463 provider output tokens
+Saved control_format negative rep 1: 54 provider output tokens
+Saved skill_treatment tight-budget rep 1: 852 provider output tokens
+Saved skill_treatment experiments-off rep 1: 1481 provider output tokens
+Saved skill_treatment negative rep 1: 82 provider output tokens
+Saved skill_treatment experiments-on rep 1: 1915 provider output tokens

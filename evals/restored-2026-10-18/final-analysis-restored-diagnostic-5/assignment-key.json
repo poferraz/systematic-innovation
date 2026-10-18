@@ -1,0 +1,642 @@
+{
+  "A0001": {
+    "source_index": 41,
+    "case_id": "experiments-off",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-boundaries/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0002": {
+    "source_index": 27,
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0003": {
+    "source_index": 79,
+    "case_id": "holdout-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "holdout/skill_treatment.jsonl",
+    "epoch": "holdout"
+  },
+  "A0004": {
+    "source_index": 20,
+    "case_id": "ambiguous-deep",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0005": {
+    "source_index": 40,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-boundaries/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0006": {
+    "source_index": 12,
+    "case_id": "complex-single",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0007": {
+    "source_index": 9,
+    "case_id": "narrow-saturation",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0008": {
+    "source_index": 19,
+    "case_id": "complex-single",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0009": {
+    "source_index": 44,
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "discovery-only/skill_treatment.jsonl",
+    "epoch": "discovery_only"
+  },
+  "A0010": {
+    "source_index": 1,
+    "case_id": "broad-quick",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0011": {
+    "source_index": 77,
+    "case_id": "holdout-budget",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "holdout/control_format.jsonl",
+    "epoch": "holdout"
+  },
+  "A0012": {
+    "source_index": 67,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "budget-repair/skill_treatment.jsonl",
+    "epoch": "budget_allocation"
+  },
+  "A0013": {
+    "source_index": 17,
+    "case_id": "impossible",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0014": {
+    "source_index": 11,
+    "case_id": "bypass",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0015": {
+    "source_index": 46,
+    "case_id": "broad-quick",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0016": {
+    "source_index": 33,
+    "case_id": "tight-budget",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-boundaries/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0017": {
+    "source_index": 29,
+    "case_id": "experiments-on",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-boundaries/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0018": {
+    "source_index": 45,
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "discovery-only/skill_treatment.jsonl",
+    "epoch": "discovery_only"
+  },
+  "A0019": {
+    "source_index": 55,
+    "case_id": "bypass",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0020": {
+    "source_index": 60,
+    "case_id": "experiments-on",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0021": {
+    "source_index": 54,
+    "case_id": "complex-single",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0022": {
+    "source_index": 26,
+    "case_id": "bypass",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0023": {
+    "source_index": 72,
+    "case_id": "holdout-quick",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "holdout/baseline_clean.jsonl",
+    "epoch": "holdout"
+  },
+  "A0024": {
+    "source_index": 15,
+    "case_id": "broad-quick",
+    "condition": "control_format",
+    "replicate": 2,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0025": {
+    "source_index": 68,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "budget-final/skill_treatment.jsonl",
+    "epoch": "budget_final"
+  },
+  "A0026": {
+    "source_index": 70,
+    "case_id": "finite-saturation",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "finite-saturation/starting.jsonl",
+    "epoch": "finite_start"
+  },
+  "A0027": {
+    "source_index": 75,
+    "case_id": "holdout-budget",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "holdout/control_creative.jsonl",
+    "epoch": "holdout"
+  },
+  "A0028": {
+    "source_index": 76,
+    "case_id": "holdout-quick",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "holdout/control_format.jsonl",
+    "epoch": "holdout"
+  },
+  "A0029": {
+    "source_index": 24,
+    "case_id": "complex-single",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0030": {
+    "source_index": 22,
+    "case_id": "broad-quick",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0031": {
+    "source_index": 39,
+    "case_id": "negative",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-boundaries/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0032": {
+    "source_index": 3,
+    "case_id": "impossible",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0033": {
+    "source_index": 78,
+    "case_id": "holdout-quick",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "holdout/skill_treatment.jsonl",
+    "epoch": "holdout"
+  },
+  "A0034": {
+    "source_index": 18,
+    "case_id": "bypass",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0035": {
+    "source_index": 71,
+    "case_id": "finite-saturation",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "finite-saturation/final.jsonl",
+    "epoch": "finite_revised"
+  },
+  "A0036": {
+    "source_index": 21,
+    "case_id": "broad-quick",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0037": {
+    "source_index": 57,
+    "case_id": "impossible",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0038": {
+    "source_index": 36,
+    "case_id": "experiments-off",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-boundaries/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0039": {
+    "source_index": 2,
+    "case_id": "narrow-saturation",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0040": {
+    "source_index": 61,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0041": {
+    "source_index": 5,
+    "case_id": "ambiguous-deep",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0042": {
+    "source_index": 10,
+    "case_id": "impossible",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0043": {
+    "source_index": 49,
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0044": {
+    "source_index": 53,
+    "case_id": "impossible",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0045": {
+    "source_index": 51,
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0046": {
+    "source_index": 0,
+    "case_id": "broad-quick",
+    "condition": "baseline_clean",
+    "replicate": 2,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0047": {
+    "source_index": 31,
+    "case_id": "negative",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-boundaries/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0048": {
+    "source_index": 56,
+    "case_id": "bypass",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0049": {
+    "source_index": 43,
+    "case_id": "experiments-on",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-boundaries/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0050": {
+    "source_index": 66,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "budget-repair/skill_treatment.jsonl",
+    "epoch": "budget_allocation"
+  },
+  "A0051": {
+    "source_index": 47,
+    "case_id": "broad-quick",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0052": {
+    "source_index": 62,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0053": {
+    "source_index": 74,
+    "case_id": "holdout-quick",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "holdout/control_creative.jsonl",
+    "epoch": "holdout"
+  },
+  "A0054": {
+    "source_index": 35,
+    "case_id": "negative",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-boundaries/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0055": {
+    "source_index": 13,
+    "case_id": "ambiguous-deep",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0056": {
+    "source_index": 52,
+    "case_id": "complex-single",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0057": {
+    "source_index": 48,
+    "case_id": "narrow-saturation",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0058": {
+    "source_index": 38,
+    "case_id": "experiments-on",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-boundaries/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0059": {
+    "source_index": 63,
+    "case_id": "negative",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0060": {
+    "source_index": 59,
+    "case_id": "experiments-off",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0061": {
+    "source_index": 50,
+    "case_id": "narrow-saturation",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0062": {
+    "source_index": 37,
+    "case_id": "tight-budget",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-boundaries/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0063": {
+    "source_index": 4,
+    "case_id": "bypass",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0064": {
+    "source_index": 73,
+    "case_id": "holdout-budget",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "holdout/baseline_clean.jsonl",
+    "epoch": "holdout"
+  },
+  "A0065": {
+    "source_index": 16,
+    "case_id": "narrow-saturation",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0066": {
+    "source_index": 30,
+    "case_id": "tight-budget",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-boundaries/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0067": {
+    "source_index": 6,
+    "case_id": "complex-single",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-six/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0068": {
+    "source_index": 65,
+    "case_id": "experiments-on",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0069": {
+    "source_index": 23,
+    "case_id": "narrow-saturation",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0070": {
+    "source_index": 32,
+    "case_id": "experiments-on",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-boundaries/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0071": {
+    "source_index": 34,
+    "case_id": "experiments-off",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-boundaries/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0072": {
+    "source_index": 7,
+    "case_id": "broad-quick",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0073": {
+    "source_index": 28,
+    "case_id": "experiments-off",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "before-boundaries/baseline_clean.jsonl",
+    "epoch": "before"
+  },
+  "A0074": {
+    "source_index": 14,
+    "case_id": "broad-quick",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "before-six/control_format.jsonl",
+    "epoch": "before"
+  },
+  "A0075": {
+    "source_index": 69,
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "budget-final/skill_treatment.jsonl",
+    "epoch": "budget_final"
+  },
+  "A0076": {
+    "source_index": 64,
+    "case_id": "negative",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0077": {
+    "source_index": 58,
+    "case_id": "experiments-off",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "after/skill_treatment.jsonl",
+    "epoch": "revised"
+  },
+  "A0078": {
+    "source_index": 8,
+    "case_id": "broad-quick",
+    "condition": "control_creative",
+    "replicate": 2,
+    "source": "before-six/control_creative.jsonl",
+    "epoch": "before"
+  },
+  "A0079": {
+    "source_index": 42,
+    "case_id": "negative",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-boundaries/skill_treatment.jsonl",
+    "epoch": "before"
+  },
+  "A0080": {
+    "source_index": 25,
+    "case_id": "impossible",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "before-six/skill_treatment.jsonl",
+    "epoch": "before"
+  }
+}

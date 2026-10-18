@@ -2,15 +2,18 @@
 
 ## 1. The Six Disclosure Layers
 
-**Budget precedence:** A hard word or token ceiling in the user request overrides normal verbosity. For a word limit, draft internally to **min(80% of the stated word ceiling, 250 words)**, count every visible word including headings, and revise before sending. Produce a compressed six-layer response using an ultra-compact format: Layer 1 at most 40 words; four candidate lines with intervention, causal chain, causal lever, and Preserve check, each candidate at most 30 words; one-line receptivity; two spotlight signals; and user-directed continuation. Never exceed an explicit visible word ceiling. If the ceiling cannot fit four candidates, stop at the largest number that fits and state saturation.
+**Budget precedence:** A hard word or token ceiling overrides normal verbosity. Draft to **80% of the stated word ceiling**, count every visible word including labels, and revise before sending. Use a compressed six-layer response in an ultra-compact format. Never exceed an explicit visible word ceiling. Compress repeated labels and shared context before reducing breadth. Aim for the mode's normal targets when feasible; if the budget requires fewer, explain the **user-budget limit**, not mechanism saturation. Only the targeted transformation test establishes saturation; resource infeasibility is a separate reason for fewer possibilities.
 
 ### Compact Portfolio Template
 
-For a requested word ceiling of 500 or fewer, use exactly this plain-text structure and stop. This template supersedes the normal Six Disclosure Layers formatting. Each candidate line at most 30 visible words including labels; omit optional assumption and failure prose. `L1: ...` (tension, preservation, assumptions); `P1: ... | Intervention: ... | Causal chain: ... | Causal lever: ... | Preserve check: ...` through the candidates that fit; `L4: ...` (receptivity and action boundary); `L5: ...` (connections and tensions); `L6: ... (user-directed continuation; no automatic experiments)`. No Markdown tables, headings, or bold styling. Allocate at most 40 words to L1, 120 total to candidates, 30 total to L4–L5, and 30 to L6. These are maxima, not quotas. Count visible words before sending and remove any excess.
+For a word ceiling of 500 or fewer, use short plain-text lines: `L1:` brief and material assumptions; `L2:` system snapshot; `P1..Pn:` portfolio; `L4:` spotlight signals and receptivity; `L5:` connections/tensions; `L6:` user-directed continuation. Keep all six functions; compress their presentation. Share invariant lists and common receptivity notes, stating candidate-specific exceptions locally. Keep mechanism-to-value links, category/lens, uncertainty and fit legible. There is no fixed compact candidate count. Shorten each entry and duplicated context first; if required content still cannot fit, state which detail or breadth is limited by the user's budget. Count all visible words before sending.
+
+**Compact word allocation:** L1+L2 together use at most 15% of the ceiling; all candidate lines together at most 50%; L4+L5+L6 together at most 15%. Reserve the remaining 20% for counting uncertainty. Divide the candidate allocation across the intended portfolio before drafting; use short causal arrows and shared field notes rather than full prose or repeated field labels. No expanded spotlight paragraphs or separate ledger table under this ceiling. If essential information still cannot fit, explicitly disclose a user-budget reduction in detail or breadth; never exceed the ceiling to satisfy the normal presentation contract.
 
 Structure every final innovation portfolio (both Quick Mode single-turn responses and Deep Mode final synthesis turns) into six clear, scannable layers:
 
 ### Layer 1: Innovation Brief
+- Cover all eight brief fields from the core workflow: desired change, beneficiary, current insufficiency, existing strengths, preservation requirements, nonnegotiable constraints, success signals, and dominant frame. Combine them concisely with the tension and assumptions below.
 - **Core Tension:** 1–2 sentences contrasting the surface symptom with the underlying structural contradiction.
 - **Preservation Inventory (What Must Remain Intact):** Bullet the specific strengths, incentives, statutory reviews, or privacy/safeguarding floors that every option below protects.
 - **Assumptions:** Name the material inferences used when context is incomplete.
@@ -26,12 +29,14 @@ Identify actors, incentives, dependencies, existing strengths, failed approaches
   - **Deep Mode:** **15 to 24** causally distinct possibilities.
   - **Saturation Rule:** Stop when one targeted transformation pass yields zero or one new mechanism. If a narrow problem saturates below the target, say so rather than padding variants.
 - **Required Fields per Possibility (`P1`..`Pn`):**
+  - **Memorable name**, **Intended value**, **Portfolio category** (sustaining, adjacent, disruptive, or constraint removal; non-quota signals), and **Originating lens**.
   - **Descriptive Tag** (non-quota orientation label such as *Temporal Inversion*, *Boundary Re-Partition*, *Subtraction Compact*, *Artifact Poka-Yoke*, or *Ecosystem Co-Production*).
   - **Intervention point:** Where the mechanism acts in the system.
   - **Causal chain:** How the intervention alters system behavior step by step (`Trigger/Rule Change` $\rightarrow$ `Actor Incentive/Flow Shift` $\rightarrow$ `Measurable System Effect`).
   - **Causal lever:** The structural operation changing behavior.
   - **Preserve check:** A candidate-by-candidate statement showing it respects every Layer 1 preservation invariant and each exact budget, staffing, statutory, physical, or privacy constraint. Under a word ceiling, use `Preserve check: all L1 invariants` only after Layer 1 lists them explicitly.
   - **Key Assumption & Failure Mode:** What must hold true for this mechanism to work, and what perverse incentive or edge case to watch for (never fabricate statistics or fake percentages).
+  - **System-fit/receptivity note:** **Required cooperation** and boundary mode; **Principal resistance** and likely Yes-but response; **Preservation risk**; **Major unknown**. Shared notes may cover several entries only when their applicability and exceptions are clear. These notes are provisional, not evidence of stakeholder consent or feasibility.
 
 ### Contradiction & Boundary Re-Anchor
 
@@ -42,6 +47,7 @@ Develop **five to seven** possibilities representing different signals rather th
 1. **The Three Problem-Owner Questions (Rickards 1985, p. 160):** new to the problem owner, mission relevance, and resource actionability.
 2. **Boundary mode (Rickards 1985, pp. 159–163):** mission-orientated, negotiative, or participative.
 3. **Yes-But Inoculation:** the likely objection and the safeguard that preserves the core mechanism.
+4. Supporting/opposing incentives, structural dependencies, required capabilities, burdens of change, negative externalities, and existing strengths used or protected. Mark novelty to the problem owner and actionability as unknown when evidence is missing. Spotlight signals are not a final ranking.
 
 ### Layer 5: Connections and Tensions
 Identify compatible combinations, mutually exclusive approaches, shared dependencies, conflicting assumptions, and possibilities that could form a broader system. Do not declare a mandatory winner.

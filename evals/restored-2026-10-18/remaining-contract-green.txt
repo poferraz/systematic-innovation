@@ -1,0 +1,24 @@
+WARN `--no-project` was provided, but no project was found
+test_brief_and_portfolio_retain_approved_information (tests.test_skill_behavior.SkillBehaviorContractTests.test_brief_and_portfolio_retain_approved_information) ... ok
+test_candidate_fields_expose_causal_structure_and_preservation (tests.test_skill_behavior.SkillBehaviorContractTests.test_candidate_fields_expose_causal_structure_and_preservation) ... ok
+test_deep_discovery_asks_one_question_at_a_time (tests.test_skill_behavior.SkillBehaviorContractTests.test_deep_discovery_asks_one_question_at_a_time) ... ok
+test_deep_discovery_has_no_fixed_two_exchange_shortcut (tests.test_skill_behavior.SkillBehaviorContractTests.test_deep_discovery_has_no_fixed_two_exchange_shortcut) ... ok
+test_deep_mode_requires_an_actual_interactive_channel (tests.test_skill_behavior.SkillBehaviorContractTests.test_deep_mode_requires_an_actual_interactive_channel) ... ok
+test_disclosure_layers_match_approved_contract (tests.test_skill_behavior.SkillBehaviorContractTests.test_disclosure_layers_match_approved_contract) ... ok
+test_duplicate_labels_do_not_define_causal_equivalence (tests.test_skill_behavior.SkillBehaviorContractTests.test_duplicate_labels_do_not_define_causal_equivalence) ... ok
+test_experiments_appear_only_after_explicit_request (tests.test_skill_behavior.SkillBehaviorContractTests.test_experiments_appear_only_after_explicit_request) ... ok
+test_explicit_output_budgets_override_verbose_contract (tests.test_skill_behavior.SkillBehaviorContractTests.test_explicit_output_budgets_override_verbose_contract) ... ok
+test_impossible_constraints_do_not_become_noncompliant_candidates (tests.test_skill_behavior.SkillBehaviorContractTests.test_impossible_constraints_do_not_become_noncompliant_candidates) ... ok
+test_original_ai_mechanisms_are_not_attributed_to_rickards (tests.test_skill_behavior.SkillBehaviorContractTests.test_original_ai_mechanisms_are_not_attributed_to_rickards) ... ok
+test_portfolio_targets_match_approved_specification (tests.test_skill_behavior.SkillBehaviorContractTests.test_portfolio_targets_match_approved_specification) ... ok
+test_provenance_table_lists_all_original_ai_mechanisms (tests.test_skill_behavior.SkillBehaviorContractTests.test_provenance_table_lists_all_original_ai_mechanisms) ... ok
+test_reasoning_cell_taxonomy_has_no_retired_cell_labels (tests.test_skill_behavior.SkillBehaviorContractTests.test_reasoning_cell_taxonomy_has_no_retired_cell_labels) ... ok
+test_reasoning_cells_are_original_ai_mechanisms (tests.test_skill_behavior.SkillBehaviorContractTests.test_reasoning_cells_are_original_ai_mechanisms) ... ok
+test_reasoning_cells_match_approved_specification (tests.test_skill_behavior.SkillBehaviorContractTests.test_reasoning_cells_match_approved_specification) ... ok
+test_requested_experiments_are_falsifiable_with_bounds_and_fallback (tests.test_skill_behavior.SkillBehaviorContractTests.test_requested_experiments_are_falsifiable_with_bounds_and_fallback) ... ok
+test_single_turn_execution_channel_precedes_substantive_complexity (tests.test_skill_behavior.SkillBehaviorContractTests.test_single_turn_execution_channel_precedes_substantive_complexity) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.003s
+
+OK

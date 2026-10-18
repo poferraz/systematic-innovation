@@ -41,14 +41,10 @@ When independent sub-contexts are available, selected cells may run in parallel 
 
 ## 4. The Mechanism Ledger & Duplicate Collapse Test
 
-Every portfolio must include or enforce a compact **Mechanism Ledger** proving that each numbered possibility occupies a distinct structural coordinate:
-
-| Possibility ID | Cell / Lens | Changed System Variable | Causal Lever Type | Stage of Action | Feedback Loop Shifted |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| `P1` | ... | ... | ... | ... | ... |
+Maintain a **Mechanism Ledger**: mechanism family, intervention point, principal actor, changed flow, intended effect, variants, and origin (cell and lens). Compare timing, scale, decision rights, incentives, value creation/delivery, and feedback as relevant. Display these within portfolio entries when useful; a separate table repeating the same information is unnecessary.
 
 Before finalizing, compare every pair of candidates:
-1. **Same lever + same stage = merge:** Merge wording variants into one richer mechanism family.
+1. **Compare operations, not labels:** Merge wording variants of the same causal mechanism. Retain a genuinely different causal mechanism or meaningful differences across at least two structural dimensions. Same lever/stage labels can cover different flows, actors, or decision rights; different labels can describe the same operation.
 2. **Minimum quality gate:** Every candidate must be relevant, constraint-aligned, causally clear, plausible, and safe.
 
 ## 5. Adversarial Feasibility and Preservation Check

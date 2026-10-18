@@ -1,0 +1,10 @@
+{
+  "version": "restored-diagnostic-4",
+  "sources": {
+    "tools/pilot_metrics.py": "d846a29b86c47e61caf1b9265fa21ba1cbede5c33936623fa0154f74dee73836",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tools/restored_review.py": "3eca37aa4aef399c68395445de4df2a52d81077ad56ff3dd25c12fa7da578e9a",
+    "evals/restored-2026-10-18/summarize.py": "84cb7f12e7ad84b1ee9b08c8270d1861c36c051c7c64201d8d12e98008f905c7"
+  },
+  "reason": "Independent review reproduced nonproposal tables and spotlight/continuation leakage. All 80 raw conversations rescored identically; no generation changes."
+}

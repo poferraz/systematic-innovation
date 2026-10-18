@@ -1,0 +1,58 @@
+{
+  "A0001": {
+    "source_index": 1,
+    "case_id": "holdout-budget",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/baseline_clean.jsonl"
+  },
+  "A0002": {
+    "source_index": 6,
+    "case_id": "holdout-quick",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/skill_treatment.jsonl"
+  },
+  "A0003": {
+    "source_index": 4,
+    "case_id": "holdout-quick",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/control_format.jsonl"
+  },
+  "A0004": {
+    "source_index": 5,
+    "case_id": "holdout-budget",
+    "condition": "control_format",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/control_format.jsonl"
+  },
+  "A0005": {
+    "source_index": 7,
+    "case_id": "holdout-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/skill_treatment.jsonl"
+  },
+  "A0006": {
+    "source_index": 0,
+    "case_id": "holdout-quick",
+    "condition": "baseline_clean",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/baseline_clean.jsonl"
+  },
+  "A0007": {
+    "source_index": 2,
+    "case_id": "holdout-quick",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/control_creative.jsonl"
+  },
+  "A0008": {
+    "source_index": 3,
+    "case_id": "holdout-budget",
+    "condition": "control_creative",
+    "replicate": 1,
+    "source": "evals/restored-2026-10-18/holdout/control_creative.jsonl"
+  }
+}

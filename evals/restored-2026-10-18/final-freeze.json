@@ -1,0 +1,14 @@
+{
+  "starting_revision": "a36903a",
+  "pack_sha256": "86294149f54b02c7d64234612559745265d71b50de2ec4010d502a5606fc6b5c",
+  "files": {
+    "skills/systematic-innovation/SKILL.md": "943a31144ecc7f8898adc000d210672442b19e975bd96239fc7a8153564ad689",
+    "skills/systematic-innovation/references/deep-mode.md": "28ff788317125aa2995a58e267f4fde925ef68f0147a99fc6a7e855f2761f0ae",
+    "skills/systematic-innovation/references/evidence.md": "e1d7f2e67371efa02c5a8d97f89e5bf9f3ccf2cd6615796852917c6f36364cb3",
+    "skills/systematic-innovation/references/innovation-lenses.md": "79ee3e8d69df28290672ff9a8aa39061ffa7fe9ef34cc297dac667af59889cee",
+    "skills/systematic-innovation/references/output-contract.md": "c3216735a282314145ea959751fcc06bcb0ee59c780dcc847887dbccd5776577"
+  },
+  "change_since_revised_freeze": "compact word allocation only",
+  "measurement": "restored-diagnostic-3",
+  "holdout_hash": "4ec9065160fb125177d4b037a839d99073cf9bf4ef9bc95c971e67ef696e1b53"
+}

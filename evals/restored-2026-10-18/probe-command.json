@@ -1,0 +1,17 @@
+[
+  "/Users/poferraz/.local/bin/codex",
+  "exec",
+  "--json",
+  "--ignore-user-config",
+  "--ignore-rules",
+  "--skip-git-repo-check",
+  "--sandbox",
+  "read-only",
+  "-m",
+  "gpt-5.6-luna",
+  "-C",
+  "/tmp",
+  "-o",
+  "/Users/poferraz/Documents/Development/active/systematic-innovation/evals/restored-2026-10-18/probe-answer-1.txt",
+  "-"
+]

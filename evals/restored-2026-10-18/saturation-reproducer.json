@@ -1,0 +1,14 @@
+{
+  "scope": "public finite-space reproducer added before its two model calls, not a holdout",
+  "cases": [
+    {
+      "id": "finite-saturation",
+      "prompt": "Quick mode. I manage one empty unused display panel. Its only permitted states are on and off. It has no content, network connection or other function. No changes to hardware, timing, users or process are permitted; the only permitted setting change is on/off. My sole goal is reducing electricity consumption; it currently stays on continuously. What meaningfully different improvements remain? Do not pad variants or add experiments.",
+      "user_turns": [],
+      "expected_mode": "quick",
+      "interaction_mode": "single-turn",
+      "should_trigger": true,
+      "replicates": 1
+    }
+  ]
+}

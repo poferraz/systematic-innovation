@@ -1,0 +1,16 @@
+WARN `--no-project` was provided, but no project was found
+test_selected_details_and_connections_are_not_an_extra_proposal (tests.test_restored_measurement.RestoredMeasurementTests.test_selected_details_and_connections_are_not_an_extra_proposal) ... FAIL
+
+======================================================================
+FAIL: test_selected_details_and_connections_are_not_an_extra_proposal (tests.test_restored_measurement.RestoredMeasurementTests.test_selected_details_and_connections_are_not_an_extra_proposal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 116, in test_selected_details_and_connections_are_not_an_extra_proposal
+    self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 2
+
+----------------------------------------------------------------------
+Ran 1 test in 0.004s
+
+FAILED (failures=1)

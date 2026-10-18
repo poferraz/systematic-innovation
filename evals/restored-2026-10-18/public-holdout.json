@@ -1,0 +1,25 @@
+{
+  "scope": "frozen public development final check; not restricted or sealed",
+  "cases": [
+    {
+      "interaction_mode": "single-turn",
+      "expected_mode": "quick",
+      "should_trigger": true,
+      "replicates": 1,
+      "user_turns": [],
+      "preserve": [],
+      "id": "holdout-quick",
+      "prompt": "Quick mode. A public swimming pool has spare capacity outside popular hours while many residents cannot use the popular slots. Explore alternatives within existing staffing and water-safety requirements, preserving affordable access and disability accommodations. No experiments or roadmap."
+    },
+    {
+      "interaction_mode": "single-turn",
+      "expected_mode": "quick",
+      "should_trigger": true,
+      "replicates": 1,
+      "user_turns": [],
+      "preserve": [],
+      "id": "holdout-budget",
+      "prompt": "Quick mode. A shared workshop repeatedly runs out of a few inexpensive consumables while other supplies expire unused. Explore different mechanisms using existing people and budget, preserving free community sessions and safe material handling. At most 400 words; no experiments."
+    }
+  ]
+}

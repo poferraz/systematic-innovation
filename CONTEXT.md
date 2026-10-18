@@ -710,6 +710,50 @@ No calibrated LLM judge or human evaluation has been performed in this explorato
 
 The recovered canonical skill also differed from the approved behavioral specification in quantity targets, batched discovery, disclosure layers, automatic learning probes, and cell/provenance classification. These findings are recorded in [`evals/stress/contract-findings.md`](evals/stress/contract-findings.md). On 2026-10-17, the owner directed restoration of the approved contract across those boundaries. The canonical skill pack was then aligned and regression-tested; earlier Cycle 1–5 runs remain frozen evidence for the prior candidate and are not relabelled as evidence for the restored candidate. Future performance claims require fresh retained runs of the restored revision.
 
+### 19.7 Restored-Candidate Diagnostic and Remaining Budget Regression (2026-10-18)
+
+The owner authorized continued diagnosis, implementation and bounded verification
+of the restored skill without reopening the approved design. Work began at clean
+`a36903a` on the existing stress-test branch. Fresh four-arm public development
+runs, an isolated discovery correction, revised-candidate regressions and a
+once-only public development holdout are retained in
+[`evals/restored-2026-10-18/report.md`](evals/restored-2026-10-18/report.md).
+Historical Cycle 1–6 generations remain evidence for their original candidate.
+
+The investigation reproduced premature Deep synthesis after two exchanges.
+Removing that shortcut kept discovery open for the missing authority/resource
+question in both isolated retests, lowering sampled total output from 6,977 to
+3,942/4,228 tokens. Canonical-only corrections also reconciled brief, ledger,
+portfolio, receptivity, compact-budget and provenance instructions with the
+approved contract. This is static alignment plus bounded behavioral evidence,
+not a general instruction-following guarantee.
+
+Word-budget behavior regressed: the starting 450-word case used 461 words;
+subsequent revised/repair attempts remained over the limit, and the final
+once-only 400-word holdout used 575 words. The failed attempts remain visible and
+budget tuning stopped within the declared ceiling. Several fuller single-turn
+outputs also became more expensive. Overall qualified-mechanism efficiency is
+inconclusive, not improved by assumption.
+
+The diagnostic retained 80 conversations / 104 scripted assistant turns plus
+three real usage probes (107 successful evaluation calls). Cumulative provider
+usage semantics were verified; input/output counters, reasoning categories,
+commands, raw events and CLI wall latency are retained. Extraction repairs were
+applied consistently across all arms with versioned measurements and source
+snapshots. Residual free-form misses and lexical false splits/merges remain
+documented. An unrated blinded human-evaluation packet was prepared; no human
+calibration or qualified primary-effect estimate exists.
+
+The unused historical treatment importer was also disabled after a safe temporary
+fixture reproduced overwriting retained output while assigning unverified ratings
+and qualified counts. Its source remains for provenance; historical actual data
+was not regenerated.
+
+The formal benchmark package and approved six/twelve-case gates remain unbuilt;
+this diagnostic does not pass them or unlock the full development study. No
+restricted/sealed evidence was accessed and no broad compatibility, automatic
+activation, release, global novelty or zero-hallucination claim was made.
+
 ## 20. Current Repository-Quality Intent
 
 Before the architecture decision, the owner's intent established the following constraints; the approved direction in section 19.1 now gives them architectural form:

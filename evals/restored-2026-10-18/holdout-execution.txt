@@ -1,0 +1,10 @@
+WARN `--no-project` was provided, but no project was found
+Plan: 8 conversations, 8 assistant calls
+Saved baseline_clean holdout-quick rep 1: 421 provider output tokens
+Saved baseline_clean holdout-budget rep 1: 472 provider output tokens
+Saved control_creative holdout-quick rep 1: 502 provider output tokens
+Saved control_creative holdout-budget rep 1: 483 provider output tokens
+Saved control_format holdout-quick rep 1: 1544 provider output tokens
+Saved control_format holdout-budget rep 1: 804 provider output tokens
+Saved skill_treatment holdout-quick rep 1: 2328 provider output tokens
+Saved skill_treatment holdout-budget rep 1: 982 provider output tokens

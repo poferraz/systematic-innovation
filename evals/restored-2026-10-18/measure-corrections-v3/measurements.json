@@ -1,0 +1,1594 @@
+[
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "raw_candidate_blocks": 15,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "intervention_point": "Replace competing signup systems with one minimal, optional intake",
+        "causal_chain": "One entry point \u2192 fewer abandoned registrations \u2192 more people reach a choice of pathways",
+        "causal_lever": "information-schema unification",
+        "preserve_check": "Free, voluntary, privacy-minimizing, and does not require partner budget pooling",
+        "candidate_id": "P1",
+        "title": "Common Doorway",
+        "text": "Common Doorway\n\n- **Intervention:** Replace competing signup systems with one minimal, optional intake.\n- **Causal chain:** One entry point \u2192 fewer abandoned registrations \u2192 more people reach a choice of pathways.\n- **Causal lever:** Information-schema unification.\n- **Preserve check:** Free, voluntary, privacy-minimizing, and does not require partner budget pooling.\n- **Assumption/failure:** Partners accept a shared routing routine; the doorway must not become a hidden eligibility screen.",
+        "lever": "information-schema unification",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Publish flexible windows before designing sessions",
+        "causal_chain": "Participant availability shapes scheduling \u2192 attendance friction falls \u2192 partners fill sessions against visible demand",
+        "causal_lever": "temporal inversion",
+        "preserve_check": "Uses coordinator scheduling and existing rooms; attendance remains voluntary",
+        "candidate_id": "P2",
+        "title": "Time-Window Menu",
+        "text": "Time-Window Menu\n\n- **Intervention:** Publish flexible windows before designing sessions.\n- **Causal chain:** Participant availability shapes scheduling \u2192 attendance friction falls \u2192 partners fill sessions against visible demand.\n- **Causal lever:** Temporal inversion.\n- **Preserve check:** Uses coordinator scheduling and existing rooms; attendance remains voluntary.\n- **Assumption/failure:** Enough partner availability exists across windows; sparse demand may leave some windows empty.",
+        "lever": "temporal inversion",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Treat pauses as normal states rather than dropouts",
+        "causal_chain": "No penalty for interruption \u2192 participants can return without re-registering repeatedly \u2192 continuity improves",
+        "causal_lever": "subtraction of continuity requirements",
+        "preserve_check": "No compulsory attendance or personal-data requirement",
+        "candidate_id": "P3",
+        "title": "Pause and Re-Entry Lanes",
+        "text": "Pause and Re-Entry Lanes\n\n- **Intervention:** Treat pauses as normal states rather than dropouts.\n- **Causal chain:** No penalty for interruption \u2192 participants can return without re-registering repeatedly \u2192 continuity improves.\n- **Causal lever:** Subtraction of continuity requirements.\n- **Preserve check:** No compulsory attendance or personal-data requirement.\n- **Assumption/failure:** The system can preserve a privacy-safe re-entry method; inactive contacts must not become unwanted outreach.",
+        "lever": "subtraction of continuity requirements",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Give participants an optional paper or digital record they control",
+        "causal_chain": "Participant carries relevant progress \u2192 fewer repeated explanations \u2192 easier movement among partners",
+        "causal_lever": "consent-portable handoff",
+        "preserve_check": "No required data sharing; safeguarding and participant control remain intact",
+        "candidate_id": "P4",
+        "title": "Participant-Held Pathway Card",
+        "text": "Participant-Held Pathway Card\n\n- **Intervention:** Give participants an optional paper or digital record they control.\n- **Causal chain:** Participant carries relevant progress \u2192 fewer repeated explanations \u2192 easier movement among partners.\n- **Causal lever:** Consent-portable handoff.\n- **Preserve check:** No required data sharing; safeguarding and participant control remain intact.\n- **Assumption/failure:** Partners agree what can be recorded; the record must not imply qualifications it does not confer.",
+        "lever": "consent-portable handoff",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Break sessions into independently useful units",
+        "causal_chain": "Smaller commitments fit irregular schedules \u2192 more completed units \u2192 cumulative learning becomes possible",
+        "causal_lever": "re-bundling",
+        "preserve_check": "No new staff required; modules can use existing rooms and voluntary attendance",
+        "candidate_id": "P5",
+        "title": "Modular Learning Blocks",
+        "text": "Modular Learning Blocks\n\n- **Intervention:** Break sessions into independently useful units.\n- **Causal chain:** Smaller commitments fit irregular schedules \u2192 more completed units \u2192 cumulative learning becomes possible.\n- **Causal lever:** Re-bundling.\n- **Preserve check:** No new staff required; modules can use existing rooms and voluntary attendance.\n- **Assumption/failure:** Partners can define meaningful units without diluting qualification standards.",
+        "lever": "re-bundling",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "After an activity, each partner interprets the same participation differently",
+        "causal_chain": "Shared activity \u2192 partner-specific evidence translation \u2192 one network supports three value systems without one universal goal",
+        "causal_lever": "boundary partition",
+        "preserve_check": "Partners retain autonomy; no budget delegation or mandatory data exchange",
+        "candidate_id": "P6",
+        "title": "Outcome Translation Layer",
+        "text": "Outcome Translation Layer\n\n- **Intervention:** After an activity, each partner interprets the same participation differently.\n- **Causal chain:** Shared activity \u2192 partner-specific evidence translation \u2192 one network supports three value systems without one universal goal.\n- **Causal lever:** Boundary partition.\n- **Preserve check:** Partners retain autonomy; no budget delegation or mandatory data exchange.\n- **Assumption/failure:** Partners negotiate translation rules; incompatible evidence demands may remain unresolved.",
+        "lever": "boundary partition",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Employers provide realistic, bounded tasks rather than funding or owning the programme",
+        "causal_chain": "Local work needs shape activities \u2192 participants practise relevant capabilities \u2192 employers gain clearer job-readiness signals",
+        "causal_lever": "demand-pull design",
+        "preserve_check": "No participant compulsion, hiring promise, or employer control over other outcomes",
+        "candidate_id": "P7",
+        "title": "Employer Challenge Briefs",
+        "text": "Employer Challenge Briefs\n\n- **Intervention:** Employers provide realistic, bounded tasks rather than funding or owning the programme.\n- **Causal chain:** Local work needs shape activities \u2192 participants practise relevant capabilities \u2192 employers gain clearer job-readiness signals.\n- **Causal lever:** Demand-pull design.\n- **Preserve check:** No participant compulsion, hiring promise, or employer control over other outcomes.\n- **Assumption/failure:** Employers can contribute task briefs without requiring sensitive participant data.",
+        "lever": "demand-pull design",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Add optional recurring social formats around existing learning activity",
+        "causal_chain": "Familiar low-pressure contact \u2192 stronger social ties \u2192 participants are more willing to return or try another pathway",
+        "causal_lever": "peer co-production",
+        "preserve_check": "Free, voluntary, safeguarding-compliant, and compatible with library priorities",
+        "candidate_id": "P8",
+        "title": "Library Connection Circles",
+        "text": "Library Connection Circles\n\n- **Intervention:** Add optional recurring social formats around existing learning activity.\n- **Causal chain:** Familiar low-pressure contact \u2192 stronger social ties \u2192 participants are more willing to return or try another pathway.\n- **Causal lever:** Peer co-production.\n- **Preserve check:** Free, voluntary, safeguarding-compliant, and compatible with library priorities.\n- **Assumption/failure:** Participants want social contact in this setting; peer roles need clear safeguarding boundaries.",
+        "lever": "peer co-production",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Negotiate several acceptable evidence forms rather than one attendance-based proof",
+        "causal_chain": "Flexible participation produces legible evidence \u2192 participants can progress despite schedule variation \u2192 qualifications remain meaningful",
+        "causal_lever": "negotiated standardization",
+        "preserve_check": "Does not lower qualification or safeguarding standards",
+        "candidate_id": "P9",
+        "title": "School-Recognized Evidence Menu",
+        "text": "School-Recognized Evidence Menu\n\n- **Intervention:** Negotiate several acceptable evidence forms rather than one attendance-based proof.\n- **Causal chain:** Flexible participation produces legible evidence \u2192 participants can progress despite schedule variation \u2192 qualifications remain meaningful.\n- **Causal lever:** Negotiated standardization.\n- **Preserve check:** Does not lower qualification or safeguarding standards.\n- **Assumption/failure:** The school has discretion over evidence formats; otherwise this mechanism is limited to preparatory learning.",
+        "lever": "negotiated standardization",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Map unused room periods and expose them as a shared scheduling pool",
+        "causal_chain": "Existing capacity becomes visible \u2192 more time options without new facilities \u2192 participation can align with real availability",
+        "causal_lever": "capacity reuse",
+        "preserve_check": "Uses existing rooms only; respects safeguarding, access, and each owner\u2019s authority",
+        "candidate_id": "P10",
+        "title": "Idle-Room Exchange",
+        "text": "Idle-Room Exchange\n\n- **Intervention:** Map unused room periods and expose them as a shared scheduling pool.\n- **Causal chain:** Existing capacity becomes visible \u2192 more time options without new facilities \u2192 participation can align with real availability.\n- **Causal lever:** Capacity reuse.\n- **Preserve check:** Uses existing rooms only; respects safeguarding, access, and each owner\u2019s authority.\n- **Assumption/failure:** Room access can be coordinated without displacing existing services.",
+        "lever": "capacity reuse",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Start small groups repeatedly instead of one fixed intake",
+        "causal_chain": "No single start date \u2192 late-shift workers, retirees, and teenagers can enter at different points \u2192 fewer missed-cycle exits",
+        "causal_lever": "temporal staggering",
+        "preserve_check": "Voluntary and compatible with existing spaces; does not require additional staffing",
+        "candidate_id": "P11",
+        "title": "Rolling Micro-Cohorts",
+        "text": "Rolling Micro-Cohorts\n\n- **Intervention:** Start small groups repeatedly instead of one fixed intake.\n- **Causal chain:** No single start date \u2192 late-shift workers, retirees, and teenagers can enter at different points \u2192 fewer missed-cycle exits.\n- **Causal lever:** Temporal staggering.\n- **Preserve check:** Voluntary and compatible with existing spaces; does not require additional staffing.\n- **Assumption/failure:** Activities can tolerate mixed start points without harming learning quality.",
+        "lever": "temporal staggering",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Sequence partner contributions so one session leads naturally to another",
+        "causal_chain": "A participant leaves with a next-step option \u2192 partner absence no longer breaks the pathway \u2192 movement across outcomes increases",
+        "causal_lever": "boundary re-partition",
+        "preserve_check": "Partners retain control of their own sessions and budgets",
+        "candidate_id": "P12",
+        "title": "Partner Relay Sessions",
+        "text": "Partner Relay Sessions\n\n- **Intervention:** Sequence partner contributions so one session leads naturally to another.\n- **Causal chain:** A participant leaves with a next-step option \u2192 partner absence no longer breaks the pathway \u2192 movement across outcomes increases.\n- **Causal lever:** Boundary re-partition.\n- **Preserve check:** Partners retain control of their own sessions and budgets.\n- **Assumption/failure:** Handoffs remain optional and do not become pressured recruitment.",
+        "lever": "boundary re-partition",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Let participants select which value they are pursuing, or decline to specify",
+        "causal_chain": "Participant purpose becomes visible without forced categorization \u2192 activities feel more relevant \u2192 partners receive richer qualitative direction",
+        "causal_lever": "authority inversion",
+        "preserve_check": "Privacy, dignity, and voluntary choice protected",
+        "candidate_id": "P13",
+        "title": "Participant-Defined Success",
+        "text": "Participant-Defined Success\n\n- **Intervention:** Let participants select which value they are pursuing, or decline to specify.\n- **Causal chain:** Participant purpose becomes visible without forced categorization \u2192 activities feel more relevant \u2192 partners receive richer qualitative direction.\n- **Causal lever:** Authority inversion.\n- **Preserve check:** Privacy, dignity, and voluntary choice protected.\n- **Assumption/failure:** Partners can tolerate success evidence that is not fully standardized.",
+        "lever": "authority inversion",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Negotiate one modest common outcome beneath the three partner goals, such as \u201cparticipants can access a useful next step.\u201d",
+        "causal_chain": "Smaller agreement becomes possible \u2192 partner-specific goals remain intact \u2192 coordination has a common floor",
+        "causal_lever": "constraint separation",
+        "preserve_check": "Does not replace qualifications, social connection, or job readiness",
+        "candidate_id": "P14",
+        "title": "Shared Minimum Outcome",
+        "text": "Shared Minimum Outcome\n\n- **Intervention:** Negotiate one modest common outcome beneath the three partner goals, such as \u201cparticipants can access a useful next step.\u201d\n- **Causal chain:** Smaller agreement becomes possible \u2192 partner-specific goals remain intact \u2192 coordination has a common floor.\n- **Causal lever:** Constraint separation.\n- **Preserve check:** Does not replace qualifications, social connection, or job readiness.\n- **Assumption/failure:** Partners can agree on a minimum without treating it as the entire mission.",
+        "lever": "constraint separation",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Collect optional, aggregated signals about timing, access, and perceived value without requiring identity",
+        "causal_chain": "Coordinator sees recurring friction \u2192 scheduling and formats adjust \u2192 participants benefit without surveillance",
+        "causal_lever": "data minimization",
+        "preserve_check": "No compulsory personal data sharing; safeguarding remains separate and mandatory where applicable",
+        "candidate_id": "P15",
+        "title": "Anonymous Participation Signals",
+        "text": "Anonymous Participation Signals\n\n- **Intervention:** Collect optional, aggregated signals about timing, access, and perceived value without requiring identity.\n- **Causal chain:** Coordinator sees recurring friction \u2192 scheduling and formats adjust \u2192 participants benefit without surveillance.\n- **Causal lever:** Data minimization.\n- **Preserve check:** No compulsory personal data sharing; safeguarding remains separate and mandatory where applicable.\n- **Assumption/failure:** Aggregation remains meaningful with small groups; anonymity must not compromise safeguarding duties.\n\n**Saturation stop:** Fifteen distinct mechanisms remain after collapsing timetable, intake, partner, and evidence variants. Further additions would likely repeat these causal levers.",
+        "lever": "data minimization",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 15,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 3942,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 86433,
+    "latency_seconds": 45.1311579169851,
+    "cost": null,
+    "final_word_count": 1947,
+    "word_budget_compliant": null,
+    "discovery_questions_diagnostic": 3,
+    "assistant_turns": 4,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "ambiguous-deep",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 15,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 15,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 14.877,
+        "1.0": 14.753,
+        "2.0": 14.5
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1947,
+      "discovery_question_count": 3,
+      "total_assistant_output_tokens": 3942,
+      "original_reported_total_assistant_output_tokens": 3942
+    }
+  },
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "ambiguous-deep",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "raw_candidate_blocks": 15,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "intervention_point": "One shared, low-data intake route lists activities, access needs, schedule options, and optional interests",
+        "causal_chain": "Multiple forms collapse into one choice interface \u2192 fewer abandoned signups and duplicated explanations \u2192 more people reach an appropriate activity",
+        "causal_lever": "information-schema unification",
+        "preserve_check": "Free, voluntary, privacy-minimizing, safeguarding-compatible, and requires no pooled budget",
+        "candidate_id": "P1",
+        "title": "Single Voluntary Front Door",
+        "text": "Single Voluntary Front Door\n\n- **Intervention:** One shared, low-data intake route lists activities, access needs, schedule options, and optional interests.\n- **Causal chain:** Multiple forms collapse into one choice interface \u2192 fewer abandoned signups and duplicated explanations \u2192 more people reach an appropriate activity.\n- **Causal lever:** Information-schema unification.\n- **Preserve check:** Free, voluntary, privacy-minimizing, safeguarding-compatible, and requires no pooled budget.\n- **Assumption/failure mode:** Partners accept a common referral routine; it could become a hidden data-collection system unless optional fields remain genuinely optional.",
+        "lever": "information-schema unification",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Publish recurring time windows\u2014including night-friendly, daytime, and youth-compatible slots\u2014before selecting activities",
+        "causal_chain": "Availability becomes a design input \u2192 activities are fitted to real lives \u2192 attendance becomes less dependent on exceptional effort",
+        "causal_lever": "temporal partitioning",
+        "preserve_check": "Coordinator can change scheduling; attendance remains voluntary and free",
+        "candidate_id": "P2",
+        "title": "Schedule by Availability Windows",
+        "text": "Schedule by Availability Windows\n\n- **Intervention:** Publish recurring time windows\u2014including night-friendly, daytime, and youth-compatible slots\u2014before selecting activities.\n- **Causal chain:** Availability becomes a design input \u2192 activities are fitted to real lives \u2192 attendance becomes less dependent on exceptional effort.\n- **Causal lever:** Temporal partitioning.\n- **Preserve check:** Coordinator can change scheduling; attendance remains voluntary and free.\n- **Assumption/failure mode:** Existing rooms and safeguarding coverage can support selected windows; too many windows could fragment scarce capacity.",
+        "lever": "temporal partitioning",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Convert long programs into independent modules that can be attended separately",
+        "causal_chain": "Smaller commitment threshold \u2192 more first attempts and re-entry \u2192 cumulative learning and connection without rigid attendance",
+        "causal_lever": "granularity reduction",
+        "preserve_check": "Does not require compulsory attendance, new staff, or shared budgets",
+        "candidate_id": "P3",
+        "title": "Stackable Micro-Activities",
+        "text": "Stackable Micro-Activities\n\n- **Intervention:** Convert long programs into independent modules that can be attended separately.\n- **Causal chain:** Smaller commitment threshold \u2192 more first attempts and re-entry \u2192 cumulative learning and connection without rigid attendance.\n- **Causal lever:** Granularity reduction.\n- **Preserve check:** Does not require compulsory attendance, new staff, or shared budgets.\n- **Assumption/failure mode:** Partners can define meaningful module boundaries; excessive fragmentation could weaken continuity.",
+        "lever": "granularity reduction",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Give participants optional paper or digital evidence of completed activities, kept by them rather than centrally shared",
+        "causal_chain": "Portable proof reduces repeated explanation \u2192 participants can show progress selectively to school or employers \u2192 recognition grows without mandatory data sharing",
+        "causal_lever": "privacy-preserving ownership transfer",
+        "preserve_check": "Personal-data sharing is not required; safeguarding and free access remain intact",
+        "candidate_id": "P4",
+        "title": "Participant-Held Learning Evidence",
+        "text": "Participant-Held Learning Evidence\n\n- **Intervention:** Give participants optional paper or digital evidence of completed activities, kept by them rather than centrally shared.\n- **Causal chain:** Portable proof reduces repeated explanation \u2192 participants can show progress selectively to school or employers \u2192 recognition grows without mandatory data sharing.\n- **Causal lever:** Privacy-preserving ownership transfer.\n- **Preserve check:** Personal-data sharing is not required; safeguarding and free access remain intact.\n- **Assumption/failure mode:** Partners accept or understand the evidence format; informal evidence may not satisfy formal qualification rules.",
+        "lever": "privacy-preserving ownership transfer",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Define success as a visible portfolio: learning progress, social connection, job-readiness signals, and network accessibility",
+        "causal_chain": "Partners retain distinct missions \u2192 conflict shifts from \u201cwhich goal wins?\u201d to \u201cwhich signals are present?\u201d \u2192 cooperation becomes negotiable",
+        "causal_lever": "objective unbundling",
+        "preserve_check": "Does not require budgets, compulsory attendance, or participant data beyond voluntary feedback",
+        "candidate_id": "P5",
+        "title": "Plural Success Frame",
+        "text": "Plural Success Frame\n\n- **Intervention:** Define success as a visible portfolio: learning progress, social connection, job-readiness signals, and network accessibility.\n- **Causal chain:** Partners retain distinct missions \u2192 conflict shifts from \u201cwhich goal wins?\u201d to \u201cwhich signals are present?\u201d \u2192 cooperation becomes negotiable.\n- **Causal lever:** Objective unbundling.\n- **Preserve check:** Does not require budgets, compulsory attendance, or participant data beyond voluntary feedback.\n- **Assumption/failure mode:** Partners tolerate plural success; too many measures could create reporting burden.",
+        "lever": "objective unbundling",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "For each activity, show how the same experience may count differently to school, library, employers, and participants",
+        "causal_chain": "Shared activity gains multiple legitimate interpretations \u2192 partners see relevance without owning one universal goal \u2192 more activities survive negotiation",
+        "causal_lever": "boundary translation",
+        "preserve_check": "Partners keep autonomy and budgets; participants choose which pathway matters",
+        "candidate_id": "P6",
+        "title": "Outcome Translation Map",
+        "text": "Outcome Translation Map\n\n- **Intervention:** For each activity, show how the same experience may count differently to school, library, employers, and participants.\n- **Causal chain:** Shared activity gains multiple legitimate interpretations \u2192 partners see relevance without owning one universal goal \u2192 more activities survive negotiation.\n- **Causal lever:** Boundary translation.\n- **Preserve check:** Partners keep autonomy and budgets; participants choose which pathway matters.\n- **Assumption/failure mode:** Translation remains honest and non-promissory; overclaiming qualification or employability would damage trust.",
+        "lever": "boundary translation",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Schedule rooms as overlapping zones: quiet work, social exchange, practical activity, and drop-in help",
+        "causal_chain": "One room supports multiple participation modes \u2192 people with different comfort levels coexist \u2192 room capacity produces more usable access",
+        "causal_lever": "spatial multiplexing",
+        "preserve_check": "Uses existing rooms and safeguarding arrangements; no compulsory mixing",
+        "candidate_id": "P7",
+        "title": "Multi-Use Room Constellations",
+        "text": "Multi-Use Room Constellations\n\n- **Intervention:** Schedule rooms as overlapping zones: quiet work, social exchange, practical activity, and drop-in help.\n- **Causal chain:** One room supports multiple participation modes \u2192 people with different comfort levels coexist \u2192 room capacity produces more usable access.\n- **Causal lever:** Spatial multiplexing.\n- **Preserve check:** Uses existing rooms and safeguarding arrangements; no compulsory mixing.\n- **Assumption/failure mode:** Room layouts and supervision permit concurrent modes; incompatible safeguarding needs may require separation.",
+        "lever": "spatial multiplexing",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Add optional recurring markers\u2014welcome table, closing reflection, shared artifact, or \u201creturn anytime\u201d invitation",
+        "causal_chain": "Participation leaves a social trace without attendance policing \u2192 newcomers can re-enter more comfortably \u2192 connection accumulates",
+        "causal_lever": "belonging reinforcement",
+        "preserve_check": "Voluntary, free, cross-generational, and does not require personal-data collection",
+        "candidate_id": "P8",
+        "title": "Low-Pressure Continuity Rituals",
+        "text": "Low-Pressure Continuity Rituals\n\n- **Intervention:** Add optional recurring markers\u2014welcome table, closing reflection, shared artifact, or \u201creturn anytime\u201d invitation.\n- **Causal chain:** Participation leaves a social trace without attendance policing \u2192 newcomers can re-enter more comfortably \u2192 connection accumulates.\n- **Causal lever:** Belonging reinforcement.\n- **Preserve check:** Voluntary, free, cross-generational, and does not require personal-data collection.\n- **Assumption/failure mode:** Rituals remain genuinely optional; repeated social expectations could become coercive.",
+        "lever": "belonging reinforcement",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Every activity ends with several nonbinding next routes: another module, a social event, a qualification-related step, or no follow-up",
+        "causal_chain": "Absence no longer breaks the participant journey \u2192 people can resume after shift work, exams, or caregiving \u2192 dropout becomes recoverable interruption",
+        "causal_lever": "exit-to-return loop",
+        "preserve_check": "No attendance requirement or compulsory follow-up",
+        "candidate_id": "P9",
+        "title": "Re-Entry by Design",
+        "text": "Re-Entry by Design\n\n- **Intervention:** Every activity ends with several nonbinding next routes: another module, a social event, a qualification-related step, or no follow-up.\n- **Causal chain:** Absence no longer breaks the participant journey \u2192 people can resume after shift work, exams, or caregiving \u2192 dropout becomes recoverable interruption.\n- **Causal lever:** Exit-to-return loop.\n- **Preserve check:** No attendance requirement or compulsory follow-up.\n- **Assumption/failure mode:** Partners maintain enough varied activities to offer meaningful routes; options could overwhelm participants without clear presentation.",
+        "lever": "exit-to-return loop",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "When an activity changes, the shared intake offers a nearby alternative, asynchronous task, or explicit no-penalty cancellation",
+        "causal_chain": "Cancellation stops producing a wasted journey and trust loss \u2192 participants remain willing to try again \u2192 network reliability improves",
+        "causal_lever": "failure containment",
+        "preserve_check": "Uses coordination and existing resources; no extra staffing is assumed",
+        "candidate_id": "P10",
+        "title": "Substitution-Ready Scheduling",
+        "text": "Substitution-Ready Scheduling\n\n- **Intervention:** When an activity changes, the shared intake offers a nearby alternative, asynchronous task, or explicit no-penalty cancellation.\n- **Causal chain:** Cancellation stops producing a wasted journey and trust loss \u2192 participants remain willing to try again \u2192 network reliability improves.\n- **Causal lever:** Failure containment.\n- **Preserve check:** Uses coordination and existing resources; no extra staffing is assumed.\n- **Assumption/failure mode:** Alternatives actually exist; promising substitutes without capacity would worsen distrust.",
+        "lever": "failure containment",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Permit voluntary contributions\u2014ideas, objects, advice, recorded demonstrations, or peer-created resources\u2014outside meeting times",
+        "causal_chain": "Participation is no longer equated with presence \u2192 night workers and others with irregular schedules can shape the network \u2192 activity becomes more inclusive",
+        "causal_lever": "attendance/contribution decoupling",
+        "preserve_check": "Voluntary, free, privacy-conscious, and safeguarding-reviewed",
+        "candidate_id": "P11",
+        "title": "Contribution Without Attendance",
+        "text": "Contribution Without Attendance\n\n- **Intervention:** Permit voluntary contributions\u2014ideas, objects, advice, recorded demonstrations, or peer-created resources\u2014outside meeting times.\n- **Causal chain:** Participation is no longer equated with presence \u2192 night workers and others with irregular schedules can shape the network \u2192 activity becomes more inclusive.\n- **Causal lever:** Attendance/contribution decoupling.\n- **Preserve check:** Voluntary, free, privacy-conscious, and safeguarding-reviewed.\n- **Assumption/failure mode:** Contributions require clear boundaries and moderation; unpaid contribution must not replace necessary professional labor.",
+        "lever": "attendance/contribution decoupling",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Employers provide bounded, non-recruitment challenge briefs that participants can solve through existing activities",
+        "causal_chain": "Job readiness becomes demonstrated practice rather than a vague promise \u2192 employers see relevant capabilities \u2192 participants gain useful evidence without requiring employment placement",
+        "causal_lever": "real-work simulation",
+        "preserve_check": "No employer budget pooling, compulsory participation, or personal-data disclosure",
+        "candidate_id": "P12",
+        "title": "Employer-Relevant Challenge Modules",
+        "text": "Employer-Relevant Challenge Modules\n\n- **Intervention:** Employers provide bounded, non-recruitment challenge briefs that participants can solve through existing activities.\n- **Causal chain:** Job readiness becomes demonstrated practice rather than a vague promise \u2192 employers see relevant capabilities \u2192 participants gain useful evidence without requiring employment placement.\n- **Causal lever:** Real-work simulation.\n- **Preserve check:** No employer budget pooling, compulsory participation, or personal-data disclosure.\n- **Assumption/failure mode:** Employers provide suitable briefs and do not use participation as covert screening.",
+        "lever": "real-work simulation",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Structure activities so teenagers, retirees, and workers can each offer and receive practical knowledge",
+        "causal_chain": "Groups become contributors rather than target populations \u2192 status and relevance are distributed \u2192 social connection reinforces return",
+        "causal_lever": "reciprocal role allocation",
+        "preserve_check": "Participation remains voluntary and safeguarding boundaries remain explicit",
+        "candidate_id": "P13",
+        "title": "Reciprocal Intergenerational Exchange",
+        "text": "Reciprocal Intergenerational Exchange\n\n- **Intervention:** Structure activities so teenagers, retirees, and workers can each offer and receive practical knowledge.\n- **Causal chain:** Groups become contributors rather than target populations \u2192 status and relevance are distributed \u2192 social connection reinforces return.\n- **Causal lever:** Reciprocal role allocation.\n- **Preserve check:** Participation remains voluntary and safeguarding boundaries remain explicit.\n- **Assumption/failure mode:** Activities avoid unsafe or inappropriate peer responsibility; contribution roles need clear consent.",
+        "lever": "reciprocal role allocation",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "Identify which existing activities can generate small, honest evidence units toward school-recognized learning",
+        "causal_chain": "Qualification progress no longer depends only on full-program attendance \u2192 modular participation becomes more valuable \u2192 school has a concrete reason to support flexible scheduling",
+        "causal_lever": "evidence modularity",
+        "preserve_check": "Does not promise credentials without school approval; preserves safeguarding and voluntary attendance",
+        "candidate_id": "P14",
+        "title": "Qualification Evidence in Small Units",
+        "text": "Qualification Evidence in Small Units\n\n- **Intervention:** Identify which existing activities can generate small, honest evidence units toward school-recognized learning.\n- **Causal chain:** Qualification progress no longer depends only on full-program attendance \u2192 modular participation becomes more valuable \u2192 school has a concrete reason to support flexible scheduling.\n- **Causal lever:** Evidence modularity.\n- **Preserve check:** Does not promise credentials without school approval; preserves safeguarding and voluntary attendance.\n- **Assumption/failure mode:** The school can recognize some evidence; formal requirements may limit applicability.",
+        "lever": "evidence modularity",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "intervention_point": "At regular intervals, partners review which activities produced useful learning, connection, access, or job-readiness signals, then retire or reshape low-value formats",
+        "causal_chain": "Experience becomes a shared learning input \u2192 stale activities do not consume scarce rooms \u2192 the network adapts without requiring a single permanent goal",
+        "causal_lever": "subtraction and feedback",
+        "preserve_check": "Partners retain decision authority and budgets; participant access remains free and voluntary",
+        "candidate_id": "P15",
+        "title": "Seasonal Learning-and-Reset Cycle",
+        "text": "Seasonal Learning-and-Reset Cycle\n\n- **Intervention:** At regular intervals, partners review which activities produced useful learning, connection, access, or job-readiness signals, then retire or reshape low-value formats.\n- **Causal chain:** Experience becomes a shared learning input \u2192 stale activities do not consume scarce rooms \u2192 the network adapts without requiring a single permanent goal.\n- **Causal lever:** Subtraction and feedback.\n- **Preserve check:** Partners retain decision authority and budgets; participant access remains free and voluntary.\n- **Assumption/failure mode:** Review does not privilege easily measured outcomes over quieter social value.\n\nThe portfolio reaches a useful saturation point at 15 mechanisms: further variants would mostly repeat shared intake, scheduling flexibility, modularity, or plural recognition.",
+        "lever": "subtraction and feedback",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 15,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 4228,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 86540,
+    "latency_seconds": 47.314755750019685,
+    "cost": null,
+    "final_word_count": 2187,
+    "word_budget_compliant": null,
+    "discovery_questions_diagnostic": 3,
+    "assistant_turns": 4,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "ambiguous-deep",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "controlled-multi-turn",
+      "candidate_count": 15,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 15,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 14.909,
+        "1.0": 14.81,
+        "2.0": 14.591
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 2187,
+      "discovery_question_count": 3,
+      "total_assistant_output_tokens": 4228,
+      "original_reported_total_assistant_output_tokens": 4228
+    }
+  },
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "raw_candidate_blocks": 10,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "candidate_id": "P1",
+        "title": "Return-Date Choice: borrower selects from safe date windows; choice creates a realistic commitment. Sustaining",
+        "text": "Return-Date Choice: borrower selects from safe date windows; choice creates a realistic commitment. Sustaining | Human Value. Assumption: system can offer bounded options; failure: optimistic choices.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P2",
+        "title": "Demand-Triggered Due Dates: due date tightens only when another borrower requests the tool. System Dynamics. Value: aligns circulation with actual scarcity. Assumption: queue data is reliable; failure: perceived unfairness.",
+        "text": "Demand-Triggered Due Dates: due date tightens only when another borrower requests the tool. System Dynamics. Value: aligns circulation with actual scarcity. Assumption: queue data is reliable; failure: perceived unfairness.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P3",
+        "title": "Soft-Hold Renewal: renewal is automatic unless a waiting request exists. Constraint removal",
+        "text": "Soft-Hold Renewal: renewal is automatic unless a waiting request exists. Constraint removal | Operational Reality. Assumption: renewal can be automated; failure: indefinite silent possession.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P4",
+        "title": "Return-by-Default Booking: checkout reserves a return slot alongside the tool. Operational Reality. Value: converts intention into logistics. Assumption: slots reflect opening hours; failure: missed slots compound.",
+        "text": "Return-by-Default Booking: checkout reserves a return slot alongside the tool. Operational Reality. Value: converts intention into logistics. Assumption: slots reflect opening hours; failure: missed slots compound.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P5",
+        "title": "Anonymous Borrowing Signals: private system token shows \u201clikely return soon\u201d to queue members without exposing identity. Privacy-preserving adjacent",
+        "text": "Anonymous Borrowing Signals: private system token shows \u201clikely return soon\u201d to queue members without exposing identity. Privacy-preserving adjacent | Human Value. Assumption: aggregate status is enough; failure: false reassurance.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P6",
+        "title": "Tool-Kit Separation: return only the component needed by the next borrower; remaining parts retain a later due date. Boundary Reframing. Assumption: safe partial circulation; failure: incomplete kits.",
+        "text": "Tool-Kit Separation: return only the component needed by the next borrower; remaining parts retain a later due date. Boundary Reframing. Assumption: safe partial circulation; failure: incomplete kits.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P7",
+        "title": "Community Relay Points: approved existing partner locations accept returns. Adjacent",
+        "text": "Community Relay Points: approved existing partner locations accept returns. Adjacent | Mechanism Transfer. Assumption: partners already have capacity and custody rules; failure: misplaced tools.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P8",
+        "title": "Late-Return Grace Exchange: borrowers may swap a future borrowing turn for a short extension, without payment. Negotiative",
+        "text": "Late-Return Grace Exchange: borrowers may swap a future borrowing turn for a short extension, without payment. Negotiative | Boundary Reframing. Assumption: queue can represent turns; failure: gaming priority.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P9",
+        "title": "Checkout \u201cExit Plan\u201d: one-tap prompt asks when, where, and how the borrower expects to return. Sustaining",
+        "text": "Checkout \u201cExit Plan\u201d: one-tap prompt asks when, where, and how the borrower expects to return. Sustaining | Human Value. Assumption: prompts change planning; failure: habitual taps.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P10",
+        "title": "Return-Ready Shelf: borrowers place cleaned, complete tools in a clearly marked intake area; staff process during normal handling. Constraint removal",
+        "text": "Return-Ready Shelf: borrowers place cleaned, complete tools in a clearly marked intake area; staff process during normal handling. Constraint removal | Operational Reality. Assumption: inspection standards remain intact; failure: unsafe tools enter circulation.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 10,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 978,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 20992,
+    "latency_seconds": 11.996852790995035,
+    "cost": null,
+    "final_word_count": 455,
+    "word_budget_compliant": false,
+    "discovery_questions_diagnostic": 0,
+    "assistant_turns": 1,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "tight-budget",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 9.785,
+        "1.0": 9.55,
+        "2.0": 9.028
+      },
+      "preservation_violation_count": null,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "not_assessed_no_manifest_invariants",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 455,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 978,
+      "original_reported_total_assistant_output_tokens": 978
+    }
+  },
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "raw_candidate_blocks": 10,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "preserve_check": "all L1 invariants. Assumption: borrowers notice physical cues; failure mode: labels detach or become clutter",
+        "candidate_id": "P1",
+        "title": "Return-by-Design (Operational / Artifact Poka-Yoke): At checkout, pair each tool with a simple visible due-date marker and return-location cue. Clearer retrieval trigger \u2192 fewer forgotten deadlines. Preserve: all L1 invariants. Assumption: borrowers notice physical cues; failure mode: labels detach or become clutter.",
+        "text": "Return-by-Design (Operational / Artifact Poka-Yoke): At checkout, pair each tool with a simple visible due-date marker and return-location cue. Clearer retrieval trigger \u2192 fewer forgotten deadlines. Preserve: all L1 invariants. Assumption: borrowers notice physical cues; failure mode: labels detach or become clutter.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P2",
+        "title": "Flexible Due-Date Windows (System Dynamics / Temporal Inversion): Offer a private, no-penalty extension window before the due date, automatically releasing the item if unused. Early uncertainty signal \u2192 fewer silent overdues. Assumption: inventory can tolerate bounded flexibility; risk: popular tools remain unavailable longer.",
+        "text": "Flexible Due-Date Windows (System Dynamics / Temporal Inversion): Offer a private, no-penalty extension window before the due date, automatically releasing the item if unused. Early uncertainty signal \u2192 fewer silent overdues. Assumption: inventory can tolerate bounded flexibility; risk: popular tools remain unavailable longer.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P3",
+        "title": "Next-User Claim (Human Value / Reciprocity): Let the next reservation optionally send an anonymous \u201cneeded by\u201d signal; borrower sees urgency without identities. Concrete dependency \u2192 prioritization. Risk: perceived pressure; preserve anonymous interaction.",
+        "text": "Next-User Claim (Human Value / Reciprocity): Let the next reservation optionally send an anonymous \u201cneeded by\u201d signal; borrower sees urgency without identities. Concrete dependency \u2192 prioritization. Risk: perceived pressure; preserve anonymous interaction.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P4",
+        "title": "Return Relay (Boundary Reframing / Boundary Re-Partition): Accept returns through existing partner touchpoints or staffed routines already handling library materials. More convenient handoff \u2192 fewer delayed trips. Assumption: current authority and storage allow it; no new staffing.",
+        "text": "Return Relay (Boundary Reframing / Boundary Re-Partition): Accept returns through existing partner touchpoints or staffed routines already handling library materials. More convenient handoff \u2192 fewer delayed trips. Assumption: current authority and storage allow it; no new staffing.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P5",
+        "title": "Borrower-Selected Commitment (Human Value / Agency): At checkout, borrower privately chooses a return cue tied to their own routine, such as a calendar event or project milestone. Self-authored trigger \u2192 stronger recall without library tracking. Risk: tool must support optional user-controlled data.",
+        "text": "Borrower-Selected Commitment (Human Value / Agency): At checkout, borrower privately chooses a return cue tied to their own routine, such as a calendar event or project milestone. Self-authored trigger \u2192 stronger recall without library tracking. Risk: tool must support optional user-controlled data.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P6",
+        "title": "Demand-Weighted Checkout (System Dynamics / Scarcity Feedback): Show availability pressure only when another borrower is waiting, while keeping borrowing free. Scarcity information \u2192 earlier returns when socially consequential. Risk: avoid guilt or unequal access.",
+        "text": "Demand-Weighted Checkout (System Dynamics / Scarcity Feedback): Show availability pressure only when another borrower is waiting, while keeping borrowing free. Scarcity information \u2192 earlier returns when socially consequential. Risk: avoid guilt or unequal access.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P7",
+        "title": "Completion-State Lending (Boundary Reframing / Subtraction): Separate \u201ctool returned\u201d from \u201cproject finished\u201d: offer a lightweight way to mark a project paused, so the system suggests return without requiring justification. Unfinished-project ambiguity \u2192 explicit decision. Privacy preserved.",
+        "text": "Completion-State Lending (Boundary Reframing / Subtraction): Separate \u201ctool returned\u201d from \u201cproject finished\u201d: offer a lightweight way to mark a project paused, so the system suggests return without requiring justification. Unfinished-project ambiguity \u2192 explicit decision. Privacy preserved.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P8",
+        "title": "Tool-Use Bundles (Operational / Hidden-Labor Removal): Lend common accessory bundles together, reducing partial returns and later searches. Fewer missing components \u2192 simpler, faster returns. Risk: bundle size may reduce availability.",
+        "text": "Tool-Use Bundles (Operational / Hidden-Labor Removal): Lend common accessory bundles together, reducing partial returns and later searches. Fewer missing components \u2192 simpler, faster returns. Risk: bundle size may reduce availability.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P9",
+        "title": "Dormant-Loan Sweep (Futures / State Transition): After a period of no renewal activity, move the loan into a private \u201cdecision needed\u201d state with one neutral prompt. Dormant stock \u2192 decision point, not punishment. Risk: timing must avoid interrupting active work.",
+        "text": "Dormant-Loan Sweep (Futures / State Transition): After a period of no renewal activity, move the loan into a private \u201cdecision needed\u201d state with one neutral prompt. Dormant stock \u2192 decision point, not punishment. Risk: timing must avoid interrupting active work.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "candidate_id": "P10",
+        "title": "Community Steward Rotation (Mechanism Transfer / Custody Handoff): For selected durable tools, a borrower may voluntarily designate a future user or community project as the next intended recipient. Named destination \u2192 stronger custody motivation. Risk: never expose identities or create obligation.",
+        "text": "Community Steward Rotation (Mechanism Transfer / Custody Handoff): For selected durable tools, a borrower may voluntarily designate a future user or community project as the next intended recipient. Named destination \u2192 stronger custody motivation. Risk: never expose identities or create obligation.",
+        "causal_lever": "unknown",
+        "lever": "unknown",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 10,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 986,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 20992,
+    "latency_seconds": 12.378358250003657,
+    "cost": null,
+    "final_word_count": 606,
+    "word_budget_compliant": false,
+    "discovery_questions_diagnostic": 0,
+    "assistant_turns": 1,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "tight-budget",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 9.92,
+        "1.0": 9.834,
+        "2.0": 9.649
+      },
+      "preservation_violation_count": null,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "not_assessed_no_manifest_invariants",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 606,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 986,
+      "original_reported_total_assistant_output_tokens": 986
+    }
+  },
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 1,
+    "raw_candidate_blocks": 10,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "causal_lever": "shift timing decision upstream",
+        "preserve_check": "all L1 invariants. Assumption: choice predicts availability; failure: optimistic selection. Required cooperation: borrower; resistance: \u201cI don\u2019t know yet\u201d; safeguard: offer neutral defaults",
+        "candidate_id": "P1",
+        "title": "Return Windows",
+        "text": "Return Windows | Value: fit real schedules | sustaining; Temporal Repartition; System Dynamics. At checkout, borrower selects a broad return window \u2192 due dates align with actual availability \u2192 fewer missed deadlines. Lever: shift timing decision upstream. Preserve: all L1 invariants. Assumption: choice predicts availability; failure: optimistic selection. Required cooperation: borrower; resistance: \u201cI don\u2019t know yet\u201d; safeguard: offer neutral defaults.",
+        "lever": "shift timing decision upstream",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "allocate scarcity benefits",
+        "preserve_check": "free borrowing/privacy/staffing. Assumption: repeat demand matters; failure: unfair advantage",
+        "candidate_id": "P2",
+        "title": "Borrow-Again Priority",
+        "text": "Borrow-Again Priority | Value: protect continuity | adjacent; Incentive Reframe; Human Value. Returning on time preserves first access to the same tool \u2192 lateness carries a visible opportunity cost without fees or identity exposure \u2192 timely returns rise. Lever: allocate scarcity benefits. Preserve: free borrowing/privacy/staffing. Assumption: repeat demand matters; failure: unfair advantage.",
+        "lever": "allocate scarcity benefits",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "bind two actions",
+        "preserve_check": "all L1 invariants. Assumption: existing transaction flow can hold one extra choice; failure: added checkout friction",
+        "candidate_id": "P3",
+        "title": "Return-as-Reservation",
+        "text": "Return-as-Reservation | Value: make return part of checkout | sustaining; Commitment Coupling; Operational Reality. Checkout records a return action alongside borrowing \u2192 the next required step stays salient \u2192 fewer forgotten returns. Lever: bind two actions. Preserve: all L1 invariants. Assumption: existing transaction flow can hold one extra choice; failure: added checkout friction.",
+        "lever": "bind two actions",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "relocate custody handoff",
+        "preserve_check": "free borrowing/privacy/staffing; no new collection staff assumed. Risk: loss or unclear custody",
+        "candidate_id": "P4",
+        "title": "Distributed Return Access",
+        "text": "Distributed Return Access | Value: remove timing friction | constraint removal; Boundary Repartition. Authorized drop points or scheduled existing touchpoints accept tools \u2192 return travel/time falls \u2192 late returns decline. Lever: relocate custody handoff. Preserve: free borrowing/privacy/staffing; no new collection staff assumed. Risk: loss or unclear custody.",
+        "lever": "relocate custody handoff",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "simplify physical flow",
+        "preserve_check": "all L1 invariants. Assumption: space exists; failure: mis-sorting",
+        "candidate_id": "P5",
+        "title": "Tool-Ready Slots",
+        "text": "Tool-Ready Slots | Value: reduce return ambiguity | adjacent; Artifact Poka-Yoke; Operational Reality. Clearly marked return locations separate \u201creturn now\u201d from \u201crenew/ask\u201d \u2192 borrowers complete the correct handoff \u2192 fewer stalled returns. Lever: simplify physical flow. Preserve: all L1 invariants. Assumption: space exists; failure: mis-sorting.",
+        "lever": "simplify physical flow",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "activate demand feedback",
+        "preserve_check": "no forced unpaid labor or privacy disclosure. Risk: coercive-feeling notices",
+        "candidate_id": "P6",
+        "title": "Demand-Triggered Due Dates",
+        "text": "Demand-Triggered Due Dates | Value: align urgency with scarcity | disruptive; Scarcity Feedback; System Dynamics. When another borrower reserves a tool, the system offers an earlier voluntary return request \u2192 scarcity becomes timely information \u2192 circulation improves. Lever: activate demand feedback. Preserve: no forced unpaid labor or privacy disclosure. Risk: coercive-feeling notices.",
+        "lever": "activate demand feedback",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "change perceived social value",
+        "preserve_check": "privacy/free borrowing/staffing. Assumption: aggregate counts are available",
+        "candidate_id": "P7",
+        "title": "Anonymous Availability Signal",
+        "text": "Anonymous Availability Signal | Value: make community impact legible | adjacent; Privacy-Preserving Feedback; Human Value. Show aggregate demand, not identities, at checkout/renewal \u2192 borrowers see consequences of holding scarce tools \u2192 voluntary returns improve. Lever: change perceived social value. Preserve: privacy/free borrowing/staffing. Assumption: aggregate counts are available.",
+        "lever": "change perceived social value",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "classify states",
+        "preserve_check": "current staffing; no automatic punitive action. Risk: inaccurate self-reporting",
+        "candidate_id": "P8",
+        "title": "Condition-Based Extensions",
+        "text": "Condition-Based Extensions | Value: prevent false lateness | sustaining; Exception Routing; Boundary Reframing. Borrowers report \u201cstill needed,\u201d \u201crepair,\u201d or \u201cready to return\u201d through existing channels \u2192 the library distinguishes legitimate duration from neglect \u2192 staff effort targets only unresolved cases. Lever: classify states. Preserve: current staffing; no automatic punitive action. Risk: inaccurate self-reporting.",
+        "lever": "classify states",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "reuse mandatory movement",
+        "preserve_check": "privacy/free borrowing; requires partner capacity and safe chain of custody",
+        "candidate_id": "P9",
+        "title": "Return Relay",
+        "text": "Return Relay | Value: use existing journeys | constraint removal; Ecosystem Handoff; Mechanism Transfer. Partner sites or routine library deliveries carry sealed tool returns \u2192 custody follows existing flows \u2192 return effort and lateness fall. Lever: reuse mandatory movement. Preserve: privacy/free borrowing; requires partner capacity and safe chain of custody.",
+        "lever": "reuse mandatory movement",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "change threshold, not access",
+        "preserve_check": "free borrowing/privacy/staffing. Risk: delayed availability",
+        "candidate_id": "P10",
+        "title": "Silent Grace Buffer",
+        "text": "Silent Grace Buffer | Value: absorb predictable delay | sustaining; Temporal Buffer; Futures. A small non-punitive buffer separates expected lateness from actionable lateness \u2192 reminders target meaningful exceptions \u2192 borrower trust and staff focus improve. Lever: change threshold, not access. Preserve: free borrowing/privacy/staffing. Risk: delayed availability.",
+        "lever": "change threshold, not access",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 10,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 1159,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 21052,
+    "latency_seconds": 13.478415207995567,
+    "cost": null,
+    "final_word_count": 700,
+    "word_budget_compliant": false,
+    "discovery_questions_diagnostic": 0,
+    "assistant_turns": 1,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "tight-budget",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 9.985,
+        "1.0": 9.971,
+        "2.0": 9.942
+      },
+      "preservation_violation_count": null,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "not_assessed_no_manifest_invariants",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 700,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1159,
+      "original_reported_total_assistant_output_tokens": 1159
+    }
+  },
+  {
+    "measurement_version": "restored-diagnostic-3",
+    "case_id": "tight-budget",
+    "condition": "skill_treatment",
+    "replicate": 2,
+    "raw_candidate_blocks": 10,
+    "explicitly_rejected_blocks": 0,
+    "extracted_candidates": [
+      {
+        "intervention_point": "checkout rule. Trigger/rule \u2192 due date lands near borrower-selected routine \u2192 fewer forgotten returns",
+        "causal_lever": "timing feedback",
+        "preserve_check": "all L1. Assumption: choice improves recall; failure: chosen date conflicts with closures. Shared receptivity: staff configuration; risk low; unknown: system flexibility",
+        "candidate_id": "P1",
+        "title": "\u201cBorrowing Window\u201d \u2014 value: match due dates to predictable routines; sustaining, System Dynamics, temporal alignment. Intervention: checkout rule. Trigger/rule \u2192 due date lands near borrower-selected routine \u2192 fewer forgotten returns. Lever: timing feedback. Preserve: all L1. Assumption: choice improves recall; failure: chosen date conflicts with closures. Shared receptivity: staff configuration; risk low; unknown: system flexibility.",
+        "text": "\u201cBorrowing Window\u201d \u2014 value: match due dates to predictable routines; sustaining, System Dynamics, temporal alignment. Intervention: checkout rule. Trigger/rule \u2192 due date lands near borrower-selected routine \u2192 fewer forgotten returns. Lever: timing feedback. Preserve: all L1. Assumption: choice improves recall; failure: chosen date conflicts with closures. Shared receptivity: staff configuration; risk low; unknown: system flexibility.",
+        "lever": "timing feedback",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "sequence reversal",
+        "preserve_check": "no penalty or lost free access; failure: blocks legitimate new borrowing",
+        "candidate_id": "P2",
+        "title": "\u201cReturn-First Checkout\u201d \u2014 value: make return the entry condition for the next loan; adjacent, Boundary Reframing, reciprocity gate. Existing checkout \u2192 requested item prompts return/renewal decision \u2192 circulation stock recovers. Lever: sequence reversal. Preserve: no penalty or lost free access; failure: blocks legitimate new borrowing.",
+        "text": "\u201cReturn-First Checkout\u201d \u2014 value: make return the entry condition for the next loan; adjacent, Boundary Reframing, reciprocity gate. Existing checkout \u2192 requested item prompts return/renewal decision \u2192 circulation stock recovers. Lever: sequence reversal. Preserve: no penalty or lost free access; failure: blocks legitimate new borrowing.",
+        "lever": "sequence reversal",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "mandatory touchpoint reuse",
+        "preserve_check": "minimal data, no staff increase; assumption: patrons retain it; failure: waste",
+        "candidate_id": "P3",
+        "title": "\u201cDue-Date Receipt\u201d \u2014 value: borrower leaves with a physical reminder artifact; sustaining, Operational Reality, artifact cue. Checkout \u2192 receipt/bookmark carries due date and location \u2192 cue survives inbox neglect. Lever: mandatory touchpoint reuse. Preserve: minimal data, no staff increase; assumption: patrons retain it; failure: waste.",
+        "text": "\u201cDue-Date Receipt\u201d \u2014 value: borrower leaves with a physical reminder artifact; sustaining, Operational Reality, artifact cue. Checkout \u2192 receipt/bookmark carries due date and location \u2192 cue survives inbox neglect. Lever: mandatory touchpoint reuse. Preserve: minimal data, no staff increase; assumption: patrons retain it; failure: waste.",
+        "lever": "mandatory touchpoint reuse",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "route visibility",
+        "preserve_check": "free service/privacy; failure: routes lack capacity",
+        "candidate_id": "P4",
+        "title": "\u201cReturn Route\u201d \u2014 value: expose convenient existing drop points; adjacent, Operational Reality, friction subtraction. Due notice \u2192 map/list of already-authorized routes \u2192 fewer access delays. Lever: route visibility. Preserve: free service/privacy; failure: routes lack capacity.",
+        "text": "\u201cReturn Route\u201d \u2014 value: expose convenient existing drop points; adjacent, Operational Reality, friction subtraction. Due notice \u2192 map/list of already-authorized routes \u2192 fewer access delays. Lever: route visibility. Preserve: free service/privacy; failure: routes lack capacity.",
+        "lever": "route visibility",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "delay absorption",
+        "preserve_check": "no fee, privacy, staffing; assumption: holds can override; failure: scarce items remain out",
+        "candidate_id": "P5",
+        "title": "\u201cRenewal by Silence\u201d \u2014 value: prevent avoidable lateness; sustaining, System Dynamics, default extension. Near due date \u2192 automatic renewal unless demand exists \u2192 fewer accidental overdues. Lever: delay absorption. Preserve: no fee, privacy, staffing; assumption: holds can override; failure: scarce items remain out.",
+        "text": "\u201cRenewal by Silence\u201d \u2014 value: prevent avoidable lateness; sustaining, System Dynamics, default extension. Near due date \u2192 automatic renewal unless demand exists \u2192 fewer accidental overdues. Lever: delay absorption. Preserve: no fee, privacy, staffing; assumption: holds can override; failure: scarce items remain out.",
+        "lever": "delay absorption",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "social-information feedback",
+        "preserve_check": "anonymized privacy; failure: misleading urgency",
+        "candidate_id": "P6",
+        "title": "\u201cDemand-Visible Due Date\u201d \u2014 value: make scarcity legible without revealing identities; adjacent, Human Value, anonymous urgency. Hold pressure \u2192 borrower sees generalized demand status \u2192 voluntary prioritization of return. Lever: social-information feedback. Preserve: anonymized privacy; failure: misleading urgency.",
+        "text": "\u201cDemand-Visible Due Date\u201d \u2014 value: make scarcity legible without revealing identities; adjacent, Human Value, anonymous urgency. Hold pressure \u2192 borrower sees generalized demand status \u2192 voluntary prioritization of return. Lever: social-information feedback. Preserve: anonymized privacy; failure: misleading urgency.",
+        "lever": "social-information feedback",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "boundary redistribution",
+        "preserve_check": "chain-of-custody/privacy; assumption: agreements already permitted; failure: transport loss",
+        "candidate_id": "P7",
+        "title": "\u201cReturn Handoff Partners\u201d \u2014 value: use existing trusted locations; adjacent, Boundary Reframing, distributed custody. Partner touchpoint \u2192 authorized handoff \u2192 return occurs during routine errands. Lever: boundary redistribution. Preserve: chain-of-custody/privacy; assumption: agreements already permitted; failure: transport loss.",
+        "text": "\u201cReturn Handoff Partners\u201d \u2014 value: use existing trusted locations; adjacent, Boundary Reframing, distributed custody. Partner touchpoint \u2192 authorized handoff \u2192 return occurs during routine errands. Lever: boundary redistribution. Preserve: chain-of-custody/privacy; assumption: agreements already permitted; failure: transport loss.",
+        "lever": "boundary redistribution",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "workload reduction",
+        "preserve_check": "free access/equity; failure: extra trips",
+        "candidate_id": "P8",
+        "title": "\u201cBorrow Less, More Often\u201d \u2014 value: split large checkouts into staged access; constraint removal, Human Value, load shaping. Checkout request \u2192 offer smaller immediate batch plus queue \u2192 fewer simultaneous due dates. Lever: workload reduction. Preserve: free access/equity; failure: extra trips.",
+        "text": "\u201cBorrow Less, More Often\u201d \u2014 value: split large checkouts into staged access; constraint removal, Human Value, load shaping. Checkout request \u2192 offer smaller immediate batch plus queue \u2192 fewer simultaneous due dates. Lever: workload reduction. Preserve: free access/equity; failure: extra trips.",
+        "lever": "workload reduction",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "feedback closure",
+        "preserve_check": "minimal data/current staff; failure: false confirmation",
+        "candidate_id": "P9",
+        "title": "\u201cReturn Confirmation Loop\u201d \u2014 value: remove uncertainty after drop-off; sustaining, System Dynamics, closed-loop status. Drop-off \u2192 simple confirmation \u2192 borrower stops repeated checking and resolves exceptions sooner. Lever: feedback closure. Preserve: minimal data/current staff; failure: false confirmation.",
+        "text": "\u201cReturn Confirmation Loop\u201d \u2014 value: remove uncertainty after drop-off; sustaining, System Dynamics, closed-loop status. Drop-off \u2192 simple confirmation \u2192 borrower stops repeated checking and resolves exceptions sooner. Lever: feedback closure. Preserve: minimal data/current staff; failure: false confirmation.",
+        "lever": "feedback closure",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      },
+      {
+        "causal_lever": "context-triggered memory",
+        "preserve_check": "privacy/no new staffing; failure: marking damages materials",
+        "candidate_id": "P10",
+        "title": "\u201cDue-Date at Point of Use\u201d \u2014 value: place reminders where materials are used; adjacent, Operational Reality, contextual cue. Item record/label \u2192 due date visible during use \u2192 recall occurs before shelving. Lever: context-triggered memory. Preserve: privacy/no new staffing; failure: marking damages materials.",
+        "text": "\u201cDue-Date at Point of Use\u201d \u2014 value: place reminders where materials are used; adjacent, Operational Reality, contextual cue. Item record/label \u2192 due date visible during use \u2192 recall occurs before shelving. Lever: context-triggered memory. Preserve: privacy/no new staffing; failure: marking damages materials.",
+        "lever": "context-triggered memory",
+        "explicit_status": "unvalidated",
+        "quality": {
+          "relevance": null,
+          "constraint_alignment": null,
+          "causal_clarity": null,
+          "plausibility": null,
+          "critical_safety_or_rights": null
+        },
+        "causal_family": null
+      }
+    ],
+    "lexical_family_count_diagnostic": 10,
+    "semantic_distinct_mechanism_families": null,
+    "qualified_useful_distinct_mechanisms": null,
+    "gate_failures": {
+      "relevance": null,
+      "constraint_alignment": null,
+      "causal_clarity": null,
+      "plausibility": null,
+      "critical_safety_or_rights": null
+    },
+    "primary_endpoint": null,
+    "human_calibration": "not performed",
+    "total_output_tokens": 1215,
+    "usage_integrity": "consistent cumulative counters",
+    "input_tokens": 21052,
+    "latency_seconds": 15.026794582998264,
+    "cost": null,
+    "final_word_count": 660,
+    "word_budget_compliant": false,
+    "discovery_questions_diagnostic": 0,
+    "assistant_turns": 1,
+    "preservation_and_scope_semantic_failures": null,
+    "structural_diagnostics": {
+      "case_id": "tight-budget",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 9.889,
+        "1.0": 9.769,
+        "2.0": 9.5
+      },
+      "preservation_violation_count": null,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "not_assessed_no_manifest_invariants",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 660,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1215,
+      "original_reported_total_assistant_output_tokens": 1215
+    }
+  }
+]

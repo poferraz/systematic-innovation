@@ -1,0 +1,9 @@
+WARN `--no-project` was provided, but no project was found
+test_blinded_packet_omits_assignment_and_treatment_preamble (tests.test_restored_review.RestoredReviewTests.test_blinded_packet_omits_assignment_and_treatment_preamble) ... ok
+test_corrupted_or_missing_usage_never_yields_a_primary_denominator (tests.test_restored_review.RestoredReviewTests.test_corrupted_or_missing_usage_never_yields_a_primary_denominator) ... ok
+test_unrated_blocks_cannot_become_qualified_mechanisms (tests.test_restored_review.RestoredReviewTests.test_unrated_blocks_cannot_become_qualified_mechanisms) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK

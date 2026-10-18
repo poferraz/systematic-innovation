@@ -1,0 +1,53 @@
+{
+  "scope": "agent inspection only, not blinded human calibration",
+  "observations": [
+    {
+      "source": "evals/restored-2026-10-18/holdout/baseline_clean.jsonl",
+      "case_id": "holdout-quick",
+      "condition": "baseline_clean",
+      "agent_inspected_proposal_bullets": 8,
+      "parser_blocks": 0,
+      "extracted_titles": [],
+      "known_missed_proposal_bullets": 8,
+      "false_positives": "not independently calibrated",
+      "quality_and_distinctness": null
+    },
+    {
+      "source": "evals/restored-2026-10-18/holdout/control_creative.jsonl",
+      "case_id": "holdout-quick",
+      "condition": "control_creative",
+      "agent_inspected_proposal_bullets": 9,
+      "parser_blocks": 3,
+      "extracted_titles": [
+        "Shared-use blocks",
+        "Caregiver-inclusive access",
+        "Popular-slot credits"
+      ],
+      "known_missed_proposal_bullets": 6,
+      "false_positives": "not independently calibrated",
+      "quality_and_distinctness": null
+    },
+    {
+      "source": "evals/restored-2026-10-18/holdout/baseline_clean.jsonl",
+      "case_id": "holdout-budget",
+      "condition": "baseline_clean",
+      "agent_inspected_proposal_bullets": 8,
+      "parser_blocks": 0,
+      "extracted_titles": [],
+      "known_missed_proposal_bullets": 8,
+      "false_positives": "not independently calibrated",
+      "quality_and_distinctness": null
+    },
+    {
+      "source": "evals/restored-2026-10-18/holdout/control_creative.jsonl",
+      "case_id": "holdout-budget",
+      "condition": "control_creative",
+      "agent_inspected_proposal_bullets": 8,
+      "parser_blocks": 0,
+      "extracted_titles": [],
+      "known_missed_proposal_bullets": 8,
+      "false_positives": "not independently calibrated",
+      "quality_and_distinctness": null
+    }
+  ]
+}

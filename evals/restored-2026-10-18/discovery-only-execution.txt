@@ -1,0 +1,4 @@
+WARN `--no-project` was provided, but no project was found
+Plan: 2 conversations, 8 assistant calls
+Saved skill_treatment ambiguous-deep rep 1: 3942 provider output tokens
+Saved skill_treatment ambiguous-deep rep 2: 4228 provider output tokens

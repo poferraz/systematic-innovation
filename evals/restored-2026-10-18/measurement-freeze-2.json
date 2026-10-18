@@ -1,0 +1,9 @@
+{
+  "version": "restored-diagnostic-2",
+  "sources": {
+    "tools/pilot_metrics.py": "e7caf036486d652aa547f120498ac803c8ea5233537e6d1c8a27b255abb0eb93",
+    "tools/restored_review.py": "ceadeb42945762852007218dfd14a6a651b1b41497db582a736399ba876a76b1",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
+  },
+  "reason": "Observed portfolio tables were missed in both format-matched control and treatment; continuation experiments need distinct handling. All arms rescored, v1 retained."
+}

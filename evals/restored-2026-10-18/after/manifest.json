@@ -1,0 +1,21 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "246c0788847fbce896264ae0ac00fe6281480879c6168dca3adbcc93c2600afb",
+  "skill_pack_sha256": "9160efd81c8813302934c354505d6a7bba97bb1d2b7303575e40cf8252cf2777",
+  "replicates": 2,
+  "case_ids": [
+    "broad-quick",
+    "ambiguous-deep",
+    "narrow-saturation",
+    "complex-single",
+    "impossible",
+    "bypass",
+    "experiments-off",
+    "experiments-on",
+    "tight-budget",
+    "negative"
+  ]
+}

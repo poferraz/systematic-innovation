@@ -1,0 +1,9 @@
+{
+  "version": "restored-diagnostic-3",
+  "sources": {
+    "tools/pilot_metrics.py": "b56463f2709b4c7f54e54c69c8b9349295f946f703c6769fc7b12f444af32766",
+    "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8",
+    "tools/restored_review.py": "09b86a5c304149f8d9fa954ae02f0b96c4cfa069cb5cd214a5a7dbe7ba75bc03"
+  },
+  "reason": "Two additional observed control layouts; same syntactic repairs apply to every arm, no quality or causal-identity judgments inferred."
+}

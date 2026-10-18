@@ -1,0 +1,4 @@
+WARN `--no-project` was provided, but no project was found
+Plan: 2 conversations, 2 assistant calls
+Saved skill_treatment tight-budget rep 2: 978 provider output tokens
+Saved skill_treatment tight-budget rep 1: 986 provider output tokens
