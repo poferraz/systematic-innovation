@@ -89,6 +89,8 @@ def main(argv: list[str]) -> int:
     errors = validate_skill(Path(argv[1]))
     for error in errors:
         print(error)
+    if not errors:
+        print("OK")
     return 1 if errors else 0
 
 

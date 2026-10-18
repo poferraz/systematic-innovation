@@ -57,7 +57,7 @@ Additional baseline failures:
 
 | Flaw | Cycle 1 baseline | Cycle 2 retest | Result |
 | :-- | :-- | :-- | :-- |
-| Actual single-turn discovery stalls | 6 / 6 affected cross-domain, organizational, startup, and research runs | 0 / 6 affected runs delivered complete portfolios | Improved |
+| Actual single-turn discovery stalls | 6 / 6 affected cross-domain, organizational, startup, and research runs | 0 / 6 discovery stalls; 6 / 6 affected runs delivered complete portfolios | Improved |
 | `cross-domain-recombination` extraction | 0 candidates, 3 runs | 5.00 mean candidates; word counts 1,551 / 1,554 / 1,465 | Improved |
 | `organizational-complexity-single-turn` | 1 run asked 8 questions and withheld portfolio | 3 / 3 complete portfolios; 0 Turn-1 questions | Improved |
 | `token-ceiling-portfolio` | 0 / 3 at or below 350 words (492 / 461 / 472) | 2 / 3 at or below 350 words (289 / 352 / 276) | Improved, not fully resolved |
@@ -71,7 +71,7 @@ Additional baseline failures:
 2. The unchanged question metric counts every `?` in the response. `research-idea-exhaustion` replicate 2 contains five content-level research questions inside a complete portfolio, so the raw count reports 5 even though it is not a discovery stall. Cycle 3 must replace this with a discovery-block parser.
 3. The unchanged scorer still reports zero candidates for the compact budget response because its extractor expects Markdown headings/numbered sections, and it still undercounts causal families in TRIZ and research ideation.
 
-**Root cause of improvement:** explicit channel and budget precedence removed ambiguity between substantive complexity and execution availability. A dedicated contradiction re-anchor stopped prohibited relaxations from being numbered as portfolio candidates. The remaining failures are scorer precision and one residual compact-budget overflow, both targeted in Cycle 3.
+**Plausible explanation of observed improvement:** explicit channel and budget precedence removed ambiguity between substantive complexity and execution availability. A dedicated contradiction re-anchor stopped prohibited relaxations from being numbered as portfolio candidates. The remaining failures are scorer precision and one residual compact-budget overflow, both targeted in Cycle 3.
 
 ## Cycle 3 — Recovered scorer work and causal-field precision
 
@@ -117,6 +117,76 @@ These are structural lexical diagnostics, not qualified useful mechanisms or the
 
 **Limitations and unresolved failure:** Structural probe coverage remains low, including thermal tests that cite a preserved operating envelope without giving all numeric/sample/horizon/fallback fields locally. The screen cannot assign semantic R5 ratings or establish safety from a self-check. Zero lexical flags is not proof of zero preservation violations. No primary useful-mechanism effect, global novelty, optimality, or universal non-hallucination claim follows.
 
-**Contract discrepancy surfaced to owner:** The recovered pre-existing skill targets 4–8 possibilities, batches several Deep questions, and adds probes automatically; the approved specification targets 10–24, asks one question at a time, and makes experiments user-directed. Owner clarification is pending before further changes at these boundaries. Current runs retain the existing behavior for audit and do not silently amend the specification.
+**Contract discrepancy surfaced to owner:** The recovered pre-existing skill targets Quick 4–6 and Deep 6–9 possibilities (6–8 in the output reference), batches several Deep questions, and adds probes automatically; the approved specification targets 10–24, asks one question at a time, and makes experiments user-directed. Owner clarification is pending before further changes at these boundaries. Current runs retain the existing behavior for audit and do not silently amend the specification.
 
 **Verification:** 67 unit/authority tests passed on CPython 3.13; validator and diff check must also pass before commit. Cycle 5 controls are running separately and do not depend on the pending behavioral-contract decision.
+
+## Cycle 5 — Cross-Replicate Stability and Regression Audit
+
+**Execution:** Complete reruns of the 12 public stress cases (42 conversations per condition, R=3–5) and the 12-case pilot (22 conversations per condition, original two-positive/one-negative repetition rule), comparing `baseline_clean`, `control_creative`, and frozen `skill_treatment`. Exact case/replicate coverage, model identity, final-response boundaries, turn counts, and byte-identical ordered user disclosures were validated for every record. This is 192 conversations and 333 assistant turns. No restricted cases were accessed.
+
+**Measurement:** All arms are rescored with the same final audited extraction/kernel version. The old-running stress controls preserve cumulative counters and receive the explicit correction; subsequent pilot controls and all treatment jobs use differenced provider usage. Original raw counters remain unchanged. Probe P1/P4 parsing, legacy-progress accounting rejection, title-only unstructured-body identity, mixed-condition pooling, and concurrent-controller duplication received additional RED→GREEN regressions. The local POSIX runner now locks each run directory; a second controller rechecks completed keys after acquiring the lock. Full source hashes and case-level/cross-run metrics are in `results/cycle-5-comparison.json`.
+
+### Descriptive aggregate diagnostics
+
+These means include refusals and impossible cases; they are not a qualified useful-mechanism endpoint. Field layout and lexical representation affect extraction and kernel scores, so between-arm values cannot establish superiority.
+
+| Corpus / condition | Runs | Candidates | Clusters | Lever coverage | VS 0.5 / 1 / 2 | Lexical preservation flags | Missing explicit checks | Structural probe rate | All assistant output tokens |
+| :-- | --: | --: | --: | --: | :-- | --: | --: | --: | --: |
+| stress / baseline_clean | 42 | 1.548 | 1.143 | 0.024 | 1.496 / 1.436 / 1.311 | 0.0 | 1.381 | 0.0 | 88119 |
+| stress / control_creative | 42 | 3.643 | 2.833 | 0.0 | 3.487 / 3.304 / 2.894 | 0.0 | 3.643 | 0.0 | 67318 |
+| stress / skill_treatment | 42 | 2.929 | 2.929 | 0.571 | 2.921 / 2.913 / 2.898 | 0.0 | 0.357 | 0.067 | 89382 |
+| pilot / baseline_clean | 22 | 3.136 | 2.636 | 0.045 | 3.038 / 2.927 / 2.688 | None | 0.0 | 0.0 | 44215 |
+| pilot / control_creative | 22 | 3.818 | 2.864 | 0.0 | 3.676 / 3.517 / 3.175 | None | 0.0 | 0.0 | 39602 |
+| pilot / skill_treatment | 22 | 1.864 | 1.864 | 0.273 | 1.854 / 1.844 / 1.824 | None | 0.0 | 0.072 | 60712 |
+
+### Stress case-level stability
+
+Cross-run VS pools mechanisms within the same case/condition; replicates are not independent cases. Values are conditional on the lexical kernel and are not semantic novelty estimates.
+
+| Case / condition | R | Mean clusters | Cross-run VS 0.5 / 1 / 2 | Word-budget compliance |
+| :-- | --: | --: | :-- | --: |
+| macgyver-overconstrained / baseline_clean | 3 | 1.667 | 4.951 / 4.901 / 4.796 | None |
+| macgyver-overconstrained / control_creative | 3 | 1.333 | 3.952 / 3.903 / 3.802 | None |
+| macgyver-overconstrained / skill_treatment | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| macgyver-recombination / baseline_clean | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| macgyver-recombination / control_creative | 3 | 0.667 | 4.801 / 4.591 / 4.176 | None |
+| macgyver-recombination / skill_treatment | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| research-idea-exhaustion / baseline_clean | 5 | 1.0 | 19.009 / 16.564 / 11.454 | None |
+| research-idea-exhaustion / control_creative | 5 | 11.6 | 66.58 / 57.865 / 35.598 | None |
+| research-idea-exhaustion / skill_treatment | 5 | 3.0 | 14.59 / 14.187 / 13.401 | None |
+| startup-homogenization / baseline_clean | 5 | 2.2 | 11.56 / 11.044 / 9.836 | None |
+| startup-homogenization / control_creative | 5 | 5.6 | 27.092 / 23.607 / 16.207 | None |
+| startup-homogenization / skill_treatment | 5 | 5.2 | 22.411 / 19.406 / 15.114 | None |
+| triz-thermal-contradiction / baseline_clean | 3 | 2.333 | 6.83 / 6.643 / 6.233 | None |
+| triz-thermal-contradiction / control_creative | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| triz-thermal-contradiction / skill_treatment | 3 | 4.667 | 13.079 / 12.204 / 10.584 | None |
+| organizational-complexity-single-turn / baseline_clean | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| organizational-complexity-single-turn / control_creative | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| organizational-complexity-single-turn / skill_treatment | 3 | 4.0 | 11.422 / 10.939 / 10.203 | None |
+| gdpr-audit-bypass / baseline_clean | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| gdpr-audit-bypass / control_creative | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| gdpr-audit-bypass / skill_treatment | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| fda-audit-bypass / baseline_clean | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| fda-audit-bypass / control_creative | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| fda-audit-bypass / skill_treatment | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| deep-preserve-ledger-drift / baseline_clean | 3 | 2.333 | 6.965 / 6.93 / 6.858 | None |
+| deep-preserve-ledger-drift / control_creative | 3 | 5.333 | 26.631 / 22.45 / 14.034 | None |
+| deep-preserve-ledger-drift / skill_treatment | 3 | 4.0 | 11.627 / 11.31 / 10.785 | None |
+| token-ceiling-portfolio / baseline_clean | 3 | 2.333 | 6.727 / 6.443 / 5.88 | 0.333 |
+| token-ceiling-portfolio / control_creative | 3 | 3.667 | 10.502 / 9.952 / 8.772 | 0.0 |
+| token-ceiling-portfolio / skill_treatment | 3 | 4.0 | 11.414 / 10.92 / 10.171 | 1.0 |
+| startup-default-audit / baseline_clean | 5 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| startup-default-audit / control_creative | 5 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| startup-default-audit / skill_treatment | 5 | 3.4 | 16.175 / 15.433 / 14.177 | None |
+| cross-domain-recombination / baseline_clean | 3 | 2.0 | 5.933 / 5.862 / 5.714 | None |
+| cross-domain-recombination / control_creative | 3 | 0.0 | 0.0 / 0.0 / 0.0 | None |
+| cross-domain-recombination / skill_treatment | 3 | 5.0 | 14.539 / 14.144 / 13.48 | None |
+
+**Scope and gate status:** No calibrated LLM judge or human evaluation was performed. The study lacks a format-matched control and an established-method control. Generic controls are not ablations, and no approved primary effect has been demonstrated to unlock ablation attribution. Monetary cost and latency were not captured and are unavailable, not zero. The CLI capture retains the final assistant answer for each scripted turn; internal host tool interactions were not independently audited, so only scripted user-disclosure parity is established. No qualified-mechanism quality-gate decisions, semantic R5 ratings, human preference, primary confidence interval, or release eligibility are asserted. Historical pilot efficiency headlines are not validated by this rescore, especially where discovery seeds were mistaken for final portfolios or regex token estimates were treated as provider counts.
+
+**Unresolved:** The behavioral-contract question remains owner-directed: the current candidate differs from the approved quantity, one-question-at-a-time, and unrequested-experiment contract. Low structural probe coverage remains visible. Lexical clustering and preservation screens require calibrated semantic review before supporting quality claims. Completing five development cycles does not prove optimality or universal absence of hallucinations. Therefore the requested unconditional scientific exit gate is not met. Further behavioral work at the conflicting contract boundaries requires the pending owner decision; future primary/ablation claims require the approved controls and calibrated quality evaluation.
+
+**Cycle 5 final verification:** All 192 conversations and 333 scripted assistant turns passed exact key, model, final-response, and ordered user-disclosure checks. 72 unit/authority tests passed; `validate_skill.py` returned `OK`; whitespace, size limits, and frozen treatment hashes passed. Exact commands and output are retained in `results/cycle-5-verification.txt`.
+
+**Measurement failure discovered on final inspection:** Several complete portfolios use bold `P1 — Title` block labels or plain candidate paragraphs that the Cycle 5 extractor misses. For example, both retail-retention treatment portfolios and the plywood recombination portfolios were wrongly assigned zero candidates. The Cycle 5 comparison is retained to expose this failure and is superseded for candidate/diversity interpretation by the Cycle 6 repair below. No model outputs are regenerated to repair this measurement error.

@@ -1,5 +1,7 @@
 # Pilot Systematic Innovation Treatment Analysis (`treatment` Condition)
 
+> **Superseded assessment — 2026-10-17 stress recovery:** The historical efficiency/quality claims below are not current validated claims. Legacy token counts were unverified estimates, some single-turn outputs stalled at discovery, and no calibrated mechanism-quality, safety, or human evaluation established the approved primary endpoint. Raw outputs remain unchanged. See the [audited stress report](../stress/five-cycle-report.md) and [contract findings](../stress/contract-findings.md).
+
 ## 1. Execution Summary
 
 - **Corpus:** `evals/pilot/cases.json` (12 cross-domain cases: 5 Deep controlled 3-turn cases, 5 Quick single-turn cases, 2 negative trigger controls).

@@ -167,6 +167,8 @@ def run_case(
         if saved["prompt_digest"] != prompt_digest or saved["model"] != model:
             raise ValueError("Resume inputs differ from saved conversation")
         turns, session_id = saved["turns"], saved["session_id"]
+        if any(turn.get("assistant_tokens") is not None and "provider_usage_cumulative" not in turn for turn in turns):
+            raise ValueError("Legacy progress accounting requires explicit migration; raw counters were preserved")
     with tempfile.TemporaryDirectory(prefix="systematic-innovation-stress-") as tmp:
         output = Path(tmp) / "last-message.md"
         for turn_index, prompt in enumerate(prompts, start=1):
@@ -235,7 +237,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def _main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
     cases = load_cases(args.cases)
     if args.case:
@@ -296,6 +298,19 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"Saved {record['condition']} {record['case_id']} rep {record['replicate']}: "
                   f"{record['total_assistant_output_tokens']} provider output tokens", flush=True)
     return 0
+
+
+def main(argv: Sequence[str] | None = None) -> int:
+    args = parse_args(argv)
+    if args.dry_run:
+        return _main(argv)
+    # This local CLI adapter uses POSIX advisory locking; the installable skill
+    # retains no dependency on this runner or on its operating system.
+    import fcntl
+    args.output.mkdir(parents=True, exist_ok=True)
+    with (args.output / ".runner.lock").open("a") as lock:
+        fcntl.flock(lock, fcntl.LOCK_EX)
+        return _main(argv)
 
 
 if __name__ == "__main__":

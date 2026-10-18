@@ -54,10 +54,6 @@ class StressRunnerTests(unittest.TestCase):
         self.assertEqual(sum(case["replicates"] for case in cases), 42)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class StressRunnerCommandTests(unittest.TestCase):
     def test_initial_command_supports_isolated_non_repo_root(self) -> None:
         command = build_initial_command(
@@ -123,3 +119,55 @@ class ProviderAccountingTests(unittest.TestCase):
         self.assertEqual(record["total_assistant_output_tokens"], 15)
         self.assertEqual([turn["assistant_tokens"] for turn in record["turns"]], [5, 5, 5])
         self.assertEqual([turn["provider_usage_cumulative"]["output_tokens"] for turn in record["turns"]], [5, 10, 15])
+
+class LegacyProgressAccountingTests(unittest.TestCase):
+    def test_legacy_cumulative_progress_requires_explicit_migration(self):
+        import hashlib, tempfile
+        from unittest.mock import patch
+        from tools.stress_runner import run_case
+        case = {"id": "legacy", "prompt": "Initial", "user_turns": ["Final"],
+                "interaction_mode": "controlled-multi-turn", "expected_mode": "deep", "should_trigger": True}
+        with tempfile.TemporaryDirectory() as tmp:
+            progress = Path(tmp) / 'progress.json'
+            original = json.dumps({'prompt_digest': hashlib.sha256(json.dumps(['Initial', 'Final']).encode()).hexdigest(),
+                'model': 'model', 'session_id': 'session', 'turns': [{'turn_index': 1, 'user': 'Initial',
+                'assistant': 'First', 'assistant_tokens': 10, 'assistant_tokens_estimate': 2}]})
+            progress.write_text(original)
+            with patch('tools.stress_runner._execute', side_effect=AssertionError('must fail before model execution')), self.assertRaisesRegex(ValueError, 'accounting'):
+                run_case(case, 'baseline_clean', 1, ROOT / 'skills/systematic-innovation', 'model', 'codex', progress_path=progress)
+            self.assertEqual(progress.read_text(), original)
+
+class ConcurrentRunSafetyTests(unittest.TestCase):
+    def test_two_controllers_cannot_append_the_same_completed_job(self):
+        import tempfile, threading, time
+        from concurrent.futures import ThreadPoolExecutor
+        from unittest.mock import patch
+        from tools.stress_runner import main
+        ready = threading.Event()
+        release = threading.Event()
+        def remote(*args, **kwargs):
+            ready.set()
+            release.wait(3)
+            return {'case_id': 'one', 'condition': 'baseline_clean', 'replicate': 1,
+                    'total_assistant_output_tokens': 5}
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / 'cases.json'
+            cases.write_text(json.dumps({'cases': [{'id': 'one', 'prompt': 'User prompt',
+                'should_trigger': True, 'replicates': 1, 'user_turns': []}]}))
+            output = root / 'out'
+            args = ['--cases', str(cases), '--output', str(output), '--conditions', 'baseline_clean']
+            with patch('tools.stress_runner.run_case', side_effect=remote):
+                with ThreadPoolExecutor(max_workers=2) as pool:
+                    first = pool.submit(main, args)
+                    self.assertTrue(ready.wait(2))
+                    second = pool.submit(main, args)
+                    time.sleep(0.1)
+                    release.set()
+                    self.assertEqual(first.result(), 0)
+                    self.assertEqual(second.result(), 0)
+            self.assertEqual(len((output / 'baseline_clean.jsonl').read_text().splitlines()), 1)
+
+
+if __name__ == "__main__":
+    unittest.main()

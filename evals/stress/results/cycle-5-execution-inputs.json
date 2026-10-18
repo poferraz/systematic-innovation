@@ -1,0 +1,17 @@
+{
+  "captured_at": "2026-10-17T23:44:43.208962+00:00",
+  "source_revision": "6f3acb98a2f0aa4b431f4384c62a2887ffaf1a08",
+  "sha256": {
+    "skills/systematic-innovation/SKILL.md": "4b4c0487b4fa0a85f0eb9cccf3fead6db8b3a746e8b4d272b8a0cdaebda0bc5d",
+    "skills/systematic-innovation/references/innovation-lenses.md": "252030cddfb76358ec4bd36e2e5aeacb34c38272fcc9d9c2656b30bd0adc8291",
+    "skills/systematic-innovation/references/output-contract.md": "a3fb9b8af3727c33b8d260179da1b3458dd1af206ff5d54532b4856c8e1d3679",
+    "skills/systematic-innovation/references/evidence.md": "282deee88ed5b6e0800401414090e0ad8b4b9e0afff2ab752416a526fa1064bd",
+    "skills/systematic-innovation/references/deep-mode.md": "84fe149e48ef309ce338e80158aa40aa0d0a2d3635e77b35a34063727a7fdd8c",
+    "tools/stress_runner.py": "eb2472c6d611a53d25ab6448269590ac9e12c386e89b79241a4476aeb593359e",
+    "tools/pilot_metrics.py": "babe3e436487a5c999d132228c9a8226c83dc109498f5e96ea86f47fa15fa8a5",
+    "tools/score_eval_results.py": "c9c5026fe6f247597e0ed1931a74756e9887bc53a8c4a02822eeda7555f6db7e",
+    "evals/stress/cases.json": "f1ec7587d0d8fd4b6e162e7426271d86e75cb9e639259db10f4afe7a9b3ecfc5",
+    "evals/pilot/cases.json": "69998ad4ecb257c5ff917c4f78c9b3711cf1563d1e019454bf8ed5cda8e6006c"
+  },
+  "scope": "Exploratory public development; three treatment arms; no restricted data, calibrated judge, established-method or format-matched control. Controls use earlier runner counters requiring explicit cumulative correction."
+}

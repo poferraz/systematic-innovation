@@ -193,10 +193,6 @@ class RoutingAndBudgetTests(unittest.TestCase):
         self.assertFalse(count_word_budget_compliance("one two three four", 3))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class EvaluationRecordScoringTests(unittest.TestCase):
     def test_score_record_exposes_required_cycle_metrics(self) -> None:
         from tools.score_eval_results import score_record
@@ -288,3 +284,29 @@ class ModalNegationTests(unittest.TestCase):
         self.assertEqual(detect_preservation_violations([
             {"preserve_check": "Relay rules cannot remove rural coverage."}
         ], ["rural coverage"]), [])
+
+class CompactProbeIdentityTests(unittest.TestCase):
+    def test_candidate_numbered_probes_are_scored_separately(self):
+        text = ('L6: Probe P1: test 20 bookings for 2 weeks; reject if fewer than 10 confirm; revert. '
+                'Probe P4: run a survey and revise if useful.')
+        self.assertEqual(assess_falsifiability(text), {'probe_count': 2, 'falsifiable_count': 1, 'rate': 0.5})
+
+class UnstructuredBodyIdentityTests(unittest.TestCase):
+    def test_different_titles_do_not_hide_identical_unstructured_causal_bodies(self):
+        body = "Nurses route urgent requests to specialist review before routine intake to reduce waiting."
+        candidates = [{"title": "Blue Door", "text": body}, {"title": "Amber Path", "text": body}]
+        self.assertEqual(len(cluster_mechanisms(candidates)), 1)
+        self.assertEqual(compute_vendi_score(candidates), 1.0)
+
+
+class ConditionIsolationTests(unittest.TestCase):
+    def test_condition_means_are_not_silently_pooled(self):
+        from tools.score_eval_results import summarize_results
+        rows = [{"case_id": "one", "condition": condition, "final_response": ""}
+                for condition in ("baseline_clean", "skill_treatment")]
+        with self.assertRaisesRegex(ValueError, "condition"):
+            summarize_results(rows, [{"id": "one"}])
+
+
+if __name__ == "__main__":
+    unittest.main()

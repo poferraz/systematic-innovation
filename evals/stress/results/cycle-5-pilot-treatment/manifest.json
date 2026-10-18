@@ -1,0 +1,23 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "69998ad4ecb257c5ff917c4f78c9b3711cf1563d1e019454bf8ed5cda8e6006c",
+  "skill_pack_sha256": "7474ab20c3b6682cb97e1591616dbe030a54301fc6e52a12a69e6f9a2923ea9c",
+  "replicates": null,
+  "case_ids": [
+    "retail-retention",
+    "permit-wait",
+    "ignored-reminders",
+    "release-bottleneck",
+    "teacher-fatigue",
+    "food-bank-mismatch",
+    "meal-planning",
+    "warehouse-returns",
+    "library-access",
+    "provocation",
+    "fact-lookup",
+    "implementation-only"
+  ]
+}

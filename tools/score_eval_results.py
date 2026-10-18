@@ -76,6 +76,8 @@ def _mean(values: Sequence[float | int | None]) -> float | None:
 
 
 def summarize_results(records: Sequence[dict], cases: Sequence[dict], provider_usage_cumulative: bool = False) -> dict:
+    if len({record.get("condition", "unspecified") for record in records}) > 1:
+        raise ValueError("Score one condition at a time; do not pool comparison arms")
     cases_by_id = {case["id"]: case for case in cases}
     scored = [
         score_record(record, cases_by_id.get(record.get("case_id"), {}), provider_usage_cumulative)

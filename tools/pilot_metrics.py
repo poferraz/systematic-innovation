@@ -119,6 +119,10 @@ def content_features(text: str) -> Counter[str]:
 
 def mechanism_features(mechanism: str | dict[str, str]) -> Counter[str]:
     record = _mechanism_record(mechanism)
+    if not any(record.get(field) not in (None, "", "unknown")
+               for field in ("intervention_point", "causal_chain", "causal_lever")):
+        # A title is a surface label, not a substitute for an unstructured body.
+        return content_features(record.get("text") or record.get("title", ""))
     counts: Counter[str] = Counter()
     field_weights = {
         "intervention_point": 2.0,
@@ -281,7 +285,6 @@ FIELD_ALIASES: dict[str, str] = {
     "preserve check": "preserve_check",
     "preservation check": "preserve_check",
     "preservation & constraint check": "preserve_check",
-    "causal lever type": "causal_lever",
     "preservation and constraint check": "preserve_check",
     "principal actor": "principal_actor",
     "changed flow": "changed_flow",
@@ -500,7 +503,7 @@ def _learning_probe_texts(response: str) -> list[str]:
     compact_match = re.search(r"\bL6\s*:\s*(.+)$", response, re.IGNORECASE | re.MULTILINE)
     if compact_match:
         block = compact_match.group(1)
-        return [probe.strip() for probe in re.split(r"\bProbe\s+\d+\s*:", block) if probe.strip()]
+        return [probe.strip() for probe in re.split(r"\bProbe\s+P?\d+\s*:", block) if probe.strip()]
     layer_match = re.search(
         r"#+\s*(?:Layer\s*6|Learning\s*Probes)\b",
         response,

@@ -1,14 +1,16 @@
 # Systematic Innovation: Candidate Skill Verification Gate Report
 
+> **Superseded assessment — 2026-10-17 stress recovery:** The historical efficiency/quality claims below are not current validated claims. Legacy token counts were unverified estimates, some single-turn outputs stalled at discovery, and no calibrated mechanism-quality, safety, or human evaluation established the approved primary endpoint. Raw outputs remain unchanged. See the [audited stress report](../stress/five-cycle-report.md) and [contract findings](../stress/contract-findings.md).
+
 ## 1. Executive Summary & Gate Decision
 
-- **Verification Status:** **APPROVED (PASSED)**
+- **Original Reported Status:** **APPROVED (PASSED)** — superseded; empirical gate not substantiated
 - **Candidate Skill Authority:** `skills/systematic-innovation/`
 - **Candidate Skill Commit:** `1549a7c`
 - **Date:** 2026-10-17
 - **Target Milestone:** Completion of Skill Plan Phase 1 (Core Skill Authoring & Empirical Pilot Verification). Ready for Phase 2 (`systematic-innovation-benchmark-runner`).
 
-The `systematic-innovation` skill has met all structural, portability, and empirical quality criteria required for promotion to **Candidate Skill** status. Across 22 treatment runs evaluated against the 12-case cross-domain pilot corpus (`evals/pilot/cases.json`), the skill demonstrated a **+162% increase in causal mechanism density per 1k tokens**, eliminated conversational churn in multi-turn dialogues (**-35% token reduction**), achieved **100% Turn-1 restraint in Deep cases**, maintained **100% negative trigger precision**, and completely prevented premature implementation drift.
+The original assessment asserted improved causal density, reduced conversational churn, complete restraint, and trigger precision. Those headline claims are superseded by the recovery audit. Passing structural tests does not establish qualified mechanism quality, automatic activation, approved-spec conformance, or release readiness.
 
 ---
 
@@ -36,7 +38,7 @@ The `systematic-innovation` skill has met all structural, portability, and empir
 
 ---
 
-## 4. RED-to-GREEN Empirical Contrast
+## 4. Historical RED-to-GREEN Contrast (Not Validated)
 
 | Dimension | RED Baseline (`vanilla`) | GREEN Treatment (`skill`) | Transformation Impact |
 | :--- | :---: | :---: | :--- |
@@ -51,7 +53,7 @@ The `systematic-innovation` skill has met all structural, portability, and empir
 
 ---
 
-## 5. Behavioral Invariant Audit
+## 5. Original Behavioral Audit (Not Recalibrated)
 
 All preserved runs were audited against the core behavioral invariants:
 1. **Initial Fluency Depletion:** Observed in 20/20 positive runs. Top-of-mind tropes (e.g. generic inventory apps, 2-2-2 meal rules, NFC pill caps) were explicitly identified and quarantined before ledger entry.
@@ -73,4 +75,4 @@ The following claims remain intentionally unverified pending the full benchmark 
 
 ## 7. Gate Conclusion
 
-`skills/systematic-innovation/` is certified as a **Candidate Skill**. All Phase 1 deliverables are complete, verified by test-driven assertions, and documented with zero hallucination.
+The original candidate certification is superseded for empirical and behavioral-conformance claims. The current development candidate requires the contract decision and evaluation gates documented in the stress report; no universal non-hallucination claim is made.
