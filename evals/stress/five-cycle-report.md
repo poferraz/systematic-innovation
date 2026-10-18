@@ -2,6 +2,8 @@
 
 This report preserves raw evidence under `evals/stress/results/`. It records public development observations only. The canonical skill remains the sole behavioral authority; the runner and scorer are host mechanics.
 
+**Latest status:** Cycles 1–5 are logged, followed by a Cycle 6 measurement repair. Earlier candidate/diversity estimates are versioned historical diagnostics. No calibrated primary effect, ablation attribution, specification conformance, optimality, or universal non-hallucination claim is established. The behavioral-contract decision remains pending.
+
 ## Cycle 1 — Baseline Stress Exposure
 
 **Target:** Break the unchanged skill and unchanged scorer before making behavioral or metric changes.
@@ -190,3 +192,47 @@ Cross-run VS pools mechanisms within the same case/condition; replicates are not
 **Cycle 5 final verification:** All 192 conversations and 333 scripted assistant turns passed exact key, model, final-response, and ordered user-disclosure checks. 72 unit/authority tests passed; `validate_skill.py` returned `OK`; whitespace, size limits, and frozen treatment hashes passed. Exact commands and output are retained in `results/cycle-5-verification.txt`.
 
 **Measurement failure discovered on final inspection:** Several complete portfolios use bold `P1 — Title` block labels or plain candidate paragraphs that the Cycle 5 extractor misses. For example, both retail-retention treatment portfolios and the plywood recombination portfolios were wrongly assigned zero candidates. The Cycle 5 comparison is retained to expose this failure and is superseded for candidate/diversity interpretation by the Cycle 6 repair below. No model outputs are regenerated to repair this measurement error.
+
+## Cycle 6 — Observed-Format Measurement Repair
+
+**Flaw and root cause:** Cycle 5 counted several complete portfolios as zero candidates because its extractor required particular Markdown headings or compact field labels. Bold P labels, multi-line P paragraphs, level-one and Option headings, numbered/bold lists, proposal tables, and JSON portfolios occurred in the saved answers. The early P-only path could also swallow a mixed `Possibility 2` heading or treat a later receptivity reference as another P1. This was a measurement failure; improving these counts does not show that generation improved.
+
+**Changes and regression evidence:** Twelve additional observed-format/boundary tests were run RED→GREEN. The extractor keeps candidate bodies, joins ledger fields by explicit ID, recognizes Chain/Lever/Preserve aliases, stops at numbered and named later layers, and keeps mixed candidate headings separate. Control fallbacks recognize explicit proposal containers, retain nested benefits inside their parent, and reject the tested factual examples and named limitation lists. The scorer now reports detection status and coverage: zero blocks detected is not proof that an answer contains no ideas. Extraction remains syntactic, with incomplete coverage and unvalidated candidate validity.
+
+**Execution and reproducibility:** No new model calls. All 192 Cycle 5 conversations / 333 scripted assistant turns were rescored, with exact keys, ordered disclosures, condition/model, final-answer boundaries, and six unchanged raw-file hashes checked again. `results/cycle-5-comparison.json` is retained unchanged; `results/cycle-6-comparison.json` records the new scorer hashes, corrected token totals, per-record detection status, case-level metrics, and cross-run VS at all three orders. From the repository root, reproduce with `UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python evals/stress/rescore-cycle-6.py`. This updates only the Cycle 6 measurement artifact and requires the retained Cycle 5 raw sources.
+
+### Same-generation before/after diagnostics
+
+Each cell shows Cycle 5 → Cycle 6. Means include refusals, negative tasks, and unsupported layouts; the counts refer to detected candidate-like blocks, not qualified useful mechanisms. Layout-dependent coverage prevents between-arm performance conclusions.
+
+| Corpus / condition | Candidates | Clusters | VS 1 |
+| :-- | --: | --: | --: |
+| stress / baseline_clean | 1.548 → 6.381 | 1.143 → 5.619 | 1.436 → 6.1 |
+| stress / control_creative | 3.643 → 5.333 | 2.833 → 4.476 | 3.304 → 4.95 |
+| stress / skill_treatment | 2.929 → 4.095 | 2.929 → 4.095 | 2.913 → 4.074 |
+| pilot / baseline_clean | 3.136 → 5.273 | 2.636 → 4.591 | 2.927 → 5.008 |
+| pilot / control_creative | 3.818 → 7.318 | 2.864 → 6.364 | 3.517 → 6.802 |
+| pilot / skill_treatment | 1.864 → 4.955 | 1.864 → 4.955 | 1.844 → 4.931 |
+
+### Current descriptive diagnostics
+
+Lever coverage is based on explicit recognized labels, so treatment formatting affects it. “Missing labels” means no recognized candidate-local preservation-check label; relevant safeguards can still occur in other prose. Zero lexical flags does not certify preserved assets or assign an R5 score. Pilot preservation is not assessed without manifest invariants.
+
+| Corpus / condition | Blocks detected in runs | Lever coverage | VS 0.5 / 1 / 2 | Lexical flags | Missing labels | Structural probe rate | All assistant output tokens |
+| :-- | --: | --: | :-- | --: | --: | --: | --: |
+| stress / baseline_clean | 32/42 | 0.024 | 6.248 / 6.1 / 5.779 | 0.0 | 6.214 | 0.0 | 88119 |
+| stress / control_creative | 27/42 | 0.0 | 5.156 / 4.95 / 4.487 | 0.0 | 5.333 | 0.0 | 67318 |
+| stress / skill_treatment | 33/42 | 0.786 | 4.085 / 4.074 / 4.051 | 0.0 | 0.452 | 0.067 | 89382 |
+| pilot / baseline_clean | 14/22 | 0.091 | 5.147 / 5.008 / 4.713 | None | 0.0 | 0.0 | 44215 |
+| pilot / control_creative | 16/22 | 0.0 | 7.079 / 6.802 / 6.163 | None | 0.0 | 0.0 | 39602 |
+| pilot / skill_treatment | 20/22 | 0.909 | 4.943 / 4.931 / 4.908 | None | 0.0 | 0.072 | 60712 |
+
+**Observed checks:** Retail treatment portfolios now yield 5 and 6 blocks; food-bank portfolios yield 5 each; all three plywood treatment portfolios yield 4 each. The treatment's nine zero-detection stress records are the three impossible-cooling and six bypass responses. This grouping does not establish safety or prove every other extracted block valid. One plywood treatment answer explicitly describes infeasible or conditional arrangements; counting four blocks must not be confused with four constraint-satisfying innovations. Word-budget results and provider totals are unchanged by rescoring: treatment passes 3/3 at 267, 237, and 284 words; clean baseline passes 1/3 and creative control 0/3.
+
+**Remaining measurement failures:** Unnumbered descriptive headings, plain unbold lists, and mixed free-form responses remain incompletely covered. Some controls contain safe alternatives after refusal, and some apparent portfolios contain constraints, component steps, or rejected directions. Detection cannot resolve these distinctions. Known missed examples include a baseline plywood response with unnumbered descriptive headings and baseline provocation prose. Consequently, neither the old nor the repaired aggregate establishes cross-arm causal diversity, completeness, safety, or quality superiority. Human-annotated extraction and calibrated semantic quality gates are required before inferential comparisons; a format-matched control is still missing. No ablation proof follows from the generic control.
+
+**Contract and provenance:** All five canonical skill files remain frozen at `6f3acb9`, so this cycle does not alter quantity targets, discovery, continuation, or Rickards attribution. No new Rickards or TRIZ quotation, chapter claim, or restricted evidence was introduced. The approved specification remains authoritative. The pending owner choice in `contract-findings.md` must be resolved before further behavioral changes at those boundaries; a later candidate requires fresh evidence.
+
+**Exit gate:** The requested five-cycle development sequence is recorded, but the unconditional scientific gate is unmet. Structural probe coverage is low, extraction is not calibrated, approved contract discrepancies remain, and no qualified primary endpoint or component ablation has been evaluated. These limits are explicit findings, not claims that all pass criteria have been achieved.
+
+**Cycle 6 final verification:** 84 unit/authority tests passed on CPython 3.13; `validate_skill.py` returned `OK`; rescore integrity checks and `git diff --check` passed. The core remains 92 lines / 8,763 bytes, all canonical Markdown totals 35,120 bytes, and all five files match frozen revision `6f3acb9`. Exact command output is retained in `results/cycle-6-verification.txt`. Independent review checked section boundaries, mixed labels, JSON/table/list guards, source hashes, and reordered ledger association; the final suite includes the subsequently fixed Preserve-label alias. No release or scientific-effect claim is implied.

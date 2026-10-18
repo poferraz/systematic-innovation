@@ -38,6 +38,7 @@ def score_record(record: dict, case: dict | None = None, provider_usage_cumulati
         "replicate": record.get("replicate", 0),
         "interaction_mode": record.get("interaction_mode", case.get("interaction_mode", "unknown")),
         "candidate_count": len(candidates),
+        "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated" if candidates else "no_blocks_detected_not_proof_of_absence",
         "distinct_mechanism_clusters": len(clusters),
         "lever_coverage": lever_coverage,
         "vendi_scores": {
@@ -129,6 +130,11 @@ def summarize_results(records: Sequence[dict], cases: Sequence[dict], provider_u
     return {
         "measurement_scope": "Exploratory structural/lexical diagnostics; no quality-gated primary endpoint or calibrated semantic judgment",
         "record_count": len(scored),
+        "extraction_coverage": {
+            "records_with_detected_blocks": sum(bool(row["candidate_count"]) for row in scored),
+            "records_without_detected_blocks": sum(not row["candidate_count"] for row in scored),
+            "interpretation": "Syntactic detection only; neither candidate validity nor absence is established",
+        },
         "aggregate": {
             key: _mean([row[key] for row in scored])
             for key in (

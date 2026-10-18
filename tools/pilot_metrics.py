@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import math
 import re
 from collections import Counter
@@ -278,11 +279,13 @@ FIELD_ALIASES: dict[str, str] = {
     "intervention point": "intervention_point",
     "intervention": "intervention_point",
     "causal chain": "causal_chain",
+    "chain": "causal_chain",
     "causal mechanism chain": "causal_chain",
     "causal lever": "causal_lever",
-    "causal lever type": "causal_lever",
     "lever": "causal_lever",
+    "causal lever type": "causal_lever",
     "preserve check": "preserve_check",
+    "preserve": "preserve_check",
     "preservation check": "preserve_check",
     "preservation & constraint check": "preserve_check",
     "preservation and constraint check": "preserve_check",
@@ -362,18 +365,148 @@ def _extract_compact_candidates(lines: list[str]) -> list[dict[str, str]]:
     return candidates
 
 
+def _extract_p_candidate_blocks(lines: list[str]) -> list[dict[str, str]]:
+    """Read explicit P IDs across compact, bold, and Markdown block layouts."""
+    def plain(line: str) -> str:
+        line = re.sub(r"^\s*#{1,6}\s*", "", line).strip()
+        line = re.sub(r"^[-*]\s+", "", line)
+        return line.replace("**", "").strip()
+
+    layer_three = re.compile(r"^(?:Layer\s*3|L3)\b", re.IGNORECASE)
+    later_layer = re.compile(r"^(?:Layer\s*[456]|L[456]|System Receptivity|Receptivity|Spotlights?|Learning probes?)\b", re.IGNORECASE)
+    start = next((i + 1 for i, line in enumerate(lines) if layer_three.match(plain(line))), 0)
+    header = re.compile(r"^P(\d+)\b(?:\s*[:.\u2014\u2013)-]\s*|\s+)(.+)$", re.IGNORECASE)
+    alternate_header = re.compile(r"^(?:Possibility|Idea|Option|Approach|Alternative|Concept)\s+(\d+)\b\s*[:.\u2014\u2013)-]?\s*(.+)$", re.IGNORECASE)
+    ledger = _extract_ledger_fields(lines)
+    blocks: list[tuple[str, str, list[str]]] = []
+    current: tuple[str, str, list[str]] | None = None
+    for line in lines[start:]:
+        cleaned = plain(line)
+        if later_layer.match(cleaned):
+            break
+        match = header.match(cleaned) or alternate_header.match(cleaned)
+        if match:
+            if current:
+                blocks.append(current)
+            candidate_id = f"P{int(match.group(1))}"
+            title = match.group(2).split("|", 1)[0].strip()
+            current = (candidate_id, title, [match.group(2)])
+        elif current:
+            current[2].append(line)
+    if current:
+        blocks.append(current)
+    candidates = []
+    for candidate_id, title, body in blocks:
+        text = "\n".join(body).strip()
+        fields = _parse_structured_fields(text)
+        if len(text) < 40 and not any(fields.values()):
+            continue
+        for key, value in ledger.get(candidate_id, {}).items():
+            fields.setdefault(key, value)
+        fields.update(candidate_id=candidate_id, title=title, text=text)
+        fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
+        fields["lever"] = fields["causal_lever"]
+        candidates.append(fields)
+    return candidates
+
+
+def _extract_control_portfolio(markdown_text: str) -> list[dict[str, str]]:
+    """Recognize explicit proposal containers; this is not a semantic classifier."""
+    def record(title: str, text: str) -> dict[str, str]:
+        fields = _parse_structured_fields(text)
+        fields.update(title=_clean_field_value(title), text=text)
+        fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
+        fields["lever"] = fields["causal_lever"]
+        return fields
+
+    json_text = re.sub(r"^```(?:json)?\s*|\s*```$", "", markdown_text.strip())
+    try:
+        payload = json.loads(json_text)
+    except (ValueError, TypeError):
+        payload = None
+    if isinstance(payload, dict) and isinstance(payload.get("portfolio"), list):
+        rows = []
+        for item in payload["portfolio"]:
+            if not isinstance(item, dict) or not item.get("change") or not item.get("operating_model_change"):
+                continue
+            rows.append(record(str(item["change"]), str(item["operating_model_change"])))
+        if rows:
+            return rows
+
+    lines = markdown_text.splitlines()
+    # Table fallback precedes lists so a subsequent limitations list is not a portfolio.
+    proposal_headers = {"idea", "research idea", "arrangement", "recombination", "model"}
+    table_rows = []
+    in_table = False
+    for line in lines:
+        if not line.startswith("|"):
+            if table_rows:
+                break
+            in_table = False
+            continue
+        cells = [cell.strip().strip("*") for cell in line.strip("|").split("|")]
+        if any(cell.lower() in proposal_headers for cell in cells):
+            in_table = True
+            continue
+        if not in_table or all(re.fullmatch(r":?-{3,}:?", cell) for cell in cells):
+            continue
+        text = " | ".join(cells)
+        if len(cells) >= 2 and len(text) >= 40:
+            table_rows.append(record(cells[0], text))
+    if table_rows:
+        return table_rows
+
+    numbered = re.compile(r"^\d+[.)]\s+\*\*(.+?)\*\*(.*)$")
+    bullet = re.compile(r"^[-*]\s+\*\*(.+?)\*\*(.*)$")
+    metadata = {"benefit", "trade-off", "tradeoff", "risk", "primary outcome", "secondary outcomes", "safety guardrail", "implementation outcomes", "nurse workload outcomes", "non-inferiority guardrail"}
+    proposal_cue = re.compile(r"\b(?:portfolio|ideas|options|directions|approaches|models|recombinations|arrangements)\b", re.IGNORECASE)
+    excluded_section = re.compile(r"^#{1,6}\s+(?:limits?|limitations?|constraints?|guardrails?|what is not feasible|risks?)\b", re.IGNORECASE)
+    for pattern in (numbered, bullet):
+        rows = []
+        title = None
+        body = []
+        prefix = []
+        excluded = False
+        def flush() -> None:
+            if title and len(" ".join(body).strip()) >= 40:
+                rows.append(record(title, "\n".join(body).strip()))
+        for line in lines:
+            if re.match(r"^#{1,6}\s", line):
+                excluded = bool(excluded_section.match(line))
+            match = pattern.match(line)
+            has_context = proposal_cue.search("\n".join(prefix)) is not None
+            if match and not excluded and has_context and match.group(1).lower().strip(" .:") not in metadata:
+                flush()
+                title = match.group(1)
+                body = [match.group(2).strip()]
+            elif title:
+                if re.match(r"^#{1,6}\s", line):
+                    flush()
+                    title, body = None, []
+                else:
+                    body.append(line)
+            prefix.append(line)
+        flush()
+        if len(rows) >= 2:
+            return rows
+    return []
+
+
 def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
     """Extract top-level candidate mechanism blocks from a portfolio response."""
     lines = markdown_text.splitlines()
     if "no compliant" in markdown_text.lower() and "boundary re-anchor" in markdown_text.lower():
         return []
+    explicit_candidates = _extract_p_candidate_blocks(lines)
+    if explicit_candidates:
+        return explicit_candidates
     compact_candidates = _extract_compact_candidates(lines)
     if compact_candidates:
         return compact_candidates
     ledger = _extract_ledger_fields(lines)
     heading_re = re.compile(
-        r"^(#{2,4})\s+(?:"
-        r"(?:Approach|Alternative|Portfolio\s+(?:Component|Element)|Movement|Concept|Idea|Possibility|POSS)\s*[-:]?\s*[A-Z0-9]+[:.\s—-]*|"
+        r"^(#{1,4})\s+(?:"
+        r"(?:Option|Approach|Alternative|Portfolio\s+(?:Component|Element)|Movement|Concept|Idea|Possibility|POSS)\s*[-:]?\s*[A-Z0-9]+[:.\s—-]*|"
         r"(?:P[0-9]+|POSS-[0-9]+|[0-9]+\.[0-9]+|[0-9]+|[A-Z])[.)\s:—-]+"
         r")(.+)$",
         re.IGNORECASE,
@@ -452,6 +585,9 @@ def extract_candidate_mechanisms(markdown_text: str) -> list[dict[str, str]]:
             fields["causal_lever"] = _normalize_causal_lever(fields.get("causal_lever", ""))
             fields["lever"] = fields["causal_lever"] or dominant_lever(candidate_text)
             candidates.append(fields)
+
+    if not candidates:
+        candidates = _extract_control_portfolio(markdown_text)
 
     if not candidates:
         for line in lines:

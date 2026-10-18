@@ -308,5 +308,133 @@ class ConditionIsolationTests(unittest.TestCase):
             summarize_results(rows, [{"id": "one"}])
 
 
+class ObservedPortfolioBlockTests(unittest.TestCase):
+    def test_bold_candidate_labels_include_following_body_fields(self):
+        response = """## Layer 2: Mechanism ledger
+| ID | Causal lever |
+|---|---|
+| P3 | handoff artifact |
+| P1 | incentive unbundling |
+## Layer 3: Portfolio
+**P3 — Handoff passport**
+Intervention: before absence.
+Chain: shared record routes follow-up to an authorized colleague.
+Preserve check: customer ownership remains intact.
+**P1 — Assist credit**
+Intervention: closing.
+Causal chain: recognition rewards help without removing commission.
+Preserve check: commission remains intact.
+## Layer 4: Receptivity
+P3 is the easiest combination candidate.
+"""
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[0]['causal_lever'], 'handoff artifact')
+        self.assertEqual(rows[1]['causal_lever'], 'incentive unbundling')
+        self.assertIn('shared record', rows[0]['causal_chain'])
+        self.assertIn('ownership remains', rows[0]['preserve_check'])
+
+    def test_named_later_section_cannot_duplicate_candidate_references(self):
+        response = """## Layer 3: Portfolio
+**P1 — Routing**
+Route urgent cases to specialist review before routine intake to reduce waiting.
+## System Receptivity
+P1 requires agreement from intake and specialist teams before any change.
+"""
+        self.assertEqual(len(extract_candidate_mechanisms(response)), 1)
+
+    def test_candidate_preserve_label_is_a_check_alias(self):
+        response = """L3:
+P1 — Advisory routing
+Intervention: approval requests. Chain: route to specialists before intake.
+Preserve: Human authorization remains mandatory before every decision.
+L4: Receptivity
+"""
+        rows = extract_candidate_mechanisms(response)
+        self.assertIn('authorization remains', rows[0]['preserve_check'])
+
+    def test_mixed_explicit_candidate_heading_styles_keep_both_bodies(self):
+        response = """### P1: Early routing
+Causal chain: route urgent requests before routine intake to reduce waiting.
+### Possibility 2: Shared settlement
+Causal chain: reward help separately from closing commission to support collaboration.
+"""
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertNotIn('reward help', rows[0]['text'])
+
+    def test_plain_paragraph_candidates_are_not_lost_without_field_labels(self):
+        response = """L3:
+P1 — Early routing: urgent requests reach specialists before routine intake, reducing avoidable waiting.
+P2 — Shared settlement: credit for assistance rewards handoffs while primary commission stays intact.
+L4: Receptivity
+P1 is useful.
+"""
+        self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+
+
+
+class ExtractionStatusTests(unittest.TestCase):
+    def test_unrecognized_prose_is_not_certified_as_no_ideas(self):
+        from tools.score_eval_results import score_record
+        scored = score_record({"final_response": "Try routing urgent cases before ordinary intake."})
+        self.assertEqual(scored["candidate_extraction_status"], "no_blocks_detected_not_proof_of_absence")
+
+
+class ControlPortfolioFormatTests(unittest.TestCase):
+    def test_numbered_bold_list_keeps_nested_benefits_inside_candidates(self):
+        response = """Here are operating models:
+1. **Returns exchange**
+Route returned goods to competing buyers before storage to reduce delay.
+- **Benefit:** Removes decision latency from normal warehouse work.
+- **Trade-off:** Adds coordination.
+2. **Value clock**
+Route returns by remaining value each day rather than waiting for perfect valuation.
+- **Benefit:** Prevents indefinite storage.
+"""
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertIn('competing buyers', rows[0]['text'])
+        self.assertIn('remaining value', rows[1]['text'])
+
+    def test_bold_bullet_portfolio_is_extracted(self):
+        response = """Here are fresh directions:
+- **Habit pairing:** Attach doses to an existing daily routine rather than another alert.
+- **Physical anchors:** Put the pillbox where the daily activity already occurs.
+"""
+        self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+
+    def test_level_one_and_option_headings_are_extracted(self):
+        for heading in ('# 1. First', '## Option 1: First'):
+            response = heading + '\nRoute urgent cases to specialist review before routine intake to reduce waiting.\n' + heading.replace('1', '2').replace('First', 'Second') + '\nAssign help credit separately from closing commission to reward collaboration.\n'
+            self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
+
+    def test_json_portfolio_uses_action_bodies(self):
+        response = '{"portfolio": [{"change": "Route first", "operating_model_change": "Route urgent cases to specialists before intake to reduce waiting."}, {"change": "Help credit", "operating_model_change": "Reward assistance separately from closing commission."}]}'
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertIn('Route urgent', rows[0]['text'])
+
+    def test_definitional_examples_and_limitation_lists_are_not_portfolios(self):
+        for response in (
+            "Example:\n- **Sustaining:** A faster camera improves an existing product for current customers.\n- **Disruptive:** A cheaper service initially serves people outside the established market.",
+            "Here are possible arrangements.\n### Limits that need resolving now\n1. **Wind uplift:** Strong wind can lift the full sheet and cause injury.\n2. **Permission:** Attachment requires the property owner's authorization.",
+        ):
+            self.assertEqual(extract_candidate_mechanisms(response), [])
+
+    def test_proposal_table_does_not_count_following_constraint_list(self):
+        response = """| Arrangement | Use of plywood | Result | Main limitation |
+|---|---|---|---|
+| Full awning | One sheet as roof | Weather coverage | Needs bracing |
+| Narrow lean-to | Cut sheet into roof and braces | Access for two bikes | Needs anchoring |
+### Limits
+1. **Wind uplift:** Strong wind can lift the full sheet and cause injury.
+2. **Fence permission:** Attachment needs the owner's authorization before work.
+"""
+        rows = extract_candidate_mechanisms(response)
+        self.assertEqual(len(rows), 2)
+        self.assertIn('Full awning', rows[0]['text'])
+
+
 if __name__ == "__main__":
     unittest.main()
