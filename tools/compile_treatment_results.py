@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import re
 
@@ -12,7 +13,9 @@ from tools.pilot_metrics import (
 )
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BRAIN_DIR = pathlib.Path("/Users/poferraz/.gemini/antigravity/brain")
+BRAIN_DIR = pathlib.Path(
+    os.environ.get("GEMINI_BRAIN_DIR", pathlib.Path.home() / ".gemini" / "antigravity" / "brain")
+)
 
 CASES_PATH = ROOT / "evals/pilot/cases.json"
 OUTPUT_PATH = ROOT / "evals/pilot/results/treatment.jsonl"

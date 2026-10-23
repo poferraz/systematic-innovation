@@ -20,3 +20,15 @@ systematic-innovation-session.bundle
 !*authority*
 !*authoring*
 
+# Environment & Secret files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.cert
+credentials.json
+secrets/
+
+
