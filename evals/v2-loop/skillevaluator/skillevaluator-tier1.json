@@ -1731,7 +1731,7 @@
       "LICENSE.*": "critical"
     },
     "metadata_id_requirement": "ignore",
-    "source": "/Users/poferraz/Documents/Development/active/SkillEvaluator/src/skillevaluator/config/profiles/default.yaml"
+    "source": "src/skillevaluator/config/profiles/default.yaml"
   },
   "quality_config": {
     "source": "packaged",

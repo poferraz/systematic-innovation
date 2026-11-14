@@ -1,6 +1,6 @@
 # Systematic Innovation v2 Skill Enhancement Plan & Behavioral Spec Amendment
 
-> **Status:** Approved by owner on 2026-11-14 (**Part I A1–A9** + **Part II** + bounded `codex exec` paired evaluation scope). Executing Task 9 Step 2.
+> **Status:** Completed — approved by owner on 2026-11-14 (**Part I A1–A9** + **Part II** + bounded `codex exec` paired evaluation scope); verified in [`evals/v2-loop/report.md`](../../../evals/v2-loop/report.md).
 
 **Goal:** Upgrade the canonical markdown skill (`skills/systematic-innovation/`) to counter RLHF/DPO typicality collapse, lock tight output-budget adherence (`<= 500` words), eliminate Rickards (1985) primary-source pagination errors, achieve `SkillEvaluator` Grade A (`>= 92/100`), and verify gains empirically via bounded paired evaluations (`evals/v2-loop/`).
 
