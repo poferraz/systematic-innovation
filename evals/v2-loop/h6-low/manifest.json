@@ -1,0 +1,15 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "f1ec7587d0d8fd4b6e162e7426271d86e75cb9e639259db10f4afe7a9b3ecfc5",
+  "skill_pack_sha256": "4b1d497e03388d56187452b26b404bd9c568a661d7caaf7af464e1b9f5afef01",
+  "replicates": 2,
+  "case_ids": [
+    "startup-homogenization"
+  ],
+  "codex_configs": [
+    "model_reasoning_effort=low"
+  ]
+}

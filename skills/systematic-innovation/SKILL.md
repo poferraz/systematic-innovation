@@ -1,96 +1,126 @@
 ---
 name: systematic-innovation
-description: Use when a user wants non-obvious ideas, systemic alternatives, assumption challenges, or ways out of a persistent tradeoff without breaking what already works. Do not use for factual lookup, debugging a known bug, or implementing an already-chosen solution.
+version: "2.0.0"
+description: Use when users need non-obvious, causally distinct ideas or systemic reframing without breaking what works. Not for bugs, facts, or coding.
+license: MIT
+metadata:
+  author: systematic-innovation maintainers
+  tags:
+    - ideation
+    - systems-thinking
+    - creativity
+    - problem-solving
 ---
 
 # Systematic Innovation
 
-## Core Principle
+## Purpose
 
-Genuine innovation requires **causally distinct mechanisms** connected to **systemic realities and human receptivity**—not surface-noun variations of the same default trope. Every possibility must change *how* the system produces outcomes while protecting what already works. When the host provides web or workspace research tools and current precedent would materially improve ideation, use them; remain fully functional offline by labeling material assumptions.
+Generate **causally distinct innovation possibilities** grounded in system dynamics and human receptivity—never surface-noun variations of the same modal trope. Every candidate must alter *how* the system produces outcomes while separating protected **invariants** (*what* must remain intact) from replaceable **legacy delivery vehicles** (*which* habit, role, or artifact carries it today).
 
-## When Not to Trigger
+**Do not trigger** when the user asks for:
+- Factual definitions, textbook explanations, or neutral comparisons (answer directly).
+- Debugging, root-cause fault localization, or code-level optimization.
+- Implementation artifacts for an already-selected design (schemas, sprint backlogs, production code).
+- Evading audits, concealing safety or regulatory findings, or weakening statutory, privacy, or medical safeguards. Refuse evasion intent; offer compliant exploration only if the user explicitly pivots to compliant goals.
 
-Do **not** run this workflow when the user asks for:
-- Factual definitions, historical explanations, or textbook comparisons (answer directly).
-- Debugging, root-cause diagnosis of a specific technical defect, or performance micro-benchmarks.
-- Implementation artifacts for an already-selected solution (such as database schemas, sprint tickets, or code).
-- Evading audits, hiding safety/regulatory findings, avoiding detection, or breaking statutory, privacy, life-safety, or medical-safety obligations. Refuse the bypass intent; offer compliant alternatives only if the user explicitly changes the target.
+## Prerequisites
 
-## Mode Routing (Quick vs. Deep)
+- **Zero runtime dependencies:** Works completely **offline** in a single text session by explicitly labeling material assumptions.
+- **Host capability awareness:** When the **host provides** web search, workspace read, or isolated subagent tools and current facts or external mechanisms would materially strengthen ideation, use them without fabricating sources or claiming sequential passes were independent agents.
 
-Route automatically using observable signals in the user's request unless the user explicitly overrides the mode:
+## Instructions
 
-| Route | Observable Prompt Signals | Behavior |
+### 1. Mode Routing, Channel Precedence & Budget Lock
+
+Select Quick or Deep Mode from observable signals unless explicitly overridden:
+
+| Route | Observable Signals | Behavior |
 | :--- | :--- | :--- |
-| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and target **10 to 15 distinct possibilities** in one turn (if an interactive reply is available, ask at most one question only when a critical unknown would make generation meaningless). |
-| **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **one question at a time** (never more than seven total) paired with **2–3 contrasting provisional seeds**, then synthesize **15 to 24 distinct possibilities** once context is disclosed. |
+| **Quick Mode** | Bounded bottleneck, single-actor system, single-turn/API channel, explicit request for immediate options, or `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from supplied context, run System Dynamics plus two selected Reasoning Cells after trope quarantine, and deliver **10 to 15 distinct possibilities** in one turn (ask at most one clarifying question if an interactive reply is available and a critical unknown blocks meaningful generation). |
+| **Deep Mode** | An interactive multi-turn channel is open **and** multiple stakeholders hold conflicting incentives, ambiguous ownership, or fragile preservation boundaries. | Map the system, ask **one question at a time** (maximum 7 total) paired with **2–3 contrasting provisional seeds**, then synthesize **15 to 24 distinct possibilities** once constraints stabilize. |
 
-### Execution-Channel Precedence
+**Execution-Channel Precedence:**
+1. Explicit user overrides have highest precedence (`"Use Quick mode"`, `"Use Deep mode"`, `"Use Provocation mode"`, `"skip questions"`, `"Produce your final portfolio now"`).
+2. On any single-turn, one-shot, or API channel with no user reply available, emit the complete portfolio immediately with labeled assumptions in Layer 1—even for complex multi-stakeholder requests or `"Use Deep mode"` prompts.
+3. Deep Turn-1 discovery restraint is valid only when an interactive reply path actually exists.
 
-1. An explicit user override has the highest precedence.
-2. If the request must be answered in one turn—single-turn, one-shot, API response, immediate output, or no user reply is available—deliver a complete portfolio now even when the substantive problem is complex. Record unresolved assumptions in Layer 1 and do not stall in discovery questions.
-3. Deep Turn-1 restraint is valid only when the actual channel permits a user reply or the user explicitly requests progressive discovery. Never infer it from organizational, civic, or cross-domain complexity alone.
-4. If the user requests Deep Mode but only one response is available, produce the complete portfolio with an explicit assumption and preservation ledger.
+**Hard Output Budget Precedence:**
+- An explicit word or token ceiling overrides default target counts and formatting. Aim for **80% of the requested ceiling**, count every whitespace-delimited token (including labels, pipes `|`, and arrows `->`), and cut prose before dropping distinct mechanisms.
+- For ceilings of **500 words or fewer**, use colon-keyed Piped Compact Syntax (`L1:`, `L2:`, `P1:`..`Pn:`, `L4:`, `L5:`, `L6:`) from [output-contract.md](references/output-contract.md) with hard token caps: keep `L1:` + `L2:` combined in `<= 45` whitespace words (never expand all eight brief labels separately), keep each `P1..Pn` line at **<= 38 whitespace tokens** using `A→B→C` and `Preserve: all L1` (always retaining `Lever:`, `Intervention:`, `Chain:`, `Preserve:`, `Failure:`, `Fit:`), keep `L4:` + `L5:` + `L6:` combined `<= 45` words, and cap candidate breadth at **3 to 4** entries (`<= 350` words) or **4 to 5** entries (`351–500` words)—never attempt 10–15 inside `<= 500` words.
+- Count total whitespace tokens before sending; if above 85% of ceiling, shorten prose or drop trailing entries and mark **budget-limited** rather than exceeding the limit.
 
-### Hard Output Budget Precedence
+### 2. Innovation Brief, Preservation & Negative-Space Trope Quarantine
 
-A requested maximum word or token budget overrides normal candidate counts and formatting. Target **80% of the requested ceiling**, and for a word ceiling of 500 or fewer use the `Compact Portfolio Template` in [output-contract.md](references/output-contract.md). Do not add introductions, explanations, or formatting that consume the budget.
+Establish all eight Innovation Brief fields concisely (infer and label unknowns in Quick Mode; probe high-value unknowns in Deep Mode):
+1. **Desired change:** Outcome that must shift.
+2. **Beneficiary:** Who experiences the improvement.
+3. **Current insufficiency:** Recurring symptom and underlying tension.
+4. **Existing strengths:** Working assets to protect.
+5. **Preservation requirements:** Non-negotiable values, service floors, and **legacy delivery vehicle** distinctions.
+6. **Nonnegotiable constraints:** Binding budget, staff, authority, safety, legal, and physical limits.
+7. **Success signals:** Observable markers (mark inferred metrics explicitly).
+8. **Dominant frame:** Default mental model keeping the system stuck.
 
-Choose the number of entries from that word allowance before drafting. If normal breadth plus essential fields cannot fit, explicitly label the portfolio **budget-limited** and give fewer complete possibilities. The count target never authorizes a word-limit overrun; fewer under an explicit user budget is different from mechanism saturation.
+**Two-Stage Anti-Typicality Protocol:**
+1. **Negative-Space Trope Quarantine:** Explicitly name the 2–3 highest-probability modal tropes in Layer 1 and exclude them from the numbered portfolio. Reject any draft candidate that shares a core mechanism or verb-object dynamic with a quarantined trope.
+2. **Tail-Distribution Exploration:** Draw possibilities across distinct conditional regions of the solution space rather than rewording one cluster near the mode.
 
-### User Overrides
-- `"Use Quick mode"`, `"skip questions"`, or `"Produce your final portfolio now"` $\rightarrow$ skip further questions and output the complete portfolio immediately.
-- `"Use Deep mode"` $\rightarrow$ run progressive discovery before locking the portfolio.
-- `"Use Provocation mode"` $\rightarrow$ **Provocation mode requires Contrarian and Boundary Reframing** as primary generators with explicit safety and feasibility extraction.
+**Cumulative `Preserve:` Ledger:** Track every invariant from Turn 1 onward across multi-turn sessions. When a new turn conflicts with an earlier boundary or provisional seed, surface the conflict and retire or repair affected candidates by inspecting their causal chain and actual resource demands.
 
-## The Innovation Brief & Preservation Scan
+### 3. Reasoning Cells, Excursions & Receptivity
 
-Establish all eight Innovation Brief fields, inferring and labelling material unknowns in Quick Mode and asking only decision-relevant questions in Deep Mode. Combine fields in concise prose rather than repeating them in multiple inventories:
+Quick Mode runs **System Dynamics plus two selected Reasoning Cells**; Deep Mode runs **five or six selected Reasoning Cells**:
+- **System Dynamics:** Reshape feedback, delays, accumulation, or high-impact control points.
+- **Human Value:** Rework dignity, trust, effort distribution, accessibility, or participation.
+- **Operational Reality:** Cut handoff waste, bottlenecks, hidden labor, or idle byproducts without undisclosed resources.
+- **Boundary Reframing:** Shift objective, ownership, decision rights, or assumed scope.
+- **Mechanism Transfer:** Map a two-node abstract causal or dependency structure from another domain, stripping source jargon before generating the candidate.
+- **Contrarian:** Reverse a named assumption (**Provocation mode requires Contrarian and Boundary Reframing** as primary generators; always convert raw provocations into safe, constraint-compliant operations).
+- **Futures:** Stress mechanisms under shifted scale, scarcity, regulation, or coordination regimes.
 
-1. **Desired change:** What should become meaningfully different?
-2. **Beneficiary:** Who should experience that difference?
-3. **Current insufficiency:** What symptom and structural tension keep recurring?
-4. **Existing strengths:** What already works?
-5. **Preservation requirements:** What must not be lost?
-6. **Nonnegotiable constraints:** Which resource, authority, safety, privacy, or physical limits bind?
-7. **Success signals:** What observable change would matter? Label inferred signals.
-8. **Dominant frame:** How is the problem currently understood?
+**Ledger, Duplicate Test, Field Consistency & Saturation:**
+- Every candidate in Layer 3 must explicitly include the verbatim field keys **`Intervention point:`** (or compact `Intervention:`), **`Causal lever:`** (or compact `Lever:`), **`Causal chain:`** (or compact `Chain:`), and **`Preserve check:`** (or compact `Preserve:`)—never rename `Causal lever:` to bare `Mechanism:` or omit `Preserve check:`.
+- Compare underlying causal operation and structural coordinates (actor, control point, flows, timing, incentives, feedback)—never treat shared lever labels alone as equivalence or different synonyms as distinction.
+- **Clustered Variety Floor:** On non-budget-limited runs, explore at least five distinct causal clusters across two or more Reasoning Cells before stopping on saturation (hard word ceilings override this floor). These counts remain **targets, not quotas**; stop after a targeted pass adds zero or one new mechanism (or earlier if genuinely domain-saturated).
+- **Dual Selling-In / Selling-Out & Three Questions:** Evaluate each spotlighted possibility on internal **Selling-In** value/risk, external **Selling-Out** value, Rickards's Three Problem-Owner Questions, boundary mode, and a specific causal *Yes-but* safeguard.
 
-Map actors, incentives, flows, boundary overflows, dependencies, delays, failed approaches, burdens of change, and leverage points. Quarantine the 2–3 most obvious default tropes before structural generation. Stakeholder reactions are hypotheses, never invented research.
+### Reference Navigation
 
-### Preservation Across Turns
+Load detailed reference files only when needed:
+- [innovation-lenses.md](references/innovation-lenses.md): Negative-Space Trope Quarantine, 2x2 morphological forcing, Liability-to-Asset Reversal, two-node Mechanism Transfer, and Currie invariant audits.
+- [deep-mode.md](references/deep-mode.md): One-question-at-a-time progressive discovery, 7-question cap, contrasting Turn-1/2 seeds, and invariant-vs-vehicle probes.
+- [output-contract.md](references/output-contract.md): Full Layers 1–6 templates, `<= 500`-word Piped Compact Syntax, Selling-In/Selling-Out spotlights, boundary re-anchors, and explicit-request experiments.
+- [evidence.md](references/evidence.md): Audited Tudor Rickards (1985) bibliography/pagination and verified diversity literature boundaries.
 
-Carry forward a cumulative `Preserve:` ledger of every explicit invariant, including earlier user turns. Later examples, seeds, convenience, or silence never revoke it. When a new disclosure conflicts with a seed, withdraw or revise that seed and recheck every final candidate against the cumulative ledger. If a later request would weaken safety, rights, or physical constraints, surface the conflict rather than silently replacing the earlier boundary.
+## Examples
 
-## Reasoning Cell Selection & Mechanism Ledger
+Compact `<= 350`-word piped response (counts ~100 words; zero invented stats):
 
-Quick Mode uses **System Dynamics plus two selected Reasoning Cells**. Deep Mode uses **five or six selected Reasoning Cells** matched to the tension (see [innovation-lenses.md](references/innovation-lenses.md)):
+```text
+L1: Cut clinic no-shows | Preserve: continuity of care, zero added clinical staff (separate reminder vehicle) | Quarantine: SMS reminders, late fees
+L2: Rigid intake queues collide with shared rural transit.
+L3:
+P1: Pre-Visit Micro-Swap | Lever: temporal batch | Intervention: booking desk | Chain: Open feed→paired neighbor fills slot→idle chairs fall | Preserve: all L1 | Failure: thin rural density | Fit: negotiative—opt-in only
+P2: Async Arrival Slip | Lever: boundary separation | Intervention: intake packet | Chain: Pre-transit history→pre-slot review→wait bottleneck drops | Preserve: all L1 | Failure: literacy barrier | Fit: mission—oral phone kept
+L4: P1 (Selling-In: uses desk; Selling-Out: predictable rides); P2 (Selling-In: cuts backlog; Selling-Out: shorter wait).
+L5: P1+P2 combine; P2 needs oral fallback.
+L6: Budget-limited (2 of 10-15). Expand P1/P2 or request probes?
+```
 
-- **System Dynamics:** Change feedback, dependencies, delays, or leverage points.
-- **Human Value:** Reconfigure needs, behavior, accessibility, trust, dignity, or participation.
-- **Operational Reality:** Remove friction, bottlenecks, workarounds, or hidden labor.
-- **Boundary Reframing:** Change the objective, scope, ownership, or assumed limits.
-- **Mechanism Transfer:** Import a causal mechanism from a structurally relevant outside domain.
-- **Contrarian:** Reverse one named assumption and trace the consequences.
-- **Futures:** Change time, scale, scarcity, technology, or institutional conditions.
+Deep Mode Turn-1 discovery structure: emit 2–3 brief contrasting structural seeds first, then ask one non-batched decision-relevant question targeting preservation invariants vs. legacy vehicles.
 
-### Distinctiveness & Saturation Rules
-1. Maintain a **Mechanism Ledger** recording mechanism family, intervention point, principal actor, changed flow, intended effect, variants, and origin (cell and lens). Compare causal operation and structural coordinates, including timing, decision rights, incentives, scale, and feedback. Portfolio fields can carry these coordinates without a second printed ledger.
-2. **Duplicate Test:** A possibility is distinct if its causal mechanism is genuinely different, or if at least two structural dimensions differ meaningfully. Shared lever labels or stages alone do not establish equivalence. Merge actual wording/channel variants (such as QR flyers and shelf tags conveying the same donor-need signal), preserving genuinely different operations even when their labels match.
-3. **Saturation Stop:** These are targets, not quotas. Stop adding options after a targeted transformation pass yields zero or one new mechanism; if a narrow problem saturates below the target, say so rather than padding variants.
+## Limitations
 
-## Ideation-Only & High-Stakes Guardrails
+- **Ideation-Only Boundary:** Keep options open; never declare an automatic winner, invent percentages/effect sizes, or emit unrequested rollout schedules, sprint backlogs, database schemas, or experiments. Only when the user explicitly requests experiments, emit 1–3 reversible probes with quantitative disconfirmation thresholds, sample bounds, horizons, and fallback moves.
+- **High-Stakes Floor:** Outputs on medical, legal, financial, or safety-critical domains remain **exploratory** with explicit **verification needs** and never relax life-safety, privacy, or child/patient protections.
+- **Methodological Scope:** Designed to widen causally distinct ideation options, not guarantee commercial adoption or substitute for domain engineering validation.
 
-- **No Premature Winner or Implementation Drift:** Keep the portfolio open. Do **not** append unrequested 30-60-90 day rollout roadmaps, Gantt schedules, sprint backlogs, database schemas, pilots, or experiments. Only when the user explicitly requests experiments, provide bounded, falsifiable probes.
-- **No Fabricated Statistics:** Never invent quantitative percentages or effect sizes inside examples. Label causal predictions as testable hypotheses.
-- **High-Stakes Safety Floor:** Never propose bypassing statutory life-safety reviews, child/student safeguarding, medical dosing safety, or patron/user privacy. For medical, legal, financial, security, and other high-stakes topics, label outputs exploratory and state verification needs explicitly.
-- **Physical/Logical Constraint Floor:** If stated constraints are jointly impossible, identify the contradiction and re-anchor the boundary. Never manufacture fake compliance by inventing inventory, authority, energy paths, legal exceptions, or hidden mechanisms.
+## Troubleshooting
 
-## Reference Navigation
-
-Read the following reference files conditionally based on the active phase of work:
-- Read [innovation-lenses.md](references/innovation-lenses.md) when selecting Reasoning Cells, applying initial fluency depletion, running multiple redefinition or synectic excursions, or deduplicating the Mechanism Ledger.
-- Read [deep-mode.md](references/deep-mode.md) when an organizational or multi-stakeholder challenge triggers Deep Mode progressive questioning or when handling mid-stream context disclosures.
-- Read [output-contract.md](references/output-contract.md) when formatting the six-layer response, evaluating Rickards's Three Problem-Owner Questions, routing across Mission-Orientated / Negotiative / Participative boundary modes, or inoculating against *Yes-but* rejection.
-- Read [evidence.md](references/evidence.md) when explaining the methodological provenance, citing Tudor Rickards (1985), or distinguishing verified principles from adapted AI structures.
+| Error / Edge Case | Cause | Solution |
+| :--- | :--- | :--- |
+| **Overconstrained impossibility** (`fake compliance` risk) | Requirements conflict physically, logically, or legally without valid slack. | Trigger `Contradiction & Boundary Re-Anchor`: state **no compliant candidate exists**, name the exact conflict, and list minimal decision-owner relaxations outside `P1..Pn`. |
+| **Tight word ceiling overrun** (`<= 500` words) | Full Layers 1–6 headers and prose exceed the explicit word cap. | Switch immediately to the `Compact Portfolio Template` piped syntax, allocate `15% / 50% / 15% / 20%` word budgets beforehand, target 80% of ceiling, and mark **budget-limited**. |
+| **Channel / mode conflict** | Prompt signals organizational complexity or requests Deep Mode on a single-turn API call. | Apply **Execution-Channel Precedence**: output a complete Quick-structured portfolio now with labeled assumptions rather than stalling on unanswered questions. |
+| **Modal trope repetition** | Drafts paraphrase one obvious mechanism across nouns/channels. | Re-run Negative-Space Trope Quarantine, strip nouns into two-node causal graphs, and force a 2x2 Reasoning Cell crossing across at least five causal clusters. |

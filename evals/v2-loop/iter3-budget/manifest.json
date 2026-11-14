@@ -1,0 +1,12 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "skill_treatment"
+  ],
+  "cases_sha256": "f1ec7587d0d8fd4b6e162e7426271d86e75cb9e639259db10f4afe7a9b3ecfc5",
+  "skill_pack_sha256": "4436ec0d69b01e91b66dd3fe2805d1b9133a7206f61ca69ebdbcff1118d239c7",
+  "replicates": 2,
+  "case_ids": [
+    "token-ceiling-portfolio"
+  ]
+}

@@ -186,6 +186,10 @@ The system snapshot considers:
 
 The skill does not present simulated stakeholder reactions as research evidence.
 
+### 8.1 Invariant vs. Legacy-Vehicle Separation
+
+Distinguish each preserved system invariant (*what* underlying function, safeguard, value, or constraint must remain intact) from its incidental legacy delivery vehicle (*which* habit, role, form, or artifact currently carries it). Preserving an invariant never requires preserving a broken delivery vehicle, and every candidate `Preserve check` verifies compliance at the invariant and resource-demand level.
+
 ## 9. Perspective Council and Reasoning Cells
 
 “Perspective Council” is the user-facing presentation. Its internal behavior uses explicit Reasoning Cells rather than fictional personalities.
@@ -228,6 +232,14 @@ Cells select from these operators as appropriate:
 
 Lenses are selected for the challenge rather than used as a mandatory checklist. Before recording candidates in the ledger, cells explicitly deplete and discard top-of-mind conventional memory-dump associations so that recorded possibilities reflect structural operator transformations.
 
+### 10.1 Anti-Typicality Two-Stage Protocol
+
+Before populating the Mechanism Ledger, explicitly articulate and quarantine the 2–3 highest-probability modal tropes in Layer 1 (*Negative-Space Trope Quarantine*). Do not allow any numbered portfolio candidate to share a core causal mechanism or verb-object dynamic with a quarantined trope. Sample candidate generation across distinct regions of the conditional outcome space (tail-distribution exploration) rather than paraphrases around the mode, keeping verbalized diversity cues implicit or lightweight in user-facing formatting unless requested.
+
+### 10.2 Metaphor-Stripped Mechanism Transfer and Combinatorial Forcing
+
+Any synectic or outside-domain transfer must map an explicit two-node abstract causal or dependency structure (actors, flow, bottleneck, feedback) between source and target domains and strip source-domain jargon before generating the candidate; domain labels without structural isomorphism are invalid transfers. When contrasting dimensions stagnate or constraints tighten, cross at least two independent structural axes (such as intervention stage by incentive or burden carrier) in a compact morphological matrix to force non-default cells, and test reversing stated bottlenecks or liabilities into operational signals or buffers inside the safe constraint envelope.
+
 ## 11. Mechanism Ledger
 
 The ledger tracks:
@@ -268,9 +280,15 @@ Possibilities may be tagged as:
 
 These tags support balance but are not quotas. A “no change” or preservation-first conclusion is valid when novelty would add cost without meaningful benefit.
 
+#### Clustered variety preservation floor
+
+For standard non-budget-limited runs, cells avoid premature stopping before exploring at least five distinct causal clusters across at least two Reasoning Cells (or until genuine domain saturation is demonstrated and explained). Within distinct clusters, retain promising rough variants until the duplicate test confirms whether two mechanisms are structurally identical. Under explicit hard user budgets (`§12.1`), budget ceilings still take precedence over cluster floors.
+
 ### 12.1 User-requested output budgets
 
 An explicit user word or token ceiling overrides normal candidate breadth and verbosity. Target 80% of the stated ceiling, compress shared context before dropping distinct mechanisms, use a compact plain-text six-layer format for ceilings of 500 words or fewer, and label budget-limited reductions explicitly rather than calling them mechanism saturation.
+
+When rendering the compact plain-text format (`<= 500` words), emit `L1:`, `L2:`, `P1:`..`Pn:`, `L4:`, `L5:`, and `L6:` lines with colon-keyed piped fields (`P1: <Name> | Lever: <...> | Intervention: <...> | Chain: <X -> Y -> Z> | Preserve: <all L1 invariants / delta> | Failure: <...> | Fit: <mode + safeguard>`) and pre-allocated word-budget shares (`L1+L2 <= 15%`, `P1..Pn <= 50%`, `L4+L5+L6 <= 15%`, 20% safety reserve) so deterministic preservation and structural checks parse cleanly without exceeding the word limit.
 
 ## 13. Progressive Output Contract
 
@@ -323,7 +341,7 @@ Every possibility receives a concise note covering:
 3. Preservation risk.
 4. Major unknown.
 
-Spotlighted possibilities additionally evaluate the three problem-owner questions (new to the system, relevant to the mission/goal, actionable with available resources), identify supporting and opposing incentives, structural dependencies, required capabilities, burdens of change, negative externalities, existing strengths used or protected, and how the core mechanism can survive initial *Yes-but* rejection.
+Spotlighted possibilities additionally evaluate the three problem-owner questions (new to the system, relevant to the mission/goal, actionable with available resources), **Dual Selling-In / Selling-Out** acceptance (**Selling-In**: what internal champion, governance gate, or resource holder gets protected or gained to permit trial; **Selling-Out**: what end-beneficiary, partner, or external stakeholder experiences as immediate legible value), supporting and opposing incentives, structural dependencies, required capabilities, burdens of change, negative externalities, existing strengths used or protected, and a specific structural safeguard answering how the core mechanism can survive initial *Yes-but* rejection.
 
 The skill may identify several different signals, including strongest fit, boldest departure, lowest friction, highest upside, highest uncertainty, and best combination candidate. It does not aggregate these into a universal ranking or declare a winner.
 
@@ -384,6 +402,10 @@ systematic-innovation/
 
 The benchmark remains outside the installable skill directory. Installation commands are documented only after being verified against current installers.
 
+### 16.1 Standard structure, progressive disclosure, and bibliographic accuracy
+
+`skills/systematic-innovation/SKILL.md` declares open-standard frontmatter (`name`, `version`, concise 50–150 character trigger `description`, `license`, and `metadata.author` / `metadata.tags`), organizes its operational workflow under explicit standard sections (`Purpose`, `Prerequisites`, `Instructions`, `Examples`, `Limitations`, `Troubleshooting`, and conditional `Reference Navigation`), uses direct provider-neutral wording without corporate filler terms, and keeps detailed taxonomy, discovery scripts, full layer templates, and provenance tables in `references/` so initial context load stays lean (~30/70 split). Primary-source bibliographic tables in `references/evidence.md` remain audited against verified page numbers and exclude unverified appendices or extrapolated citations.
+
 ## 17. Benchmark Purpose and Claims
 
 The benchmark measures **systematic ideation performance**, not realized innovation.
@@ -410,6 +432,8 @@ The benchmark supports:
 Ablations are run only after the full treatment demonstrates an effect. They use the development set unless a later confirmatory ablation study is preregistered.
 
 All comparisons use comparable prompts, model versions, output budgets, and model parameters where controllable.
+
+The local benchmark adapter (`tools/stress_runner.py`) may additionally pass optional harness-only configuration flags (such as reasoning-effort or sampling overrides via CLI passthrough) strictly for controlled paired sensitivity probes. Provider names, CLI commands, and model-specific tuning directives never enter `skills/systematic-innovation/`.
 
 ### 18.1 Single-turn and controlled multi-turn protocols
 

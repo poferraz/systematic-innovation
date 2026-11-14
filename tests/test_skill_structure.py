@@ -66,6 +66,19 @@ class CanonicalSkillStructureTests(unittest.TestCase):
         ref_files = sorted(p.name for p in (SKILL_DIR / "references").glob("*.md"))
         self.assertEqual(ref_files, sorted(REQUIRED_REFERENCES))
 
+    def test_skill_frontmatter_meets_v2_metadata_and_concise_trigger_contract(self) -> None:
+        text = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8")
+        fields = parse_frontmatter(text)
+        self.assertTrue(fields.get("version"), "SKILL.md frontmatter must declare version")
+        self.assertEqual(fields.get("license"), "MIT")
+        desc = fields.get("description", "")
+        self.assertGreaterEqual(len(desc), 50)
+        self.assertLessEqual(len(desc), 150, f"Description too long ({len(desc)} > 150)")
+        frontmatter_block = text.split("---\n", 2)[1]
+        self.assertIn("metadata:", frontmatter_block)
+        self.assertIn("author:", frontmatter_block)
+        self.assertIn("tags:", frontmatter_block)
+
 
 if __name__ == "__main__":
     unittest.main()

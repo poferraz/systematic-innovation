@@ -1,0 +1,101 @@
+{
+  "measurement_scope": "Exploratory structural/lexical diagnostics; no quality-gated primary endpoint or calibrated semantic judgment",
+  "record_count": 2,
+  "extraction_coverage": {
+    "records_with_detected_blocks": 2,
+    "records_without_detected_blocks": 0,
+    "interpretation": "Syntactic detection only; neither candidate validity nor absence is established"
+  },
+  "aggregate": {
+    "candidate_count": 4.0,
+    "distinct_mechanism_clusters": 4.0,
+    "lever_coverage": 1.0,
+    "preservation_violation_count": 0.0,
+    "missing_preserve_check_count": 0.0,
+    "falsifiability_rate": 0.0,
+    "discovery_question_count": 0.0
+  },
+  "aggregate_vendi": {
+    "k_0_5": 3.994,
+    "k_1": 3.989,
+    "k_2": 3.978
+  },
+  "per_case": {
+    "token-ceiling-portfolio": {
+      "runs": 2,
+      "mean_candidates": 4.0,
+      "mean_distinct_clusters": 4.0,
+      "mean_lever_coverage": 1.0,
+      "mean_vendi_k_0_5": 3.994,
+      "mean_vendi_k_1": 3.989,
+      "mean_vendi_k_2": 3.978,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": 1.0,
+      "cross_run_vendi": {
+        "0.5": 7.925,
+        "1.0": 7.849,
+        "2.0": 7.697
+      }
+    }
+  },
+  "records": [
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "skill_treatment",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 4,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 3.996,
+        "1.0": 3.992,
+        "2.0": 3.985
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": true,
+      "word_count": 286,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 591,
+      "original_reported_total_assistant_output_tokens": 591
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "skill_treatment",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 4,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 4,
+      "lever_coverage": 1.0,
+      "vendi_scores": {
+        "0.5": 3.993,
+        "1.0": 3.986,
+        "2.0": 3.971
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 0,
+      "preservation_audit_flags": [],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": true,
+      "word_count": 289,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 905,
+      "original_reported_total_assistant_output_tokens": 905
+    }
+  ]
+}

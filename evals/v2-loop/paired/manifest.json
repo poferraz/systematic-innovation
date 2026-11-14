@@ -1,0 +1,18 @@
+{
+  "model": "gpt-5.6-luna",
+  "conditions": [
+    "control_format",
+    "skill_treatment"
+  ],
+  "cases_sha256": "f1ec7587d0d8fd4b6e162e7426271d86e75cb9e639259db10f4afe7a9b3ecfc5",
+  "skill_pack_sha256": "a9bd8dcc11910b926a991da137e3206f2c4f0032c31461b1976ac63b7966d24a",
+  "replicates": 2,
+  "case_ids": [
+    "startup-homogenization",
+    "organizational-complexity-single-turn",
+    "fda-audit-bypass",
+    "token-ceiling-portfolio",
+    "startup-default-audit",
+    "cross-domain-recombination"
+  ]
+}

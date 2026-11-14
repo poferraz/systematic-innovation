@@ -238,5 +238,116 @@ class SkillBehaviorContractTests(unittest.TestCase):
         self.assertIn("Ch. 4", evidence)
         self.assertNotIn("Ch. 7–8", evidence)
 
+    def test_skill_v2_probabilistic_and_skillevaluator_sections(self) -> None:
+        import re
+
+        skill = read("SKILL.md")
+        spec = (ROOT / "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md").read_text(encoding="utf-8")
+        for heading in (
+            "## Purpose",
+            "## Prerequisites",
+            "## Instructions",
+            "## Examples",
+            "## Limitations",
+            "## Troubleshooting",
+        ):
+            self.assertIn(heading, skill)
+        self.assertIn("```text", skill)
+        self.assertIsNone(
+            re.search(r"\b(?:utilize|facilitate|leverage|paradigm|synergy)\b", skill, re.IGNORECASE),
+            "SKILL.md should avoid complex/corporate filler wording flagged by SkillEvaluator",
+        )
+        self.assertIn("Negative-Space Trope Quarantine", skill)
+        self.assertIn("tail", skill.lower())
+        self.assertIn("legacy delivery vehicle", skill.lower())
+        self.assertIn("Selling-In", skill)
+        self.assertIn("Selling-Out", skill)
+        for anchor in (
+            "### 8.1 Invariant vs. Legacy-Vehicle Separation",
+            "### 10.1 Anti-Typicality Two-Stage Protocol",
+            "### 16.1 Standard structure, progressive disclosure, and bibliographic accuracy",
+        ):
+            self.assertIn(anchor, spec)
+
+    def test_output_contract_and_lenses_v2_mechanisms(self) -> None:
+        from tools.pilot_metrics import detect_preservation_violations, extract_candidate_mechanisms
+
+        lenses = read("references/innovation-lenses.md")
+        contract = read("references/output-contract.md")
+        deep = read("references/deep-mode.md")
+
+        self.assertIn("two-node abstract", lenses.lower())
+        self.assertIn("2x2", lenses)
+        self.assertIn("Liability-to-Asset Reversal", lenses)
+        self.assertIn("at least five distinct causal clusters", lenses.lower())
+        self.assertIn("legacy delivery vehicle", lenses.lower())
+        self.assertIn("legacy delivery vehicle", deep.lower())
+
+        self.assertIn("Selling-In", contract)
+        self.assertIn("Selling-Out", contract)
+        self.assertIn("Lever:", contract)
+        self.assertIn("Intervention:", contract)
+        self.assertIn("Chain:", contract)
+        self.assertIn("Preserve:", contract)
+
+        sample_compact = (
+            "L1: Reduce rural no-shows | Preserve: continuity of care, no new clinical staff | Quarantine: SMS reminders\n"
+            "L2: Intake lag causes missed visits; mobile check-in channel is idle\n"
+            "L3:\n"
+            "P1: Peer Shuttle Bundle | Lever: boundary separation | Intervention: ride dispatch | "
+            "Chain: Group intake by ZIP -> volunteer courier pairs rides -> attendance rises | "
+            "Preserve: all L1 invariants; continuity of care and no new clinical staff | "
+            "Failure: sparse route match | Fit: participative — driver stipend boundary respected\n"
+            "L4: Best fit P1 (Selling-In: uses existing dispatch; Selling-Out: cuts rider travel barrier)\n"
+            "L5: P1 complements async triage\n"
+            "L6: Expand P1 or run another cell?"
+        )
+        extracted = extract_candidate_mechanisms(sample_compact)
+        self.assertGreaterEqual(len(extracted), 1)
+        self.assertEqual(extracted[0]["causal_lever"], "boundary separation")
+        violations = detect_preservation_violations(extracted, ["continuity of care", "no new clinical staff"])
+        self.assertEqual(violations, [])
+
+    def test_evidence_rickards_1985_pagination_and_no_fabricated_appendix(self) -> None:
+        evidence = read("references/evidence.md")
+        for verified_locator in (
+            "(p. 33)",
+            "(p. 63)",
+            "(p. 87)",
+            "(p. 114;",
+            "pp. 126–127",
+            "(p. 135;",
+            "(p. 158;",
+            "p. 161)",
+            "(p. 184)",
+        ):
+            self.assertIn(verified_locator, evidence)
+        for bad_locator in (
+            "Appendix: Techniques for stimulating creativity in innovation",
+            "(p. 190)",
+            "(p. 28)",
+            "(p. 50)",
+            "(p. 72)",
+            "(p. 92;",
+            "p. 97)",
+            "(p. 131;",
+            "p. 166)",
+            "(p. 176)",
+        ):
+            self.assertNotIn(bad_locator, evidence)
+        for paper in ("Zhang et al.", "Deng, Brucks", "Friedman & Dieng", "Nguyen et al.", "Yuan et al.", "Hu et al."):
+            self.assertIn(paper, evidence)
+
+    def test_v2_iteration2_compact_candidate_cap_and_mandatory_lever_preserve_labels(self) -> None:
+        skill = read("SKILL.md")
+        contract = read("references/output-contract.md")
+        self.assertIn("3 to 4", skill)
+        self.assertIn("4 to 5", skill)
+        self.assertIn("3 to 4", contract)
+        self.assertIn("4 to 5", contract)
+        self.assertIn("Causal lever:", skill)
+        self.assertIn("Preserve check:", skill)
+        self.assertIn("Causal lever:", contract)
+
 if __name__ == "__main__":
     unittest.main()

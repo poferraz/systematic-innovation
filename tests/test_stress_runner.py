@@ -85,6 +85,29 @@ class StressRunnerCommandTests(unittest.TestCase):
         self.assertIn("-C", command)
         self.assertIn("/tmp", command)
 
+    def test_stress_runner_supports_codex_config_passthrough(self) -> None:
+        from tools.stress_runner import build_resume_command, parse_args
+
+        args = parse_args(["--codex-config", "model_reasoning_effort=low"])
+        self.assertEqual(args.codex_config, ["model_reasoning_effort=low"])
+        init_cmd = build_initial_command(
+            codex="/codex",
+            model="model",
+            output_path=Path("/tmp/out.md"),
+            workdir=Path("/tmp"),
+            codex_configs=["model_reasoning_effort=low"],
+        )
+        resume_cmd = build_resume_command(
+            codex="/codex",
+            model="model",
+            session_id="00000000-0000-0000-0000-000000000000",
+            output_path=Path("/tmp/out.md"),
+            codex_configs=["model_reasoning_effort=low"],
+        )
+        for cmd in (init_cmd, resume_cmd):
+            idx = cmd.index("-c")
+            self.assertEqual(cmd[idx + 1], "model_reasoning_effort=low")
+
 class StressPersistenceTests(unittest.TestCase):
     def test_interruption_keeps_completed_turn_and_resume_skips_it(self):
         import tempfile

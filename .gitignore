@@ -8,7 +8,7 @@ __pycache__/
 .superpowers/
 dist/
 benchmark/runs/
-evals/stress/results/**/.runner.lock
+**/.runner.lock
 benchmark/private/
 benchmark/restricted/
 restricted/

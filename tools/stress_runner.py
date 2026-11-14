@@ -191,8 +191,14 @@ def expected_run_count(cases: Sequence[dict]) -> int:
     return sum(int(case["replicates"]) for case in cases)
 
 
-def build_initial_command(codex: str, model: str, output_path: Path, workdir: Path = Path("/tmp")) -> list[str]:
-    return [
+def build_initial_command(
+    codex: str,
+    model: str,
+    output_path: Path,
+    workdir: Path = Path("/tmp"),
+    codex_configs: Sequence[str] = (),
+) -> list[str]:
+    command = [
         codex,
         "exec",
         "--json",
@@ -207,8 +213,38 @@ def build_initial_command(codex: str, model: str, output_path: Path, workdir: Pa
         str(workdir),
         "-o",
         str(output_path),
-        "-",
     ]
+    for cfg in codex_configs:
+        command.extend(["-c", cfg])
+    command.append("-")
+    return command
+
+
+def build_resume_command(
+    codex: str,
+    model: str,
+    session_id: str,
+    output_path: Path,
+    codex_configs: Sequence[str] = (),
+) -> list[str]:
+    """Build codex exec resume CLI args with optional harness-only -c overrides."""
+    command = [
+        codex,
+        "exec",
+        "resume",
+        "--json",
+        session_id,
+        "--ignore-user-config",
+        "--ignore-rules",
+        "-m",
+        model,
+        "-o",
+        str(output_path),
+    ]
+    for cfg in codex_configs:
+        command.extend(["-c", cfg])
+    command.append("-")
+    return command
 
 
 def _execute(
@@ -217,26 +253,14 @@ def _execute(
     prompt: str,
     output_path: Path,
     session_id: str | None,
+    codex_configs: Sequence[str] = (),
 ) -> tuple[str, str, dict, dict]:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text("", encoding="utf-8")
     if session_id is None:
-        command = build_initial_command(codex, model, output_path)
+        command = build_initial_command(codex, model, output_path, codex_configs=codex_configs)
     else:
-        command = [
-            codex,
-            "exec",
-            "resume",
-            "--json",
-            session_id,
-            "--ignore-user-config",
-            "--ignore-rules",
-            "-m",
-            model,
-            "-o",
-            str(output_path),
-            "-",
-        ]
+        command = build_resume_command(codex, model, session_id, output_path, codex_configs=codex_configs)
     started = time.monotonic()
     result = subprocess.run(
         command,
@@ -291,6 +315,7 @@ def run_case(
     cost_per_1k_output: float = 0.0,
     max_cost: float | None = None,
     budget_tracker: RunBudgetTracker | None = None,
+    codex_configs: Sequence[str] = (),
 ) -> dict:
     if budget_tracker is None and (max_cost is not None or cost_per_1k_input > 0.0 or cost_per_1k_output > 0.0):
         budget_tracker = RunBudgetTracker(max_cost, cost_per_1k_input, cost_per_1k_output)
@@ -314,6 +339,8 @@ def run_case(
             if budget_tracker is not None:
                 budget_tracker.check_pre_call(count_tokens(prompt))
             try:
+                executed = _execute(codex, model, prompt, output, session_id, codex_configs=codex_configs)
+            except TypeError:
                 executed = _execute(codex, model, prompt, output, session_id)
             except Exception as exc:
                 if budget_tracker is not None:
@@ -413,6 +440,12 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--cost-per-1k-input", type=float, default=0.0, help="Cost per 1k input tokens in USD")
     parser.add_argument("--cost-per-1k-output", type=float, default=0.0, help="Cost per 1k output tokens in USD")
     parser.add_argument("--max-failures", type=int, default=3, help="Maximum provider failures before aborting")
+    parser.add_argument(
+        "--codex-config",
+        action="append",
+        default=[],
+        help="Repeatable key=value passed to codex exec -c (measurement-only harness probe)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args(argv)
 
@@ -445,6 +478,8 @@ def _main(argv: Sequence[str] | None = None) -> int:
         "cases_sha256": hashlib.sha256(args.cases.read_bytes()).hexdigest(),
         "skill_pack_sha256": hashlib.sha256(load_skill_pack(args.skill).encode()).hexdigest() if "skill_treatment" in args.conditions else None,
         "replicates": args.replicates, "case_ids": [case["id"] for case in cases]}
+    if args.codex_config:
+        manifest["codex_configs"] = list(args.codex_config)
     manifest_path = args.output / "manifest.json"
     if not manifest_path.exists() and any(args.output.glob("*.jsonl")):
         raise ValueError("Existing results have no manifest; use a new output directory")
@@ -491,6 +526,7 @@ def _main(argv: Sequence[str] | None = None) -> int:
                 cost_per_1k_output=args.cost_per_1k_output,
                 max_cost=args.max_cost,
                 budget_tracker=tracker,
+                codex_configs=args.codex_config,
             )
             futures[future] = (case["id"], condition, replicate)
         failures_seen: list[Exception] = []

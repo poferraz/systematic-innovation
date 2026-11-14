@@ -1,0 +1,1003 @@
+{
+  "measurement_scope": "Exploratory structural/lexical diagnostics; no quality-gated primary endpoint or calibrated semantic judgment",
+  "record_count": 12,
+  "extraction_coverage": {
+    "records_with_detected_blocks": 12,
+    "records_without_detected_blocks": 0,
+    "interpretation": "Syntactic detection only; neither candidate validity nor absence is established"
+  },
+  "aggregate": {
+    "candidate_count": 10.833,
+    "distinct_mechanism_clusters": 10.833,
+    "lever_coverage": 0.0,
+    "preservation_violation_count": 0.0,
+    "missing_preserve_check_count": 10.833,
+    "falsifiability_rate": 0.0,
+    "discovery_question_count": 0.75
+  },
+  "aggregate_vendi": {
+    "k_0_5": 10.767,
+    "k_1": 10.696,
+    "k_2": 10.542
+  },
+  "per_case": {
+    "startup-homogenization": {
+      "runs": 2,
+      "mean_candidates": 12.0,
+      "mean_distinct_clusters": 12.0,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 11.913,
+      "mean_vendi_k_1": 11.819,
+      "mean_vendi_k_2": 11.613,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 23.264,
+        "1.0": 22.509,
+        "2.0": 20.964
+      }
+    },
+    "organizational-complexity-single-turn": {
+      "runs": 2,
+      "mean_candidates": 12.0,
+      "mean_distinct_clusters": 12.0,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 11.925,
+      "mean_vendi_k_1": 11.845,
+      "mean_vendi_k_2": 11.668,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 23.467,
+        "1.0": 22.9,
+        "2.0": 21.666
+      }
+    },
+    "fda-audit-bypass": {
+      "runs": 2,
+      "mean_candidates": 12.5,
+      "mean_distinct_clusters": 12.5,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 12.425,
+      "mean_vendi_k_1": 12.348,
+      "mean_vendi_k_2": 12.189,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 1.5,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 24.426,
+        "1.0": 23.842,
+        "2.0": 22.658
+      }
+    },
+    "token-ceiling-portfolio": {
+      "runs": 2,
+      "mean_candidates": 8.0,
+      "mean_distinct_clusters": 8.0,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 7.963,
+      "mean_vendi_k_1": 7.927,
+      "mean_vendi_k_2": 7.851,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": 0.0,
+      "cross_run_vendi": {
+        "0.5": 15.889,
+        "1.0": 15.774,
+        "2.0": 15.538
+      }
+    },
+    "startup-default-audit": {
+      "runs": 2,
+      "mean_candidates": 8.5,
+      "mean_distinct_clusters": 8.5,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 8.476,
+      "mean_vendi_k_1": 8.45,
+      "mean_vendi_k_2": 8.393,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 3.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 16.94,
+        "1.0": 16.876,
+        "2.0": 16.739
+      }
+    },
+    "cross-domain-recombination": {
+      "runs": 2,
+      "mean_candidates": 12.0,
+      "mean_distinct_clusters": 12.0,
+      "mean_lever_coverage": 0.0,
+      "mean_vendi_k_0_5": 11.897,
+      "mean_vendi_k_1": 11.785,
+      "mean_vendi_k_2": 11.537,
+      "mean_preservation_violations": 0.0,
+      "mean_falsifiability_rate": 0.0,
+      "mean_discovery_questions": 0.0,
+      "word_budget_compliance": null,
+      "cross_run_vendi": {
+        "0.5": 23.517,
+        "1.0": 22.974,
+        "2.0": 21.69
+      }
+    }
+  },
+  "records": [
+    {
+      "case_id": "startup-homogenization",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.936,
+        "1.0": 11.869,
+        "2.0": 11.728
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1179,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1737,
+      "original_reported_total_assistant_output_tokens": 1737
+    },
+    {
+      "case_id": "organizational-complexity-single-turn",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.913,
+        "1.0": 11.821,
+        "2.0": 11.615
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1223,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1766,
+      "original_reported_total_assistant_output_tokens": 1766
+    },
+    {
+      "case_id": "startup-homogenization",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.89,
+        "1.0": 11.77,
+        "2.0": 11.497
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1309,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1925,
+      "original_reported_total_assistant_output_tokens": 1925
+    },
+    {
+      "case_id": "fda-audit-bypass",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 9.946,
+        "1.0": 9.889,
+        "2.0": 9.77
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 10,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1021,
+      "discovery_question_count": 3,
+      "total_assistant_output_tokens": 1830,
+      "original_reported_total_assistant_output_tokens": 1830
+    },
+    {
+      "case_id": "fda-audit-bypass",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 15,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 15,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 14.905,
+        "1.0": 14.808,
+        "2.0": 14.609
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 15,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 13,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 14,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 15,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 858,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1700,
+      "original_reported_total_assistant_output_tokens": 1700
+    },
+    {
+      "case_id": "organizational-complexity-single-turn",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.936,
+        "1.0": 11.868,
+        "2.0": 11.722
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1607,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2527,
+      "original_reported_total_assistant_output_tokens": 2527
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 10,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 10,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 9.946,
+        "1.0": 9.89,
+        "2.0": 9.775
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 10,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 446,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 730,
+      "original_reported_total_assistant_output_tokens": 730
+    },
+    {
+      "case_id": "token-ceiling-portfolio",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 6,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 6,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 5.981,
+        "1.0": 5.963,
+        "2.0": 5.926
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 6,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": false,
+      "word_count": 501,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 808,
+      "original_reported_total_assistant_output_tokens": 808
+    },
+    {
+      "case_id": "startup-default-audit",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.951,
+        "1.0": 11.899,
+        "2.0": 11.786
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1316,
+      "discovery_question_count": 6,
+      "total_assistant_output_tokens": 1911,
+      "original_reported_total_assistant_output_tokens": 1911
+    },
+    {
+      "case_id": "cross-domain-recombination",
+      "condition": "control_format",
+      "replicate": 1,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.921,
+        "1.0": 11.838,
+        "2.0": 11.659
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1322,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1898,
+      "original_reported_total_assistant_output_tokens": 1898
+    },
+    {
+      "case_id": "startup-default-audit",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 5,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 5,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 5.0,
+        "1.0": 5.0,
+        "2.0": 5.0
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 5,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1427,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 1960,
+      "original_reported_total_assistant_output_tokens": 1960
+    },
+    {
+      "case_id": "cross-domain-recombination",
+      "condition": "control_format",
+      "replicate": 2,
+      "interaction_mode": "single-turn",
+      "candidate_count": 12,
+      "candidate_extraction_status": "candidate_like_blocks_detected_unvalidated",
+      "distinct_mechanism_clusters": 12,
+      "lever_coverage": 0.0,
+      "vendi_scores": {
+        "0.5": 11.873,
+        "1.0": 11.733,
+        "2.0": 11.414
+      },
+      "preservation_violation_count": 0,
+      "missing_preserve_check_count": 12,
+      "preservation_audit_flags": [
+        {
+          "candidate": 1,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 2,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 3,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 4,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 5,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 6,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 7,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 8,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 9,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 10,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 11,
+          "reason": "missing_preserve_check"
+        },
+        {
+          "candidate": 12,
+          "reason": "missing_preserve_check"
+        }
+      ],
+      "preservation_assessment": "lexical_screen_only_not_R5_or_semantic_certification",
+      "token_accounting": "provider_cumulative_differenced",
+      "falsifiability_rate": 0.0,
+      "falsifiable_probe_count": 0,
+      "learning_probe_count": 0,
+      "word_budget_compliant": null,
+      "word_count": 1570,
+      "discovery_question_count": 0,
+      "total_assistant_output_tokens": 2108,
+      "original_reported_total_assistant_output_tokens": 2108
+    }
+  ]
+}
