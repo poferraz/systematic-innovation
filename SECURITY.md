@@ -4,6 +4,14 @@
 
 `systematic-innovation` is a provider-neutral Agent Skill authored entirely in portable Markdown. It executes zero host binaries, makes zero network requests, and requires zero external Python dependencies at runtime.
 
+### Repository Trust Zones
+
+The repository maintains strict trust boundaries across three distinct zones:
+
+1. **Public Skill (`skills/systematic-innovation/`):** Pure-Markdown public agent skill. Contains zero host binaries, makes zero network requests, requires zero runtime dependencies, and stores zero credentials.
+2. **Tooling and Asset Generation (`tools/`, `tests/`):** Executable Python tooling, static test harnesses, and dev-only Playwright asset generation. These tools are used exclusively for repository validation, benchmarking, and documentation asset generation; they are never packaged or shipped inside the canonical skill directory.
+3. **Restricted Datasets and Local Sources (`sources/`, `restricted/`):** Local source materials (`sources/`) and restricted evaluation or sealed-test packs (`restricted/`, `*.restricted.*`, `*.validation.yaml`, `*.sealed.yaml`). These assets are strictly excluded from public Git tracking, CI pipelines, and generated release distributions.
+
 ### 1. Inspecting Skill Content Before Installation
 
 Because Agent Skills execute instructions within your LLM's system prompt or tool context, always audit skill content before installing or activating it in production environments:
@@ -20,5 +28,5 @@ Because Agent Skills execute instructions within your LLM's system prompt or too
 
 If you discover a security vulnerability, an instruction injection vector, or false attribution / hallucinated academic references within the repository:
 1. Do not open a public issue.
-2. Email the maintainers directly at `security@systematic-innovation.local` (or submit a private GitHub Security Advisory).
+2. Submit a private GitHub Security Advisory via the repository's Security tab (choose "Report a vulnerability").
 3. Include a minimal reproducible prompt, the host environment, and the observed failure mode.

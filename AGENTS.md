@@ -16,6 +16,10 @@ Read these documents in order before proposing or executing changes:
    - [`docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md`](docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md)
    - [`docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md`](docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md)
    - [`docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md`](docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md)
+   - [`docs/superpowers/plans/2026-10-29-systematic-innovation-audit-remediation.md`](docs/superpowers/plans/2026-10-29-systematic-innovation-audit-remediation.md)
+6. Loop refinement specification and plan:
+   - [`docs/superpowers/specs/2026-11-14-systematic-innovation-v2-loop-design.md`](docs/superpowers/specs/2026-11-14-systematic-innovation-v2-loop-design.md)
+   - [`docs/superpowers/plans/2026-11-14-systematic-innovation-v2-loop.md`](docs/superpowers/plans/2026-11-14-systematic-innovation-v2-loop.md)
 
 Plans execute approved specifications and never amend or supersede them.
 
@@ -29,3 +33,11 @@ Plans execute approved specifications and never amend or supersede them.
 
 - `dist/` and `benchmark/runs/` are generated or runtime outputs and are never editable authorities.
 - Restricted validation and sealed-test packs (`restricted/`, `*.restricted.*`, `*.validation.yaml`, `*.sealed.yaml`) remain outside public Git, ordinary CI, generated distributions, and automatic agent context.
+
+## Validation Commands
+
+Repository tests use Python's standard library `unittest` (`pytest` is not used):
+
+- `python3 -m unittest discover tests -v`
+- `python3 tools/validate_skill.py skills/systematic-innovation`
+- `python3 -m tools.repository.authority`

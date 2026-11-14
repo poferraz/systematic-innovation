@@ -1,0 +1,9 @@
+[project]
+name = "systematic-innovation"
+version = "0.1.0"
+description = "Provider-neutral Agent Skill and evaluation laboratory for causally distinct, system-aware innovation possibilities."
+requires-python = ">=3.11,<3.15"
+dependencies = []
+
+[dependency-groups]
+dev = ["playwright>=1.49.0"]
