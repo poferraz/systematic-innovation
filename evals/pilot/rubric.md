@@ -34,6 +34,8 @@ Score each extracted candidate on four 0–3 anchored criteria and one binary sa
 
 ## 3. Mechanism Deduplication, Equivalence Clustering & Vendi Score
 
+> [!NOTE] **Measurement Boundary (`F-19`):** The automated runner and scorer (`tools/pilot_metrics.py`) implement syntactic extraction and stemmed-cosine lexical similarity clustering for reproducible automated checks. True semantic equivalence clustering, candidate qualification gates, and authoritative duplicate collapse ratios require calibrated human evaluation or verified LLM judging per `evals/restored-2026-10-18/human-review.md`.
+
 A duplicate is the same underlying causal mechanism presented with changed surface nouns, interfaces, audiences, or industries.
 
 1. **Equivalence Clustering:** Two candidates belong to the same mechanism family unless they have a genuinely different causal operation or differ meaningfully across at least two structural dimensions (`actor`, `intervention_point`, `resource_flow`, `information_flow`, `decision_rights`, `incentive_structure`, `timing`, `scale`, `value_creation`, `value_delivery`). Free-text paraphrases of the same intervention and flow are merged into one family.

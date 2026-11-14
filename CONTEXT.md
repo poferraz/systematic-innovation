@@ -4,7 +4,7 @@
 
 **Context established:** 2026-09-01
 
-**Status:** Behavioral and repository-architecture specifications approved with 2026-10-17 primary-source and quantitative benchmark amendments; coordinated and component plans aligned; Phase 1 implementation (core skill + 12-case empirical pilot) authorized
+**Status:** Behavioral and repository-architecture specifications approved with 2026-10-17 amendments and 2026-11-14 Phase A remediation decisions (D1–D9, D3 spec amendment); coordinated and component plans aligned; 5-phase v2 loop authorized
 
 **Purpose of this file:** Preserve the original intent, reasoning, evidence boundaries, decision history, and current state so a future person or coding agent can resume without relying on conversation memory.
 
@@ -755,6 +755,20 @@ The formal benchmark package and approved six/twelve-case gates remain unbuilt;
 this diagnostic does not pass them or unlock the full development study. No
 restricted/sealed evidence was accessed and no broad compatibility, automatic
 activation, release, global novelty or zero-hallucination claim was made.
+
+### 19.8 Audit Remediation, Provenance Hygiene, and V2 Loop Authorization (2026-11-14)
+
+On 2026-11-14, following a comprehensive audit of repository provenance, security boundaries, runner spend safety, and measurement integrity, the owner authorized a five-phase remediation and loop refinement plan (`docs/superpowers/specs/2026-11-14-systematic-innovation-v2-loop-design.md` and `docs/superpowers/plans/2026-11-14-systematic-innovation-v2-loop.md`) along with nine foundational Phase A decisions (`D1`–`D9`):
+
+1. **Git Lineage and Working Tree Cleansing (`D1`):** Branch `stress-test/five-cycle-refinement` cleanly replaced unpushed commit `0ebddfe` with `49ab8db` via `git reset --hard`, keeping a temporary local reference `backup/pre-remediation-2026-11-14` until Phase E final signoff.
+2. **Provenance and Copyright Boundaries (`D2`, `D5`):** Relocated `stimulating-innovation-tudor-rickards.md` and 49 external PDFs out of Git history and working tree into the gitignored `sources/` directory, deduplicated identical PDFs locally, and added `docs/research/README.md` to guide research provenance without committing third-party copyrighted materials. Relabeled `docs/research/2026-10-18-v2-brainstorming-synthesis.md` explicitly as unexecuted research input (`D2`).
+3. **Behavioral Specification Amendment (`D3`):** Approved and committed specification amendment `0c76297` to `docs/superpowers/specs/2026-08-31-systematic-innovation-design.md` establishing §6.4 Execution-channel precedence (interactive direct responses vs structured multi-agent workflow outputs) and §12.1 User-requested output budgets with explicit length-conformance bounds.
+4. **Branding and Public Claims Hygiene (`D7`):** Withdrawn unverified pilot efficiency claims (`+162%` density surge) and ungrounded zero-hallucination / absolute novelty marketing slogans from all public documentation (`README.md`, `evals/build-branding.md`, pilot analysis reports), committing cleanup in `8f5f982`.
+5. **Security and Packaging Standards (`D4`):** Added `SECURITY.md` establishing least-privilege trust zones, vulnerability reporting channels, and provider-neutral sandboxing; declared standard-library runtime dependencies and optional development groups in `pyproject.toml`; and created GitHub Actions CI workflow in `2ed8d1c`.
+6. **Authority and Validator Hardening (`D8`):** Hardened `tools/repository/authority.py` and `tools/validate_skill.py` (`db246b1`, `c52e782`) to enforce single behavioral authority routing, reject shadow skill copies, scan for broadened supersession phrasing across markdown plans, strip code fences reliably, and preserve strict canonical structure.
+7. **Historical Evidence Retention (`D6`):** Retained `evals/audits/` as immutable historical audit evidence while annotating superseded banners and documentation errata.
+8. **Evaluation Errata and Scorer Boundaries (`F-08`, `F-14`, `F-18`, `F-19`, `F-28`, `F-30`, `F-31`, `F-32`):** Documented the pilot 2-vs-3 turn Deep case asymmetry, cross-arm numerator mismatch, hardcoded question constants, and trigger-precision/paraphrase caveats in pilot reports; demarcated live stemmed-cosine lexical clustering in `pilot_metrics.py` from full semantic equivalence clustering; instituted the out-of-repo seed/isolated packet blinding requirement for future 40-pair human calibration (`F-31`); and tracked Hungarian bipartite matching (`F-32`) as a formal-benchmark acceptance criterion without altering current pilot tooling.
+9. **Runner Spend and Redaction Safety:** Hardened `tools/stress_runner.py` with multi-pattern credential redaction (`redact_text`, `redact_obj`, `redact_secrets`), model allowlists (`--allowed-models`), budget caps (`--max-cost`), cost-per-token accounting (`--cost-per-1k-input`, `--cost-per-1k-output`), provider failure thresholds (`--max-failures`), removed hardcoded user home paths across all tools, and guarded evaluation results from accidental overwrites (`--force` in `tools/score_eval_results.py`).
 
 ## 20. Current Repository-Quality Intent
 

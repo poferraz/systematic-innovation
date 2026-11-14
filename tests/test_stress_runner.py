@@ -188,5 +188,88 @@ class ConcurrentRunSafetyTests(unittest.TestCase):
             self.assertEqual(len((output / 'baseline_clean.jsonl').read_text().splitlines()), 1)
 
 
+class StressRunnerSafetyTests(unittest.TestCase):
+    def test_rejects_model_outside_allowlist(self):
+        import tempfile
+        from tools.stress_runner import main
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / "cases.json"
+            cases.write_text(json.dumps({"cases": [{"id": "c1", "prompt": "Hi", "replicates": 1, "should_trigger": True, "user_turns": []}]}))
+            output = root / "out"
+            # Default allowed_models should be ["gpt-5.6-luna"]
+            with self.assertRaises(ValueError):
+                main(["--cases", str(cases), "--output", str(output), "--model", "unapproved-model", "--dry-run"])
+            # When explicitly included in --allowed-models, it should not raise ValueError
+            self.assertEqual(main(["--cases", str(cases), "--output", str(output), "--model", "unapproved-model", "--allowed-models", "unapproved-model", "--dry-run"]), 0)
+
+    def test_aborts_when_estimated_or_accumulated_cost_exceeds_max_cost(self):
+        import tempfile
+        from unittest.mock import patch
+        from tools.stress_runner import main
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / "cases.json"
+            cases.write_text(json.dumps({"cases": [{"id": "c1", "prompt": "Hi", "replicates": 1, "should_trigger": True, "user_turns": []}]}))
+            output = root / "out"
+            with patch("tools.stress_runner._execute", return_value=(
+                "response", "session", {"input_tokens": 1000, "output_tokens": 500},
+                {"latency_seconds": 1.0, "events": []}
+            )):
+                with self.assertRaises((RuntimeError, ValueError)):
+                    main([
+                        "--cases", str(cases),
+                        "--output", str(output),
+                        "--max-cost", "0.50",
+                        "--cost-per-1k-input", "1.00",
+                        "--cost-per-1k-output", "2.00",
+                    ])
+
+    def test_redacts_credentials_from_transport_events_and_errors(self):
+        from tools.stress_runner import redact_text, redact_obj, redact_secrets, run_case
+        from unittest.mock import patch
+        import tempfile
+
+        raw_secrets = [
+            "sk-1234567890abcdef1234567890",
+            "AIza1234567890abcdef1234567890",
+            "ghp_1234567890abcdef1234567890",
+            "nvapi-1234567890abcdef",
+            "NVIDIA_1234567890",
+            "Bearer secret_bearer_token_xyz",
+            "api_key: secret_api_key_12345",
+            "token = 'secret_token_abc'",
+            "secret=\"secret_val_xyz\"",
+        ]
+        sample_text = "Errors: " + " ".join(raw_secrets)
+        redacted = redact_text(sample_text)
+        self.assertIn("[REDACTED]", redacted)
+        for secret in ("secret_bearer_token_xyz", "secret_api_key_12345", "secret_token_abc", "secret_val_xyz"):
+            self.assertNotIn(secret, redacted)
+
+        nested_obj = {
+            "auth": "Bearer token123",
+            "list": [{"key": "AIza1234567890abcdef1234567890"}],
+            "tuple": ("ghp_1234567890abcdef1234567890",),
+        }
+        redacted_obj = redact_obj(nested_obj)
+        self.assertEqual(redacted_obj["auth"], "[REDACTED]")
+        self.assertEqual(redacted_obj["list"][0]["key"], "[REDACTED]")
+        self.assertEqual(redacted_obj["tuple"][0], "[REDACTED]")
+
+        # Verify transport events and error redaction in run_case
+        case = {"id": "c1", "prompt": "Hi", "user_turns": [], "interaction_mode": "single-turn", "expected_mode": "quick", "should_trigger": True}
+        with tempfile.TemporaryDirectory() as tmp:
+            with patch("tools.stress_runner._execute", return_value=(
+                "Answer", "session", {},
+                {"latency_seconds": 0.5, "events": [{"auth": "Bearer supersecrettoken"}]}
+            )):
+                record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "gpt-5.6-luna", "codex")
+                events_str = json.dumps(record["turns"][0]["transport"]["events"])
+                self.assertNotIn("supersecrettoken", events_str)
+                self.assertIn("[REDACTED]", events_str)
+
+
+
 if __name__ == "__main__":
     unittest.main()

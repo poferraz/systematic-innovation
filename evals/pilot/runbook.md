@@ -21,6 +21,8 @@
 
 ## 2. Scoring Procedure
 
+> [!NOTE] **Scorer Implementation Boundary (`F-19`):** Current live scoring tools (`tools/pilot_metrics.py`) use stemmed-cosine lexical clustering over candidate tokens as an automated surrogate. Authoritative semantic equivalence clustering and duplicate collapse ratio await calibrated human and LLM scoring.
+
 1. Extract every candidate idea from `final_response` into a structured mechanism tuple (`intervention_point`, `principal_actor`, `changed_flow`, `causal_operation`, `intended_effect`).
 2. Score each candidate against the conjunctive minimum quality gates defined in `evals/pilot/rubric.md`.
 3. Deduplicate raw candidates and qualifying candidates into causal mechanism families using normalized structural signatures and semantic/token equivalence clustering.

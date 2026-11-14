@@ -152,3 +152,40 @@ This longer description is a repeat, not the complete portfolio.
         self.assertEqual(record["total_latency_seconds"], 3.25)
         self.assertEqual(record["total_input_tokens"], 250)
         self.assertIsNone(record["monetary_cost"])
+
+    def test_no_hardcoded_user_home_paths_in_tools(self):
+        for tool_rel in ("tools/stress_runner.py", "tools/compile_treatment_results.py"):
+            content = (ROOT / tool_rel).read_text(encoding="utf-8")
+            self.assertNotIn("/Users/", content, f"Found hardcoded user path in {tool_rel}")
+
+    def test_score_eval_results_refuses_existing_output_without_force(self):
+        import json
+        import tempfile
+        from tools import score_eval_results
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / "cases.json"
+            cases.write_text(json.dumps({"cases": [{"id": "c1", "prompt": "P", "expected_mode": "quick", "interaction_mode": "single-turn", "should_trigger": True}]}))
+            results = root / "results.jsonl"
+            record = {
+                "case_id": "c1", "condition": "baseline_clean", "replicate": 1,
+                "model": "gpt-5.6-luna", "interaction_mode": "single-turn",
+                "turns": [{"turn_index": 1, "assistant": "Possibilities:\n1. Idea one: test\n2. Idea two: test"}],
+                "final_response": "Possibilities:\n1. Idea one: test\n2. Idea two: test",
+            }
+            results.write_text(json.dumps(record) + "\n")
+            output = root / "output.json"
+            output.write_text('{"already": "exists"}\n')
+
+            # Without --force: fails with FileExistsError
+            with self.assertRaises(FileExistsError):
+                score_eval_results.main(["--results", str(results), "--cases", str(cases), "--output", str(output)])
+
+            # Content was untouched
+            self.assertEqual(output.read_text(), '{"already": "exists"}\n')
+
+            # With --force: overwrites cleanly
+            ret = score_eval_results.main(["--results", str(results), "--cases", str(cases), "--output", str(output), "--force"])
+            self.assertEqual(ret, 0)
+            self.assertIn("record_count", output.read_text())
+

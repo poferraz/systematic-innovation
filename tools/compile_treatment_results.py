@@ -1,8 +1,11 @@
 from __future__ import annotations
 
+import argparse
 import json
+import os
 import pathlib
 import re
+from typing import Sequence
 
 from tools.pilot_metrics import (
     cluster_mechanisms,
@@ -12,7 +15,7 @@ from tools.pilot_metrics import (
 )
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-BRAIN_DIR = pathlib.Path("/Users/poferraz/.gemini/antigravity/brain")
+BRAIN_DIR = pathlib.Path(os.environ.get("ANTIGRAVITY_BRAIN_DIR") or (pathlib.Path.home() / ".gemini/antigravity/brain"))
 
 CASES_PATH = ROOT / "evals/pilot/cases.json"
 OUTPUT_PATH = ROOT / "evals/pilot/results/treatment.jsonl"
@@ -77,7 +80,13 @@ def extract_user_and_assistant_messages(log_path: pathlib.Path) -> tuple[list[st
     return user_msgs, assistant_msgs
 
 
-def main() -> None:
+def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Compile historical treatment results")
+    parser.add_argument("--brain-dir", type=pathlib.Path, default=BRAIN_DIR)
+    return parser.parse_args(argv)
+
+
+def main(argv: Sequence[str] | None = None) -> None:
     raise RuntimeError(
         "The historical importer is disabled: it assigns unverified quality ratings "
         "and treats extracted blocks as qualified mechanisms. Historical results must "

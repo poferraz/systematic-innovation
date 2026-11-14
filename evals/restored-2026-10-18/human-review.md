@@ -4,6 +4,9 @@ This public development packet is prepared, not completed calibration. No human
 ratings or semantic quality scores have been supplied. Read `human-answers.json`
 without opening `assignment-key.json` or source result files. Answer wording can
 still reveal a method; this limits blinding even after assignment labels vanish.
+Any scheduled 40-pair calibration run must regenerate packets using an
+out-of-repository random seed and key, or export blind copies without
+`assignment-key.json` (`F-31`).
 
 Two trained reviewers independently read each complete user-disclosure script and
 assistant conversation. First extract all actual proposals from the final answer,

@@ -162,12 +162,15 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--results", type=Path, required=True)
     parser.add_argument("--cases", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--force", action="store_true", help="Overwrite output file if it exists")
     parser.add_argument("--provider-usage-cumulative", action="store_true", help="Explicit correction for pre-fix CLI 0.162 cumulative counters; raw records are preserved")
     return parser.parse_args(argv)
 
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    if args.output.exists() and not args.force:
+        raise FileExistsError(f"Refusing to overwrite existing output file without --force: {args.output}")
     records = [
         json.loads(line)
         for line in args.results.read_text(encoding="utf-8").splitlines()

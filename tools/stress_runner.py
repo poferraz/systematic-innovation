@@ -1,18 +1,129 @@
 from __future__ import annotations
 
 import argparse
-import json
-import hashlib
-import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import hashlib
+import json
+import os
 import re
+import shutil
 import subprocess
 import tempfile
+import threading
 import time
 from pathlib import Path
-from typing import Sequence
+from typing import Any, Sequence
 
 from tools.pilot_metrics import count_tokens
+
+
+SECRET_PATTERNS = [
+    re.compile(r"sk-[A-Za-z0-9_-]{16,}"),
+    re.compile(r"AIza[0-9A-Za-z_-]{20,}"),
+    re.compile(r"ghp_[A-Za-z0-9]{20,}"),
+    re.compile(r"nvapi-[A-Za-z0-9_-]{12,}"),
+    re.compile(r"NVIDIA_[A-Za-z0-9_-]{8,}"),
+    re.compile(r"Bearer\s+\S+"),
+    re.compile(r"(?i)(api[_-]?key|token|secret)\s*[:=]\s*['\"]?\S+"),
+]
+
+
+def redact_text(value: str) -> str:
+    if not isinstance(value, str):
+        return value
+    res = value
+    for pat in SECRET_PATTERNS:
+        res = pat.sub("[REDACTED]", res)
+    return res
+
+
+def redact_obj(obj: Any) -> Any:
+    if isinstance(obj, str):
+        return redact_text(obj)
+    if isinstance(obj, dict):
+        return {
+            redact_text(str(k)) if isinstance(k, str) else k: redact_obj(v)
+            for k, v in obj.items()
+        }
+    if isinstance(obj, list):
+        return [redact_obj(x) for x in obj]
+    if isinstance(obj, tuple):
+        return tuple(redact_obj(x) for x in obj)
+    if isinstance(obj, set):
+        return {redact_obj(x) for x in obj}
+    return obj
+
+
+def redact_secrets(text_or_obj: Any) -> Any:
+    return redact_obj(text_or_obj)
+
+
+def normalize_allowed_models(models: Sequence[str] | None) -> list[str]:
+    if not models:
+        return ["gpt-5.6-luna"]
+    result: list[str] = []
+    for item in models:
+        for m in item.split(","):
+            m = m.strip()
+            if m and m not in result:
+                result.append(m)
+    return result or ["gpt-5.6-luna"]
+
+
+class RunBudgetTracker:
+    def __init__(
+        self,
+        max_cost: float | None = None,
+        cost_per_1k_input: float = 0.0,
+        cost_per_1k_output: float = 0.0,
+        max_failures: int = 3,
+    ) -> None:
+        self.max_cost = max_cost
+        self.cost_per_1k_input = cost_per_1k_input
+        self.cost_per_1k_output = cost_per_1k_output
+        self.max_failures = max_failures
+        self.accumulated_cost = 0.0
+        self.failures = 0
+        self.lock = threading.Lock()
+
+    def check_pre_call(self, estimated_input_tokens: int = 0) -> None:
+        with self.lock:
+            if self.failures >= self.max_failures:
+                raise RuntimeError(
+                    f"Provider failure limit reached: {self.failures} >= {self.max_failures}"
+                )
+            if self.max_cost is not None:
+                if self.accumulated_cost >= self.max_cost:
+                    raise RuntimeError(
+                        f"Execution budget exceeded: accumulated cost ${self.accumulated_cost:.4f} >= max cost ${self.max_cost:.4f}"
+                    )
+                est_cost = (estimated_input_tokens / 1000.0) * self.cost_per_1k_input
+                if self.accumulated_cost + est_cost > self.max_cost:
+                    raise RuntimeError(
+                        f"Execution budget exceeded: estimated call cost ${est_cost:.4f} "
+                        f"(accumulated ${self.accumulated_cost:.4f}) would exceed max cost ${self.max_cost:.4f}"
+                    )
+
+    def record_usage(self, input_tokens: int, output_tokens: int) -> float:
+        with self.lock:
+            call_cost = ((input_tokens / 1000.0) * self.cost_per_1k_input) + (
+                (output_tokens / 1000.0) * self.cost_per_1k_output
+            )
+            self.accumulated_cost += call_cost
+            if self.max_cost is not None and self.accumulated_cost > self.max_cost:
+                raise RuntimeError(
+                    f"Execution budget exceeded: accumulated cost ${self.accumulated_cost:.4f} > max cost ${self.max_cost:.4f}"
+                )
+            return call_cost
+
+    def record_failure(self, err: Exception | str) -> None:
+        with self.lock:
+            self.failures += 1
+            if self.failures >= self.max_failures:
+                raise RuntimeError(
+                    f"Provider failure limit reached ({self.failures} >= {self.max_failures}): {redact_text(str(err))}"
+                )
+
 
 
 CONDITIONS = ("baseline_clean", "control_creative", "control_format", "skill_treatment")
@@ -138,7 +249,7 @@ def _execute(
     )
     combined = result.stdout or ""
     if result.returncode != 0:
-        raise RuntimeError(f"Codex runner failed ({result.returncode}):\n{combined[-4000:]}")
+        raise RuntimeError(f"Codex runner failed ({result.returncode}):\n{redact_text(combined[-4000:])}")
     events = []
     for line in combined.splitlines():
         try:
@@ -155,15 +266,15 @@ def _execute(
     if session_id is None:
         match = SESSION_RE.search(combined)
         if not match:
-            raise RuntimeError(f"Codex runner did not expose a session id:\n{combined[-4000:]}")
+            raise RuntimeError(f"Codex runner did not expose a session id:\n{redact_text(combined[-4000:])}")
         session_id = match.group(1)
     response = output_path.read_text(encoding="utf-8")
     if not response.strip():
-        raise RuntimeError(f"Codex runner returned no final message:\n{combined[-4000:]}")
+        raise RuntimeError(f"Codex runner returned no final message:\n{redact_text(combined[-4000:])}")
     return response, session_id, usage, {
         "latency_seconds": time.monotonic() - started,
-        "events": events,
-        "command": command,
+        "events": redact_obj(events),
+        "command": redact_obj(command),
         "returncode": result.returncode,
     }
 
@@ -176,7 +287,14 @@ def run_case(
     model: str,
     codex: str,
     progress_path: Path | None = None,
+    cost_per_1k_input: float = 0.0,
+    cost_per_1k_output: float = 0.0,
+    max_cost: float | None = None,
+    budget_tracker: RunBudgetTracker | None = None,
 ) -> dict:
+    if budget_tracker is None and (max_cost is not None or cost_per_1k_input > 0.0 or cost_per_1k_output > 0.0):
+        budget_tracker = RunBudgetTracker(max_cost, cost_per_1k_input, cost_per_1k_output)
+
     prompts = build_user_prompts(case, condition, skill_dir)
     turns: list[dict] = []
     session_id: str | None = None
@@ -193,13 +311,25 @@ def run_case(
         for turn_index, prompt in enumerate(prompts, start=1):
             if turn_index <= len(turns):
                 continue
-            executed = _execute(codex, model, prompt, output, session_id)
+            if budget_tracker is not None:
+                budget_tracker.check_pre_call(count_tokens(prompt))
+            try:
+                executed = _execute(codex, model, prompt, output, session_id)
+            except Exception as exc:
+                if budget_tracker is not None:
+                    budget_tracker.record_failure(exc)
+                raise
             assistant, session_id = executed[:2]
             usage = executed[2] if len(executed) > 2 else {}
             transport = executed[3] if len(executed) > 3 else {}
+            transport = redact_obj(transport)
             previous_counter = turns[-1].get("provider_usage_cumulative", {}).get("output_tokens", 0) if turns else 0
             counter = usage.get("output_tokens")
             output_tokens = counter - previous_counter if counter is not None and previous_counter is not None and counter >= previous_counter else None
+            turn_in_tokens = usage.get("input_tokens") or count_tokens(prompt)
+            turn_out_tokens = output_tokens if output_tokens is not None else count_tokens(assistant)
+            if budget_tracker is not None:
+                budget_tracker.record_usage(turn_in_tokens, turn_out_tokens)
             turns.append(
                 {
                     "turn_index": turn_index,
@@ -215,8 +345,18 @@ def run_case(
                 progress_path.parent.mkdir(parents=True, exist_ok=True)
                 temporary = progress_path.with_suffix(".tmp")
                 temporary.write_text(json.dumps({"prompt_digest": prompt_digest, "model": model,
-                    "session_id": session_id, "turns": turns}) + "\n")
+                    "session_id": session_id, "turns": redact_obj(turns)}) + "\n")
                 temporary.replace(progress_path)
+
+    total_in = turns[-1].get("provider_usage_cumulative", {}).get("input_tokens")
+    if total_in is None:
+        total_in = sum(count_tokens(t["user"]) for t in turns)
+    total_out = sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else sum(turn["assistant_tokens_estimate"] for turn in turns)
+    monetary_cost = (
+        ((total_in / 1000.0) * cost_per_1k_input) + ((total_out / 1000.0) * cost_per_1k_output)
+        if (cost_per_1k_input > 0.0 or cost_per_1k_output > 0.0)
+        else None
+    )
 
     return {
         "case_id": case["id"],
@@ -232,14 +372,14 @@ def run_case(
         "prompt_digest": prompt_digest,
         "token_accounting": "provider_cumulative_differenced" if all(turn["assistant_tokens"] is not None for turn in turns) else "unavailable",
         "skill_pack_sha256": hashlib.sha256(load_skill_pack(skill_dir).encode()).hexdigest() if condition == "skill_treatment" else None,
-        "turns": turns,
+        "turns": redact_obj(turns),
         "final_response": turns[-1]["assistant"],
         "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else None,
         "total_assistant_output_tokens_estimate": sum(turn["assistant_tokens_estimate"] for turn in turns),
         "total_input_tokens": turns[-1].get("provider_usage_cumulative", {}).get("input_tokens"),
         "total_latency_seconds": sum(turn["transport"]["latency_seconds"] for turn in turns)
             if all(turn.get("transport", {}).get("latency_seconds") is not None for turn in turns) else None,
-        "monetary_cost": None,
+        "monetary_cost": monetary_cost,
         "turn_1_question_count": sum(
             1 for line in turns[0]["assistant"].splitlines() if line.strip().endswith("?")
         ),
@@ -254,16 +394,25 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--conditions", nargs="+", choices=CONDITIONS, default=list(CONDITIONS))
     parser.add_argument("--case", action="append", help="Limit to a case id; repeatable")
     parser.add_argument("--model", default="gpt-5.6-luna")
-    parser.add_argument("--codex", default="/Users/poferraz/.local/bin/codex")
+    parser.add_argument("--allowed-models", nargs="+", default=["gpt-5.6-luna"], help="Allowed models list (default: ['gpt-5.6-luna'])")
+    parser.add_argument("--codex", default=shutil.which("codex") or "codex")
     parser.add_argument("--replicates", type=int, help="Override manifest repetitions")
     parser.add_argument("--jobs", type=int, default=1, choices=(1, 2, 3))
     parser.add_argument("--max-calls", type=int, default=600)
+    parser.add_argument("--max-cost", type=float, default=None, help="Maximum cost budget in USD")
+    parser.add_argument("--cost-per-1k-input", type=float, default=0.0, help="Cost per 1k input tokens in USD")
+    parser.add_argument("--cost-per-1k-output", type=float, default=0.0, help="Cost per 1k output tokens in USD")
+    parser.add_argument("--max-failures", type=int, default=3, help="Maximum provider failures before aborting")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args(argv)
 
 
 def _main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    allowed = normalize_allowed_models(args.allowed_models)
+    if args.model not in allowed:
+        raise ValueError(f"Model '{args.model}' is not in allowed models: {allowed}")
+
     cases = load_cases(args.cases)
     if args.case:
         wanted = set(args.case)
@@ -304,14 +453,35 @@ def _main(argv: Sequence[str] | None = None) -> int:
                 if key in completed:
                     raise ValueError("Duplicate completed conversation")
                 completed.add(key)
+
+    tracker = RunBudgetTracker(
+        max_cost=args.max_cost,
+        cost_per_1k_input=args.cost_per_1k_input,
+        cost_per_1k_output=args.cost_per_1k_output,
+        max_failures=args.max_failures,
+    )
+
     with ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {}
         for case, condition, replicate in jobs:
             if (case["id"], condition, replicate) in completed:
                 continue
+            tracker.check_pre_call()
             progress = args.output / "progress" / f"{condition}-{case['id']}-{replicate}.json"
-            future = pool.submit(run_case, case, condition, replicate, args.skill,
-                                 args.model, args.codex, progress)
+            future = pool.submit(
+                run_case,
+                case,
+                condition,
+                replicate,
+                args.skill,
+                args.model,
+                args.codex,
+                progress,
+                cost_per_1k_input=args.cost_per_1k_input,
+                cost_per_1k_output=args.cost_per_1k_output,
+                max_cost=args.max_cost,
+                budget_tracker=tracker,
+            )
             futures[future] = (case["id"], condition, replicate)
         for future in as_completed(futures):
             record = future.result()
@@ -327,6 +497,9 @@ def _main(argv: Sequence[str] | None = None) -> int:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = parse_args(argv)
+    allowed = normalize_allowed_models(args.allowed_models)
+    if args.model not in allowed:
+        raise ValueError(f"Model '{args.model}' is not in allowed models: {allowed}")
     if args.dry_run:
         return _main(argv)
     # This local CLI adapter uses POSIX advisory locking; the installable skill

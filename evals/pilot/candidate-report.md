@@ -1,6 +1,12 @@
 # Systematic Innovation: Candidate Skill Verification Gate Report
 
 > **Superseded assessment — 2026-10-17 stress recovery:** The historical efficiency/quality claims below are not current validated claims. Legacy token counts were unverified estimates, some single-turn outputs stalled at discovery, and no calibrated mechanism-quality, safety, or human evaluation established the approved primary endpoint. Raw outputs remain unchanged. See the [audited stress report](../stress/five-cycle-report.md) and [contract findings](../stress/contract-findings.md).
+>
+> **Pilot Errata & Audit Findings (`F-08`, `F-18`, `F-30`):**
+> 1. *Turn-Count Asymmetry:* Historical treatment records in `evals/pilot/results/treatment.jsonl` captured only 2 assistant turns for Deep cases rather than the 3 turns recorded in baseline records, introducing conversational turn asymmetry.
+> 2. *Cross-Arm Numerator Mismatch (+162% Withdrawn):* The reported +162% causal density surge compared distinct mechanism families in treatment against uncollapsed raw candidate counts in baseline, invalidating the historical efficiency claim.
+> 3. *Hardcoded Question Counts:* Historical analysis scripts relied on hardcoded `turn_1_question_count` constants rather than dynamic parser extraction from transcript turns.
+> 4. *Scope & Paraphrase Caveats:* Automatic activation and trigger precision were evaluated on a small 12-case pilot rather than an independent held-out benchmark; compliance with Rickards's Three Problem-Owner Questions relied on prompt paraphrasing rather than structural verification.
 
 ## 1. Executive Summary & Gate Decision
 
