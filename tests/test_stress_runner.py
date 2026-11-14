@@ -244,8 +244,10 @@ class StressRunnerSafetyTests(unittest.TestCase):
         sample_text = "Errors: " + " ".join(raw_secrets)
         redacted = redact_text(sample_text)
         self.assertIn("[REDACTED]", redacted)
-        for secret in ("secret_bearer_token_xyz", "secret_api_key_12345", "secret_token_abc", "secret_val_xyz"):
+        for secret in raw_secrets:
             self.assertNotIn(secret, redacted)
+        for token in ("sk-1234567890abcdef1234567890", "AIza1234567890abcdef1234567890", "ghp_1234567890abcdef1234567890", "nvapi-1234567890abcdef", "NVIDIA_1234567890"):
+            self.assertNotIn(token, redacted)
 
         nested_obj = {
             "auth": "Bearer token123",
@@ -261,13 +263,43 @@ class StressRunnerSafetyTests(unittest.TestCase):
         case = {"id": "c1", "prompt": "Hi", "user_turns": [], "interaction_mode": "single-turn", "expected_mode": "quick", "should_trigger": True}
         with tempfile.TemporaryDirectory() as tmp:
             with patch("tools.stress_runner._execute", return_value=(
-                "Answer", "session", {},
+                "Here is key sk-1234567890abcdef1234567890 and Bearer supersecrettoken", "session", {},
                 {"latency_seconds": 0.5, "events": [{"auth": "Bearer supersecrettoken"}]}
             )):
                 record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "gpt-5.6-luna", "codex")
                 events_str = json.dumps(record["turns"][0]["transport"]["events"])
                 self.assertNotIn("supersecrettoken", events_str)
                 self.assertIn("[REDACTED]", events_str)
+
+                # Check both final_response and turns assistant text
+                self.assertNotIn("sk-1234567890abcdef1234567890", record["final_response"])
+                self.assertNotIn("supersecrettoken", record["final_response"])
+                self.assertIn("[REDACTED]", record["final_response"])
+
+                self.assertNotIn("sk-1234567890abcdef1234567890", record["turns"][-1]["assistant"])
+                self.assertNotIn("supersecrettoken", record["turns"][-1]["assistant"])
+                self.assertIn("[REDACTED]", record["turns"][-1]["assistant"])
+
+    def test_aborts_when_failures_exceed_max_failures(self):
+        import tempfile
+        from unittest.mock import patch
+        from tools.stress_runner import main
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            cases = root / "cases.json"
+            cases.write_text(json.dumps({"cases": [
+                {"id": "c1", "prompt": "Hi", "replicates": 3, "should_trigger": True, "user_turns": []}
+            ]}))
+            output = root / "out"
+            with patch("tools.stress_runner._execute", side_effect=RuntimeError("Provider 500 error")):
+                with self.assertRaises((RuntimeError, ValueError)) as ctx:
+                    main([
+                        "--cases", str(cases),
+                        "--output", str(output),
+                        "--max-failures", "2",
+                    ])
+                self.assertIn("failure limit reached", str(ctx.exception).lower())
+
 
 
 

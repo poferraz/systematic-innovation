@@ -326,15 +326,24 @@ def run_case(
             previous_counter = turns[-1].get("provider_usage_cumulative", {}).get("output_tokens", 0) if turns else 0
             counter = usage.get("output_tokens")
             output_tokens = counter - previous_counter if counter is not None and previous_counter is not None and counter >= previous_counter else None
-            turn_in_tokens = usage.get("input_tokens") or count_tokens(prompt)
+
+            previous_in_counter = turns[-1].get("provider_usage_cumulative", {}).get("input_tokens", 0) if turns else 0
+            in_counter = usage.get("input_tokens")
+            if in_counter is not None and previous_in_counter is not None and in_counter >= previous_in_counter:
+                incremental_in_tokens = in_counter - previous_in_counter
+            elif in_counter is not None:
+                incremental_in_tokens = in_counter
+            else:
+                incremental_in_tokens = count_tokens(prompt)
+
             turn_out_tokens = output_tokens if output_tokens is not None else count_tokens(assistant)
             if budget_tracker is not None:
-                budget_tracker.record_usage(turn_in_tokens, turn_out_tokens)
+                budget_tracker.record_usage(incremental_in_tokens, turn_out_tokens)
             turns.append(
                 {
                     "turn_index": turn_index,
-                    "user": prompt,
-                    "assistant": assistant,
+                    "user": redact_text(prompt),
+                    "assistant": redact_text(assistant),
                     "assistant_tokens": output_tokens,
                     "provider_usage_cumulative": usage,
                     "transport": transport,
@@ -348,10 +357,11 @@ def run_case(
                     "session_id": session_id, "turns": redact_obj(turns)}) + "\n")
                 temporary.replace(progress_path)
 
-    total_in = turns[-1].get("provider_usage_cumulative", {}).get("input_tokens")
+    redacted_turns = redact_obj(turns)
+    total_in = redacted_turns[-1].get("provider_usage_cumulative", {}).get("input_tokens")
     if total_in is None:
-        total_in = sum(count_tokens(t["user"]) for t in turns)
-    total_out = sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else sum(turn["assistant_tokens_estimate"] for turn in turns)
+        total_in = sum(count_tokens(t["user"]) for t in redacted_turns)
+    total_out = sum(turn["assistant_tokens"] for turn in redacted_turns) if all(turn["assistant_tokens"] is not None for turn in redacted_turns) else sum(turn["assistant_tokens_estimate"] for turn in redacted_turns)
     monetary_cost = (
         ((total_in / 1000.0) * cost_per_1k_input) + ((total_out / 1000.0) * cost_per_1k_output)
         if (cost_per_1k_input > 0.0 or cost_per_1k_output > 0.0)
@@ -370,18 +380,18 @@ def run_case(
         "preserve": case.get("preserve", []),
         "primary_source": case.get("primary_source"),
         "prompt_digest": prompt_digest,
-        "token_accounting": "provider_cumulative_differenced" if all(turn["assistant_tokens"] is not None for turn in turns) else "unavailable",
+        "token_accounting": "provider_cumulative_differenced" if all(turn["assistant_tokens"] is not None for turn in redacted_turns) else "unavailable",
         "skill_pack_sha256": hashlib.sha256(load_skill_pack(skill_dir).encode()).hexdigest() if condition == "skill_treatment" else None,
-        "turns": redact_obj(turns),
-        "final_response": turns[-1]["assistant"],
-        "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in turns) if all(turn["assistant_tokens"] is not None for turn in turns) else None,
-        "total_assistant_output_tokens_estimate": sum(turn["assistant_tokens_estimate"] for turn in turns),
-        "total_input_tokens": turns[-1].get("provider_usage_cumulative", {}).get("input_tokens"),
-        "total_latency_seconds": sum(turn["transport"]["latency_seconds"] for turn in turns)
-            if all(turn.get("transport", {}).get("latency_seconds") is not None for turn in turns) else None,
+        "turns": redacted_turns,
+        "final_response": redact_text(redacted_turns[-1]["assistant"]),
+        "total_assistant_output_tokens": sum(turn["assistant_tokens"] for turn in redacted_turns) if all(turn["assistant_tokens"] is not None for turn in redacted_turns) else None,
+        "total_assistant_output_tokens_estimate": sum(turn["assistant_tokens_estimate"] for turn in redacted_turns),
+        "total_input_tokens": redacted_turns[-1].get("provider_usage_cumulative", {}).get("input_tokens"),
+        "total_latency_seconds": sum(turn["transport"]["latency_seconds"] for turn in redacted_turns)
+            if all(turn.get("transport", {}).get("latency_seconds") is not None for turn in redacted_turns) else None,
         "monetary_cost": monetary_cost,
         "turn_1_question_count": sum(
-            1 for line in turns[0]["assistant"].splitlines() if line.strip().endswith("?")
+            1 for line in redacted_turns[0]["assistant"].splitlines() if line.strip().endswith("?")
         ),
     }
 
@@ -483,8 +493,19 @@ def _main(argv: Sequence[str] | None = None) -> int:
                 budget_tracker=tracker,
             )
             futures[future] = (case["id"], condition, replicate)
+        failures_seen: list[Exception] = []
         for future in as_completed(futures):
-            record = future.result()
+            try:
+                record = future.result()
+            except Exception as exc:
+                failures_seen.append(exc)
+                if tracker.failures >= tracker.max_failures:
+                    if "failure limit reached" in str(exc).lower():
+                        raise
+                    raise RuntimeError(
+                        f"Provider failure limit reached ({tracker.failures} >= {tracker.max_failures}): {redact_text(str(exc))}"
+                    )
+                continue
             output_path = args.output / f"{record['condition']}.jsonl"
             with output_path.open("a", encoding="utf-8") as handle:
                 handle.write(json.dumps(record) + "\n")
@@ -492,6 +513,8 @@ def _main(argv: Sequence[str] | None = None) -> int:
                 os.fsync(handle.fileno())
             print(f"Saved {record['condition']} {record['case_id']} rep {record['replicate']}: "
                   f"{record['total_assistant_output_tokens']} provider output tokens", flush=True)
+        if failures_seen:
+            raise failures_seen[0]
     return 0
 
 
