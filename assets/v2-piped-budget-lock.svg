@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-labelledby="title desc">
+  <title id="title">Piped Compact Syntax and Pre-Allocated Word Budget Lock</title>
+  <desc id="desc">Diagram of the Plan-and-Write 15/50/15/20 word allocation bar, Piped Compact line syntax, and observed word-count convergence on &lt;= 350w development and &lt;= 400w holdout budget tests.</desc>
+
+  <!-- Opaque outer container ensures legibility on both GitHub Light (#ffffff) and Dark (#0d1117) themes -->
+  <rect x="0" y="0" width="1200" height="500" rx="14" fill="#025d9c"/>
+  <rect x="2" y="2" width="1196" height="496" rx="12" fill="none" stroke="#0b77be" stroke-width="2"/>
+
+  <!-- Header -->
+  <line x1="36" y1="22" x2="1164" y2="22" stroke="#f5d818" stroke-width="2.5"/>
+  <text x="36" y="58" fill="#f5d818" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="0.6">PIPED COMPACT SYNTAX &amp; PRE-ALLOCATED WORD LOCK</text>
+  <text x="1164" y="57" text-anchor="end" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="600">FOR USER CEILINGS ≤ 500 WORDS</text>
+  <line x1="36" y1="76" x2="1164" y2="76" stroke="#f5d818" stroke-width="4"/>
+
+  <!-- Top Card: Plan-and-Write Proportional Allocation -->
+  <rect x="36" y="96" width="1128" height="142" rx="10" fill="#013861" stroke="#f5d818" stroke-width="1.8"/>
+  <text x="56" y="122" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800" letter-spacing="0.5">PLAN-AND-WRITE SLOT ALLOCATION (TARGET 80% OF CEILING · HARD STOP AT 85%)</text>
+
+  <!-- Segmented Proportional Bar (total width = 1088 from x=56 to 1144) -->
+  <!-- 15% = 163px -->
+  <rect x="56" y="134" width="163" height="44" rx="4" fill="#f5d818"/>
+  <text x="137" y="153" text-anchor="middle" fill="#00294a" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">15% L1 + L2</text>
+  <text x="137" y="170" text-anchor="middle" fill="#00294a" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="700">≤ 45 words</text>
+
+  <!-- 50% = 544px -->
+  <rect x="223" y="134" width="540" height="44" rx="4" fill="#0b77be" stroke="#bae6fd" stroke-width="1.2"/>
+  <text x="493" y="153" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12.5" font-weight="800">50% P1..Pn COMPACT LINES (≤ 38 tok/line)</text>
+  <text x="493" y="170" text-anchor="middle" fill="#e0f2fe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">Cap: 3–4 entries (≤350w) · 4–5 entries (351–500w)</text>
+
+  <!-- 15% = 163px -->
+  <rect x="767" y="134" width="160" height="44" rx="4" fill="#1b4d7e" stroke="#93c5fd" stroke-width="1.2"/>
+  <text x="847" y="153" text-anchor="middle" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">15% L4–L6</text>
+  <text x="847" y="170" text-anchor="middle" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">≤ 45 words</text>
+
+  <!-- 20% = 213px -->
+  <rect x="931" y="134" width="213" height="44" rx="4" fill="#00294a" stroke="#f5d818" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="1037" y="153" text-anchor="middle" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">20% BUFFER</text>
+  <text x="1037" y="170" text-anchor="middle" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">Punctuation (| &amp; →)</text>
+
+  <!-- Exact Piped Line Anatomy Bar -->
+  <rect x="56" y="190" width="1088" height="34" rx="5" fill="#00203a" stroke="#3b82b6" stroke-width="1"/>
+  <text x="72" y="211" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5" font-weight="700">TEMPLATE:</text>
+  <text x="148" y="211" fill="#ffffff" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">P1: &lt;Name&gt; | Lever: &lt;op&gt; | Intervention: &lt;where&gt; | Chain: A→B→C | Preserve: all L1 | Failure: &lt;risk&gt; | Fit: &lt;mode&gt;—&lt;guard&gt;</text>
+
+  <!-- Bottom Left Card: Dev Stress Case Convergence (<=350w) -->
+  <rect x="36" y="256" width="550" height="190" rx="10" fill="#01416f" stroke="#5aa3d6" stroke-width="1.5"/>
+  <text x="58" y="286" fill="#ffffff" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700">Dev Case: ≤ 350w Ceiling</text>
+  <text x="564" y="285" text-anchor="end" fill="#bae6fd" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">token-ceiling-portfolio</text>
+  <line x1="58" y1="298" x2="564" y2="298" stroke="#3b82b6" stroke-width="1"/>
+
+  <!-- Bar chart Left (x_bar=198, scale 600w = 198px -> 0.33px/w, so 350w = 115.5px -> x=313.5) -->
+  <line x1="314" y1="308" x2="314" y2="418" stroke="#f5d818" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="314" y="432" text-anchor="middle" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5" font-weight="700">350w CAP</text>
+
+  <text x="58" y="330" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600">Control Format</text>
+  <rect x="198" y="315" width="165" height="20" rx="3" fill="#ef4444"/>
+  <text x="410" y="330" fill="#fecaca" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="700">446 / 501w (OVER)</text>
+
+  <text x="58" y="364" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600">v2 Iter 1 → Iter 2</text>
+  <rect x="198" y="349" width="126" height="20" rx="3" fill="#fb923c"/>
+  <text x="410" y="364" fill="#fed7aa" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="700">356 / 382w (OVER)</text>
+
+  <text x="58" y="398" fill="#f5d818" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="800">v2 Final (Iter 3)</text>
+  <rect x="198" y="383" width="95" height="20" rx="3" fill="#f5d818"/>
+  <text x="410" y="398" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">286 / 289w PASS</text>
+  <text x="58" y="434" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5">4/4 clusters · lever 1.00 · 0 violations</text>
+
+  <!-- Bottom Right Card: Once-Only Holdout (<=400w) -->
+  <rect x="614" y="256" width="550" height="190" rx="10" fill="#01416f" stroke="#f5d818" stroke-width="2"/>
+  <text x="636" y="286" fill="#f5d818" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="18" font-weight="700">Once-Only Holdout: ≤ 400w Ceiling</text>
+  <text x="1142" y="285" text-anchor="end" fill="#bae6fd" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">holdout-budget</text>
+  <line x1="636" y1="298" x2="1142" y2="298" stroke="#3b82b6" stroke-width="1"/>
+
+  <!-- Bar chart Right (x_bar=776, scale 600w = 198px -> 0.33px/w, so 400w = 132px -> x=908) -->
+  <line x1="908" y1="308" x2="908" y2="418" stroke="#f5d818" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="908" y="432" text-anchor="middle" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5" font-weight="700">400w CAP</text>
+
+  <text x="636" y="330" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600">Oct 18 Restored</text>
+  <rect x="776" y="315" width="190" height="20" rx="3" fill="#ef4444"/>
+  <text x="992" y="330" fill="#fecaca" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="700">575w (OVER)</text>
+
+  <text x="636" y="364" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600">Control Format</text>
+  <rect x="776" y="349" width="148" height="20" rx="3" fill="#fb923c"/>
+  <text x="992" y="364" fill="#fed7aa" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="700">447w (OVER)</text>
+
+  <text x="636" y="398" fill="#f5d818" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="800">v2 Final (Holdout)</text>
+  <rect x="776" y="383" width="107" height="20" rx="3" fill="#f5d818"/>
+  <text x="992" y="398" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">323w PASS</text>
+  <text x="636" y="434" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5">5/5 clusters · lever 1.00 · VS 4.992</text>
+
+  <!-- Footer -->
+  <line x1="36" y1="462" x2="1164" y2="462" stroke="#f5d818" stroke-width="2"/>
+  <text x="36" y="483" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5">Grounding: Yuan et al. (EMNLP 2025); Hu et al. (EMNLP 2025 Findings) · Bounded codex exec (gpt-5.6-luna) diagnostic in evals/v2-loop/report.md</text>
+</svg>

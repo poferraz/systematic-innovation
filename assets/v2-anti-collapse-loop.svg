@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 580" width="1200" height="580" role="img" aria-labelledby="title desc">
+  <title id="title">How Systematic Innovation v2 Counters Probabilistic Mode Collapse</title>
+  <desc id="desc">Comparison of default autoregressive mode collapse near p greater than 0.30 against Systematic Innovation v2 using Currie invariant separation, Negative-Space Trope Quarantine, 7 Reasoning Cells with 2x2 forcing, Clustered Variety Floor, and Dual Selling-In / Selling-Out.</desc>
+
+  <!-- Opaque outer container ensures legibility on both GitHub Light (#ffffff) and Dark (#0d1117) themes -->
+  <rect x="0" y="0" width="1200" height="580" rx="14" fill="#025d9c"/>
+  <rect x="2" y="2" width="1196" height="576" rx="12" fill="none" stroke="#0b77be" stroke-width="2"/>
+
+  <!-- Editorial double yellow frame rules -->
+  <line x1="36" y1="22" x2="1164" y2="22" stroke="#f5d818" stroke-width="2.5"/>
+  <text x="36" y="58" fill="#f5d818" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="0.6">HOW v2 COUNTERS PROBABILISTIC MODE COLLAPSE</text>
+  <text x="1164" y="57" text-anchor="end" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12.5" font-weight="600" letter-spacing="0.8">RICKARDS (1985) × TAIL EXPLORATION</text>
+  <line x1="36" y1="76" x2="1164" y2="76" stroke="#f5d818" stroke-width="4"/>
+
+  <!-- LEFT PANEL: Default Autoregressive Mode Trap -->
+  <rect x="36" y="98" width="516" height="422" rx="10" fill="#01416f" stroke="#5aa3d6" stroke-width="1.5"/>
+  <text x="58" y="135" fill="#ffffff" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="21" font-weight="700">Default LLM Brainstorming</text>
+  <rect x="368" y="114" width="164" height="28" rx="4" fill="#00294a" stroke="#93c5fd" stroke-width="1"/>
+  <text x="450" y="132" text-anchor="middle" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700">MODE TRAP (p &gt; 0.30)</text>
+  <line x1="58" y1="152" x2="532" y2="152" stroke="#3b82b6" stroke-width="1"/>
+
+  <!-- Probability curve illustration inside Left Panel -->
+  <rect x="58" y="166" width="474" height="178" rx="8" fill="#00294a" stroke="#1e5c8a" stroke-width="1"/>
+  <line x1="78" y1="316" x2="512" y2="316" stroke="#60a5fa" stroke-width="1.5"/>
+  <!-- Shaded modal spike + flat tail -->
+  <path d="M 84 316 C 118 314, 146 184, 178 184 C 210 184, 234 306, 290 312 C 360 315, 440 315, 506 315 L 506 316 Z" fill="#f5d818" fill-opacity="0.14"/>
+  <path d="M 84 316 C 118 314, 146 184, 178 184 C 210 184, 234 306, 290 312 C 360 315, 440 315, 506 315" fill="none" stroke="#f87171" stroke-width="3"/>
+  <!-- Dashed modal collapse enclosure -->
+  <rect x="116" y="196" width="128" height="114" rx="8" fill="none" stroke="#fda4af" stroke-width="1.5" stroke-dasharray="5,4"/>
+  <rect x="122" y="202" width="116" height="19" rx="3" fill="#00294a"/>
+  <text x="180" y="215" text-anchor="middle" fill="#fecaca" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5" font-weight="700">TYPICALITY PEAK</text>
+  <rect x="128" y="226" width="104" height="22" rx="4" fill="#7f1d1d" stroke="#fca5a5" stroke-width="1"/>
+  <text x="180" y="241" text-anchor="middle" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">SMS / Reminders</text>
+  <rect x="128" y="253" width="104" height="22" rx="4" fill="#7f1d1d" stroke="#fca5a5" stroke-width="1"/>
+  <text x="180" y="268" text-anchor="middle" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">Build an App</text>
+  <rect x="128" y="280" width="104" height="22" rx="4" fill="#7f1d1d" stroke="#fca5a5" stroke-width="1"/>
+  <text x="180" y="295" text-anchor="middle" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11" font-weight="600">Fees / Discounts</text>
+
+  <!-- Unvisited tail callout -->
+  <line x1="305" y1="240" x2="494" y2="240" stroke="#93c5fd" stroke-width="1.2" stroke-dasharray="4,4"/>
+  <text x="400" y="228" text-anchor="middle" fill="#bae6fd" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="700">UNVISITED TAIL (p &lt; 0.10)</text>
+  <text x="400" y="264" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5">Distinct causal levers &amp;</text>
+  <text x="400" y="282" text-anchor="middle" fill="#cbd5e1" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="11.5">system boundaries missed</text>
+  <text x="295" y="335" text-anchor="middle" fill="#93c5fd" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="10.5">Autoregressive Sampling Probability</text>
+
+  <!-- Left panel bullets -->
+  <text x="58" y="374" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5" font-weight="700" letter-spacing="0.6">FAILURE MECHANISMS</text>
+  <text x="58" y="400" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">×  RLHF/DPO typicality bias rewards familiar phrases</text>
+  <text x="58" y="428" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">×  Noun-swapped variants share the same causal lever</text>
+  <text x="58" y="456" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">×  Conflates legacy delivery habit with real invariant</text>
+  <line x1="58" y1="476" x2="532" y2="476" stroke="#3b82b6" stroke-width="1"/>
+  <text x="58" y="500" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12">Zhang et al. (2025) · Deng, Brucks &amp; Toubia (2025)</text>
+
+  <!-- Center Transition Arrow -->
+  <line x1="559" y1="308" x2="578" y2="308" stroke="#f5d818" stroke-width="3.5"/>
+  <polygon points="577,300 591,308 577,316" fill="#f5d818"/>
+
+  <!-- RIGHT PANEL: Systematic Innovation v2 Anti-Collapse Funnel -->
+  <rect x="594" y="98" width="570" height="422" rx="10" fill="#013861" stroke="#f5d818" stroke-width="2.5"/>
+  <text x="616" y="135" fill="#f5d818" font-family="Georgia, Cambria, 'Times New Roman', serif" font-size="21" font-weight="700">Systematic Innovation v2</text>
+  <rect x="976" y="114" width="166" height="28" rx="4" fill="#f5d818"/>
+  <text x="1059" y="132" text-anchor="middle" fill="#00294a" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11" font-weight="800">ANTI-COLLAPSE LOOP</text>
+  <line x1="616" y1="152" x2="1142" y2="152" stroke="#f5d818" stroke-width="1.2" stroke-opacity="0.65"/>
+
+  <!-- Stage Card 1 -->
+  <rect x="616" y="166" width="526" height="84" rx="8" fill="#00294a" stroke="#5aa3d6" stroke-width="1"/>
+  <rect x="616" y="166" width="6" height="84" rx="3" fill="#f5d818"/>
+  <text x="636" y="191" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">01  CURRIE SPLIT + NEGATIVE-SPACE QUARANTINE</text>
+  <text x="636" y="214" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">Separate core invariants from replaceable legacy vehicles first.</text>
+  <text x="636" y="236" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12">Name &amp; exclude top 2–3 modal tropes before ledger entry (Ch. 3, Ch. 6).</text>
+
+  <!-- Down arrow 1 -> 2 -->
+  <line x1="879" y1="250" x2="879" y2="262" stroke="#f5d818" stroke-width="2"/>
+  <polygon points="873,260 885,260 879,268" fill="#f5d818"/>
+
+  <!-- Stage Card 2 -->
+  <rect x="616" y="270" width="526" height="84" rx="8" fill="#00294a" stroke="#5aa3d6" stroke-width="1"/>
+  <rect x="616" y="270" width="6" height="84" rx="3" fill="#f5d818"/>
+  <text x="636" y="295" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">02  7 CELLS × 2×2 FORCING + METAPHOR STRIPPING</text>
+  <text x="636" y="318" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">Cross independent causal axes (when × who holds artifact/risk).</text>
+  <text x="636" y="340" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12">Extract two-node causal graphs (A → B) and drop source-domain jargon.</text>
+
+  <!-- Down arrow 2 -> 3 -->
+  <line x1="879" y1="354" x2="879" y2="366" stroke="#f5d818" stroke-width="2"/>
+  <polygon points="873,364 885,364 879,372" fill="#f5d818"/>
+
+  <!-- Stage Card 3 -->
+  <rect x="616" y="374" width="526" height="84" rx="8" fill="#00294a" stroke="#5aa3d6" stroke-width="1"/>
+  <rect x="616" y="374" width="6" height="84" rx="3" fill="#f5d818"/>
+  <text x="636" y="399" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="12" font-weight="800">03  CLUSTERED VARIETY FLOOR + SELL-IN / SELL-OUT</text>
+  <text x="636" y="422" fill="#ffffff" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13.5" font-weight="600">Hold ≥ 5 causal clusters across cells (VS_k) before consolidation.</text>
+  <text x="636" y="444" fill="#dbeafe" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="12">Test internal Selling-In vs. external Selling-Out &amp; Yes-but guards (Ch. 8).</text>
+
+  <!-- Right panel footer -->
+  <line x1="616" y1="476" x2="1142" y2="476" stroke="#3b82b6" stroke-width="1"/>
+  <text x="616" y="500" fill="#f5d818" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-size="13" font-weight="700">✓  Diverse mechanisms across tail clusters · Zero unsolicited roadmaps</text>
+
+  <!-- Bottom rule & provenance note -->
+  <line x1="36" y1="538" x2="1164" y2="538" stroke="#f5d818" stroke-width="2"/>
+  <text x="36" y="560" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">CONCEPTUAL ARCHITECTURE · V2 SPEC: docs/superpowers/specs/2026-08-31-systematic-innovation-design.md</text>
+  <text x="1164" y="560" text-anchor="end" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5" font-weight="700">FRIEDMAN &amp; DIENG (2023) · RICKARDS (1985)</text>
+</svg>
