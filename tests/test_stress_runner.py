@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import re
 import unittest
 
 from tools.stress_runner import (
@@ -52,6 +53,24 @@ class StressRunnerTests(unittest.TestCase):
         cases = load_cases(ROOT / "evals/stress/cases.json")
         self.assertEqual(expected_run_count(cases), 42)
         self.assertEqual(sum(case["replicates"] for case in cases), 42)
+
+    def test_control_format_targets_match_canonical_skill_targets(self) -> None:
+        skill_text = (ROOT / "skills/systematic-innovation/SKILL.md").read_text(encoding="utf-8")
+        quick_match = re.search(r"\*\*(\d+\s+to\s+\d+)\s+distinct possibilities\*\* in one turn", skill_text)
+        deep_match = re.search(r"synthesize \*\*(\d+\s+to\s+\d+)\s+distinct possibilities\*\*", skill_text)
+        self.assertIsNotNone(quick_match, "Quick Mode target range missing in SKILL.md")
+        self.assertIsNotNone(deep_match, "Deep Mode target range missing in SKILL.md")
+        quick_target = quick_match.group(1)
+        deep_target = deep_match.group(1)
+        self.assertEqual(quick_target, "10 to 15")
+        self.assertEqual(deep_target, "15 to 24")
+
+        case_quick = {"id": "c1", "prompt": "Prompt", "expected_mode": "quick"}
+        case_deep = {"id": "c2", "prompt": "Prompt", "expected_mode": "deep"}
+        quick_prompt = build_user_prompts(case_quick, "control_format", ROOT / "skills/systematic-innovation")[0]
+        deep_prompt = build_user_prompts(case_deep, "control_format", ROOT / "skills/systematic-innovation")[0]
+        self.assertIn(quick_target, quick_prompt)
+        self.assertIn(deep_target, deep_prompt)
 
 
 class StressRunnerCommandTests(unittest.TestCase):

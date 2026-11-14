@@ -23,6 +23,30 @@ class SkillPortabilityUnitTests(unittest.TestCase):
             self.assertTrue(any("executable or non-markdown" in err for err in errors))
             self.assertTrue(any("provider-specific" in err for err in errors))
 
+    def test_validate_skill_rejects_broadened_provider_tokens_in_skill_and_evidence(self) -> None:
+        providers = ["gemini", "gpt", "openai", "anthropic", "copilot"]
+        for provider in providers:
+            with tempfile.TemporaryDirectory() as tmp:
+                skill = _create_valid_temp_skill(Path(tmp))
+                evidence = skill / "references/evidence.md"
+                evidence.write_text(f"# Evidence\nMentions {provider} here.\n", encoding="utf-8")
+                errors = validate_skill(skill)
+                self.assertTrue(
+                    any("provider-specific" in err and "evidence.md" in err for err in errors),
+                    f"Expected provider error for {provider} in evidence.md, got: {errors}",
+                )
+
+            with tempfile.TemporaryDirectory() as tmp:
+                skill = _create_valid_temp_skill(Path(tmp))
+                skill_md = skill / "SKILL.md"
+                text = skill_md.read_text(encoding="utf-8")
+                skill_md.write_text(f"{text}\nUses {provider} model.\n", encoding="utf-8")
+                errors = validate_skill(skill)
+                self.assertTrue(
+                    any("provider-specific" in err and "SKILL.md" in err for err in errors),
+                    f"Expected provider error for {provider} in SKILL.md, got: {errors}",
+                )
+
 
 class CanonicalSkillPortabilityTests(unittest.TestCase):
     def test_canonical_skill_is_portable_and_markdown_only(self) -> None:

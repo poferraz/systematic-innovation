@@ -172,6 +172,8 @@ The default output should be concise and evidence-informed. It should not turn e
 
 ## 6. Current Behavioral Architecture
 
+*(Historical summary as of 2026-10-17; `skills/systematic-innovation/` and approved specifications remain authoritative.)*
+
 The approved workflow is:
 
 1. Interpret the request and select Quick or Deep mode.

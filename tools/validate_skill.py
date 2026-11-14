@@ -6,7 +6,10 @@ import sys
 
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 LINK_RE = re.compile(r"\[[^\]]+\]\(([^)]+)\)")
-PROVIDER_RE = re.compile(r"\b(?:claude|codex|cursor|antigravity|pi)\b", re.IGNORECASE)
+PROVIDER_RE = re.compile(
+    r"\b(?:claude|codex|cursor|antigravity|pi|gemini|gpt|openai|anthropic|copilot)\b",
+    re.IGNORECASE,
+)
 REQUIRED_REFERENCES = (
     "innovation-lenses.md",
     "deep-mode.md",
@@ -74,10 +77,9 @@ def validate_skill(path: Path) -> list[str]:
             errors.append(f"executable or non-markdown file: {file_path.name}")
             continue
         _validate_links(file_path, skill_root, errors)
-        if file_path.name != "evidence.md":
-            content = file_path.read_text(encoding="utf-8")
-            if PROVIDER_RE.search(content):
-                errors.append(f"provider-specific instruction in {file_path.name}")
+        content = file_path.read_text(encoding="utf-8")
+        if PROVIDER_RE.search(content):
+            errors.append(f"provider-specific instruction in {file_path.name}")
 
     return errors
 
