@@ -121,6 +121,69 @@ class AuthorityTests(unittest.TestCase):
             supremacy_errors = [err for err in errors if "contractual supremacy" in err.lower()]
             self.assertEqual(supremacy_errors, [])
 
+            # Unnegated prose "supersede conflicting" triggers error
+            plan.write_text(
+                "# Bad Plan\nThis task will supersede conflicting architecture directives.\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            self.assertTrue(
+                any("contractual supremacy" in err.lower() for err in errors),
+                f"Expected supremacy error for 'supersede conflicting', got: {errors}",
+            )
+
+            # Negated prose "supersede conflicting" and backtick-quoted example do NOT trigger error
+            plan.write_text(
+                "# Good Plan\nPlans never supersede conflicting rules or specifications.\n"
+                "Example: `supersede conflicting` is a forbidden phrase.\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            supremacy_errors = [err for err in errors if "contractual supremacy" in err.lower()]
+            self.assertEqual(supremacy_errors, [], f"Expected no supremacy error, got: {supremacy_errors}")
+
+            # Editorial punctuation in negation is tolerated
+            plan.write_text(
+                "# Good Plan\nThis document does not, however, amend the specification in any way.\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            supremacy_errors = [err for err in errors if "contractual supremacy" in err.lower()]
+            self.assertEqual(supremacy_errors, [], f"Expected no supremacy error with editorial punctuation, got: {supremacy_errors}")
+
+            # Sentence boundary before unnegated supersession MUST trigger an error
+            plan.write_text(
+                "# Bad Plan\nWe will never do X. This plan will amend the specification.\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            self.assertTrue(
+                any("contractual supremacy" in err.lower() for err in errors),
+                f"Expected supremacy error across sentence boundary, got: {errors}",
+            )
+
+            # Multi-line / newline boundary before unnegated supersession MUST trigger an error
+            plan.write_text(
+                "# Bad Plan\nWe will never do X\nThis plan will amend the specification.\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            self.assertTrue(
+                any("contractual supremacy" in err.lower() for err in errors),
+                f"Expected supremacy error across newline boundary, got: {errors}",
+            )
+
+            # Tilde code fences (3+ tildes) and 4-backtick fences do NOT trigger false positives
+            plan.write_text(
+                "# Good Plan\n"
+                "~~~markdown\namend the specification\n~~~\n"
+                "````\nsupersede conflicting\n````\n",
+                encoding="utf-8",
+            )
+            errors = scan_authority(tmp_root)
+            supremacy_errors = [err for err in errors if "contractual supremacy" in err.lower()]
+            self.assertEqual(supremacy_errors, [], f"Expected code fences to be stripped cleanly, got: {supremacy_errors}")
+
     def test_authority_cli_subprocess_exits_zero_on_root(self) -> None:
         res = subprocess.run(
             [sys.executable, "-m", "tools.repository.authority"],

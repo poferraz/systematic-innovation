@@ -40,10 +40,11 @@ BROADENED_SUPERSEDING_PHRASES = (
     "amends the specification",
     "supersede the specification",
     "overrides the behavioral specification",
+    "supersede conflicting",
 )
 
 NEGATION_PREFIX_RE = re.compile(
-    r"\b(?:never|does not|do not|cannot|must not|nor)\s+[\w\s]{0,25}$",
+    r"\b(?:never|does not|do not|cannot|must not|nor)[ \t\w,\-—'\":]{0,30}$",
     re.IGNORECASE,
 )
 
@@ -116,15 +117,9 @@ def scan_authority(root: Path) -> list[str]:
     # Reject plan contractual-supremacy language
     plans_dir = root / "docs/superpowers/plans"
     if plans_dir.is_dir():
-        raw_forbidden = "supersede " + "conflicting"
         for plan in sorted(plans_dir.glob("*.md")):
             raw_text = plan.read_text(encoding="utf-8")
-            if raw_forbidden in raw_text.lower():
-                errors.append(f"plan claims contractual supremacy over specification: {plan.relative_to(root)}")
-                continue
-
-            # Check broadened supersession phrases stripping code blocks and respecting negation
-            clean_text = re.sub(r"```.*?```", "", raw_text, flags=re.DOTALL)
+            clean_text = re.sub(r"(`{3,}|~{3,}).*?\1", "", raw_text, flags=re.DOTALL)
             clean_text = re.sub(r"`[^`]*`", "", clean_text)
             for phrase in BROADENED_SUPERSEDING_PHRASES:
                 for match in re.finditer(re.escape(phrase), clean_text, re.IGNORECASE):
