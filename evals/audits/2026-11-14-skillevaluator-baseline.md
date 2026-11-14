@@ -14,7 +14,7 @@
 
 The pre-v2 canonical skill pack (`skills/systematic-innovation/`) underwent a full external baseline evaluation using NVIDIA's `SkillEvaluator` suite (Tier 1 Keyless Validation and Static Quality Gates).
 
-- **Tier 1 Validation Result:** **PASS** (9 of 9 applicable validators passed; 0 failed; 0 incomplete; 0 skipped; 4 N/A).
+- **Tier 1 Validation Result:** **PASS** (CLI reported 9 of 9 applicable checks passed, 0 failed, 0 incomplete, 0 skipped, 4 N/A; JSON records 13 validators with status `passed`, `overall_passed: true`).
 - **Deterministic Quality Score:** **86.0 / 100 (Grade: B)** (passing threshold: 70).
 - **Skill Type Detected:** `guide-only` (5 markdown files, 0 scripts, 0 code files).
 - **Security & Hygiene Status:** **Clean** (0 secrets, 0 PII findings, 0 injection vulnerabilities, 0 invisible Unicode smuggling characters, 0 broken relative markdown links).
@@ -38,7 +38,7 @@ The pre-v2 canonical skill pack (`skills/systematic-innovation/`) underwent a fu
 ### 1.3 PII Detection Scan
 - **Check Name:** `pii_scan`
 - **Status:** **PASS** (`[OK] pii_detection: No PII detected in 5 files (emails, SSNs, phone numbers, paths)`)
-- **Files Scanned:** 5 markdown files (`SKILL.md`, `references/heuristics.md`, `references/provocations.md`, `references/quality-rubric.md`, `references/system-dynamics-archetypes.md`).
+- **Files Scanned:** 5 markdown files (`SKILL.md`, `references/deep-mode.md`, `references/evidence.md`, `references/innovation-lenses.md`, `references/output-contract.md`).
 - **Findings:** 0 PII occurrences.
 
 ### 1.4 Unicode Smuggling Detection
@@ -62,13 +62,13 @@ SkillEvaluator evaluated the skill folder structure and YAML frontmatter against
 - `folder_hierarchy`: Valid general skill structure (`skills/systematic-innovation/`).
 - `naming_convention`: Folder name `systematic-innovation` follows kebab-case convention.
 - `name_consistency`: Folder name matches frontmatter `name: systematic-innovation`.
-- `body_heading`: SKILL.md body contains a valid top-level heading.
-- `optional_files`: Found supporting `references/` directory with 4 modular reference guides.
+- `body_heading`: SKILL.md body contains a valid top-level heading (`# Systematic Innovation`).
+- `optional_files`: Found supporting `references/` directory with 4 modular reference guides (`deep-mode.md`, `evidence.md`, `innovation-lenses.md`, `output-contract.md`).
 
 ### 2.2 Spec Discrepancies & Warnings
 SkillEvaluator flagged 3 schema-level recommendations:
 1. **`[SCHEMA-MEDIUM] Missing recommended section: '## Instructions'`**
-   - *Observation:* The skill organizes its body under `## Role Definition`, `## Core Workflow`, and `## Output Contract`.
+   - *Observation:* The skill organizes its body under `## Core Principle`, `## When Not to Trigger`, `## Mode Routing (Quick vs. Deep)`, `## The Innovation Brief & Preservation Scan`, `## Reasoning Cell Selection & Mechanism Ledger`, `## Ideation-Only & High-Stakes Guardrails`, and `## Reference Navigation` (lacks a section literally titled `## Instructions` or `## Usage`).
    - *Evaluator Guidance:* AgentSkills.io specification leaves body format unrestricted; however, adding an explicit `## Instructions` or `## Usage` heading provides a stable anchor for automated static analyzers.
 2. **`[SCHEMA-MEDIUM] Missing recommended section: '## Examples'`**
    - *Observation:* The canonical skill body points to operational layers without embedded end-to-end user session examples in `SKILL.md`.
@@ -78,10 +78,10 @@ SkillEvaluator flagged 3 schema-level recommendations:
    - *Evaluator Guidance:* Add `metadata.author` indicating team or organization.
 
 ### 2.3 Agent Harness Compatibility (Advisory)
-SkillEvaluator tested behavioral loading patterns across major agent harnesses:
+SkillEvaluator tested behavioral loading patterns across agent harnesses:
 - **GitHub Copilot CLI:** Advisory notice (`CP-RELOAD`): New skills appear after `/skills reload` or session restart.
 - **OpenCode:** Advisory notice (`OC-RELOAD`): Skill metadata and instructions are cached at startup; edits require session restart.
-- **Status:** **PASS** (zero syntax incompatibilities or invalid frontmatter keys across Claude Code, Copilot, Cursor, OpenCode, and Antigravity).
+- **Status:** **PASS** (`status: "passed"` in JSON; zero harness errors or degraded modes emitted, with the two advisory notifications noted above).
 
 ---
 
@@ -95,26 +95,26 @@ The deterministic quality scorer rated `skills/systematic-innovation/` across 4 
 | **Discoverability** | 25% | 90.0 / 100 | -10 pts (2 issues × 5 pts) | A |
 | **Reliability** | 25% | 85.0 / 100 | -15 pts (3 issues × 5 pts) | B |
 | **Efficiency** | 15% | 95.0 / 100 | -5 pts (1 issue × 5 pts) | A |
-| **Overall** | **100%** | **86.0 / 100** | **-50 pts weighted** | **B** |
+| **Overall** | **100%** | **86.0 / 100** | **-50 pts raw (-14.0 pts weighted: 0.35×20 + 0.25×10 + 0.25×15 + 0.15×5 = 14.0 → Score 86.0)** | **B** |
 
 ### 3.1 Token & Efficiency Metrics
 - **Total Estimated Tokens:** 2,565 tokens (~10,260 characters).
 - **Frontmatter Tokens:** 74 tokens.
-- **Instruction Tokens:** 2,488 tokens (well below the 5,000 recommended maximum budget).
+- **Instruction Tokens:** 2,488 tokens (well below the 5,000 recommended maximum budget; `recommended_max_tokens: 5000` in JSON metrics).
 - **Progressive Disclosure:** References split into `references/` sub-files, keeping the root manifest concise and focused.
 
 ### 3.2 Specific Quality Deductions & Warnings
 1. **Description Length (`[QUALITY-LOW]`):**
-   - *Observed:* Frontmatter description is 258 characters:  
-     `"Produces causally distinct, system-aware innovation possibilities while preserving what already works. Operates in Quick Mode (10-15 possibilities across core lenses) or Comprehensive Mode (15-24 possibilities with full system dynamics and mechanism transfer)."`
-   - *Benchmark Recommendation:* Recommend 50–150 characters for top-level routing, deferring mode explanations to the body.
+   - *Observed:* Frontmatter description is 258 characters (verbatim):  
+     `"Use when a user wants non-obvious ideas, systemic alternatives, assumption challenges, or ways out of a persistent tradeoff without breaking what already works. Do not use for factual lookup, debugging a known bug, or implementing an already-chosen solution."`
+   - *Benchmark Recommendation:* Recommend 50–150 characters for top-level routing for progressive disclosure, deferring trigger exclusions to the body.
 2. **Missing Purpose / Limitations / Troubleshooting Sections (`[QUALITY-LOW]`):**
    - Skill lacks dedicated Markdown section headers `## Purpose`, `## Prerequisites`, `## Limitations`, and `## Troubleshooting`.
    - *Impact:* Evaluator reliability heuristics look for explicit error/recovery and failure boundary headings.
 3. **Language Complexity (`[QUALITY-LOW]`):**
    - Flaggable word choices flagged by readability heuristic (e.g., preference for "use" over "utilize" or dense domain vocabulary).
-4. **License Notice in Skill Folder (`[LICENSE-INFO]`):**
-   - The repository has a top-level `LICENSE` file, but `skills/systematic-innovation/` does not duplicate a `LICENSE` file or declare `license:` in frontmatter.
+4. **License Compliance Notice:**
+   - In `License Compliance`, check `license_compliance` completed with `status: "passed"` and message `"License compliance scan completed (not detected)"` (`license_status: "not_detected"`). SkillEvaluator emitted an advisory notice: `"No license information found - manual review required. Add a LICENSE file or 'license' field in frontmatter."` (The repository has a root `LICENSE` file, but `skills/systematic-innovation/` does not include a separate `LICENSE` file or frontmatter `license:` field).
 
 ---
 
@@ -125,9 +125,9 @@ The deterministic quality scorer rated `skills/systematic-innovation/` across 4 
 | Evaluator Finding | Severity | Systematic Innovation Architecture Intent | Recommended Action |
 | :--- | :---: | :--- | :--- |
 | **Missing frontmatter version / author / tags** | Medium | Frontmatter currently has minimal fields (`name`, `description`). Adding `version: "2.0.0"`, `metadata.author`, and domain tags (`innovation`, `system-dynamics`, `triz`) improves catalog discoverability. | **Adopt in Phase E:** Add structured metadata fields during v2 skill packaging. |
-| **Description length (258 chars vs 50–150)** | Low | The 258-char description summarizes Quick and Comprehensive modes. A tighter prompt trigger helps LLM router models avoid context dilution. | **Adopt in Phase E:** Tighten trigger summary to ~120 chars; move mode details to body. |
-| **Missing `## Instructions`, `## Purpose`, `## Limitations` headings** | Medium / Low | The current body uses custom headings (`## Core Workflow`, `## Output Contract`). Standardizing headings aligns with agent skill heuristics without losing behavioral rigor. | **Adopt in Phase E:** Reorganize sections into standard headings with preserved behavioral text. |
-| **No inline code block examples in SKILL.md** | Medium | The skill references methodology but does not provide an end-to-end worked example in the root manifest. | **Triage:** Retain worked examples in reference files or add a compact example block in `references/examples.md` to prevent token bloat in `SKILL.md`. |
+| **Description length (258 chars vs 50–150)** | Low | The 258-char description concisely defines both positive and negative trigger boundaries. A tighter trigger summary helps LLM router models avoid context dilution. | **Adopt in Phase E:** Tighten trigger summary to ~120 chars; move negative triggers into `## When Not to Trigger`. |
+| **Missing `## Instructions`, `## Purpose`, `## Limitations` headings** | Medium / Low | The current body uses domain headings (`## Core Principle`, `## Mode Routing`, `## The Innovation Brief & Preservation Scan`, etc.). Standardizing or augmenting section anchors aligns with agent skill heuristics without losing behavioral rigor. | **Adopt in Phase E:** Reorganize sections into standard headings with preserved behavioral text. |
+| **No inline code block examples in SKILL.md** | Medium | The skill references methodology but does not provide an end-to-end worked example in the root manifest. | **Triage:** Retain worked examples in reference files or add a compact example block in `references/evidence.md` / `output-contract.md` to prevent token bloat in `SKILL.md`. |
 
 ### 4.2 Owner Decision Checkpoint: Optional Tier 1 LLM Rubric & Tier 3 Live Skill Lift
 
