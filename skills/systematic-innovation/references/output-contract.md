@@ -28,6 +28,7 @@ Identify actors, incentives, dependencies, existing strengths, failed approaches
   - **Quick Mode:** **10 to 15** causally distinct possibilities.
   - **Deep Mode:** **15 to 24** causally distinct possibilities.
   - **Saturation Rule:** Stop when one targeted transformation pass yields zero or one new mechanism. If a narrow problem saturates below the target, say so rather than padding variants.
+  - A preservation-first or no-change conclusion is valid when novelty would add cost or risk without meaningful value.
 - **Required Fields per Possibility (`P1`..`Pn`):**
   - **Memorable name**, **Intended value**, **Portfolio category** (sustaining, adjacent, disruptive, or constraint removal; non-quota signals), and **Originating lens**.
   - **Descriptive Tag** (non-quota orientation label such as *Temporal Inversion*, *Boundary Re-Partition*, *Subtraction Compact*, *Artifact Poka-Yoke*, or *Ecosystem Co-Production*).

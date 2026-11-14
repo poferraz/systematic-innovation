@@ -150,6 +150,10 @@ The user can override routing with requests including:
 6. Compare selected possibilities.
 7. Expand a particular possibility.
 
+### 6.4 Execution-channel precedence
+
+Explicit user overrides hold highest precedence. When the execution channel permits only a single turn (one-shot API, immediate response, or no user reply path), deliver the complete portfolio immediately and record unresolved assumptions in Layer 1 rather than stalling in Deep discovery questions, even if the challenge is complex or Deep mode was requested.
+
 ## 7. Innovation Brief
 
 Every session establishes:
@@ -263,6 +267,10 @@ Possibilities may be tagged as:
 4. Constraint removal.
 
 These tags support balance but are not quotas. A “no change” or preservation-first conclusion is valid when novelty would add cost without meaningful benefit.
+
+### 12.1 User-requested output budgets
+
+An explicit user word or token ceiling overrides normal candidate breadth and verbosity. Target 80% of the stated ceiling, compress shared context before dropping distinct mechanisms, use a compact plain-text six-layer format for ceilings of 500 words or fewer, and label budget-limited reductions explicitly rather than calling them mechanism saturation.
 
 ## 13. Progressive Output Contract
 

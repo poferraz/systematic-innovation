@@ -18,7 +18,7 @@ To maintain strict intellectual honesty, every concept in `systematic-innovation
 
 | Adapted Method | Classical Inspiration | How It Is Adapted for Agentic Ideation |
 | :--- | :--- | :--- |
-| **Preservation-First System Scan** | Systems theory and Lawrence/Lorsch differentiation-integration balance discussed by Rickards (1985, Ch. 7–8). | Requires inventorying what already works and must remain intact before proposing changes. |
+| **Preservation-First System Scan** | Systems theory and Lawrence/Lorsch differentiation-integration balance discussed by Rickards (1985, Ch. 4, pp. 70–77). | Requires inventorying what already works and must remain intact before proposing changes. |
 | **Diagnostic problem-finding** | Creative problem solving and client-consultant contracting. | Informs choosing decision-relevant unknowns; the seven-question ceiling and provisional-seed workflow are project-original. |
 | **Multiple redefinition, morphological analysis, synectic excursions** | Established creative problem-solving operators discussed in the approved source record. | Supplies lenses for reframing, recombination and transfer; this pack does not verify additional year-level or chapter-level citations for each operator. |
 | **Formal provocation and movement** | Established lateral-thinking methods associated with de Bono. | Translates a provocative stepping-stone into a safe mechanism; detailed bibliographic claims are not verified here. |

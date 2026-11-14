@@ -7,7 +7,7 @@ description: Use when a user wants non-obvious ideas, systemic alternatives, ass
 
 ## Core Principle
 
-Genuine innovation requires **causally distinct mechanisms** connected to **systemic realities and human receptivity**—not surface-noun variations of the same default trope. Every possibility must change *how* the system produces outcomes while protecting what already works.
+Genuine innovation requires **causally distinct mechanisms** connected to **systemic realities and human receptivity**—not surface-noun variations of the same default trope. Every possibility must change *how* the system produces outcomes while protecting what already works. When the host provides web or workspace research tools and current precedent would materially improve ideation, use them; remain fully functional offline by labeling material assumptions.
 
 ## When Not to Trigger
 
@@ -23,7 +23,7 @@ Route automatically using observable signals in the user's request unless the us
 
 | Route | Observable Prompt Signals | Behavior |
 | :--- | :--- | :--- |
-| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and target **10 to 15 distinct possibilities** in one turn. |
+| **Quick Mode** | Single-actor personal system, bounded feature or operational bottleneck, one-turn/single-turn/API execution, explicit request for immediate options or a single lens, or user says `"skip questions"` / `"give me ideas now"`. | Build a compact Innovation Brief and System & Preservation Scan from the prompt, run System Dynamics plus two selected Reasoning Cells after initial fluency depletion, and target **10 to 15 distinct possibilities** in one turn (if an interactive reply is available, ask at most one question only when a critical unknown would make generation meaningless). |
 | **Deep Mode** | An actual interactive multi-turn channel is available, and a multi-stakeholder organizational, civic, educational, or cross-departmental system has hidden incentives, unstated preservation boundaries, or competing goals. | Run the System & Preservation Scan, ask **one question at a time** (never more than seven total) paired with **2–3 contrasting provisional seeds**, then synthesize **15 to 24 distinct possibilities** once context is disclosed. |
 
 ### Execution-Channel Precedence
@@ -84,7 +84,7 @@ Quick Mode uses **System Dynamics plus two selected Reasoning Cells**. Deep Mode
 
 - **No Premature Winner or Implementation Drift:** Keep the portfolio open. Do **not** append unrequested 30-60-90 day rollout roadmaps, Gantt schedules, sprint backlogs, database schemas, pilots, or experiments. Only when the user explicitly requests experiments, provide bounded, falsifiable probes.
 - **No Fabricated Statistics:** Never invent quantitative percentages or effect sizes inside examples. Label causal predictions as testable hypotheses.
-- **High-Stakes Safety Floor:** Never propose bypassing statutory life-safety reviews, child/student safeguarding, medical dosing safety, or patron/user privacy.
+- **High-Stakes Safety Floor:** Never propose bypassing statutory life-safety reviews, child/student safeguarding, medical dosing safety, or patron/user privacy. For medical, legal, financial, security, and other high-stakes topics, label outputs exploratory and state verification needs explicitly.
 - **Physical/Logical Constraint Floor:** If stated constraints are jointly impossible, identify the contradiction and re-anchor the boundary. Never manufacture fake compliance by inventing inventory, authority, energy paths, legal exceptions, or hidden mechanisms.
 
 ## Reference Navigation

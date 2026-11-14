@@ -14,6 +14,10 @@ Before populating the portfolio:
 
 Quick Mode uses **System Dynamics plus two selected Reasoning Cells**. Deep Mode uses **five or six selected Reasoning Cells**. Each selected cell produces **Two to four candidate mechanisms**, their intervention point, a concise causal explanation, and a distinction from mechanisms already present.
 
+### Cross-Cell Operators
+- **Morphological recombination:** Decompose into independent causal dimensions and recombine non-obvious pairings.
+- **Subtraction:** Remove a legacy component, rule, or step to reveal whether value improves.
+
 ### System Dynamics
 Change or exploit feedback, dependencies, delays, and leverage points. Map stocks, flows, accumulation, and the point where a small structural shift can change the system's behavior.
 

@@ -204,5 +204,39 @@ class SkillBehaviorContractTests(unittest.TestCase):
             self.assertIn(mechanism, evidence)
         self.assertNotIn("Seven Reasoning Cells (Cells A–G)", evidence)
 
+    def test_behavioral_spec_includes_execution_channel_and_budget_precedence(self) -> None:
+        spec = (ROOT / "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md").read_text(encoding="utf-8")
+        self.assertIn("### 6.4 Execution-channel precedence", spec)
+        self.assertIn("### 12.1 User-requested output budgets", spec)
+
+    def test_skill_pack_implements_spec_research_nochg_highstakes_quick_q_and_lenses(self) -> None:
+        skill = read("SKILL.md")
+        lenses = read("references/innovation-lenses.md")
+        contract = read("references/output-contract.md")
+        evidence = read("references/evidence.md")
+
+        # F-09: Capability-aware research when host provides tools (§15)
+        self.assertIn("host provides", skill.lower())
+        self.assertIn("offline", skill.lower())
+
+        # F-10: Valid preservation-first / no-change conclusion (§12)
+        self.assertIn("no-change", contract.lower())
+        self.assertIn("preservation-first", contract.lower())
+
+        # F-21: High-stakes exploratory + verification needs labeling (§14)
+        self.assertIn("exploratory", skill.lower())
+        self.assertIn("verification needs", skill.lower())
+
+        # F-22: Quick mode one critical question allowance (§6.1)
+        self.assertIn("critical unknown", skill.lower())
+
+        # F-23: Morphological recombination and subtraction operational cues (§10)
+        self.assertIn("Morphological recombination", lenses)
+        self.assertIn("Subtraction", lenses)
+
+        # F-17: Corrected Lawrence/Lorsch chapter locator in Rickards (1985)
+        self.assertIn("Ch. 4", evidence)
+        self.assertNotIn("Ch. 7–8", evidence)
+
 if __name__ == "__main__":
     unittest.main()
