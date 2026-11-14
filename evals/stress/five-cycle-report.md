@@ -2,7 +2,7 @@
 
 This report preserves raw evidence under `evals/stress/results/`. It records public development observations only. The canonical skill remains the sole behavioral authority; the runner and scorer are host mechanics.
 
-**Latest status:** Cycles 1–5 are logged, followed by a Cycle 6 measurement repair. Earlier candidate/diversity estimates are versioned historical diagnostics. No calibrated primary effect, ablation attribution, specification conformance, optimality, or universal non-hallucination claim is established. The behavioral-contract decision remains pending.
+**Latest status:** Cycles 1–5 are logged, followed by a Cycle 6 measurement repair. Earlier candidate/diversity estimates are versioned historical diagnostics. No calibrated primary effect, ablation attribution, specification conformance, optimality, or universal non-hallucination claim is established. Addendum (2026-10-17): The owner restored the approved behavioral contract in a36903a; Cycles 1–6 evaluate the pre-restoration candidate and are superseded by evals/restored-2026-10-18/report.md.
 
 ## Cycle 1 — Baseline Stress Exposure
 

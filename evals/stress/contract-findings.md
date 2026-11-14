@@ -1,6 +1,6 @@
 # Recovered Behavioral Contract Discrepancies
 
-This is an evaluation finding, not a behavioral authority or specification amendment. The approved specifications remain authoritative. The owner decision requested during session recovery is pending.
+This is an evaluation finding, not a behavioral authority or specification amendment. The approved specifications remain authoritative. This historical audit recorded discrepancies resolved by the owner's 2026-10-17 restoration decision documented below.
 
 | Boundary | Approved behavioral specification | Recovered canonical skill | Decision needed |
 | :-- | :-- | :-- | :-- |

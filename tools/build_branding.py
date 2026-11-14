@@ -183,7 +183,7 @@ banner_html = f"""<!DOCTYPE html>
 
       <rect x="382" y="14" width="136" height="54" fill="none" stroke="#f5d818" stroke-width="2.5"/>
       <text x="450" y="38" text-anchor="middle" fill="#f5d818" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" font-weight="800" letter-spacing="1">3. VALIDATE</text>
-      <text x="450" y="55" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">Learning Probes</text>
+      <text x="450" y="55" text-anchor="middle" fill="#ffffff" font-family="'Plus Jakarta Sans', sans-serif" font-size="11" font-weight="600">User Continuation</text>
 
       <path d="M 450 68 L 450 96 L 70 96 L 70 68" fill="none" stroke="#f5d818" stroke-width="2" stroke-dasharray="5,5"/>
       <polygon points="70,68 65,77 75,77" fill="#f5d818"/>
@@ -194,7 +194,7 @@ banner_html = f"""<!DOCTYPE html>
   <div class="footer-section">
     <div class="footer-row">
       <div class="author">After Tudor Rickards</div>
-      <div class="meta-right">Pilot Lift: +162% Causal Density · 0% Roadmap Drift</div>
+      <div class="meta-right">Exploratory Design · Ideation-First · Preservation-Safe</div>
     </div>
     <div class="rule-bottom"></div>
   </div>
@@ -347,13 +347,13 @@ comparison_html = f"""<!DOCTYPE html>
 <body>
   <div class="header">
     <h2>Mode Collapse vs. Mechanism Diversity</h2>
-    <span>22 Fresh-Context Pilot Runs</span>
+    <span>Conceptual Comparison · Design Goals</span>
   </div>
   <div class="grid">
     <div class="panel">
       <div class="panel-title">
         <h3>Vanilla LLM Brainstorming</h3>
-        <span class="badge">0.90 MECH / 1K TOK</span>
+        <span class="badge">DEFAULT MODE</span>
       </div>
       <div class="boxes">
         <div class="box"><span class="lbl">IDEA 1</span><span class="sub">Same Lever</span></div>
@@ -363,16 +363,16 @@ comparison_html = f"""<!DOCTYPE html>
         <div class="box"><span class="lbl">IDEA 5</span><span class="sub">Same Lever</span></div>
       </div>
       <div class="footer-bar">
-        <span>✕ 0/10 Turn-1 Discovery</span>
-        <span>✕ 55% Duplicate Collapse</span>
-        <span>✕ 90% Roadmap Drift</span>
+        <span>✕ Skips Discovery</span>
+        <span>✕ Paraphrase Clustering</span>
+        <span>✕ Premature Roadmaps</span>
       </div>
     </div>
 
     <div class="panel active">
       <div class="panel-title">
         <h3>Systematic Innovation</h3>
-        <span class="badge">2.35 MECH / 1K TOK (+162%)</span>
+        <span class="badge">CAUSAL STRUCTURE</span>
       </div>
       <div class="boxes">
         <div class="box"><span class="lbl">LEVER A</span><span class="sub">Incentives</span></div>
@@ -382,9 +382,9 @@ comparison_html = f"""<!DOCTYPE html>
         <div class="box"><span class="lbl">LEVER E</span><span class="sub">Subtraction</span></div>
       </div>
       <div class="footer-bar">
-        <span>✓ 10/10 Turn-1 Restraint</span>
-        <span>✓ 100% Preservation Scan</span>
-        <span>✓ 1–2 Wk Probes</span>
+        <span>✓ Progressive Discovery</span>
+        <span>✓ Preservation Ledger</span>
+        <span>✓ User-Directed Continuation</span>
       </div>
     </div>
   </div>
@@ -519,17 +519,17 @@ arch_html = f"""<!DOCTYPE html>
     <div class="step">
       <div class="num">04 · LAYER 2</div>
       <h4>Mechanism Ledger</h4>
-      <p>Enforce 5 structural dimensions</p>
+      <p>Compare causal &amp; structural axes</p>
     </div>
     <div class="step">
       <div class="num">05 · LAYERS 3–6</div>
       <h4>Action Portfolio</h4>
-      <p>Ch. 8 Receptivity &amp; 1–2 Wk Probes</p>
+      <p>Ch. 8 Receptivity &amp; Continuation</p>
     </div>
   </div>
 
   <div class="feedback">
-    <span>▲ DEEP MODE: TURN-1 RESTRAINT (&le; 4 Questions + 3 Seeds)</span>
+    <span>▲ DEEP MODE: ONE QUESTION AT A TIME (&le; 7 Max) + 2–3 SEEDS</span>
     <span>QUICK MODE: SINGLE-TURN 6-LAYER PORTFOLIO ▲</span>
   </div>
 </body>
@@ -649,12 +649,12 @@ demo_html = f"""<!DOCTYPE html>
     <div class="card">
       <div class="card-head">
         <h3>Turn 1: Diagnostic Restraint</h3>
-        <span class="pill">413 TOKENS</span>
+        <span class="pill">TURN 1</span>
       </div>
       <div class="items">
         <div class="item"><strong>PRESERVE</strong><span>100% individual customer ownership &amp; commission</span></div>
         <div class="item"><strong>QUARANTINE</strong><span>Team pool splits, paid CRM software, cash spiffs</span></div>
-        <div class="item"><strong>DISCOVER</strong><span>4 surgical questions on day-off handoffs &amp; quotes</span></div>
+        <div class="item"><strong>DISCOVER</strong><span>1 high-leverage question on day-off handoffs (one at a time, max 7)</span></div>
         <div class="item"><strong>3 SEEDS</strong><span>Contrasting 1-sentence directional previews</span></div>
       </div>
       <div class="note">✓ Zero premature solution dumping before constraints</div>
@@ -663,15 +663,15 @@ demo_html = f"""<!DOCTYPE html>
     <div class="card">
       <div class="card-head">
         <h3>Turn 2: Six-Layer Portfolio</h3>
-        <span class="pill">6 DISTINCT LEVERS</span>
+        <span class="pill">PORTFOLIO</span>
       </div>
       <div class="items">
         <div class="item"><strong>P1 INCENTIVE</strong><span>90/10 Prepared Handoff Card vs. 75/25 Cold Rescue</span></div>
         <div class="item"><strong>P2 QUEUE</strong><span>Up-Queue Podium Immunity while assisting peers</span></div>
         <div class="item"><strong>P3 SCHEMA</strong><span>Back-of-Tag Field Notes crediting Category Curators</span></div>
-        <div class="item"><strong>P4 CH. 8 PATH</strong><span>3 Stakeholder Hearings + 5-day paper card probe</span></div>
+        <div class="item"><strong>P4 CH. 8 PATH</strong><span>Receptivity, Yes-But Safeguards &amp; User Continuation</span></div>
       </div>
-      <div class="note">✓ 8.2x efficiency lift over vanilla baseline (1.36 vs 0.17)</div>
+      <div class="note">✓ Conceptual walkthrough — illustrative structure, not a benchmark claim</div>
     </div>
   </div>
 </body>
