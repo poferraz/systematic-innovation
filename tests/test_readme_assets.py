@@ -43,13 +43,26 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
             self.assertNotIn("http://", stripped, f"{name} must not fetch remote assets")
             self.assertNotIn("https://", stripped, f"{name} must not fetch remote assets")
 
+            view_parts = root.attrib["viewBox"].replace(",", " ").split()
+            self.assertEqual(len(view_parts), 4, f"{name} must have 4-number viewBox")
+            vb_w, vb_h = float(view_parts[2]), float(view_parts[3])
+
             rects = [elem for elem in root.iter() if elem.tag.endswith("rect")]
             self.assertTrue(
-                any(elem.attrib.get("fill") not in (None, "", "none", "transparent") for elem in rects),
-                f"{name} must include an opaque background <rect> for light/dark GitHub legibility",
+                any(
+                    elem.attrib.get("fill") not in (None, "", "none", "transparent")
+                    and elem.attrib.get("x", "0") in ("0", "0px")
+                    and elem.attrib.get("y", "0") in ("0", "0px")
+                    and float(elem.attrib.get("width", "0")) >= vb_w
+                    and float(elem.attrib.get("height", "0")) >= vb_h
+                    for elem in rects
+                ),
+                f"{name} must include a full-canvas opaque backdrop <rect> for light/dark GitHub legibility",
             )
             for forbidden in FORBIDDEN_ASSET_STRINGS:
                 self.assertNotIn(forbidden, raw, f"{name} contains forbidden string: {forbidden}")
+            for leak in ("/Users/", "/home/", "C:\\"):
+                self.assertNotIn(leak, raw, f"{name} contains local filesystem path leak: {leak}")
 
     def test_readme_embeds_verified_v2_assets_and_reports(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -71,6 +84,11 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
             "Piped Compact",
         ):
             self.assertIn(required, readme, f"README.md missing v2 reference: {required}")
+
+        for guarded in ("README.md", "tools/build_branding.py"):
+            text = (ROOT / guarded).read_text(encoding="utf-8")
+            for leak in ("/Users/", "/home/", "C:\\"):
+                self.assertNotIn(leak, text, f"{guarded} contains local path leak: {leak}")
 
 
 if __name__ == "__main__":

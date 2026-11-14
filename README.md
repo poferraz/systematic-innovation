@@ -30,7 +30,7 @@ Standard LLM brainstorming suffers from **post-training typicality bias**: RLHF 
 Instead of unstructured brainstorming lists, `systematic-innovation` enforces:
 - **Invariant vs. Vehicle Separation:** Distinguishes non-negotiable survival constraints from replaceable legacy delivery habits before ideation begins.
 - **Negative-Space Trope Quarantine:** Explicitly names and bans the domain's top modal clichés in negative space so exploration moves beyond surface phrasing swaps.
-- **Orthogonal Causal Dispatch:** Explores Rickards' seven mechanism cells, `2×2` forcing matrices, and metaphor stripping ([`references/innovation-lenses.md`](skills/systematic-innovation/references/innovation-lenses.md)) under the single canonical authority of [`skills/systematic-innovation/SKILL.md`](skills/systematic-innovation/SKILL.md).
+- **Orthogonal Causal Dispatch:** Explores seven project-original Reasoning Cells, `2×2` forcing matrices, and metaphor stripping ([`references/innovation-lenses.md`](skills/systematic-innovation/references/innovation-lenses.md)) under the single canonical authority of [`skills/systematic-innovation/SKILL.md`](skills/systematic-innovation/SKILL.md).
 - **Clustered Variety & Preservation Floor:** Enforces distinct causal clusters across ideas and attaches explicit preservation checks to every option.
 - **Upfront Refusal Gate:** Screens out covert evasion or unsafe bypass requests before generating any candidate portfolio.
 
@@ -69,7 +69,7 @@ The canonical router in [`skills/systematic-innovation/SKILL.md`](skills/systema
 | Module | Word Count | Purpose |
 | --- | ---: | --- |
 | [`skills/systematic-innovation/SKILL.md`](skills/systematic-innovation/SKILL.md) | `1,640` | Canonical router, safety refusal gate, anti-collapse core loop, and mode contracts |
-| [`skills/systematic-innovation/references/innovation-lenses.md`](skills/systematic-innovation/references/innovation-lenses.md) | `779` | Rickards' seven mechanism cells, `2×2` orthogonal axes, and metaphor stripping |
+| [`skills/systematic-innovation/references/innovation-lenses.md`](skills/systematic-innovation/references/innovation-lenses.md) | `779` | Seven project-original Reasoning Cells, `2×2` orthogonal axes, and metaphor stripping |
 | [`skills/systematic-innovation/references/deep-mode.md`](skills/systematic-innovation/references/deep-mode.md) | `541` | Multi-turn stakeholder discovery, boundary routing, and constraint elicitation |
 | [`skills/systematic-innovation/references/output-contract.md`](skills/systematic-innovation/references/output-contract.md) | `1,223` | Standard, Deep, and **Piped Compact** formatting and word-budget allocation |
 | [`skills/systematic-innovation/references/evidence.md`](skills/systematic-innovation/references/evidence.md) | `1,144` | Empirical anti-collapse grounding, Vendi/Verbalized Sampling concepts, and Rickards alignment |
@@ -117,7 +117,15 @@ mkdir -p .agents/skills && ln -sfn "$PWD/skills/systematic-innovation" .agents/s
 
 # Claude Code (personal skills directory):
 mkdir -p "$HOME/.claude/skills" && ln -sfn "$PWD/skills/systematic-innovation" "$HOME/.claude/skills/systematic-innovation"
+
+# Antigravity / Cursor:
+mkdir -p "$HOME/.gemini/antigravity/skills" && ln -sfn "$PWD/skills/systematic-innovation" "$HOME/.gemini/antigravity/skills/systematic-innovation"
+mkdir -p .cursor/skills && ln -sfn "$PWD/skills/systematic-innovation" .cursor/skills/systematic-innovation
 ```
+
+### Direct Markdown Loading (Universal Fallback)
+
+For hosts without automated Agent Skills directory discovery, load [`skills/systematic-innovation/SKILL.md`](skills/systematic-innovation/SKILL.md) as active system/project instructions alongside its four progressive modules in [`skills/systematic-innovation/references/`](skills/systematic-innovation/references/) (`innovation-lenses.md`, `deep-mode.md`, `output-contract.md`, `evidence.md`).
 
 ### Repository Verification Commands
 
@@ -140,7 +148,7 @@ If you build upon the evaluation harness or progressive skill architecture, cite
 ```bibtex
 @software{systematic_innovation_2026,
   title  = {systematic-innovation: A Systems-Oriented Agent Skill and Evaluation Laboratory},
-  author = {Ferraz, Pedro},
+  author = {Systematic Innovation Contributors},
   year   = {2026},
   url    = {https://github.com/poferraz/systematic-innovation}
 }

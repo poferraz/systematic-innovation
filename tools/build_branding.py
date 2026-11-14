@@ -203,7 +203,7 @@ def build_banner_html() -> str:
       <div class="card">
         <div class="card-kicker mono">02 · DE-COLLAPSE</div>
         <div class="card-title">Trope Quarantine</div>
-        <div class="card-desc">Bans a domain's default cliches first, then dispatches Rickards' 7 cells plus clustered variety checks.</div>
+        <div class="card-desc">Bans a domain's top 2–3 cliches first, then dispatches 7 mechanism cells plus clustered variety checks.</div>
       </div>
       <div class="card">
         <div class="card-kicker mono">03 · BUDGET LOCK</div>
@@ -361,7 +361,7 @@ def build_comparison_html() -> str:
           </div>
           <div class="row">
             <div class="tag mono">MISSING INVARIANTS</div>
-            <div class="copy">Format control failed to name what must survive; public holdout scored <strong>0.0 lever coverage</strong>.</div>
+            <div class="copy">Format control omitted Preserve checks and scored <strong>0.0 causal lever coverage</strong> on holdout.</div>
           </div>
           <div class="row">
             <div class="tag mono">BUDGET SPILLOVER</div>
@@ -381,7 +381,7 @@ def build_comparison_html() -> str:
         <div class="rows">
           <div class="row">
             <div class="tag mono">TROPE QUARANTINE</div>
-            <div class="copy">Bans the domain's first 3–5 cliches in negative space before dispatching Rickards' 7 mechanism cells.</div>
+            <div class="copy">Bans the domain's top 2–3 cliches in negative space before dispatching 7 orthogonal mechanism cells.</div>
           </div>
           <div class="row">
             <div class="tag mono">CLUSTERED VARIETY</div>
@@ -525,8 +525,8 @@ def build_architecture_html() -> str:
       <div class="arrow">→</div>
       <div class="stage">
         <div class="stage-num mono">STAGE 03 · LENSES</div>
-        <div class="stage-title">Rickards Dispatch</div>
-        <div class="stage-body">Runs Quick single-cell jump, 2×2 Orthogonal Matrix, 7 Mechanism Cells &amp; Metaphor Strip.</div>
+        <div class="stage-title">Causal Dispatch</div>
+        <div class="stage-body">Runs 3-cell Quick dispatch (System Dynamics + 2 cells), 2×2 Axes &amp; Metaphor Strip.</div>
         <div class="stage-ref mono">innovation-lenses.md</div>
       </div>
       <div class="arrow">→</div>
@@ -534,7 +534,7 @@ def build_architecture_html() -> str:
         <div class="stage-num mono">STAGE 04 · FLOOR</div>
         <div class="stage-title">Clustered Variety</div>
         <div class="stage-body">Verbalized Sampling diversity floor + Preserve check guaranteeing non-negotiable survival.</div>
-        <div class="stage-ref mono">deep-mode + evidence</div>
+        <div class="stage-ref mono">lenses + output-contract</div>
       </div>
       <div class="arrow">→</div>
       <div class="stage">
@@ -661,6 +661,7 @@ def build_quick_demo_html() -> str:
       border-radius: 5px;
       background: #025d9c;
       color: #ffffff;
+      white-space: nowrap;
     }
     .chip.gold {
       background: #f5d818;
@@ -708,23 +709,23 @@ def build_quick_demo_html() -> str:
     <div class="grid">
       <div class="left">
         <div>
-          <div class="kicker mono">INPUT SPEC &amp; QUARANTINE</div>
+          <div class="kicker mono">RURAL CLINIC TRACE · L1 BRIEF &amp; QUARANTINE</div>
           <div class="prompt-box">
-            <strong>Goal:</strong> Cut community clinic no-shows under a strict &lt;= 350w piped ceiling without risking acute care.
+            <strong>Prompt:</strong> Rural clinic appointment no-shows under &lt;= 350w. Preserve continuity of care; no new clinical staff.
           </div>
           <div class="spec-list">
-            <div><strong>Invariant:</strong> Clinical triage safety &amp; urgent follow-up reliability.</div>
-            <div><strong>Vehicle:</strong> Static patient-only reminder cadence.</div>
-            <div><strong>Trope Quarantine:</strong> More SMS reminders · blind overbooking · punitive fees · generic waitlists.</div>
+            <div><strong>Preserve (L1):</strong> continuity of care · no new clinical staff · equitable access · privacy.</div>
+            <div><strong>Constraints:</strong> existing resources; metrics inferred.</div>
+            <div><strong>Quarantine:</strong> SMS reminders · late fees · gamified streaks.</div>
           </div>
         </div>
-        <div class="mono" style="font-size:11px; color:#93c5fd; border-top:1px solid rgba(255,255,255,0.14); padding-top:9px;">
-          FORMAT: Cell | Mechanism | Preserve | Test &lt;= 500w
+        <div class="mono" style="font-size:10.5px; color:#93c5fd; border-top:1px solid rgba(255,255,255,0.14); padding-top:9px;">
+          SYNTAX: P1: &lt;Name&gt; | Lever | Intervention | Chain | Preserve | Failure | Fit
         </div>
       </div>
       <div class="right">
         <div class="telemetry">
-          <div class="telemetry-title">Four Orthogonally Clustered Mechanisms</div>
+          <div class="telemetry-title">Excerpted Rep-1 Portfolio · All L1 Preserved</div>
           <div class="chips mono">
             <span class="chip gold">286w / 350w CAP</span>
             <span class="chip">4.0 CLUSTERS</span>
@@ -734,24 +735,24 @@ def build_quick_demo_html() -> str:
         </div>
         <div class="options">
           <div class="opt">
-            <div class="opt-head mono">01 · WORKFLOW [PRE-VISIT]</div>
-            <div class="opt-body">Zero-app one-tap reschedule matched with transport &amp; slot confirmation at booking time.</div>
+            <div class="opt-head mono">P1 · RIDE-LINKED RELEASE [conditional capacity]</div>
+            <div class="opt-body"><strong>Booking rules:</strong> transport uncertainty → early release → fill. <em>Fit: negotiative—opt-in, no penalty.</em></div>
           </div>
           <div class="opt">
-            <div class="opt-head mono">02 · COMMITMENT [SIGNAL]</div>
-            <div class="opt-body">Two-way attendance check at T-48h replacing passive broadcast alerts with active handoff.</div>
+            <div class="opt-head mono">P2 · NEIGHBOR FILL WINDOW [reciprocal coordination]</div>
+            <div class="opt-body"><strong>Cancel channel:</strong> likely absence → local network notify → nearby fill. <em>Fit: participative—consent-gated.</em></div>
           </div>
           <div class="opt">
-            <div class="opt-head mono">03 · POOLING [CAPACITY]</div>
-            <div class="opt-body">Reserved same-day acute buffer blocks absorbing late drops without double-booking clinicians.</div>
+            <div class="opt-head mono">P3 · TRAVEL-BUNDLED CLINICS [temporal accumulation]</div>
+            <div class="opt-body"><strong>Schedule design:</strong> dispersed demand → same-area grouped visits. <em>Fit: mission—protect urgent slots.</em></div>
           </div>
           <div class="opt">
-            <div class="opt-head mono">04 · CHANNEL [LOGISTICS]</div>
-            <div class="opt-body">Caregiver or community health worker escort trigger when barrier flags appear at intake.</div>
+            <div class="opt-head mono">P4 · ARRIVAL-PROBLEM CONVERSION [liability reversal]</div>
+            <div class="opt-body"><strong>Check-in process:</strong> late/no arrival → reason captured → timing adapts. <em>Fit: mission—no-shame intake.</em></div>
           </div>
         </div>
         <div class="preserve-bar">
-          <strong>Preserve Guard + Test:</strong> Every piped row names the clinical-safety check to keep intact plus one measurable pilot trigger (holdout: 323w &lt;= 400w, 5/5 Preserve).
+          <strong>Preserve: all L1 + L4–L6:</strong> Spotlights (Selling-In/Out), shared tensions, and user-directed continuation — zero unrequested probes or automatic winner.
         </div>
       </div>
     </div>
