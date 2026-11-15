@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling>=1.26,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "systematic-innovation-bench"
+version = "0.1.0"
+description = "Provider-neutral controlled systematic ideation benchmark"
+requires-python = ">=3.11,<3.15"
+dependencies = ["pydantic>=2.8,<3", "PyYAML>=6,<7", "numpy>=2,<3"]
+
+[project.scripts]
+sib = "systematic_innovation_bench.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<9", "pytest-cov>=5,<7", "ruff>=0.6,<1", "mypy>=1.11,<2", "types-PyYAML>=6,<7", "jsonschema>=4,<5", "types-jsonschema>=4,<5"]
+
+[tool.uv]
+required-version = "==0.12.8"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.mypy]
+# Follow the active CI interpreter and its matching dependency stubs.
+# The Python 3.11 matrix job checks the compatibility floor.
+strict = true

@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "Condition": {
+      "enum": [
+        "vanilla",
+        "generic-brainstorm",
+        "format-matched",
+        "established-method",
+        "full-skill",
+        "ablation"
+      ],
+      "title": "Condition",
+      "type": "string"
+    },
+    "ConversationScript": {
+      "additionalProperties": false,
+      "properties": {
+        "user_turns": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "User Turns",
+          "type": "array"
+        },
+        "maximum_assistant_turns": {
+          "default": 0,
+          "title": "Maximum Assistant Turns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user_turns"
+      ],
+      "title": "ConversationScript",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "single-turn",
+        "controlled-multi-turn"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "minLength": 1,
+      "title": "Run Id",
+      "type": "string"
+    },
+    "case_id": {
+      "minLength": 1,
+      "title": "Case Id",
+      "type": "string"
+    },
+    "condition": {
+      "$ref": "#/$defs/Condition"
+    },
+    "replicate": {
+      "minimum": 0,
+      "title": "Replicate",
+      "type": "integer"
+    },
+    "model": {
+      "minLength": 1,
+      "title": "Model",
+      "type": "string"
+    },
+    "host": {
+      "minLength": 1,
+      "title": "Host",
+      "type": "string"
+    },
+    "prompt": {
+      "title": "Prompt",
+      "type": "string"
+    },
+    "created_at": {
+      "format": "date-time",
+      "title": "Created At",
+      "type": "string"
+    },
+    "split": {
+      "default": "development",
+      "enum": [
+        "development",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "interaction_mode": {
+      "$ref": "#/$defs/InteractionMode",
+      "default": "single-turn"
+    },
+    "conversation_script": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ConversationScript"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "system_instructions": {
+      "default": "",
+      "title": "System Instructions",
+      "type": "string"
+    },
+    "model_parameters": {
+      "additionalProperties": true,
+      "title": "Model Parameters",
+      "type": "object"
+    },
+    "job_id": {
+      "default": "",
+      "title": "Job Id",
+      "type": "string"
+    },
+    "prompt_sha256": {
+      "default": "",
+      "title": "Prompt Sha256",
+      "type": "string"
+    }
+  },
+  "required": [
+    "run_id",
+    "case_id",
+    "condition",
+    "replicate",
+    "model",
+    "host",
+    "prompt",
+    "created_at"
+  ],
+  "title": "Job",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

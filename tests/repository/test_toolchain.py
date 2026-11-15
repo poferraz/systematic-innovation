@@ -23,3 +23,14 @@ class ToolchainTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class BenchmarkToolchainTests(unittest.TestCase):
+    def test_benchmark_dependency_environment_is_isolated_and_locked(self) -> None:
+        data = tomllib.loads((ROOT / "benchmark/pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(data["project"]["requires-python"], ">=3.11,<3.15")
+        self.assertEqual(data["tool"]["uv"]["required-version"], "==0.12.8")
+        lock = tomllib.loads((ROOT / "benchmark/uv.lock").read_text(encoding="utf-8"))
+        self.assertEqual(lock["requires-python"], ">=3.11, <3.15")
+        names = {package["name"] for package in lock["package"]}
+        self.assertTrue({"pydantic", "pyyaml", "numpy", "pytest", "ruff", "mypy"} <= names)

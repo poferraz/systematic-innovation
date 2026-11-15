@@ -1,0 +1,21 @@
+run_id: offline-example
+models: [fake]
+model_allowlist: [fake]
+hosts: [subprocess]
+conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+replicates: 1
+split: development
+dry_run: false
+max_calls: 70
+max_cost: 1.0
+cost_per_turn: {fake: 0.01}
+max_concurrency: 2
+retry_limit: 0
+failure_threshold: 0.2
+max_output_tokens: 1024
+adapter_command: [python, tests/fixtures/fake_agent.py]
+allowed_executables: [python]
+environment_allowlist: []
+secret_environment_keys: []
+timeout_seconds: 10
+max_output_bytes: 65536

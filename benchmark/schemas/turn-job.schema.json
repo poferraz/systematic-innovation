@@ -1,0 +1,159 @@
+{
+  "$defs": {
+    "ConversationTurn": {
+      "additionalProperties": false,
+      "properties": {
+        "turn_index": {
+          "minimum": 1,
+          "title": "Turn Index",
+          "type": "integer"
+        },
+        "role": {
+          "enum": [
+            "user",
+            "assistant"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "content": {
+          "title": "Content",
+          "type": "string"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Output Tokens"
+        },
+        "cost": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cost"
+        },
+        "latency_seconds": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Seconds"
+        },
+        "timestamp": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timestamp"
+        }
+      },
+      "required": [
+        "turn_index",
+        "role",
+        "content"
+      ],
+      "title": "ConversationTurn",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "job_id": {
+      "minLength": 1,
+      "title": "Job Id",
+      "type": "string"
+    },
+    "assistant_turn_index": {
+      "minimum": 2,
+      "multipleOf": 2,
+      "title": "Assistant Turn Index",
+      "type": "integer"
+    },
+    "transcript": {
+      "items": {
+        "$ref": "#/$defs/ConversationTurn"
+      },
+      "minItems": 1,
+      "title": "Transcript",
+      "type": "array"
+    },
+    "system_instructions": {
+      "default": "",
+      "title": "System Instructions",
+      "type": "string"
+    },
+    "model": {
+      "default": "",
+      "title": "Model",
+      "type": "string"
+    },
+    "host": {
+      "default": "inbox",
+      "title": "Host",
+      "type": "string"
+    },
+    "model_parameters": {
+      "additionalProperties": true,
+      "title": "Model Parameters",
+      "type": "object"
+    },
+    "attempt": {
+      "default": 0,
+      "minimum": 0,
+      "title": "Attempt",
+      "type": "integer"
+    },
+    "turn_id": {
+      "default": "",
+      "title": "Turn Id",
+      "type": "string"
+    }
+  },
+  "required": [
+    "job_id",
+    "assistant_turn_index",
+    "transcript"
+  ],
+  "title": "TurnJob",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

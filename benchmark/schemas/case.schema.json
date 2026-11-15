@@ -1,0 +1,166 @@
+{
+  "$defs": {
+    "ConversationScript": {
+      "additionalProperties": false,
+      "properties": {
+        "user_turns": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "User Turns",
+          "type": "array"
+        },
+        "maximum_assistant_turns": {
+          "default": 0,
+          "title": "Maximum Assistant Turns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user_turns"
+      ],
+      "title": "ConversationScript",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "single-turn",
+        "controlled-multi-turn"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "minLength": 1,
+      "title": "Id",
+      "type": "string"
+    },
+    "family": {
+      "minLength": 1,
+      "title": "Family",
+      "type": "string"
+    },
+    "domain": {
+      "minLength": 1,
+      "title": "Domain",
+      "type": "string"
+    },
+    "split": {
+      "enum": [
+        "development",
+        "validation",
+        "test"
+      ],
+      "title": "Split",
+      "type": "string"
+    },
+    "prompt": {
+      "minLength": 1,
+      "title": "Prompt",
+      "type": "string"
+    },
+    "strata": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "minProperties": 1,
+      "title": "Strata",
+      "type": "object"
+    },
+    "expected_mode": {
+      "anyOf": [
+        {
+          "enum": [
+            "quick",
+            "deep"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Expected Mode"
+    },
+    "should_trigger": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Should Trigger"
+    },
+    "interaction_mode": {
+      "$ref": "#/$defs/InteractionMode",
+      "default": "single-turn"
+    },
+    "conversation_script": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ConversationScript"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "id",
+    "family",
+    "domain",
+    "split",
+    "prompt",
+    "strata"
+  ],
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "interaction_mode": {
+            "const": "controlled-multi-turn"
+          }
+        },
+        "required": [
+          "interaction_mode"
+        ]
+      },
+      "then": {
+        "required": [
+          "conversation_script"
+        ],
+        "properties": {
+          "conversation_script": {
+            "$ref": "#/$defs/ConversationScript"
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "conversation_script": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "properties": {
+        "split": {
+          "const": "development"
+        }
+      }
+    }
+  ]
+}

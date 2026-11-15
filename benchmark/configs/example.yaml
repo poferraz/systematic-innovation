@@ -1,0 +1,15 @@
+run_id: example-dry-run
+split: development
+dry_run: true
+models: [example-model]
+model_allowlist: [example-model]
+hosts: [inbox]
+conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+replicates: 1
+max_calls: 50
+max_cost: 5.0
+max_concurrency: 2
+retry_limit: 1
+failure_threshold: 0.20
+max_output_tokens: 4096
+cost_per_turn: {}
