@@ -38,6 +38,17 @@ class WorkflowAndPackagingTests(unittest.TestCase):
                 f"Expected full 40-char commit SHA pin for GitHub Action: {target}",
             )
 
+    def test_benchmark_ci_uses_locked_isolated_checks_on_supported_matrix(self) -> None:
+        workflow = (ROOT / ".github/workflows/ci.yml").read_text(encoding="utf-8")
+        self.assertIn("  benchmark:", workflow)
+        self.assertIn("working-directory: benchmark", workflow)
+        self.assertIn('version: "0.12.8"', workflow)
+        for version in ("3.11", "3.13", "3.14"):
+            self.assertIn('"'+version+'"', workflow)
+        for command in ("uv lock --check", "uv run --locked pytest -q", "uv run --locked ruff check .", "uv run --locked mypy src"):
+            self.assertIn(command, workflow)
+        self.assertIn("--stage full", workflow)
+
     def test_dependabot_config_exists_and_uses_monthly_reviewable_schedule(self) -> None:
         dependabot_path = ROOT / ".github/dependabot.yml"
         self.assertTrue(dependabot_path.is_file(), "Expected .github/dependabot.yml to exist")

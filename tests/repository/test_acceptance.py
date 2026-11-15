@@ -31,8 +31,8 @@ class AcceptanceTests(unittest.TestCase):
         for cid in ("AR-08", "AR-09"):
             self.assertEqual(
                 rows[cid]["status"],
-                "not-ready",
-                f"Expected {cid} to remain 'not-ready' until benchmark/ package is built",
+                "passed",
+                f"Expected {cid} to pass the implemented benchmark evidence gates",
             )
 
     def test_rejects_aggregate_scores_invalid_states_and_missing_evidence_files(self) -> None:
@@ -70,7 +70,10 @@ class AcceptanceTests(unittest.TestCase):
     def test_blocking_criteria_cannot_be_offset_and_stage_gating_works(self) -> None:
         base = json.loads(ACCEPTANCE_PATH.read_text(encoding="utf-8"))
 
-        # Full acceptance fails while AR-08 and AR-09 are 'not-ready'
+        # A synthetic not-ready dimension remains blocking despite other passes.
+        for row in base["criteria"]:
+            if row["id"] in ("AR-08", "AR-09"):
+                row["status"] = "not-ready"
         full_ok, full_blockers = evaluate_acceptance(base, root=ROOT, stage="full")
         self.assertFalse(full_ok)
         self.assertTrue(any("AR-08" in b for b in full_blockers))
@@ -101,7 +104,7 @@ class AcceptanceTests(unittest.TestCase):
             capture_output=True,
             text=True,
         )
-        self.assertEqual(res_full.returncode, 1)
+        self.assertEqual(res_full.returncode, 0, res_full.stdout + res_full.stderr)
         self.assertIn("AR-08", res_full.stdout)
         self.assertIn("AR-09", res_full.stdout)
 

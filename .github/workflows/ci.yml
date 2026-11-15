@@ -31,5 +31,31 @@ jobs:
         run: python3 -m tools.repository.authority
       - name: Run repository isolation and validation checks
         run: python3 -m tools.repository validate
-      - name: Run repository-shell architecture acceptance check
-        run: python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage repository-shell
+      - name: Run full architecture acceptance check
+        run: python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage full
+
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13", "3.14"]
+    defaults:
+      run:
+        working-directory: benchmark
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9
+        with:
+          version: "0.12.8"
+          python-version: ${{ matrix.python-version }}
+      - name: Verify dependency lock
+        run: uv lock --check
+      - name: Test public benchmark
+        run: uv run --locked pytest -q
+      - name: Lint benchmark
+        run: uv run --locked ruff check .
+      - name: Typecheck benchmark
+        run: uv run --locked mypy src

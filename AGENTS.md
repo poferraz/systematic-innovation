@@ -37,7 +37,7 @@ Plans execute approved specifications and never amend or supersede them.
 
 ## Validation Commands
 
-Repository tests use Python's standard library `unittest` (`pytest` is not used):
+Root repository tests use Python's standard library `unittest`. The isolated `benchmark/` package uses pytest:
 
 - `python3 -m unittest discover tests -v`
 - `python3 tools/validate_skill.py skills/systematic-innovation`
@@ -45,12 +45,19 @@ Repository tests use Python's standard library `unittest` (`pytest` is not used)
 - `python3 -m tools.repository validate`
 - `python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage repository-shell`
 
-## Next Workstream Ready for Execution
+## Workstream 2 Completion and Next Boundary
 
-The canonical skill (`skills/systematic-innovation/`, `100.0/100 Grade A` on `NVIDIA/SkillEvaluator`) and the complete repository evidence shell (`tools/repository/`, `release/`, `compatibility/`, `docs/governance/control-register.md`, `evidence/architecture/acceptance.json` with `AR-01..AR-07` and `AR-10..AR-12` passing) are complete on `main`.
+The formal `benchmark/` runner, fail-closed restricted preflight, 60 public development cases, and draft study contracts are implemented. `evidence/architecture/acceptance.json` records AR-01 through AR-12; see `benchmark/runner-verification.md` for scope and retained verification. Root tooling remains standard-library only.
 
-The next workstream ready for a coding agent is **Workstream 2 — Formal `benchmark/` Package** (which unlocks `AR-08` and `AR-09` in `evidence/architecture/acceptance.json`):
+The canonical skill is frozen (`SKILL.md` SHA-256 `d5971f6e3e646916e2a287c5a8fde96a93b811ed071c362526c605ef222a890b`). Do not modify `skills/systematic-innovation/` without an approved behavioral amendment.
 
-1. Execute [`docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md`](docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md) Tasks 1–13 (`benchmark/pyproject.toml`, typed records, case validation, controlled multi-turn runner, append-only store, redaction, inbox/subprocess adapters, mechanism scoring with `F-32` Hungarian bipartite matching, bootstrap CI statistics, and reporting).
-2. Execute Coordinated Task 6 (`benchmark/src/systematic_innovation_bench/restricted_preflight.py`, `benchmark/schemas/restricted-preflight.schema.json`, `docs/security/restricted-execution.md`) from [`docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md`](docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md).
-3. Update `AR-08` and `AR-09` in [`evidence/architecture/acceptance.json`](evidence/architecture/acceptance.json) and verify `python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage full`.
+Benchmark checks (from `benchmark/`, uv 0.12.8):
+
+- `uv lock --check`
+- `uv run --locked pytest -q`
+- `uv run --locked ruff check .`
+- `uv run --locked mypy src`
+
+Full repository acceptance: `python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage full`.
+
+**Pause boundary:** Study Tasks 9–14 remain unexecuted: live six-case feasibility, twelve-case measurement rehearsal, 60-case development, human calibration, restricted validation, cross-agent evaluation, and sealed testing. Preregistration is `draft`; scientific stage statuses remain pending. No empirical efficacy or broad compatibility claim follows from implementation or fake-adapter tests. Follow `benchmark/HANDOFF.md` and obtain the applicable owner/operator authorization before live studies, restricted access, publication, or pushing to origin.

@@ -103,26 +103,40 @@
     {
       "id": "AR-08",
       "criterion": "Restricted execution fails closed",
-      "status": "not-ready",
+      "status": "passed",
       "evidence": [
-        "docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md",
-        "docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md",
-        "SECURITY.md"
+        "benchmark/src/systematic_innovation_bench/restricted_preflight.py",
+        "benchmark/schemas/restricted-preflight.schema.json",
+        "benchmark/configs/restricted-preflight.example.yaml",
+        "benchmark/tests/test_restricted_preflight.py",
+        "benchmark/tests/test_restricted_pack.py",
+        "docs/security/restricted-execution.md",
+        "benchmark/runner-verification.md"
       ],
       "checked_at": "2026-11-14",
-      "authoritative_gate": "Pending Coordinated Task 6 (benchmark/src/systematic_innovation_bench/restricted_preflight.py)"
+      "authoritative_gate": "cd benchmark && uv run --locked pytest tests/test_restricted_preflight.py tests/test_restricted_pack.py -q"
     },
     {
       "id": "AR-09",
       "criterion": "Benchmark safeguards remain aligned",
-      "status": "not-ready",
+      "status": "passed",
       "evidence": [
-        "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md",
-        "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md",
-        "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md"
+        "benchmark/study/preregistration.yaml",
+        "benchmark/study/stage-gates.yaml",
+        "benchmark/study/analysis-plan.md",
+        "benchmark/study/human-calibration.md",
+        "benchmark/study/public-corpus-review.md",
+        "benchmark/tests/test_preregistration.py",
+        "benchmark/tests/test_public_corpus.py",
+        "benchmark/tests/test_conversation.py",
+        "benchmark/tests/test_judges.py",
+        "benchmark/tests/test_mechanisms.py",
+        "benchmark/tests/test_statistics.py",
+        "benchmark/tests/test_reporting.py",
+        "benchmark/runner-verification.md"
       ],
       "checked_at": "2026-11-14",
-      "authoritative_gate": "Pending formal benchmark/ package and study preregistration gates"
+      "authoritative_gate": "cd benchmark && uv run --locked pytest tests/test_preregistration.py tests/test_public_corpus.py tests/test_conversation.py tests/test_judges.py tests/test_mechanisms.py tests/test_statistics.py tests/test_reporting.py -q"
     },
     {
       "id": "AR-10",
