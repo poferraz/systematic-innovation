@@ -17,9 +17,14 @@ restricted/
 *.validation.yaml
 systematic-innovation-session.bundle
 
-# Ensure repository authority/authoring modules are never masked by global *auth* patterns
+# Ensure repository authority/authoring modules and synthetic isolation test fixtures are never masked
 !*authority*
 !*authoring*
+!tests/repository/fixtures/
+!tests/repository/fixtures/**
+!tests/repository/fixtures/leaking-tree/
+!tests/repository/fixtures/leaking-tree/restricted/
+!tests/repository/fixtures/leaking-tree/restricted/validation.yaml
 
 sources/
 

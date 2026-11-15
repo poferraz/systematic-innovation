@@ -1,0 +1,54 @@
+{
+  "schema_version": "1.0.0",
+  "profiles": {
+    "format-only": {
+      "description": "Canonical directory conforms to the declared Agent Skills format version.",
+      "min_distinct_families": 1,
+      "required_dimensions": {
+        "format_conformance": ["passed"]
+      }
+    },
+    "explicit-invocation": {
+      "description": "Host installs and explicitly activates the canonical skill with verified behavioral conformance.",
+      "min_distinct_families": 1,
+      "required_dimensions": {
+        "format_conformance": ["passed"],
+        "installation": ["passed"],
+        "explicit_activation": ["passed"],
+        "behavioral_conformance": ["passed"]
+      }
+    },
+    "discovered-explicit": {
+      "description": "Host installs, discovers, and explicitly activates the canonical skill with verified behavioral conformance.",
+      "min_distinct_families": 1,
+      "required_dimensions": {
+        "format_conformance": ["passed"],
+        "installation": ["passed"],
+        "discovery": ["passed"],
+        "explicit_activation": ["passed"],
+        "behavioral_conformance": ["passed"]
+      }
+    },
+    "automatic-invocation": {
+      "description": "Host installs, discovers, and automatically activates the canonical skill on representative natural-language prompts with verified behavioral conformance.",
+      "min_distinct_families": 1,
+      "required_dimensions": {
+        "format_conformance": ["passed"],
+        "installation": ["passed"],
+        "discovery": ["passed"],
+        "automatic_activation": ["passed"],
+        "behavioral_conformance": ["passed"]
+      }
+    },
+    "broad-cross-agent": {
+      "description": "Broad cross-agent compatibility claim requiring at least three distinct agent families with passing format, installation, explicit activation, and behavioral conformance.",
+      "min_distinct_families": 3,
+      "required_dimensions": {
+        "format_conformance": ["passed"],
+        "installation": ["passed"],
+        "explicit_activation": ["passed"],
+        "behavioral_conformance": ["passed"]
+      }
+    }
+  }
+}

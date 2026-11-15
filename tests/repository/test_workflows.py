@@ -22,6 +22,7 @@ class WorkflowAndPackagingTests(unittest.TestCase):
         self.assertNotIn("secrets.", workflow)
         self.assertIn("python3 -m unittest discover -s tests -v", workflow)
         self.assertIn("python3 tools/validate_skill.py skills/systematic-innovation", workflow)
+        self.assertIn("python3 -m tools.repository validate", workflow)
 
     def test_agents_md_lists_validation_commands_and_loop_docs(self) -> None:
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")

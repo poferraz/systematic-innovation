@@ -42,3 +42,4 @@ Repository tests use Python's standard library `unittest` (`pytest` is not used)
 - `python3 -m unittest discover tests -v`
 - `python3 tools/validate_skill.py skills/systematic-innovation`
 - `python3 -m tools.repository.authority`
+- `python3 -m tools.repository validate`

@@ -1,0 +1,3 @@
+# SYNTHETIC_ISOLATION_FIXTURE: safe non-secret placeholder for testing RESTRICTED_PATH rejection.
+split: validation
+fixture_marker: SYNTHETIC_RESTRICTED_CONTENT_DO_NOT_ECHO

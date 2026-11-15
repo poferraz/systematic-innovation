@@ -253,29 +253,34 @@ class StressRunnerSafetyTests(unittest.TestCase):
         from unittest.mock import patch
         import tempfile
 
+        sk_tok = "sk-" + "1234567890abcdef1234567890"
+        aiza_tok = "AIza" + "1234567890abcdef1234567890"
+        ghp_tok = "ghp_" + "1234567890abcdef1234567890"
+        nvapi_tok = "nvapi-" + "1234567890abcdef"
+        nvidia_tok = "NVIDIA_" + "1234567890"
         raw_secrets = [
-            "sk-1234567890abcdef1234567890",
-            "AIza1234567890abcdef1234567890",
-            "ghp_1234567890abcdef1234567890",
-            "nvapi-1234567890abcdef",
-            "NVIDIA_1234567890",
-            "Bearer secret_bearer_token_xyz",
-            "api_key: secret_api_key_12345",
-            "token = 'secret_token_abc'",
-            "secret=\"secret_val_xyz\"",
+            sk_tok,
+            aiza_tok,
+            ghp_tok,
+            nvapi_tok,
+            nvidia_tok,
+            "Bearer " + "secret_bearer_token_xyz",
+            "api_key: " + "secret_api_key_12345",
+            "token = '" + "secret_token_abc'",
+            "secret=\"" + "secret_val_xyz\"",
         ]
         sample_text = "Errors: " + " ".join(raw_secrets)
         redacted = redact_text(sample_text)
         self.assertIn("[REDACTED]", redacted)
         for secret in raw_secrets:
             self.assertNotIn(secret, redacted)
-        for token in ("sk-1234567890abcdef1234567890", "AIza1234567890abcdef1234567890", "ghp_1234567890abcdef1234567890", "nvapi-1234567890abcdef", "NVIDIA_1234567890"):
+        for token in (sk_tok, aiza_tok, ghp_tok, nvapi_tok, nvidia_tok):
             self.assertNotIn(token, redacted)
 
         nested_obj = {
-            "auth": "Bearer token123",
-            "list": [{"key": "AIza1234567890abcdef1234567890"}],
-            "tuple": ("ghp_1234567890abcdef1234567890",),
+            "auth": "Bearer " + "token123",
+            "list": [{"key": aiza_tok}],
+            "tuple": (ghp_tok,),
         }
         redacted_obj = redact_obj(nested_obj)
         self.assertEqual(redacted_obj["auth"], "[REDACTED]")
@@ -286,7 +291,7 @@ class StressRunnerSafetyTests(unittest.TestCase):
         case = {"id": "c1", "prompt": "Hi", "user_turns": [], "interaction_mode": "single-turn", "expected_mode": "quick", "should_trigger": True}
         with tempfile.TemporaryDirectory() as tmp:
             with patch("tools.stress_runner._execute", return_value=(
-                "Here is key sk-1234567890abcdef1234567890 and Bearer supersecrettoken", "session", {},
+                f"Here is key {sk_tok} and Bearer supersecrettoken", "session", {},
                 {"latency_seconds": 0.5, "events": [{"auth": "Bearer supersecrettoken"}]}
             )):
                 record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation", "gpt-5.6-luna", "codex")
@@ -295,11 +300,11 @@ class StressRunnerSafetyTests(unittest.TestCase):
                 self.assertIn("[REDACTED]", events_str)
 
                 # Check both final_response and turns assistant text
-                self.assertNotIn("sk-1234567890abcdef1234567890", record["final_response"])
+                self.assertNotIn(sk_tok, record["final_response"])
                 self.assertNotIn("supersecrettoken", record["final_response"])
                 self.assertIn("[REDACTED]", record["final_response"])
 
-                self.assertNotIn("sk-1234567890abcdef1234567890", record["turns"][-1]["assistant"])
+                self.assertNotIn(sk_tok, record["turns"][-1]["assistant"])
                 self.assertNotIn("supersecrettoken", record["turns"][-1]["assistant"])
                 self.assertIn("[REDACTED]", record["turns"][-1]["assistant"])
 

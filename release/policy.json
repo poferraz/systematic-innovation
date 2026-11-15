@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "skill_name": "systematic-innovation",
+  "release_channel": "github-releases",
+  "tag_pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+  "archive_policy": "release-only",
+  "trusted_workflow": ".github/workflows/release.yml",
+  "trusted_ref_type": "tag",
+  "attestation_provider": "github-artifact-attestations",
+  "integrity_note": "SHA-256 digests provide integrity verification only; origin authenticity requires verifying the GitHub artifact attestation against the trusted workflow identity and checking release/revocations.json.",
+  "normalization": {
+    "archive_format": "zip",
+    "compression": "deflate",
+    "compresslevel": 9,
+    "mtime_utc": [1980, 1, 1, 0, 0, 0],
+    "file_mode": "0644",
+    "path_order": "lexicographic-posix",
+    "line_endings": "lf",
+    "top_level_prefix": "systematic-innovation/"
+  },
+  "allowed_archive_files": [
+    "systematic-innovation/SKILL.md",
+    "systematic-innovation/references/deep-mode.md",
+    "systematic-innovation/references/evidence.md",
+    "systematic-innovation/references/innovation-lenses.md",
+    "systematic-innovation/references/output-contract.md"
+  ]
+}

@@ -29,3 +29,5 @@ jobs:
         run: python3 tools/validate_skill.py skills/systematic-innovation
       - name: Run authority checks
         run: python3 -m tools.repository.authority
+      - name: Run repository isolation and validation checks
+        run: python3 -m tools.repository validate

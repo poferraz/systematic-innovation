@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Systematic Innovation Release Manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "skill_name",
+    "version",
+    "source_revision",
+    "build_tool_version",
+    "archive_sha256",
+    "payload_sha256",
+    "files",
+    "normalization"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0.0"
+    },
+    "skill_name": {
+      "type": "string",
+      "const": "systematic-innovation"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "source_revision": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "build_tool_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "archive_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "payload_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "sha256", "size_bytes", "mode"],
+        "properties": {
+          "path": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "size_bytes": { "type": "integer", "minimum": 1 },
+          "mode": { "type": "string", "const": "0644" }
+        }
+      }
+    },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "archive_format",
+        "compression",
+        "compresslevel",
+        "mtime_utc",
+        "file_mode",
+        "path_order",
+        "line_endings",
+        "top_level_prefix"
+      ],
+      "properties": {
+        "archive_format": { "type": "string", "const": "zip" },
+        "compression": { "type": "string", "const": "deflate" },
+        "compresslevel": { "type": "integer", "const": 9 },
+        "mtime_utc": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 6,
+          "maxItems": 6
+        },
+        "file_mode": { "type": "string", "const": "0644" },
+        "path_order": { "type": "string", "const": "lexicographic-posix" },
+        "line_endings": { "type": "string", "const": "lf" },
+        "top_level_prefix": { "type": "string", "const": "systematic-innovation/" }
+      }
+    }
+  }
+}

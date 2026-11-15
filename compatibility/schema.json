@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Systematic Innovation Host Compatibility Record",
+  "type": "object",
+  "required": [
+    "agent_family",
+    "host",
+    "host_version",
+    "model_family",
+    "skill_revision",
+    "artifact_digest",
+    "format_version",
+    "format_conformance",
+    "installation",
+    "discovery",
+    "explicit_activation",
+    "automatic_activation",
+    "behavioral_conformance",
+    "installation_procedure",
+    "invocation_mode",
+    "test_scenario",
+    "tested_at",
+    "review_after",
+    "run_ids",
+    "claim_profiles",
+    "limitations"
+  ],
+  "properties": {
+    "agent_family": { "type": "string", "minLength": 1 },
+    "host": { "type": "string", "minLength": 1 },
+    "host_version": { "type": "string", "minLength": 1 },
+    "model_family": { "type": "string", "minLength": 1 },
+    "skill_revision": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "artifact_digest": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "format_version": { "type": "string", "minLength": 1 },
+    "format_conformance": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-assessed"]
+    },
+    "installation": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-supported", "not-assessed"]
+    },
+    "discovery": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-supported", "not-assessed"]
+    },
+    "explicit_activation": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-supported", "not-assessed"]
+    },
+    "automatic_activation": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-supported", "not-claimed", "not-assessed"]
+    },
+    "behavioral_conformance": {
+      "type": "string",
+      "enum": ["passed", "failed", "not-assessed"]
+    },
+    "installation_procedure": { "type": "string", "minLength": 1 },
+    "invocation_mode": { "type": "string", "minLength": 1 },
+    "test_scenario": { "type": "string", "minLength": 1 },
+    "tested_at": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "review_after": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "run_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "claim_profiles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "adapter_used": { "type": "boolean" },
+    "adapter_evidence": {
+      "type": "object",
+      "required": [
+        "host",
+        "host_version",
+        "demonstrated_incompatibility",
+        "why_docs_insufficient",
+        "minimal_translation",
+        "preservation_test"
+      ]
+    }
+  }
+}
