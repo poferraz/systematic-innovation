@@ -1,0 +1,166 @@
+{
+  "schema_version": "1.0.0",
+  "criteria": [
+    {
+      "id": "AR-01",
+      "criterion": "One canonical public skill source",
+      "status": "passed",
+      "evidence": [
+        "skills/systematic-innovation/SKILL.md",
+        "tools/repository/authority.py",
+        "tools/repository/isolation.py",
+        "tests/repository/test_authority.py",
+        "tests/repository/test_isolation.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m tools.repository validate"
+    },
+    {
+      "id": "AR-02",
+      "criterion": "Root orientation works from a clean context",
+      "status": "passed",
+      "evidence": [
+        "AGENTS.md",
+        "CONTEXT.md",
+        "tools/repository/authority.py",
+        "tests/repository/test_authority.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m tools.repository.authority"
+    },
+    {
+      "id": "AR-03",
+      "criterion": "Skill format, installation, and discovery claims remain separate",
+      "status": "passed",
+      "evidence": [
+        "tools/validate_skill.py",
+        "evals/audits/2026-11-14-skillevaluator-final.md",
+        "compatibility/schema.json",
+        "compatibility/claim-profiles.json",
+        "tools/repository/compatibility.py",
+        "tests/repository/test_compatibility.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 tools/validate_skill.py skills/systematic-innovation"
+    },
+    {
+      "id": "AR-04",
+      "criterion": "Generated artifacts are isolated, reproducible, and authentic",
+      "status": "passed",
+      "evidence": [
+        "tools/repository/package.py",
+        "release/policy.json",
+        "release/manifest.schema.json",
+        "release/revocations.json",
+        ".github/workflows/release.yml",
+        "docs/release.md",
+        "tests/repository/test_package.py",
+        "tests/repository/test_release_workflow.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_package tests.repository.test_release_workflow -v"
+    },
+    {
+      "id": "AR-05",
+      "criterion": "Host adapters are evidence-gated",
+      "status": "passed",
+      "evidence": [
+        "compatibility/schema.json",
+        "tools/repository/compatibility.py",
+        "tests/repository/test_compatibility.py",
+        "docs/governance/control-register.md"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_compatibility -v"
+    },
+    {
+      "id": "AR-06",
+      "criterion": "Compatibility claims match retained evidence",
+      "status": "passed",
+      "evidence": [
+        "README.md",
+        "compatibility/claim-profiles.json",
+        "tools/repository/compatibility.py",
+        "tests/repository/test_compatibility.py",
+        "tests/test_branding_claims.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_compatibility tests.test_branding_claims -v"
+    },
+    {
+      "id": "AR-07",
+      "criterion": "Public CI is independent of restricted evidence",
+      "status": "passed",
+      "evidence": [
+        ".github/workflows/ci.yml",
+        "tools/repository/isolation.py",
+        "tests/repository/test_workflows.py",
+        "tests/repository/test_isolation.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_workflows tests.repository.test_isolation -v"
+    },
+    {
+      "id": "AR-08",
+      "criterion": "Restricted execution fails closed",
+      "status": "not-ready",
+      "evidence": [
+        "docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md",
+        "docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md",
+        "SECURITY.md"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "Pending Coordinated Task 6 (benchmark/src/systematic_innovation_bench/restricted_preflight.py)"
+    },
+    {
+      "id": "AR-09",
+      "criterion": "Benchmark safeguards remain aligned",
+      "status": "not-ready",
+      "evidence": [
+        "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md",
+        "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md",
+        "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "Pending formal benchmark/ package and study preregistration gates"
+    },
+    {
+      "id": "AR-10",
+      "criterion": "Quality dimensions cannot offset one another",
+      "status": "passed",
+      "evidence": [
+        "tools/repository/acceptance.py",
+        "tests/repository/test_acceptance.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_acceptance -v"
+    },
+    {
+      "id": "AR-11",
+      "criterion": "GitHub controls are stage-matched",
+      "status": "passed",
+      "evidence": [
+        "docs/governance/control-register.md",
+        ".github/workflows/ci.yml",
+        ".github/workflows/release.yml",
+        ".github/dependabot.yml"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m unittest tests.repository.test_acceptance tests.repository.test_workflows -v"
+    },
+    {
+      "id": "AR-12",
+      "criterion": "Document authority is unambiguous",
+      "status": "passed",
+      "evidence": [
+        "AGENTS.md",
+        "CONTEXT.md",
+        "tools/repository/authority.py",
+        "tests/repository/test_authority.py",
+        "tests/test_readme_assets.py"
+      ],
+      "checked_at": "2026-11-14",
+      "authoritative_gate": "python3 -m tools.repository.authority"
+    }
+  ]
+}

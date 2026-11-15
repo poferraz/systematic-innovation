@@ -31,3 +31,5 @@ jobs:
         run: python3 -m tools.repository.authority
       - name: Run repository isolation and validation checks
         run: python3 -m tools.repository validate
+      - name: Run repository-shell architecture acceptance check
+        run: python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage repository-shell

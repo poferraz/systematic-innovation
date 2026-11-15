@@ -10,7 +10,7 @@
   <a href="skills/systematic-innovation/SKILL.md"><code>v2.0.0</code></a> ·
   <a href="LICENSE"><code>License: MIT</code></a> ·
   <a href="evals/audits/2026-11-14-skillevaluator-final.md"><code>SkillEvaluator: 100.0/100 Grade A (--no-llm)</code></a> ·
-  <a href="tests/"><code>Tests: 147 stdlib unittest checks</code></a> ·
+  <a href="tests/"><code>Tests: 178 stdlib unittest checks</code></a> ·
   <a href="skills/systematic-innovation/SKILL.md"><code>Supported Standard: Agent Skills</code></a> ·
   <a href="SECURITY.md"><code>Runtime: Pure Markdown</code></a>
 </p>
@@ -135,6 +135,8 @@ Repository contributors run standard-library verification commands documented in
 python3 -m unittest discover tests -v
 python3 tools/validate_skill.py skills/systematic-innovation
 python3 -m tools.repository.authority
+python3 -m tools.repository validate
+python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage repository-shell
 ```
 
 To regenerate the 2× PNG README visuals after updating [`tools/build_branding.py`](tools/build_branding.py), install the optional `dev` dependency group (`playwright`) and run `.venv/bin/python tools/build_branding.py`.

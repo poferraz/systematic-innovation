@@ -72,6 +72,19 @@ def _cmd_verify_compatibility(args: argparse.Namespace) -> int:
     return 1 if errors else 0
 
 
+def _cmd_acceptance(args: argparse.Namespace) -> int:
+    from tools.repository.acceptance import run_acceptance_cli
+
+    exit_code, lines = run_acceptance_cli(
+        evidence_path=Path(args.evidence).resolve(),
+        root=Path(args.root).resolve() if args.root else DEFAULT_ROOT,
+        stage=args.stage,
+    )
+    for line in lines:
+        print(line)
+    return exit_code
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="python3 -m tools.repository",
@@ -121,6 +134,21 @@ def build_parser() -> argparse.ArgumentParser:
         help="Path to claim-profiles.json.",
     )
     verify_compat_p.set_defaults(func=_cmd_verify_compatibility)
+
+    acceptance_p = subparsers.add_parser("acceptance", help="Evaluate AR-01 through AR-12 architecture acceptance inventory.")
+    acceptance_p.add_argument(
+        "--evidence",
+        default=str(DEFAULT_ROOT / "evidence/architecture/acceptance.json"),
+        help="Path to acceptance.json.",
+    )
+    acceptance_p.add_argument(
+        "--stage",
+        choices=("full", "repository-shell"),
+        default="full",
+        help="Acceptance gate stage ('full' requires all 12 criteria passed; 'repository-shell' requires AR-01..07,10..12 passed).",
+    )
+    acceptance_p.add_argument("--root", default=None, help="Optional repository root path.")
+    acceptance_p.set_defaults(func=_cmd_acceptance)
 
     return parser
 

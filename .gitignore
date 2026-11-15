@@ -28,4 +28,15 @@ systematic-innovation-session.bundle
 
 sources/
 
+# Environment & Secret files
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.cert
+credentials.json
+secrets/
+
 

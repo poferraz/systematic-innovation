@@ -43,3 +43,14 @@ Repository tests use Python's standard library `unittest` (`pytest` is not used)
 - `python3 tools/validate_skill.py skills/systematic-innovation`
 - `python3 -m tools.repository.authority`
 - `python3 -m tools.repository validate`
+- `python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage repository-shell`
+
+## Next Workstream Ready for Execution
+
+The canonical skill (`skills/systematic-innovation/`, `100.0/100 Grade A` on `NVIDIA/SkillEvaluator`) and the complete repository evidence shell (`tools/repository/`, `release/`, `compatibility/`, `docs/governance/control-register.md`, `evidence/architecture/acceptance.json` with `AR-01..AR-07` and `AR-10..AR-12` passing) are complete on `main`.
+
+The next workstream ready for a coding agent is **Workstream 2 — Formal `benchmark/` Package** (which unlocks `AR-08` and `AR-09` in `evidence/architecture/acceptance.json`):
+
+1. Execute [`docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md`](docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md) Tasks 1–13 (`benchmark/pyproject.toml`, typed records, case validation, controlled multi-turn runner, append-only store, redaction, inbox/subprocess adapters, mechanism scoring with `F-32` Hungarian bipartite matching, bootstrap CI statistics, and reporting).
+2. Execute Coordinated Task 6 (`benchmark/src/systematic_innovation_bench/restricted_preflight.py`, `benchmark/schemas/restricted-preflight.schema.json`, `docs/security/restricted-execution.md`) from [`docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md`](docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md).
+3. Update `AR-08` and `AR-09` in [`evidence/architecture/acceptance.json`](evidence/architecture/acceptance.json) and verify `python3 -m tools.repository acceptance --evidence evidence/architecture/acceptance.json --stage full`.
