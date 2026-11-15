@@ -45,3 +45,5 @@ Final command results are recorded below after the complete gate runs.
 - Fresh whole-branch review identified four defects; one fix wave addressed all four, and scoped re-review found no residual blocker or fix-induced regression. The additional source-continuation gate passed its focused re-review.
 
 Commands used the exact uv 0.12.8 pin; the available system uv 0.10.9 was not substituted. Dependencies and compatibility environments were isolated from root tooling. No origin push or merge was performed.
+
+The handoff was repeated after the four local phase commits from a **clean checkout at `15cd80b915c459d84c2688160edf99336d506af5`**, using a fresh ID (`offline-clean-final`) and an operator copy of the fake configuration. It again completed 30 jobs / 70 turns, resumed with zero pending, scored 30 jobs, generated both reports without a headline claim, and verified 8 artifacts. The manifest recorded `runner_worktree_dirty: false` and a 64-character executable-source digest. The ignored runtime artifacts remain local.
