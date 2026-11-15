@@ -78,6 +78,7 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
         for required in (
             "evals/v2-loop/report.md",
             "evals/restored-2026-10-18/report.md",
+            "evals/audits/2026-11-14-skillevaluator-final.md",
             "2.0.0",
             "SkillEvaluator",
             "Negative-Space Trope Quarantine",
@@ -89,6 +90,48 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
             text = (ROOT / guarded).read_text(encoding="utf-8")
             for leak in ("/Users/", "/home/", "C:\\"):
                 self.assertNotIn(leak, text, f"{guarded} contains local path leak: {leak}")
+
+    def test_active_docs_links_and_audit_closure_consistency(self) -> None:
+        fence_re = re.compile(r"```.*?```", re.DOTALL)
+        link_re = re.compile(r"!?\[[^\]]*\]\(([^)]+)\)")
+        active_globs = (
+            "README.md",
+            "AGENTS.md",
+            "CONTEXT.md",
+            "SECURITY.md",
+            "docs/superpowers/specs/*.md",
+            "docs/superpowers/plans/*.md",
+            "docs/research/*.md",
+            "evals/audits/2026-11-14-*.md",
+        )
+        checked_files = []
+        for pattern in active_globs:
+            checked_files.extend(sorted(ROOT.glob(pattern)))
+        self.assertTrue(checked_files)
+
+        for md_path in checked_files:
+            stripped = fence_re.sub("", md_path.read_text(encoding="utf-8"))
+            for match in link_re.finditer(stripped):
+                target = match.group(1).strip().split()[0]
+                if target.startswith(("http://", "https://", "mailto:", "#", "conversation://", "file://")):
+                    continue
+                clean_target = target.split("#")[0].split("?")[0]
+                if not clean_target:
+                    continue
+                resolved = (md_path.parent / clean_target).resolve()
+                self.assertTrue(
+                    resolved.exists(),
+                    f"Broken relative link in {md_path.relative_to(ROOT)}: {target}",
+                )
+
+        context_md = (ROOT / "CONTEXT.md").read_text(encoding="utf-8")
+        self.assertNotIn("evals/build-branding.md", context_md)
+        self.assertIn("### 19.10", context_md)
+        self.assertNotIn("## 23.", context_md)
+
+        baseline_md = (ROOT / "evals/audits/2026-11-14-skillevaluator-baseline.md").read_text(encoding="utf-8")
+        self.assertIn("Gitleaks `8.30.1`", baseline_md)
+        self.assertNotIn("/opt/homebrew/bin/gitleaks", baseline_md)
 
 
 if __name__ == "__main__":

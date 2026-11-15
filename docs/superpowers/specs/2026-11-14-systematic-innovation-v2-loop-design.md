@@ -1,7 +1,7 @@
 # Systematic Innovation — Security, SkillEvaluator, Probabilistic Creativity & Visual Overhaul Loop Design
 
 **Date:** 2026-11-14  
-**Status:** Draft — awaiting owner review  
+**Status:** Approved & Completed — Phases A–E verified and merged to `main` on 2026-11-14  
 **Project:** `systematic-innovation`  
 **Branch Context:** `stress-test/five-cycle-refinement` (ahead of `main` / `origin/main` at `46ce0b6`)
 
@@ -44,7 +44,7 @@ The program runs as a gated sequence of five phases (`Phase A` → `Phase B` →
 
 ### 3.1 Phase A — Security, Provenance & Hygiene Baseline
 
-Phase A resolves all 32 findings from [`evals/audits/2026-10-29-deep-audit-report.md`](../../evals/audits/2026-10-29-deep-audit-report.md) using [`docs/superpowers/plans/2026-10-29-systematic-innovation-audit-remediation.md`](../plans/2026-10-29-systematic-innovation-audit-remediation.md) with the owner-approved defaults (`D1`–`D9`), subject to one branch-timing modification: **hold the fast-forward merge to `main` until Phases C–E complete**.
+Phase A resolves all 32 findings from [`evals/audits/2026-10-29-deep-audit-report.md`](../../../evals/audits/2026-10-29-deep-audit-report.md) using [`docs/superpowers/plans/2026-10-29-systematic-innovation-audit-remediation.md`](../plans/2026-10-29-systematic-innovation-audit-remediation.md) with the owner-approved defaults (`D1`–`D9`), subject to one branch-timing modification: **hold the fast-forward merge to `main` until Phases C–E complete**.
 
 Key Phase A deliverables and invariants:
 - **Unpushed History & Corpus Remediation (`F-01`, `F-04`, `D1`):** Because `0ebddfe` sits on no remote branch, reset `HEAD~1` after creating a local safety ref; relocate `docs/references/stimulating-innovation-tudor-rickards.md` and the 49 PDFs into a gitignored local `sources/` directory (retained locally for Phase C research); deduplicate identical PDFs in `sources/`; add `docs/research/README.md`; keep `docs/research/2026-10-18-v2-brainstorming-synthesis.md` tracked and relabeled as unexecuted research input (`F-07`, `D2`).

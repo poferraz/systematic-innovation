@@ -4,7 +4,7 @@
 **Target:** `skills/systematic-innovation/` (canonical skill pack authority)  
 **Target Git Revision:** `2e1bce9af0a361036d9db5ca44a3589b8c9cdf95` (branch: `stress-test/five-cycle-refinement`)  
 **Evaluator Tool:** NVIDIA SkillEvaluator `0.9.0` (commit `0d5e356583fee63c3d12e4930581c7dfb3352911`)  
-**Security Scanners:** SkillSpector `2.13.4` (checksum-verified), Gitleaks `8.24.0` (`/opt/homebrew/bin/gitleaks`)  
+**Security Scanners:** SkillSpector `2.13.4` (checksum-verified), Gitleaks `8.30.1` (`gitleaks`)  
 **Environment Status:** Python 3.13.12 (CPython via `uv 0.10.9`); `docker` not found / not used (static Tier 1 execution); `--no-llm` keyless mode  
 **Artifact Archive:** `evals/audits/2026-11-14-skillevaluator-tier1-baseline.json` (fully path-redacted)
 
@@ -31,7 +31,7 @@ The pre-v2 canonical skill pack (`skills/systematic-innovation/`) underwent a fu
 - **Verification:** SkillSpector verified that instruction prompts and reference markdown files contain no unconstrained tool invocation primitives, no indirect prompt injection attack vectors, and no hardcoded credentials.
 
 ### 1.2 Gitleaks Secrets Detection
-- **Check Name:** `secrets_detection` (via `/opt/homebrew/bin/gitleaks`)
+- **Check Name:** `secrets_detection` (via `gitleaks` `8.30.1`)
 - **Status:** **PASS** (`[OK] gitleaks: No secrets detected by Gitleaks`)
 - **Findings:** 0 secrets detected across skill files.
 
@@ -47,7 +47,7 @@ The pre-v2 canonical skill pack (`skills/systematic-innovation/`) underwent a fu
 - **Findings:** 0 zero-width or homoglyphic smuggling characters.
 
 ### 1.5 Optional Tool Status
-- **Gitleaks:** Present and executed directly (`/opt/homebrew/bin/gitleaks`).
+- **Gitleaks:** Present and executed directly (`gitleaks 8.30.1`).
 - **Docker:** Absent (`docker not found`). Not required for Tier 1 static validation; required only for Tier 3 live sandboxed agent execution.
 - **Semgrep / Bandit / Pip-Audit:** Python code risk analysis (`Code Risk Analysis`) and dependency scanning (`Dependency Vulnerability Audit`) reported as `N/A` because `skills/systematic-innovation/` is a pure guide skill with zero Python source files or package dependency manifests.
 

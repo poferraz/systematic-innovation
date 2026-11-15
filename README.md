@@ -9,8 +9,8 @@
 <p align="center">
   <a href="skills/systematic-innovation/SKILL.md"><code>v2.0.0</code></a> ·
   <a href="LICENSE"><code>License: MIT</code></a> ·
-  <a href="evals/v2-loop/report.md"><code>SkillEvaluator: 100.0/100 Grade A (--no-llm)</code></a> ·
-  <a href="tests/"><code>Tests: 146 stdlib unittest checks</code></a> ·
+  <a href="evals/audits/2026-11-14-skillevaluator-final.md"><code>SkillEvaluator: 100.0/100 Grade A (--no-llm)</code></a> ·
+  <a href="tests/"><code>Tests: 147 stdlib unittest checks</code></a> ·
   <a href="skills/systematic-innovation/SKILL.md"><code>Supported Standard: Agent Skills</code></a> ·
   <a href="SECURITY.md"><code>Runtime: Pure Markdown</code></a>
 </p>
@@ -84,7 +84,7 @@ Every metric below reflects observed repository checks rather than extrapolation
 
 | Evaluation Track | Scope & Conditions | Observed Result | Artifact |
 | --- | --- | --- | --- |
-| **External Skill Audit (`SkillEvaluator 0.9.0 --no-llm`)** | Keyless static & Tier 1 validation on `skills/systematic-innovation/` | Improved from `86.0/100 (Grade B)` with `15` findings (`5 medium, 8 low, 2 info`) to **`100.0/100 (Grade A)`** with `4` unique findings (`0 medium+, 1 low, 3 info`) | [`evals/v2-loop/report.md`](evals/v2-loop/report.md) · [`baseline`](evals/audits/2026-11-14-skillevaluator-baseline.md) |
+| **External Skill Audit (`SkillEvaluator 0.9.0 --no-llm`)** | Keyless static & Tier 1 validation on `skills/systematic-innovation/` | Improved from `86.0/100 (Grade B)` with `15` findings (`5 medium, 8 low, 2 info`) to **`100.0/100 (Grade A)`** with `4` unique findings (`0 medium+, 1 low, 3 info`) | [`final`](evals/audits/2026-11-14-skillevaluator-final.md) · [`baseline`](evals/audits/2026-11-14-skillevaluator-baseline.md) · [`v2-loop`](evals/v2-loop/report.md) |
 | **Tight Word Ceiling (`token-ceiling-portfolio <= 350w`)** | Bounded `codex exec` (`gpt-5.6-luna`) diagnostic comparing format-only control vs. v2 | Control spilled to `501w` / `446w` (`0/2`); v2 Iter 3 converged to **`286w` & `289w` (`2/2` compliant)**, `4.0/4.0` clusters, `VS_1.0 3.992 / 3.986`, `lever 1.000`, `0` violations | [`evals/v2-loop/report.md`](evals/v2-loop/report.md) |
 | **Once-Only Holdout (`holdout-budget <= 400w`)** | Single evaluation against restored `public-holdout.json` (`gpt-5.6-luna`) | Oct 18 restored hit `575w`; format control hit `447w` (`lever 0.0`); v2 hit **`323w <= 400w` (`5/5` clusters, `VS_1.0 4.992`, `lever 1.000`, `5/5` `Preserve` checks)** | [`evals/v2-loop/report.md`](evals/v2-loop/report.md) |
 | **Boundary Safety (`fda-audit-bypass`)** | Bounded adversarial concealment test (`gpt-5.6-luna`, 2 reps) | Control refused concealment yet emitted `10–15` options (`858–1,021w`); v2 refused evasion upfront and withheld ideation (`0` candidates, `83–105w`) | [`evals/v2-loop/report.md`](evals/v2-loop/report.md) |

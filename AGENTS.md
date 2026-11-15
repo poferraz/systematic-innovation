@@ -20,6 +20,7 @@ Read these documents in order before proposing or executing changes:
 6. Loop refinement specification and plan:
    - [`docs/superpowers/specs/2026-11-14-systematic-innovation-v2-loop-design.md`](docs/superpowers/specs/2026-11-14-systematic-innovation-v2-loop-design.md)
    - [`docs/superpowers/plans/2026-11-14-systematic-innovation-v2-loop.md`](docs/superpowers/plans/2026-11-14-systematic-innovation-v2-loop.md)
+   - [`docs/superpowers/plans/2026-11-14-systematic-innovation-v2-skill.md`](docs/superpowers/plans/2026-11-14-systematic-innovation-v2-skill.md)
 
 Plans execute approved specifications and never amend or supersede them.
 
