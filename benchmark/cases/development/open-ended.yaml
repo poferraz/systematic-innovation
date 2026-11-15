@@ -1,0 +1,446 @@
+cases:
+- id: sys-dev-001
+  family: open-ended-systemic
+  domain: public-services
+  split: development
+  prompt: A municipal housing service keeps asking residents to repeat the same story to different
+    teams. Staff say each handoff is necessary, while residents abandon applications or miss deadlines.
+    Explore possibilities for a more dependable service while preserving eligibility checks, residents'
+    ability to correct mistakes, and access for people without internet.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Frontline teams fear losing specialist judgment and residents fear that sharing more information
+      will expose sensitive circumstances. Existing confidentiality and appeal rights must remain
+      intact.
+    - The service controls internal arrangements but not eligibility law or partner agencies.
+      It can reassign existing staff time, with no new funding this year. Please produce the final
+      portfolio now.
+- id: sys-dev-002
+  family: open-ended-systemic
+  domain: education
+  split: development
+  prompt: A secondary school offers extra learning support, but the pupils who could benefit most
+    attend least often. Teachers see missed work, families see travel and care duties, and pupils
+    fear being singled out. Explore possibilities that improve access while preserving ordinary
+    lessons and pupils' privacy.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Staff want visible attendance improvements while families need flexible arrangements. Support
+      must remain voluntary and no pupil may lose access because a parent cannot attend meetings.
+    - The school can use existing rooms and staff time differently. It cannot extend the bus route,
+      charge families, or hire additional specialist staff. Please produce the final portfolio
+      now.
+- id: sys-dev-003
+  family: open-ended-systemic
+  domain: software
+  split: development
+  prompt: A product team releases frequent improvements, yet support requests keep rising and
+    long-standing users say familiar tasks become harder. Developers are rewarded for shipping
+    and support staff for quick closure. Explore different possibilities for useful progress while
+    preserving accessibility, data export, and the ability to recover from mistakes.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - New customers request features and experienced users ask for stability. No user may lose
+      an accessibility accommodation or access to their existing records.
+    - The team controls product decisions and internal metrics. It must keep a contractual service
+      commitment and cannot add staff during the next planning period. Please produce the final
+      portfolio now.
+- id: sys-dev-004
+  family: open-ended-systemic
+  domain: logistics
+  split: development
+  prompt: A regional repair network sends replacement parts between small shops. Some repairs
+    wait weeks while shelves elsewhere hold unused parts, but shops resist arrangements that could
+    leave their own customers stranded. Explore possibilities for faster repairs while preserving
+    emergency stock, fair participation, and each shop's independence.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Shop owners carry inventory costs and technicians face angry customers. Rural shops must
+      retain dependable emergency access and cannot be required to buy a larger stock.
+    - The network can agree shared practices but cannot command independent businesses or assume
+      demand forecasts are accurate. Existing vehicles and software are available. Please produce
+      the final portfolio now.
+- id: sys-dev-005
+  family: open-ended-systemic
+  domain: sustainability
+  split: development
+  prompt: A district wants to reduce summer heat without displacing residents or raising rents
+    beyond their means. Building owners, tenants, street traders, and maintenance crews face different
+    costs and benefits. Explore possibilities that make cooler living conditions more dependable
+    while preserving affordable housing and access to public space.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Tenants fear renovation pressure while owners fear ongoing maintenance costs. Residents
+      must retain their homes, consent rights, and safe access during any change.
+    - The district controls some streets and public buildings but not private tenancies. Existing
+      maintenance funds can be redirected; large construction funding is unavailable. Please produce
+      the final portfolio now.
+- id: sys-dev-006
+  family: open-ended-systemic
+  domain: personal-systems
+  split: development
+  prompt: Two adults share care for an older relative while holding jobs with changing hours.
+    They often discover uncovered appointments at the last minute, despite both trying hard. Explore
+    different possibilities for dependable care coordination while preserving the relative's choices,
+    both adults' rest, and confidentiality; do not give medical advice.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-007
+  family: open-ended-systemic
+  domain: community
+  split: development
+  prompt: A neighborhood mutual-aid group has many occasional volunteers but a few organizers
+    are exhausted. People requesting help dislike repeating personal circumstances, and volunteers
+    worry about promising more than they can deliver. Explore possibilities for reliable support
+    while preserving dignity, voluntary participation, and access for people outside online groups.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Organizers need rest while recipients need continuity. No participant should be pressured
+      to disclose health details publicly or provide unpaid work beyond their consent.
+    - The group has a shared meeting space and a small recurring budget. It cannot act as an emergency
+      service or guarantee unlimited assistance. Please produce the final portfolio now.
+- id: sys-dev-008
+  family: open-ended-systemic
+  domain: organizations
+  split: development
+  prompt: An organization asks every team to submit a detailed monthly performance report. Leaders
+    rarely read all of it, but teams fear that shorter reports will make their work invisible.
+    Explore possibilities for useful accountability while preserving audit records, recognition
+    of less visible work, and the ability to surface serious problems.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Finance needs traceable figures and frontline staff need time to serve clients. Whistleblowing
+      and records required for statutory audits must remain protected.
+    - Leadership can change its own reporting requirements, not external legal obligations. Existing
+      tools and meeting time can be repurposed without buying a new platform. Please produce the
+      final portfolio now.
+- id: sys-dev-009
+  family: open-ended-systemic
+  domain: transport
+  split: development
+  prompt: A city's bus service has clear published fares, yet passengers with valid tickets are
+    repeatedly challenged because transfers and concession proofs are interpreted differently
+    by drivers. Drivers fear reprimands for letting people ride, while passengers fear public
+    embarrassment. Explore possibilities for more dependable fair journeys while preserving revenue
+    accountability, disability accommodations, and appeals without raising fares or collecting
+    more personal data.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-010
+  family: open-ended-systemic
+  domain: food-systems
+  split: development
+  prompt: A school meal team sees waste increase while some pupils remain hungry. Catering staff
+    must follow dietary rules, teachers have little lunch supervision time, and pupils dislike
+    being watched while eating. Explore possibilities that improve nourishment while preserving
+    allergy controls, privacy, and equal treatment without requiring families to pay more.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-011
+  family: open-ended-systemic
+  domain: healthcare-operations
+  split: development
+  prompt: A clinic's missed non-urgent visits frustrate patients and staff, but penalties would
+    harm people with unstable work or transport. Appointment slots are limited and reception staff
+    already handle heavy calls. Explore conceptual service alternatives that improve dependable
+    access while preserving confidentiality and clinical priority; do not provide clinical instructions.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Staff need manageable workloads and patients need a fair chance to explain barriers. No
+      one may lose urgent care or be labeled unreliable without review.
+    - The clinic controls scheduling practices and patient communications but not transport services
+      or clinical staffing. There is no budget for a new system. Please produce the final portfolio
+      now.
+- id: sys-dev-012
+  family: open-ended-systemic
+  domain: arts
+  split: development
+  prompt: A community arts venue attracts large audiences for a few events while smaller groups
+    struggle to secure a suitable date. Staff want reliable income and local artists want fair
+    opportunities. Explore possibilities for a healthier programme while preserving low-cost access,
+    artistic independence, and existing commitments to disability access.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-013
+  family: open-ended-systemic
+  domain: research
+  split: development
+  prompt: A university laboratory has valuable failed experiments that new students rarely find.
+    Supervisors value publishable successes, students fear looking incompetent, and repeated mistakes
+    waste scarce materials. Explore possibilities that improve shared learning while preserving
+    honest records, appropriate confidentiality, and credit for the people who produced useful
+    negative findings.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Early-career researchers worry that disclosure will damage careers, and collaborators have
+      contractual confidentiality needs. No one may be compelled to expose private participant
+      data.
+    - The laboratory controls local records and supervision routines but cannot change journal
+      incentives or funder contracts. It can use existing storage and seminar time. Please produce
+      the final portfolio now.
+- id: sys-dev-014
+  family: open-ended-systemic
+  domain: public-services
+  split: development
+  prompt: A city library lends equipment as well as books, but people with the least spare time
+    struggle to collect reserved items before the hold expires. Staff want predictable shelving
+    and borrowers want fair access. Explore possibilities that improve reliable collection while
+    preserving privacy, walk-in service, and current opening hours.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-015
+  family: open-ended-systemic
+  domain: education
+  split: development
+  prompt: A vocational course assesses practical work in a single busy week. Learners with jobs
+    or care duties struggle to attend, while assessors need confidence that skills are demonstrated
+    fairly. Explore possibilities that improve access to valid assessment while preserving consistent
+    standards, disability accommodations, and safeguards against impersonation.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-016
+  family: open-ended-systemic
+  domain: software
+  split: development
+  prompt: A volunteer software project receives many bug reports that maintainers cannot reproduce.
+    Users feel ignored, and maintainers spend evenings asking for details. Explore possibilities
+    for more useful collaboration while preserving private user data, welcoming nontechnical contributors,
+    and avoiding a requirement that volunteers provide round-the-clock support.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-017
+  family: open-ended-systemic
+  domain: sustainability
+  split: development
+  prompt: A small apartment building wants to cut energy waste, but residents have different comfort
+    needs and some work nights. Shared costs obscure individual choices, and blame is damaging
+    neighbor relations. Explore possibilities that reduce waste while preserving safe indoor conditions,
+    tenant privacy, and reasonable access to warmth.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: sys-dev-018
+  family: open-ended-systemic
+  domain: organizations
+  split: development
+  prompt: A nonprofit's donors request detailed evidence of impact, while service staff say reporting
+    takes time away from people who need help. Beneficiaries do not want their stories used without
+    meaningful consent. Explore possibilities for credible learning and accountability while preserving
+    privacy, service access, and the ability to report disappointing results.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn

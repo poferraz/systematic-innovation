@@ -1,0 +1,284 @@
+{
+  "$defs": {
+    "ConversationScript": {
+      "additionalProperties": false,
+      "properties": {
+        "user_turns": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "User Turns",
+          "type": "array"
+        },
+        "maximum_assistant_turns": {
+          "default": 0,
+          "title": "Maximum Assistant Turns",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "user_turns"
+      ],
+      "title": "ConversationScript",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "single-turn",
+        "controlled-multi-turn"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    },
+    "ProtectedScoring": {
+      "additionalProperties": false,
+      "properties": {
+        "case_id": {
+          "minLength": 1,
+          "title": "Case Id",
+          "type": "string"
+        },
+        "gold_mechanisms": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Gold Mechanisms",
+          "type": "array"
+        },
+        "acceptable_functional_equivalents": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Acceptable Functional Equivalents",
+          "type": "array"
+        },
+        "unsafe_outputs": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Unsafe Outputs",
+          "type": "array"
+        },
+        "deterministic_checks": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Deterministic Checks",
+          "type": "array"
+        },
+        "provenance_notes": {
+          "minLength": 1,
+          "title": "Provenance Notes",
+          "type": "string"
+        },
+        "reviewer_approvals": {
+          "items": {
+            "$ref": "#/$defs/ReviewerApproval"
+          },
+          "minItems": 2,
+          "title": "Reviewer Approvals",
+          "type": "array"
+        }
+      },
+      "required": [
+        "case_id",
+        "gold_mechanisms",
+        "acceptable_functional_equivalents",
+        "unsafe_outputs",
+        "deterministic_checks",
+        "provenance_notes",
+        "reviewer_approvals"
+      ],
+      "title": "ProtectedScoring",
+      "type": "object"
+    },
+    "RestrictedCase": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "family": {
+          "minLength": 1,
+          "title": "Family",
+          "type": "string"
+        },
+        "domain": {
+          "minLength": 1,
+          "title": "Domain",
+          "type": "string"
+        },
+        "split": {
+          "enum": [
+            "development",
+            "validation",
+            "test"
+          ],
+          "title": "Split",
+          "type": "string"
+        },
+        "prompt": {
+          "minLength": 1,
+          "title": "Prompt",
+          "type": "string"
+        },
+        "strata": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "minProperties": 1,
+          "title": "Strata",
+          "type": "object"
+        },
+        "expected_mode": {
+          "enum": [
+            "quick",
+            "deep"
+          ],
+          "title": "Expected Mode",
+          "type": "string"
+        },
+        "should_trigger": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Should Trigger"
+        },
+        "interaction_mode": {
+          "$ref": "#/$defs/InteractionMode",
+          "default": "single-turn"
+        },
+        "conversation_script": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/ConversationScript"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "hidden_mechanisms": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Hidden Mechanisms",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "family",
+        "domain",
+        "split",
+        "prompt",
+        "strata",
+        "expected_mode",
+        "hidden_mechanisms"
+      ],
+      "title": "RestrictedCase",
+      "type": "object"
+    },
+    "RestrictedCasesFile": {
+      "additionalProperties": false,
+      "properties": {
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/RestrictedCase"
+          },
+          "maxItems": 20,
+          "minItems": 20,
+          "title": "Cases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "cases"
+      ],
+      "title": "RestrictedCasesFile",
+      "type": "object"
+    },
+    "RestrictedScoringFile": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "cases": {
+          "items": {
+            "$ref": "#/$defs/ProtectedScoring"
+          },
+          "maxItems": 40,
+          "minItems": 40,
+          "title": "Cases",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "cases"
+      ],
+      "title": "RestrictedScoringFile",
+      "type": "object"
+    },
+    "ReviewerApproval": {
+      "additionalProperties": false,
+      "properties": {
+        "reviewer": {
+          "minLength": 1,
+          "title": "Reviewer",
+          "type": "string"
+        },
+        "approved": {
+          "const": true,
+          "title": "Approved",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "reviewer",
+        "approved"
+      ],
+      "title": "ReviewerApproval",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "validation": {
+      "$ref": "#/$defs/RestrictedCasesFile"
+    },
+    "test": {
+      "$ref": "#/$defs/RestrictedCasesFile"
+    },
+    "scoring": {
+      "$ref": "#/$defs/RestrictedScoringFile"
+    }
+  },
+  "required": [
+    "validation",
+    "test",
+    "scoring"
+  ],
+  "title": "RestrictedPack",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://systematic-innovation.invalid/schemas/restricted-pack.schema.json"
+}

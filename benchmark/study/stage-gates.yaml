@@ -1,0 +1,65 @@
+schema_version: '1.0'
+execution_authorized: false
+six_case_feasibility:
+  status: pending
+  case_ids: [syn-dev-001, red-dev-001, sys-dev-001, pre-dev-001, tri-dev-001, adv-dev-001]
+  conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+  replicates: 1
+  allow_effect_claims: false
+  zero_tolerance_checks: [job_correlation, transcript_equality, append_only_turns, mid_conversation_resume, secret_redaction, complete_token_accounting, budget_enforcement, report_generation]
+  run_digest: null
+twelve_case_rehearsal:
+  status: pending
+  requires: [six_case_feasibility]
+  case_ids: [syn-dev-001, syn-dev-002, red-dev-001, red-dev-002, sys-dev-001, sys-dev-002, pre-dev-001, pre-dev-002, tri-dev-001, tri-dev-002, adv-dev-001, adv-dev-002]
+  conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+  replicates: 2
+  allow_effect_claims: false
+  checks: [rubric_usability, judge_disagreement, human_calibration_workflow, preliminary_variance, ceiling_floor_effects, failure_rates, primary_metric_behavior, disclosure_parity, all_turn_tokens]
+  failure_conditions: [terse_fragments_pass_causal_clarity, rejected_constraints_enter_numerator, earlier_tokens_omitted, unequal_disclosures]
+  correction_policy: invalidate_entire_rehearsal_new_run_id_repeat_all_twelve_no_skill_tuning_from_rankings
+  freeze: [extraction_version, gate_thresholds, judge_or_human_primary, conversation_protocol, total_token_rule, run_digest]
+  run_digest: null
+development_60:
+  status: pending
+  requires: [six_case_feasibility, twelve_case_rehearsal]
+  prerequisites_match: [runner_revision, measurement_contract, conversation_protocol, public_corpus_digest]
+  case_count: 60
+  permits_candidate_revision: true
+  feedback: detailed_public_development_only
+validation_20:
+  status: pending
+  requires: [development_60, preregistration_frozen, restricted_preflight, operator_approval]
+  case_count: 20
+  maximum_tuning_gates: 1
+  feedback_to_development: release_eligibility_decision_only
+  prohibited_revision_inputs: [case_outputs, strata, directionality, failure_categories, examples, annotations, hidden_labels]
+cross_agent_validation:
+  status: pending
+  requires: [validation_20]
+  dimensions: [format_conformance, installation, discovery, explicit_activation, automatic_activation, behavioral_conformance]
+  minimum_behavior_tested_families_for_broad_claim: 3
+  explicit_activation_accuracy: 1.0
+  automatic_precision_min: 0.90
+  automatic_recall_min: 0.85
+  controlled_disclosure_ordering_violations_max: 0
+  separate_from_primary_effect: true
+sealed_20:
+  status: pending
+  requires: [validation_20, candidate_unchanged, preregistration_frozen, restricted_preflight, operator_approval]
+  case_count: 20
+  maximum_executions: 1
+  next_states: [report, stop]
+  allows_candidate_revision: false
+report:
+  status: pending
+  broad_cross_agent_requires: [validation_20, cross_agent_validation]
+  narrow_report_requires: [validation_20, sealed_20]
+  construct: systematic_ideation_performance_not_realized_innovation
+final_report_allowed: false
+stop:
+  terminal: true
+  conditions: [study_complete, budget_90_percent, data_leakage, ten_candidates, three_equivalent_candidates]
+contamination:
+  immediate_action: stop_quarantine_no_development_feedback
+  future_use_requires: [formal_retirement, study_closure, replacement_evidence, recorded_transition]

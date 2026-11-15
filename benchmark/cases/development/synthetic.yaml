@@ -1,0 +1,339 @@
+cases:
+- id: syn-dev-001
+  family: synthetic-mechanism
+  domain: logistics
+  split: development
+  prompt: In a fictional depot, twelve carts carry sealed boxes through three rooms. Every box
+    must pass a weight check, but some arrive at the loading door too late even on quiet days.
+    Workers cannot open boxes or add carts. Explore different ways the depot might deliver more
+    boxes on time without weakening the check.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Loaders are blamed for lateness while checkers are rewarded for catching errors. Both groups
+      must keep their current rest breaks, and all boxes must remain traceable.
+    - The depot controls cart routes and room schedules but cannot alter arrival times or expand
+      the building. There is one supervisor and no equipment budget. Please produce the final
+      portfolio now.
+- id: syn-dev-002
+  family: synthetic-mechanism
+  domain: education
+  split: development
+  prompt: A fictional workshop lends six reusable activity kits to four classes. Teachers find
+    all kits booked on some days and untouched on others. The school cannot buy more kits or shorten
+    pupils' lessons. Suggest different possibilities for dependable access while keeping every
+    class eligible.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-003
+  family: synthetic-mechanism
+  domain: software
+  split: development
+  prompt: A simulation team produces map updates using two computers and one reviewer. Updates
+    sometimes wait a long time despite low computer use. No unreviewed map may be published, and
+    the team cannot hire. Explore possibilities for faster dependable publication without increasing
+    the reviewer's total hours.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Authors want quick publication while the reviewer needs uninterrupted time. The existing
+      rollback capability and review audit trail must remain available.
+    - The team can change how work is described and when it is submitted. It cannot replace the
+      computers or waive the review requirement. Please produce the final portfolio now.
+- id: syn-dev-004
+  family: synthetic-mechanism
+  domain: sustainability
+  split: development
+  prompt: In an invented island settlement, households receive equal weekly water allowances.
+    A shared tank sometimes overflows after rain while nearby gardens later run dry. Drinking
+    water quality and equal household entitlements are non-negotiable. Explore possibilities that
+    improve useful water availability without new tanks.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-005
+  family: synthetic-mechanism
+  domain: community
+  split: development
+  prompt: A fictional makers' hall has three benches with different tools. Members queue at one
+    bench while others stand empty, although reported project demand is similar. The hall must
+    retain walk-in access and cannot charge more. Explore possibilities that let more members
+    finish projects safely.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Experienced members want predictable access, while newcomers fear exclusion. Safety inductions
+      and accessible bench space must be preserved.
+    - The hall can change booking rules and information shown to members. It cannot buy duplicate
+      tools or extend staffed opening hours. Please produce the final portfolio now.
+- id: syn-dev-006
+  family: synthetic-mechanism
+  domain: public-services
+  split: development
+  prompt: A fictional permit office accepts applications at two windows. Applicants often return
+    because one required detail is missing; staff cannot legally fill it in for them. Explore
+    possibilities that reduce repeat visits without reducing verification, collecting extra personal
+    data, or offering preferential treatment.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-007
+  family: synthetic-mechanism
+  domain: manufacturing
+  split: development
+  prompt: In a toy factory model, three components become a finished set only when all are present.
+    Large piles of two components accumulate while finished sets remain scarce. The factory cannot
+    add machines or discard usable stock. Explore possibilities for more completed sets without
+    lowering product quality.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Each operator is judged on individual pieces produced, and assemblers are blamed for incomplete
+      sets. Paid hours and quality inspections must remain unchanged.
+    - Managers can change internal work rules and stock locations but cannot renegotiate customer
+      specifications or suppliers' delivery days. Please produce the final portfolio now.
+- id: syn-dev-008
+  family: synthetic-mechanism
+  domain: healthcare-operations
+  split: development
+  prompt: An invented clinic has enough daily appointment minutes but long waits for non-urgent
+    paperwork visits. Patients cannot reliably use online tools, and staff cannot offer clinical
+    advice outside their roles. Suggest conceptual service possibilities that preserve patient
+    choice and confidentiality; do not give clinical instructions.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-009
+  family: synthetic-mechanism
+  domain: organizations
+  split: development
+  prompt: A fictional archive receives requests from five teams. Each request is small, yet requests
+    repeatedly pause between departments that all report meeting their own deadlines. The archive
+    cannot hire and must retain a record of every access decision. Explore possibilities for more
+    timely completion.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Teams disagree about who may approve unusual requests. Existing privacy restrictions and
+      the right to appeal denials must remain intact.
+    - The archive director controls internal responsibilities and forms, but external legal approval
+      and document retention periods cannot change. Please produce the final portfolio now.
+- id: syn-dev-010
+  family: synthetic-mechanism
+  domain: personal-systems
+  split: development
+  prompt: A fictional household shares one quiet room among two remote workers and a student.
+    Everyone has some flexibility, yet important sessions keep colliding. No one can move out
+    or lose their guaranteed study or work hours. Suggest different ways to improve reliable access
+    without buying space.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-011
+  family: synthetic-mechanism
+  domain: transport
+  split: development
+  prompt: In a fictional ferry model, the same six vessels serve three short routes. Travelers
+    wait while empty vessels sometimes cross. Every settlement must retain its minimum daily service,
+    including those with few riders. Explore possibilities for better useful service with the
+    existing fleet.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Commuters want dependable arrivals and small settlements fear losing access. Crew rest rules
+      and wheelchair access cannot be reduced.
+    - The operator may revise published arrangements and passenger information. It cannot change
+      docking capacity, vessel speed limits, or total crew hours. Please produce the final portfolio
+      now.
+- id: syn-dev-012
+  family: synthetic-mechanism
+  domain: food-systems
+  split: development
+  prompt: A fictional food cooperative packs equal-value vegetable shares. Some produce spoils
+    before packing while members later ask for more of it. The cooperative cannot enlarge its
+    cold room or ask growers to change harvest days. Explore possibilities that reduce waste while
+    preserving fair member access.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: syn-dev-013
+  family: synthetic-mechanism
+  domain: research
+  split: development
+  prompt: A fictional laboratory has one test chamber shared by four projects. Researchers reserve
+    long slots but often leave early, and urgent samples expire waiting. Calibration checks cannot
+    be shortened and no project may monopolize access. Explore possibilities for completing more
+    valid tests with the same chamber.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Project leads need predictable deadlines while technicians need stable preparation time.
+      Chain of custody and protected maintenance time must remain intact.
+    - The laboratory controls reservations and sample handoffs, not experiment durations or sample
+      expiry. There is no budget for another chamber. Please produce the final portfolio now.
+- id: syn-dev-014
+  family: synthetic-mechanism
+  domain: arts
+  split: development
+  prompt: A fictional theatre owns four scenery carts that different crews need at overlapping
+    times. Carts spend much of each day parked away from the crews that need them. Explore possibilities
+    that reduce interrupted rehearsals while keeping exits clear, retaining manual handling limits,
+    and buying no new carts.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn

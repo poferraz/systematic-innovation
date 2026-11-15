@@ -1,0 +1,135 @@
+cases:
+- id: tri-dev-001
+  family: trigger-scope
+  domain: community
+  split: development
+  prompt: Generate different possibilities for a neighborhood gardening group whose improvements
+    to one shared plot coincide with poorer growing conditions next door. Residents disagree about
+    the causes and do not want chemical treatments. Preserve safe food-growing practices, neighbors'
+    consent, and public access; keep the response at the level of ideas rather than a rollout
+    plan.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+    trigger_polarity: positive
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: tri-dev-002
+  family: trigger-scope
+  domain: organizations
+  split: development
+  prompt: Use Provocation to challenge how a small organization decides who may propose improvements.
+    Staff say the current process favors senior voices. Preserve safety duties and employment
+    rights while exploring meaningfully different possibilities.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+    trigger_polarity: positive
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Junior staff want a fair hearing and managers worry about promises they cannot keep. No
+      employee may face retaliation for a proposal.
+    - The organization can change its own discussion and approval practices but not employment
+      contracts. Existing meeting time is the only resource available. Please produce the final
+      portfolio now.
+- id: tri-dev-003
+  family: trigger-scope
+  domain: education
+  split: development
+  prompt: What is the difference between a mean and a median? Give one short numerical example.
+    I need a factual explanation, not ideas for changing a system.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: none
+    stakeholder_conflict: absent
+    trigger_polarity: negative
+  expected_mode: quick
+  should_trigger: false
+  interaction_mode: single-turn
+- id: tri-dev-004
+  family: trigger-scope
+  domain: software
+  split: development
+  prompt: Write a Python function that returns the longest string from a nonempty list, breaking
+    ties by the first occurrence. This is an implementation-only request; return the function
+    and a short explanation.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: none
+    stakeholder_conflict: absent
+    trigger_polarity: negative
+  expected_mode: quick
+  should_trigger: false
+  interaction_mode: single-turn
+- id: tri-dev-005
+  family: trigger-scope
+  domain: arts
+  split: development
+  prompt: 'Improve this: our tiny rehearsal group spends too much time deciding when to meet.
+    Everyone has a different work pattern. Keep participation voluntary and avoid requiring a
+    new paid tool.'
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+    trigger_polarity: boundary
+  expected_mode: quick
+  should_trigger: null
+  interaction_mode: single-turn
+- id: tri-dev-006
+  family: trigger-scope
+  domain: logistics
+  split: development
+  prompt: Suggest different ideas for reducing missed deliveries to an apartment building while
+    preserving residents' privacy and drivers' safety. Then give a complete roadmap with owners,
+    dates, and a budget. We have not chosen any option yet.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+    trigger_polarity: boundary
+  expected_mode: quick
+  should_trigger: null
+  interaction_mode: single-turn

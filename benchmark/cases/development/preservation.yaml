@@ -1,0 +1,141 @@
+cases:
+- id: pre-dev-001
+  family: preservation-no-change
+  domain: manufacturing
+  split: development
+  prompt: A small maker has a stable manual quality check with very few escapes and good worker
+    acceptance. A vendor proposes replacing it because the old process looks dated. Explore whether
+    any useful change is warranted; make no change a serious possibility, and preserve traceability,
+    worker judgment, and verified product safety.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: pre-dev-002
+  family: preservation-no-change
+  domain: community
+  split: development
+  prompt: A neighborhood meal group serves a steady number of people with strong trust and little
+    waste. Organizers feel pressure to launch a new app despite most participants preferring the
+    existing phone arrangement. Explore possibilities including no change, preserving confidentiality,
+    accessibility, and the relationships participants value.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: pre-dev-003
+  family: preservation-no-change
+  domain: software
+  split: development
+  prompt: A small public-interest service runs on old software that staff understand well. Failures
+    are rare, but maintenance depends on one experienced person and a replacement project could
+    disrupt essential access. Explore possibilities that preserve reliable service and knowledge
+    while taking both fragility and change costs seriously.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Staff fear losing reliable tools while the experienced maintainer wants to retire. Users
+      must retain access to their records and an offline route to urgent help.
+    - The team can redirect existing maintenance time but cannot stop the service or fund a complete
+      replacement this year. External data obligations remain unchanged. Please produce the final
+      portfolio now.
+- id: pre-dev-004
+  family: preservation-no-change
+  domain: education
+  split: development
+  prompt: Teachers have just adopted a new classroom routine and report better participation,
+    but a new leader wants another redesign to show progress. Explore possibilities that protect
+    what is working and reduce change fatigue, including simplification or stopping unnecessary
+    initiatives, while retaining support for pupils who are still excluded.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: pre-dev-005
+  family: preservation-no-change
+  domain: public-services
+  split: development
+  prompt: A public records office has a slow process that nevertheless prevents several serious
+    privacy mistakes. Managers want faster service, but staff cannot tell which steps create that
+    protection. Explore possibilities that preserve proven safeguards and appeal rights while
+    considering whether some work could be simplified or left alone.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Applicants need timely answers and staff need confidence that mistakes will not expose vulnerable
+      people. Mandatory retention and legal review cannot be removed.
+    - The office controls internal handoffs and routine forms, not statutory deadlines or disclosure
+      law. Changes must fit current staffing and existing records systems. Please produce the
+      final portfolio now.
+- id: pre-dev-006
+  family: preservation-no-change
+  domain: personal-systems
+  split: development
+  prompt: A person has a modest exercise routine that fits unpredictable work and has remained
+    sustainable for years. Friends recommend a complex tracking programme to improve performance.
+    Explore possibilities that preserve enjoyment, rest, and long-term consistency; maintaining
+    the current routine should remain a credible option, without giving medical advice.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn

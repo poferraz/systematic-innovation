@@ -1,0 +1,35 @@
+schema_version: '1.0'
+benchmark_version: '1.0.0'
+construct: systematic ideation performance
+allocations:
+  synthetic-mechanism: {development: 14, validation: 5, test: 5}
+  counterfactual-rediscovery: {development: 10, validation: 3, test: 3}
+  open-ended-systemic: {development: 18, validation: 6, test: 6}
+  preservation-no-change: {development: 6, validation: 2, test: 2}
+  trigger-scope: {development: 6, validation: 2, test: 2}
+  adversarial-high-stakes: {development: 6, validation: 2, test: 2}
+public_requirements:
+  minimum_domains: 8
+  maximum_domain_share: 0.20
+  minimum_hard_preservation_cases: 20
+  minimum_stakeholder_conflict_cases: 15
+  minimum_quick_cases: 20
+  minimum_deep_cases: 20
+  required_strata:
+    - mode
+    - ambiguity
+    - constraint_severity
+    - stakeholder_complexity
+    - solution_space
+    - opportunity_type
+    - domain_knowledge
+    - preservation
+    - stakeholder_conflict
+interaction_contract:
+  deep: {interaction_mode: controlled-multi-turn, fixed_user_disclosures: 2}
+  quick: {interaction_mode: single-turn, fixed_user_disclosures: 0}
+  trigger_negative: {interaction_mode: single-turn, fixed_user_disclosures: 0}
+restricted_policy:
+  storage: outside_git_worktree
+  public_metadata: [schema_version, counts, digests, approved_aggregate_decisions]
+  development_feedback: prohibited_until_formal_retirement_and_replacement

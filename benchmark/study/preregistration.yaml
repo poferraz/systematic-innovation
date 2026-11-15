@@ -1,0 +1,130 @@
+schema_version: '1.0'
+study_id: systematic-ideation-v1
+status: draft
+construct: systematic ideation performance
+candidate_commit: null
+runner_commit: null
+corpus_digests: {public: null, validation: null, test: null}
+primary_endpoint: qualified_useful_distinct_mechanisms_per_1000_total_assistant_output_tokens
+primary_contrast: {treatment: full-skill, control: format-matched}
+conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+ablations:
+  split: development
+  requires_full_treatment_effect: true
+quality_gate:
+  relevance_min: 2
+  constraint_alignment_min: 2
+  causal_clarity_min: 2
+  plausibility_min: 1
+  critical_safety_violation: false
+  application_order: gate_candidates_then_deduplicate
+interaction_protocol:
+  version: fixed-two-disclosures-v1
+  deep_disclosures: 2
+  disclosure_parity: byte_identical_across_conditions
+  candidate_source: final_portfolio
+  token_denominator: all_assistant_turns
+  retries: preserve_all_attempts_and_resource_usage
+stage_gates: [six_case_feasibility, twelve_case_rehearsal, development_60, validation_20, cross_agent_validation, sealed_20, report, stop]
+secondary_endpoints:
+  - raw_distinct_mechanisms
+  - vendi_score
+  - duplicate_collapse_ratio
+  - useful_mechanism_proportion
+  - duplicate_reduction
+  - genericity_reduction
+  - constraint_responsiveness
+  - system_awareness
+  - preservation_awareness
+  - ideation_scope_compliance
+  - hungarian_hidden_mechanism_recovery
+  - human_and_length_controlled_pairwise_preference
+secondary_contrasts: [vanilla, generic-brainstorm, established-method]
+exploratory_endpoints: [boundary_mode, transfer, provocation, combination, question_usefulness, host]
+efficiency_endpoints: [qualified_per_1000_total_assistant_tokens, qualified_per_minute, qualified_per_dollar, human_value_per_1000_tokens, question_burden]
+analysis_unit: case
+aggregation: average_replicates_within_case_condition_model_host_before_paired_differences
+estimands: [mean_paired_case_difference, median_paired_case_difference]
+bootstrap:
+  unit: case
+  methods: [percentile, BCa]
+  confidence_level: 0.95
+  resamples: 10000
+  analysis_seed: 20260831
+  seed_scope: statistical_resampling_only_never_human_blinding
+multiplicity: Holm_step_down_secondary_contrasts
+missingness:
+  failed_generation: zero_qualified_mechanisms_with_observed_resources_retained
+  missing_total_tokens: primary_score_missing_never_substitute_final_tokens
+  judge_failure_or_abstention: missing_with_counts_and_pessimistic_sensitivity_bounds
+  reporting: counts_reasons_denominators_and_complete_case_sensitivity
+exclusions:
+  - transport_failure_after_bounded_retries
+  - empty_response
+  - corrupted_total_token_accounting
+  - conversation_protocol_violation
+  - verified_prompt_leakage
+exclusion_policy: retain_all_outcomes_and_resource_usage_report_primary_eligibility_separately
+pilot_rule:
+  source: full_public_development_only
+  initial_generation_repetitions: 2
+  trigger_negative_activation_observations: 1
+  variance: sample_variance_of_case_level_paired_differences
+  reliability: independent_double_coded_calibration_agreement_and_ordinal_alpha
+  practical_effect: 0.20_times_Q75_minus_Q25_of_format_matched_case_primary_scores
+  equivalence_margin: 0.10_times_Q75_minus_Q25_of_format_matched_case_primary_scores
+  degenerate_quantiles: block_freeze_and_record_new_approved_derivation_before_validation
+  repetitions: smallest_integer_with_median_case_endpoint_standard_error_at_most_20_percent_of_practical_effect_subject_to_budget
+  freeze_before: restricted_validation
+pilot_values: {variance: null, reliability: null, practical_effect: null, equivalence_margin: null, repetitions: null}
+measurement_freeze:
+  extraction_version: null
+  judge_version: null
+  conversation_protocol: null
+  rehearsal_run_digest: null
+judge_acceptance:
+  status: pending
+  pairwise_agreement_min: 0.75
+  krippendorff_alpha_min: 0.67
+  minimum_trained_annotators: 2
+  minimum_stratified_pairs_per_round: 40
+  maximum_prompt_revisions: 3
+  blinding: out_of_repo_seed_or_isolated_exported_packet
+  abstention_label: abstain
+  independent_labels_locked_before_adjudication: true
+  adjudication: third_annotator_after_independent_labels_lock_preserve_original_disagreement
+  separate_agreement: [mechanism_identity, relevance, constraint_alignment, causal_clarity, plausibility, critical_safety_violation]
+  fallback: human_primary_LLM_exploratory
+budgets:
+  max_calls: 50
+  max_cost: null
+  max_concurrency: 2
+  retry_limit: 1
+  failure_threshold: 0.20
+  authorization: exact_stage_budget_required_before_execution
+reporting:
+  mandatory_counts: [extracted_candidates, raw_distinct_families, qualified_candidates, qualified_distinct_families, gate_rejections_by_criterion, final_response_tokens, total_assistant_tokens]
+  separate_strata: [single_turn, controlled_multi_turn, family, domain, model, host]
+  optional_composite: preregistered_weights_and_sensitivity_results_required
+validation_policy:
+  feedback_to_development: release_eligibility_decision_only
+  failure: reject_candidate_any_revision_justified_by_public_development_only
+  release_gate: primary_interval_excludes_harmful_effect_boundary_and_safety_noninferiority_and_no_integrity_event
+  safety_margin: null
+  operator_approval_required: true
+sealed_test_policy:
+  maximum_executions: 1
+  candidate_unchanged: true
+  analysis_frozen: true
+  operator_approval_required: true
+  infrastructure_restart: before_10_percent_parent_jobs_complete_and_before_effect_inspection_only
+  otherwise: resume_same_run_next_pending_turn
+  terminal_transition: report_then_stop_no_candidate_revision
+contamination_response: quarantine_stop_retire_replace_record_transition_before_future_development_use
+stopping_rules:
+  - frozen_practical_effect_and_safety_gates_met
+  - three_consecutive_candidates_improve_less_than_equivalence_margin
+  - ninety_percent_authorized_budget_used
+  - judge_calibration_fails_after_three_prompt_revisions_use_human_primary
+  - data_leakage_stop_and_quarantine
+  - ten_development_candidates_maximum

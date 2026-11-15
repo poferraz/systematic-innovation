@@ -1,0 +1,237 @@
+cases:
+- id: red-dev-001
+  family: counterfactual-rediscovery
+  domain: logistics
+  split: development
+  prompt: A merchant moves delicate goods across a sea and then through several inland depots.
+    Most damage occurs when handlers move individual parcels between vehicles, although every
+    carrier follows its own rules. Explore conceptual alternatives that reduce damage without
+    requiring one company to own the entire journey.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Dock workers need safe handling and smaller merchants must retain affordable access. Individual
+      parcels must remain identifiable and inspectable when required.
+    - Carriers can agree new handling arrangements, but ports have different equipment and no
+      participant can rebuild every depot at once. Please produce the final portfolio now.
+- id: red-dev-002
+  family: counterfactual-rediscovery
+  domain: manufacturing
+  split: development
+  prompt: A workshop makes many styles of a small household object. Craftspeople repeatedly rebuild
+    their work area when changing styles, leaving equipment idle. Orders are too small to justify
+    a separate factory for each style. Explore alternatives that shorten delivery without forcing
+    buyers to accept one design.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: red-dev-003
+  family: counterfactual-rediscovery
+  domain: public-services
+  split: development
+  prompt: A town must help strangers identify the correct street without relying on spoken directions.
+    Several streets have similar-looking entrances and many residents cannot read the same language.
+    Explore ways to reduce mistaken journeys while retaining access for people with impaired vision
+    and keeping civic information trustworthy.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: red-dev-004
+  family: counterfactual-rediscovery
+  domain: software
+  split: development
+  prompt: A service sends the same large reference material to many distant offices. Offices need
+    fast access, but repeated requests overload the central connection. The material changes occasionally
+    and stale versions can cause errors. Explore alternatives that improve availability without
+    letting offices unknowingly rely on outdated material.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Central editors need reliable corrections, while local staff must work during short connection
+      outages. Access restrictions and an auditable version history must remain intact.
+    - The organization controls its own computers and publication rules, but cannot upgrade the
+      connection this year or assume all offices reconnect at the same time. Please produce the
+      final portfolio now.
+- id: red-dev-005
+  family: counterfactual-rediscovery
+  domain: healthcare-operations
+  split: development
+  prompt: A care service transports temperature-sensitive supplies over long distances with unreliable
+    electricity. Staff cannot tell which deliveries remained within approved conditions, so usable
+    supplies may be discarded and unsafe ones may appear acceptable. Explore conceptual logistics
+    alternatives; preserve established safety rules and do not provide clinical instructions.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: red-dev-006
+  family: counterfactual-rediscovery
+  domain: food-systems
+  split: development
+  prompt: A food producer must keep prepared goods usable during long journeys without adding
+    ingredients customers cannot tolerate. Heating the whole storage area would damage packaging,
+    and journeys vary in length. Explore conceptual preservation possibilities without claiming
+    an untested process is safe or replacing required food-safety validation.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: red-dev-007
+  family: counterfactual-rediscovery
+  domain: transport
+  split: development
+  prompt: A city has crowded junctions where different travelers cannot predict when others will
+    move. Street workers currently direct traffic in person, but staffing every junction is impractical.
+    Explore alternatives that make crossings dependable without assuming that all travelers can
+    hear, see colors, or move quickly.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Pedestrians fear being stranded and delivery drivers fear repeated delays. Emergency access
+      and safe crossing time for slower travelers must be preserved.
+    - The city controls street equipment and operating rules. It cannot widen roads, remove pedestrian
+      access, or put a worker at every crossing. Please produce the final portfolio now.
+- id: red-dev-008
+  family: counterfactual-rediscovery
+  domain: organizations
+  split: development
+  prompt: A growing association must decide whether a submitted expense is legitimate. Every claim
+    currently waits for the chair, whose travel makes responses unpredictable. Members need reimbursement
+    but misuse would exhaust shared funds. Explore alternatives that preserve accountability without
+    requiring the chair to read every routine claim.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
+- id: red-dev-009
+  family: counterfactual-rediscovery
+  domain: research
+  split: development
+  prompt: Investigators need to compare observations made at distant sites, but each site records
+    time according to its own local practice. Disagreements appear to be scientific differences
+    when they may be recording differences. Explore ways to make comparisons trustworthy without
+    requiring every site to replace its instruments.
+  strata:
+    mode: deep
+    ambiguity: high
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: systemic
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: deep
+  should_trigger: true
+  interaction_mode: controlled-multi-turn
+  conversation_script:
+    user_turns:
+    - Sites want to keep useful historical records, and smaller teams cannot fund replacement
+      equipment. Original observations and uncertainty must remain visible.
+    - A coordinating body can agree reporting conventions and provide shared reference material.
+      It cannot revisit past events or force identical local working hours. Please produce the
+      final portfolio now.
+- id: red-dev-010
+  family: counterfactual-rediscovery
+  domain: education
+  split: development
+  prompt: A tutor serves learners with very different starting knowledge. Repeating the same lesson
+    leaves some lost and others idle, but teaching every learner separately is unaffordable. Explore
+    alternatives that let learners progress while retaining human support, protecting privacy,
+    and avoiding permanent labels of ability.
+  strata:
+    mode: quick
+    ambiguity: bounded
+    constraint_severity: hard
+    stakeholder_complexity: multiple
+    solution_space: open
+    opportunity_type: sustaining
+    domain_knowledge: general
+    preservation: hard
+    stakeholder_conflict: present
+  expected_mode: quick
+  should_trigger: true
+  interaction_mode: single-turn
