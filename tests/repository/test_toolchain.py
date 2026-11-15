@@ -21,10 +21,6 @@ class ToolchainTests(unittest.TestCase):
         self.assertGreaterEqual(sys.version_info[:2], (3, 11))
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class BenchmarkToolchainTests(unittest.TestCase):
     def test_benchmark_dependency_environment_is_isolated_and_locked(self) -> None:
         data = tomllib.loads((ROOT / "benchmark/pyproject.toml").read_text(encoding="utf-8"))
@@ -34,3 +30,16 @@ class BenchmarkToolchainTests(unittest.TestCase):
         self.assertEqual(lock["requires-python"], ">=3.11, <3.15")
         names = {package["name"] for package in lock["package"]}
         self.assertTrue({"pydantic", "pyyaml", "numpy", "pytest", "ruff", "mypy"} <= names)
+
+
+class Task9ToolchainTests(unittest.TestCase):
+    def test_provider_tokenizer_is_optional_and_locked_outside_core_runtime(self):
+        data = tomllib.loads((ROOT / "benchmark/pyproject.toml").read_text())
+        self.assertEqual(data["dependency-groups"]["task9"], ["tiktoken==0.14.0"])
+        self.assertIn({"include-group": "task9"}, data["dependency-groups"]["dev"])
+        self.assertFalse(any("tiktoken" in item for item in data["project"]["dependencies"]))
+        self.assertIn(".", data["tool"]["pytest"]["ini_options"]["pythonpath"])
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -1,0 +1,33 @@
+# PROPOSAL ONLY: no live execution is authorized.
+# Case IDs, external-worker guards, and budget derivation are in the Task 9 plan.
+run_id: study9-feasibility6-proposal-20261114
+split: development
+dry_run: true
+models: [gpt-5.4-mini-2026-03-17]
+model_allowlist: [gpt-5.4-mini-2026-03-17]
+hosts: [inbox]
+conditions: [vanilla, generic-brainstorm, format-matched, established-method, full-skill]
+replicates: 1
+max_calls: 70
+max_cost: 5.0
+cost_per_turn: {gpt-5.4-mini-2026-03-17: 0.05}
+max_concurrency: 1
+retry_limit: 0
+failure_threshold: 0.0
+max_output_tokens: 4096
+model_parameters:
+  reasoning: {effort: none}
+  text: {verbosity: medium}
+  service_tier: default
+  store: false
+  tools: []
+  tool_choice: none
+  truncation: disabled
+secret_environment_keys: [OPENAI_API_KEY]
+# These subprocess fields do not enforce inbox-worker controls.
+# There is deliberately no executable adapter command in this proposal.
+adapter_command: []
+allowed_executables: []
+environment_allowlist: []
+timeout_seconds: 120.0
+max_output_bytes: 1048576

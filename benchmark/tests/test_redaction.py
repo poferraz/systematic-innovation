@@ -97,3 +97,42 @@ def test_case_prompt_redaction_does_not_invent_job_digest_fields():
         strata={"mode": "quick"},
     )
     assert redact_model(case, [secret]).prompt == "[REDACTED]"
+
+
+def test_raw_json_redaction_preserves_structure_and_is_idempotent():
+    from systematic_innovation_bench.redaction import redact_model
+
+    secret = "fixture" + "-nested-credential"
+    record = TurnResponse(job_id="j", turn_index=2, content="ordinary", raw_response=json.dumps({
+        "provider_response": {"metadata": {"api_key": secret, "ordinary": secret}},
+    }))
+    redacted = redact_model(record, [secret])
+    leaked = secret in redacted.model_dump_json()
+    assert not leaked
+    assert json.loads(redacted.raw_response)["provider_response"]["metadata"] == {
+        "api_key": "[REDACTED]", "ordinary": "[REDACTED]",
+    }
+    assert redact_model(redacted, [secret]) == redacted
+
+
+def test_raw_non_json_redaction_remains_enforced():
+    from systematic_innovation_bench.redaction import redact_model
+
+    secret = "fixture" + "-raw-credential"
+    record = TurnResponse(job_id="j", turn_index=2, content="ordinary",
+                          raw_response=f"Authorization: Bearer {secret}")
+    leaked = secret in redact_model(record).raw_response
+    assert not leaked
+
+
+def test_duplicate_json_keys_cannot_hide_raw_credentials():
+    from systematic_innovation_bench.redaction import redact_model
+
+    secret = "fixture" + "-duplicate-credential"
+    for raw, known in (
+        ('{"note":"' + secret + '","note":"safe"}', [secret]),
+        ('{"api_key":"' + secret + '","api_key":"[REDACTED]"}', []),
+    ):
+        record = TurnResponse(job_id="j", turn_index=2, content="ordinary", raw_response=raw)
+        leaked = secret in redact_model(record, known).raw_response
+        assert not leaked

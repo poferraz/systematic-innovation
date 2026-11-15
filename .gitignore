@@ -40,3 +40,7 @@ credentials.json
 secrets/
 
 
+
+# Reviewed Task 9 source/tests override broad host token-name exclusions.
+!benchmark/task9/tokens.py
+!benchmark/tests/test_task9_tokens.py

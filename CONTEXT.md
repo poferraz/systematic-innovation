@@ -815,6 +815,14 @@ Implemented the provider-neutral isolated `benchmark/` package, fail-closed rest
 
 **Explicit pause:** No live model/human study, real private-pack access, cross-agent assessment, sealed test, publication, merge or origin push was executed. Study Tasks 9–14 and their owner/operator approvals remain the next boundary. Public CLI execution is development-only; private execution requires the frozen reviewed operator environment. Future candidate changes must use a separate version/branch and preserve the validation decision-only feedback and sealed reporting/stop rules.
 
+### 19.13 Study Task 9 — Approved Budget and Offline Readiness (2026-11-14)
+
+After the formal benchmark reached `main` at `afe1a36` with passing CI, the owner approved the [six-case plan](docs/superpowers/plans/2026-11-14-study-task9-six-case-feasibility.md): **70 generation calls, US$5 cap, no retries**, followed by implementation and offline testing of its API worker, budget/approval guards and technical verifier. The [scoped decision record](benchmark/study/task9-readiness-approval.yaml) reconciles that budget without changing draft preregistration or granting live execution.
+
+The external [Task 9 tooling](benchmark/task9/README.md) consumes the existing opaque inbox protocol. It binds approvals to actual source/config/corpus/skill/lock identities, durably reserves requests before sending, refuses ambiguous repeats, validates complete provider usage and preserves redacted raw evidence. Its technical verifier checks accounting, fixed disclosures, a fresh-process resume and isolated standard-report provenance while withholding condition effects. A provider-neutral ingestion correction preserves valid structured raw JSON through repeated redaction.
+
+Synthetic offline tests exercise the full 30-job / 70-turn exchange and refusal boundaries; [verification evidence](benchmark/task9-verification.md) records the commands and limits. These tests do not execute or pass Study Task 9. The local tokenizer profile deliberately remains uncertified for provider framing. Live model and human studies remain paused; Task 9 is pending, `execution_authorized` remains false, and the canonical skill pack remains frozen at the hash recorded in §19.10. Any live launch needs a separate owner decision and the plan's remaining operator controls.
+
 ## 20. Current Repository-Quality Intent
 
 Before the architecture decision, the owner's intent established the following constraints; the approved direction in section 19.1 now gives them architectural form:

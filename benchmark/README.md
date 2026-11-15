@@ -10,7 +10,7 @@ uv sync --locked
 uv run --locked sib --help
 uv run --locked pytest -q
 uv run --locked ruff check .
-uv run --locked mypy src
+uv run --locked mypy src task9
 ```
 
 `src/` owns strict versioned records, loaders, planning, immutable conversation state, append-only storage, adapters, scoring, statistics, reports, and CLI orchestration. `schemas/` supports external producers. `cases/development/` contains the 60 public cases; `study/` contains draft scientific contracts. `runs/` is ignored generated evidence. No provider SDK is required. Provider integrations belong outside this core unless independently reviewed.
@@ -53,3 +53,5 @@ Reports expose raw candidates/families, qualified candidates/families, overlappi
 Restricted-pack validation is content-free and refuses in-repository packs. `sib restricted-preflight --declaration DECLARATION --output AUTHORIZATION` checks a frozen reviewed external execution declaration and records authorization only; it launches no adapter. Public run commands are development-only. Read [restricted custody](../docs/security/restricted-execution.md) before any private-pack access. Live model studies, human calibration, validation, sealed access, cross-agent results, and publication remain pending.
 
 Follow [HANDOFF.md](HANDOFF.md) for operations and [runner-verification.md](runner-verification.md) for retained offline evidence.
+
+The approved Task 9 budget is 70 requests / US$5 / no retries. Its external API worker, spending/approval guards and technical verifier are in [task9/](task9/README.md), with synthetic offline integration tests. Live execution remains paused and the canonical skill remains frozen; see the [readiness decision](study/task9-readiness-approval.yaml).

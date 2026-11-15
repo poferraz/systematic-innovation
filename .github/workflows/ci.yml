@@ -58,4 +58,4 @@ jobs:
       - name: Lint benchmark
         run: uv run --locked ruff check .
       - name: Typecheck benchmark
-        run: uv run --locked mypy src
+        run: uv run --locked mypy src task9

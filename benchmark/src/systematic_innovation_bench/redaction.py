@@ -1,5 +1,6 @@
 """Credential redaction before any canonical evidence persistence."""
 
+import json
 import re
 from collections.abc import Sequence
 from typing import Any, TypeVar
@@ -61,8 +62,41 @@ def redact_object(value: Any, secret_values: Sequence[str] = ()) -> Any:
     return value
 
 
+def _unique_json_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate raw JSON key")
+        result[key] = value
+    return result
+
+
+def _invalid_json_constant(value: str) -> Any:
+    raise ValueError("nonfinite raw JSON constant")
+
+
 def redact_model(record: T, secret_values: Sequence[str] = ()) -> T:
-    payload = redact_object(record.model_dump(mode="json"), secret_values)
+    original = record.model_dump(mode="json")
+    # Raw evidence may contain serialized JSON. Redact its parsed values rather
+    # than applying prose assignment patterns to JSON syntax (which can remove
+    # quotes). Preserve already-safe bytes so durable response hashes remain
+    # stable across repeated persistence boundaries.
+    payload = redact_object({key: value for key, value in original.items()
+                             if key != "raw_response"}, secret_values)
+    if "raw_response" in original:
+        raw = original["raw_response"]
+        if isinstance(raw, str):
+            try:
+                parsed = json.loads(raw, object_pairs_hook=_unique_json_object,
+                                    parse_constant=_invalid_json_constant)
+            except (ValueError, RecursionError):
+                payload["raw_response"] = redact_text(raw, secret_values)
+            else:
+                redacted = redact_object(parsed, secret_values)
+                payload["raw_response"] = (raw if redacted == parsed else json.dumps(
+                    redacted, sort_keys=True, allow_nan=False))
+        else:
+            payload["raw_response"] = redact_object(raw, secret_values)
     if "prompt_sha256" in type(record).model_fields and payload.get("prompt") != getattr(
         record, "prompt", None
     ):
