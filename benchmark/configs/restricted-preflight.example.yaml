@@ -1,0 +1,66 @@
+# Illustrative only. This declaration intentionally has no operator approval.
+# Replace every path, identity, policy and digest from a reviewed frozen run.
+# Keep the completed declaration and approval in controlled external storage.
+schema_version: 1.0.0
+run_id: validation-candidate-001
+runner_root: /operator/reviewed-runner
+runner_revision: '0000000000000000000000000000000000000000'
+lock_path: /operator/reviewed-runner/benchmark/uv.lock
+lock_sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+candidate_path: /operator/reviewed-runner/skills/systematic-innovation
+candidate_sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+pack_path: /operator/controlled-evidence/validation-pack
+pack_sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+pack_id: validation-pack-001
+study_stage: validation
+authorized_stages: [validation]
+execution:
+  provider: example-provider
+  model: example-model
+  account: operator-account-label
+  adapter: reviewed-adapter
+  invocation: [reviewed-executable, --json]
+approved_execution:
+  provider: example-provider
+  model: example-model
+  account: operator-account-label
+  adapter: reviewed-adapter
+  invocation: [reviewed-executable, --json]
+input_paths:
+  - /operator/reviewed-runner
+  - /operator/controlled-evidence/validation-pack
+allowed_input_paths:
+  - /operator/reviewed-runner
+  - /operator/controlled-evidence/validation-pack
+output_path: /operator/controlled-results/validation-candidate-001
+allowed_output_paths: [/operator/controlled-results/validation-candidate-001]
+egress_endpoints: [https://models.example.invalid]
+allowed_egress_endpoints: [https://models.example.invalid]
+environment_keys: [LANG]
+allowed_environment_keys: [LANG]
+environment_filtered: false
+credentials_scoped_to_run: false
+provider_policy:
+  retention: REPLACE_WITH_VERIFIED_PROVIDER_SETTING
+  training: REPLACE_WITH_VERIFIED_PROVIDER_SETTING
+  logging: REPLACE_WITH_VERIFIED_PROVIDER_SETTING
+  regional_processing: REPLACE_WITH_VERIFIED_PROVIDER_SETTING
+  study_policy_satisfied: false
+storage:
+  access_control: false
+  encryption_at_rest: false
+  backups_excluded: false
+  sync_excluded: false
+  indexing_excluded: false
+  temporary_files_controlled: false
+  caches_controlled: false
+  logs_redacted: false
+  exports_controlled: false
+  retention_days: 30
+  deletion_policy: REPLACE_WITH_VERIFIED_DELETION_PROCEDURE
+  reviewer: custody-reviewer-label
+  evidence_sha256: '0000000000000000000000000000000000000000000000000000000000000000'
+approval: null
+# After independent custody review, approval must contain:
+# approver, timezone-aware timestamp, study_stage, candidate_sha256,
+# and declaration_sha256 (computed with declaration_digest, excluding approval).

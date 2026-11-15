@@ -1,0 +1,399 @@
+{
+  "$defs": {
+    "ExecutionIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "provider": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Provider",
+          "type": "string"
+        },
+        "model": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Model",
+          "type": "string"
+        },
+        "account": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Account",
+          "type": "string"
+        },
+        "adapter": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Adapter",
+          "type": "string"
+        },
+        "invocation": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Invocation",
+          "type": "array"
+        }
+      },
+      "required": [
+        "provider",
+        "model",
+        "account",
+        "adapter",
+        "invocation"
+      ],
+      "title": "ExecutionIdentity",
+      "type": "object"
+    },
+    "OperatorApproval": {
+      "additionalProperties": false,
+      "properties": {
+        "approver": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Approver",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "study_stage": {
+          "enum": [
+            "validation",
+            "sealed-test"
+          ],
+          "title": "Study Stage",
+          "type": "string"
+        },
+        "candidate_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Candidate Sha256",
+          "type": "string"
+        },
+        "declaration_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Declaration Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approver",
+        "timestamp",
+        "study_stage",
+        "candidate_sha256",
+        "declaration_sha256"
+      ],
+      "title": "OperatorApproval",
+      "type": "object"
+    },
+    "ProviderPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "retention": {
+          "title": "Retention",
+          "type": "string"
+        },
+        "training": {
+          "title": "Training",
+          "type": "string"
+        },
+        "logging": {
+          "title": "Logging",
+          "type": "string"
+        },
+        "regional_processing": {
+          "title": "Regional Processing",
+          "type": "string"
+        },
+        "study_policy_satisfied": {
+          "title": "Study Policy Satisfied",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "retention",
+        "training",
+        "logging",
+        "regional_processing",
+        "study_policy_satisfied"
+      ],
+      "title": "ProviderPolicy",
+      "type": "object"
+    },
+    "StorageControls": {
+      "additionalProperties": false,
+      "properties": {
+        "access_control": {
+          "title": "Access Control",
+          "type": "boolean"
+        },
+        "encryption_at_rest": {
+          "title": "Encryption At Rest",
+          "type": "boolean"
+        },
+        "backups_excluded": {
+          "title": "Backups Excluded",
+          "type": "boolean"
+        },
+        "sync_excluded": {
+          "title": "Sync Excluded",
+          "type": "boolean"
+        },
+        "indexing_excluded": {
+          "title": "Indexing Excluded",
+          "type": "boolean"
+        },
+        "temporary_files_controlled": {
+          "title": "Temporary Files Controlled",
+          "type": "boolean"
+        },
+        "caches_controlled": {
+          "title": "Caches Controlled",
+          "type": "boolean"
+        },
+        "logs_redacted": {
+          "title": "Logs Redacted",
+          "type": "boolean"
+        },
+        "exports_controlled": {
+          "title": "Exports Controlled",
+          "type": "boolean"
+        },
+        "retention_days": {
+          "exclusiveMinimum": 0,
+          "title": "Retention Days",
+          "type": "integer"
+        },
+        "deletion_policy": {
+          "title": "Deletion Policy",
+          "type": "string"
+        },
+        "reviewer": {
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+          "title": "Reviewer",
+          "type": "string"
+        },
+        "evidence_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Evidence Sha256",
+          "type": "string"
+        }
+      },
+      "required": [
+        "access_control",
+        "encryption_at_rest",
+        "backups_excluded",
+        "sync_excluded",
+        "indexing_excluded",
+        "temporary_files_controlled",
+        "caches_controlled",
+        "logs_redacted",
+        "exports_controlled",
+        "retention_days",
+        "deletion_policy",
+        "reviewer",
+        "evidence_sha256"
+      ],
+      "title": "StorageControls",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "run_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+      "title": "Run Id",
+      "type": "string"
+    },
+    "runner_root": {
+      "format": "path",
+      "title": "Runner Root",
+      "type": "string"
+    },
+    "runner_revision": {
+      "pattern": "^[0-9a-f]{40}$",
+      "title": "Runner Revision",
+      "type": "string"
+    },
+    "lock_path": {
+      "format": "path",
+      "title": "Lock Path",
+      "type": "string"
+    },
+    "lock_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Lock Sha256",
+      "type": "string"
+    },
+    "candidate_path": {
+      "format": "path",
+      "title": "Candidate Path",
+      "type": "string"
+    },
+    "candidate_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Candidate Sha256",
+      "type": "string"
+    },
+    "pack_path": {
+      "format": "path",
+      "title": "Pack Path",
+      "type": "string"
+    },
+    "pack_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Pack Sha256",
+      "type": "string"
+    },
+    "pack_id": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:/@+-]{0,127}$",
+      "title": "Pack Id",
+      "type": "string"
+    },
+    "study_stage": {
+      "enum": [
+        "validation",
+        "sealed-test"
+      ],
+      "title": "Study Stage",
+      "type": "string"
+    },
+    "authorized_stages": {
+      "items": {
+        "enum": [
+          "validation",
+          "sealed-test"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Authorized Stages",
+      "type": "array"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionIdentity"
+    },
+    "approved_execution": {
+      "$ref": "#/$defs/ExecutionIdentity"
+    },
+    "input_paths": {
+      "items": {
+        "format": "path",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Input Paths",
+      "type": "array"
+    },
+    "allowed_input_paths": {
+      "items": {
+        "format": "path",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Allowed Input Paths",
+      "type": "array"
+    },
+    "output_path": {
+      "format": "path",
+      "title": "Output Path",
+      "type": "string"
+    },
+    "allowed_output_paths": {
+      "items": {
+        "format": "path",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Allowed Output Paths",
+      "type": "array"
+    },
+    "egress_endpoints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Egress Endpoints",
+      "type": "array"
+    },
+    "allowed_egress_endpoints": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Egress Endpoints",
+      "type": "array"
+    },
+    "environment_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Environment Keys",
+      "type": "array"
+    },
+    "allowed_environment_keys": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Environment Keys",
+      "type": "array"
+    },
+    "environment_filtered": {
+      "title": "Environment Filtered",
+      "type": "boolean"
+    },
+    "credentials_scoped_to_run": {
+      "title": "Credentials Scoped To Run",
+      "type": "boolean"
+    },
+    "provider_policy": {
+      "$ref": "#/$defs/ProviderPolicy"
+    },
+    "storage": {
+      "$ref": "#/$defs/StorageControls"
+    },
+    "approval": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/OperatorApproval"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "run_id",
+    "runner_root",
+    "runner_revision",
+    "lock_path",
+    "lock_sha256",
+    "candidate_path",
+    "candidate_sha256",
+    "pack_path",
+    "pack_sha256",
+    "pack_id",
+    "study_stage",
+    "authorized_stages",
+    "execution",
+    "approved_execution",
+    "input_paths",
+    "allowed_input_paths",
+    "output_path",
+    "allowed_output_paths",
+    "egress_endpoints",
+    "allowed_egress_endpoints",
+    "environment_keys",
+    "allowed_environment_keys",
+    "environment_filtered",
+    "credentials_scoped_to_run",
+    "provider_policy",
+    "storage",
+    "approval"
+  ],
+  "title": "RestrictedDeclaration",
+  "type": "object"
+}
