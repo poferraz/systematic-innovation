@@ -17,6 +17,8 @@ from systematic_innovation_bench.store import read_records
 def parser() -> argparse.ArgumentParser:
     root = argparse.ArgumentParser(prog="python -m task9", description="Paused Task 9 readiness tools")
     sub = root.add_subparsers(dest="command", required=True)
+    preflight = sub.add_parser("preflight", help="Prepare a blocked launch packet without provider traffic")
+    preflight.add_argument("--config", type=Path)
     for name in ("bindings", "process", "checkpoint", "resume-proof", "verify"):
         item = sub.add_parser(name)
         item.add_argument("--run-dir", type=Path, required=True)
@@ -96,6 +98,10 @@ def _exclusive_response(path: Path, payload: bytes) -> None:
 
 
 def dispatch(args: argparse.Namespace) -> dict[str, Any]:
+    if args.command == "preflight":
+        from .preflight import PROPOSAL, build_launch_preflight
+
+        return build_launch_preflight(config_path=args.config or PROPOSAL).model_dump(mode="json")
     from .contracts import ExecutionApproval
     from .guards import Task9Guard, approval_bindings
 
@@ -137,13 +143,14 @@ def dispatch(args: argparse.Namespace) -> dict[str, Any]:
             replay = ReplayBundle.load(args.fixtures)
             worker = Worker(guard, replay, replay)
         else:
-            from .tokens import LocalInputCounter
-            from .transport import HTTPTransport
+            from .counting import ProviderInputCounter
+            from .transport import HTTPCountTransport, HTTPTransport
 
-            if args.tokenizer_resource is None or args.fixtures is not None:
+            if args.tokenizer_resource is not None or args.fixtures is not None:
                 raise ValueError("TASK9_LIVE_COUNTER_REQUIRED")
             worker = Worker(guard, HTTPTransport(account_id=args.account_id,
-                            project_id=args.project_id), LocalInputCounter(args.tokenizer_resource))
+                            project_id=args.project_id), ProviderInputCounter(HTTPCountTransport(
+                                account_id=args.account_id, project_id=args.project_id)))
         response = worker.process(jobs[0])
         _exclusive_response(output, (response.model_dump_json()+"\n").encode())
         return {"mode": mode, "responses": 1, "live_execution_authorized": False}
@@ -182,4 +189,5 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"error": code}))
         return 1
     print(json.dumps(result, sort_keys=True, allow_nan=False))
-    return 1 if result.get("technical_checks_passed") is False else 0
+    return 1 if (result.get("technical_checks_passed") is False
+                 or result.get("launch_ready") is False) else 0

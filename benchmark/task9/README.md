@@ -22,7 +22,8 @@ uv run --offline --locked python -m task9 --help
 - `contracts.py` and `guards.py` validate exact scope, policy, source/corpus/skill/config/lock digests, approval expiry and independent transport identity. A process lock, exclusive claims and fsynced hash-chained receipts precede dispatch. Unknown outcomes stop the run; completed matching requests return retained evidence without sending again.
 - `transport.py` makes one direct TLS request with a 120-second total deadline and a 1 MiB body limit. It reads the credential only inside the guarded send callback. It has no SDK retry, redirect or proxy path. Fake connections exercise it offline.
 - `worker.py` sends the complete instructions and transcript with fixed model parameters, validates response identity, status and usage, retains redacted provider evidence, and calculates an upper-bound cost from total usage. Reasoning tokens are included in output usage once.
-- `tokens.py` requires explicit local vocabulary bytes matching its pinned hash. It never downloads tokenizer resources. Its framing allowance is **unreviewed and cannot certify live dispatch**; local counts never replace provider usage.
+- `counting.py` uses the provider's documented count-only contract, including framing, with an exact projection and retained request-bound evidence. `count_ledger.py` makes these metadata requests separately authorized, durable and non-retryable. The guard invokes every counter lazily after approval and pause checks; a counter cannot contact the provider ahead of them.
+- `tokens.py` remains an offline local estimate with explicit vocabulary bytes and **cannot certify live dispatch**. It never downloads tokenizer resources. Neither local nor pre-generation counts replace observed generation usage.
 - `verifier.py` checks 30 jobs / 70 turns, disclosure parity, all-turn accounting, receipts, resume prefixes and report provenance. It constructs 12 blinded protocol packets without rating them. Technical outputs exclude answers, candidates, condition effects, rankings and strata. Offline success never passes a scientific gate.
 
 The worker reserves US$0.05 per request, uses integer microdollars, stops at US$4.50 including unresolved reservations, and also enforces the US$5 cap, 70-attempt ceiling, serial execution, zero retries, 32,768 input tokens, 4,096 output tokens and three-hour wall limit. The plan's conservative token-price bound is US$3.01056; these are declared limits, not measured charges.
@@ -33,6 +34,7 @@ The worker reserves US$0.05 per request, uses integer microdollars, stops at US$
 
 | Command | Purpose |
 | --- | --- |
+| `preflight` | Prepare a read-only blocked launch packet without a run, credential or provider request. Exit 1 means current launch prerequisites remain unmet. |
 | `bindings` | Read actual immutable input digests; creates no approval. |
 | `process` | Consume one exported opaque TurnJob and an independently supplied approval; offline mode requires an exact request-bound replay fixture. Write only a response exchange file, then use `sib ingest` for canonical evidence. |
 | `checkpoint` | Retain the first accepted Deep turn and evidence prefixes. |
@@ -43,6 +45,6 @@ Approvals, replay fixtures, response exchanges, receipts, checkpoints and report
 
 ## Live launch remains blocked
 
-The proposed config retains `dry_run: true`. Preregistration remains draft, `stage-gates.yaml` retains `execution_authorized: false`, Task 9 remains pending, and the readiness record has no live authorization. Live mode refuses before reading run inputs or credentials; guards independently enforce the pause. The production counter also refuses live certification.
+The proposed config retains `dry_run: true`. Preregistration remains draft, `stage-gates.yaml` retains `execution_authorized: false`, Task 9 remains pending, and the readiness record has no live authorization. Live mode refuses before reading run inputs or credentials; guards independently enforce the pause. Count requests are additionally default-denied and require their own explicit 70-request authorization.
 
-A later launch needs separate owner authorization, reviewed provider-framing evidence, an immutable clean reviewed checkout, exact account/project and enforcing budget controls, refreshed price/model access evidence, and the independent filesystem/egress controls in the plan. Local hashes detect corruption, not an adversary able to rewrite the entire evidence directory. This implementation does not install those operating-system controls or authorize private packs, human labeling, judge calls, study advancement, merge or push.
+A later launch needs separate owner authorization for up to 70 count-only requests plus 70 generations, an immutable clean reviewed checkout, exact account/project and enforcing budget controls, refreshed price/model access evidence, and independent filesystem/egress controls. See the [proposed launch preflight](../task9-launch-preflight.md). Local hashes detect corruption, not an adversary able to rewrite the entire evidence directory. This implementation does not install those operating-system controls or authorize private packs, human labeling, judge calls or study advancement.

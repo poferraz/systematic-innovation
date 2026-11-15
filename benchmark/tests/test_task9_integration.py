@@ -149,3 +149,84 @@ def test_cli_offline_process_identity_and_cached_replay(prepared):
     assert repeat.returncode==0,repeat.stdout+repeat.stderr
     assert output.read_bytes()==before
     assert guard.verify()['attempts']==1
+
+
+def test_seventy_provider_count_fixtures_are_distinct_from_generation_and_survive_resume(prepared):
+    from task9.count_ledger import read_count_receipts
+    from task9.counting import ProviderInputCounter
+    from task9.transport import HTTPReply
+    from task9.verifier import (
+        create_resume_checkpoint,
+        generate_isolated_reports,
+        verify_technical_run,
+    )
+
+    class CountFixture:
+        is_live = False
+        account_id = "offline-account"
+        project_id = "offline-project"
+
+        def __init__(self):
+            self.requests = 0
+
+        def send(self, payload, *, timeout_seconds, max_output_bytes):
+            assert timeout_seconds == 10 and max_output_bytes == 4096
+            assert set(payload) == {"model", "instructions", "input", "reasoning", "text",
+                                    "tools", "tool_choice", "truncation"}
+            assert payload["input"][-1]["role"] == "user"
+            self.requests += 1
+            return HTTPReply(body=b'{"object":"response.input_tokens","input_tokens":200}',
+                             status=200, request_id=f"req_count_fixture_{self.requests}")
+
+    run, approval_path, _fixture, replay, prior_guard = prepared
+    count_transport = CountFixture()
+    counter = ProviderInputCounter(count_transport)
+    approval = prior_guard.approval.model_copy(update={
+        "token_counting_authorized": True, "max_token_count_requests": 70,
+        "input_profile_sha256": counter.profile_sha256,
+    })
+    approval_path.write_text(approval.model_dump_json())
+    guard = Task9Guard(run, approval, transport_account_id="offline-account",
+                       transport_project_id="offline-project")
+    worker = Worker(guard, replay, counter)
+    checkpoint = run.inside("worker/checkpoint.json")
+    turns = 0
+    while run.pending():
+        outgoing = run.inside(f"exchange/counted-out-{turns:03d}.jsonl")
+        assert run.export(outgoing) == 1
+        job = read_records(outgoing, TurnJob)[0]
+        result = worker.process(job)
+        incoming = run.inside(f"exchange/counted-in-{turns:03d}.jsonl")
+        incoming.write_text(result.model_dump_json() + "\n")
+        assert run.ingest(incoming) == 1
+        turns += 1
+        if turns == 1:
+            before = run.inside("worker/counts/attempts.jsonl").read_bytes()
+            create_resume_checkpoint(run, worker_ledger=run.inside("worker"), output=checkpoint)
+            resumed = cli("resume-proof", "--run-dir", run.path, "--checkpoint", checkpoint)
+            assert resumed.returncode == 0, resumed.stdout + resumed.stderr
+            assert run.inside("worker/counts/attempts.jsonl").read_bytes() == before
+            worker = Worker(Task9Guard(run, approval, transport_account_id="offline-account",
+                            transport_project_id="offline-project"), replay, counter)
+    assert turns == count_transport.requests == 70
+    receipts = read_count_receipts(run.inside("worker"))
+    assert len(receipts) == 140
+    assert sum(item.event == "started" for item in receipts) == 70
+    assert sum(item.event == "completed" for item in receipts) == 70
+    assert guard.verify()["attempts"] == 70
+    # Completed generation replay must use its cache before count or generation.
+    before = run.inside("worker/counts/attempts.jsonl").read_bytes()
+    assert worker.process(job) == result
+    assert count_transport.requests == 70
+    assert run.inside("worker/counts/attempts.jsonl").read_bytes() == before
+    generate_isolated_reports(run)
+    report = verify_technical_run(run, worker_ledger=run.inside("worker"),
+                                  checkpoint=checkpoint, approval=approval_path)
+    assert report.technical_checks_passed, report.diagnostics
+    assert report.metadata.count_requests == report.metadata.count_complete_requests == 70
+    assert report.metadata.accounting_method == "provider-input-tokens"
+    assert report.checks.count_accounting_verified is True
+    assert report.coverage.provider_attempts == 70
+    assert report.resources.input_tokens == 14000
+    assert report.resources.output_tokens == 1400
+    assert report.live_execution_authorized is report.scientific_gate_passed is False

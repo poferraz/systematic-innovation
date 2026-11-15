@@ -16,7 +16,7 @@ from collections import Counter
 from collections.abc import Callable
 from decimal import ROUND_CEILING, Decimal
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import Field, PrivateAttr, StrictBool, StrictInt
 
@@ -49,7 +49,7 @@ from systematic_innovation_bench.scoring.judges import (
 )
 from systematic_innovation_bench.store import read_records
 
-from .contracts import AttemptReceipt, Sha256
+from .contracts import AttemptReceipt, CountReceipt, ExecutionApproval, Sha256
 
 CASE_IDS = ('adv-dev-001', 'pre-dev-001', 'red-dev-001', 'syn-dev-001',
             'sys-dev-001', 'tri-dev-001')
@@ -67,6 +67,7 @@ Diagnostic = Literal[
     'METADATA_INCOMPLETE', 'PROVIDER_METADATA_INVALID', 'LEDGER_INVALID',
     'LEDGER_CORRELATION_INVALID', 'BUDGET_INVALID', 'RESUME_INVALID',
     'PACKET_INVALID', 'STANDARD_REPORTS_MISSING', 'STANDARD_REPORTS_INVALID', 'APPROVAL_INVALID',
+    'COUNT_EVIDENCE_INVALID',
 ]
 
 
@@ -111,6 +112,11 @@ class Metadata(StrictModel):
     complete_attempts: StrictInt = 0
     missing_attempts: StrictInt = 0
     provider_metadata_verified: StrictBool = False
+    count_requests: StrictInt = 0
+    count_complete_requests: StrictInt = 0
+    accounting_method: Literal['offline-local-uncertified', 'provider-input-tokens', 'unverified'] = (
+        'offline-local-uncertified'
+    )
 
 
 class Checks(StrictModel):
@@ -124,6 +130,7 @@ class Checks(StrictModel):
     budget_verified: StrictBool = False
     approval_verified: StrictBool = False
     standard_reports_verified: StrictBool = False
+    count_accounting_verified: StrictBool = False
 
 
 class PacketSummary(StrictModel):
@@ -147,6 +154,7 @@ class EvidenceDigests(StrictModel):
     skill_entry: str | None = None
     integrity: str | None = None
     worker_ledger: str | None = None
+    count_ledger: str | None = None
     checkpoint: str | None = None
     resume: str | None = None
     packets: str | None = None
@@ -226,6 +234,9 @@ class ResumeCheckpoint(StrictModel):
     dispatches: Prefix
     worker_ledger: Prefix
     receipt_count: StrictInt
+    count_ledger: Prefix | None = None
+    count_receipt_count: StrictInt = Field(default=0, ge=0)
+    count_marker_sha256: Sha256 | None = None
 
 
 class ResumeReceipt(StrictModel):
@@ -239,6 +250,9 @@ class ResumeReceipt(StrictModel):
     turns: Prefix
     dispatches: Prefix
     worker_ledger: Prefix
+    count_ledger: Prefix | None = None
+    count_receipt_count: StrictInt = Field(default=0, ge=0)
+    count_marker_sha256: Sha256 | None = None
 
 
 def _inside_ledger(run: RunDirectory, ledger: Path) -> Path:
@@ -276,6 +290,38 @@ def _resume_path(checkpoint: Path) -> Path:
     return checkpoint.with_name(checkpoint.name + '.resume.json')
 
 
+def _counts_present(ledger: Path) -> bool:
+    return any(path.exists() or path.is_symlink()
+               for path in (ledger / 'counts', ledger / 'counting.json'))
+
+
+def _count_prefix_verified(ledger: Path, saved: ResumeCheckpoint, *, exact: bool) -> None:
+    from .count_ledger import read_count_receipts
+
+    if saved.count_ledger is None:
+        if (saved.count_receipt_count != 0 or saved.count_marker_sha256 is not None
+                or _counts_present(ledger)):
+            raise ValueError('RESUME_INVALID')
+        return
+    # Validate safe paths before hashing or opening the marker/journal ourselves.
+    counts = read_count_receipts(ledger)
+    if (saved.count_receipt_count != 2 or saved.count_marker_sha256 is None
+            or not _counts_present(ledger)
+            or digest(ledger / 'counting.json') != saved.count_marker_sha256):
+        raise ValueError('RESUME_INVALID')
+    _verify_prefix(ledger / 'counts/attempts.jsonl', saved.count_ledger, exact=exact)
+    with (ledger / 'counts/attempts.jsonl').open('rb') as stream:
+        prefix_bytes = stream.read(saved.count_ledger.size)
+    if not prefix_bytes.endswith(b'\n') or len(prefix_bytes.splitlines()) != 2:
+        raise ValueError('RESUME_INVALID')
+    first_turn = saved.accepted_turn_id.rsplit(':', 2)[0]
+    opaque_first = hashlib.sha256(first_turn.encode()).hexdigest() + ':2:0'
+    if (len(counts) < 2 or (exact and len(counts) != 2)
+            or [row.event for row in counts[:2]] != ['started', 'completed']
+            or any(row.turn_id != opaque_first for row in counts[:2])):
+        raise ValueError('RESUME_INVALID')
+
+
 def create_resume_checkpoint(run: RunDirectory, *, worker_ledger: Path, output: Path) -> None:
     """Checkpoint one accepted first Deep turn before any second export."""
     from .guards import read_receipts
@@ -294,12 +340,23 @@ def create_resume_checkpoint(run: RunDirectory, *, worker_ledger: Path, output: 
                 or [r.event for r in receipts] != ['reserved', 'dispatched', 'completed']
                 or receipts[-1].turn_id != run.opaque(pending).turn_id.rsplit(':', 2)[0] + ':2:0'):
             raise ValueError('CHECKPOINT_INVALID')
+        count_fields: dict[str, Any] = {}
+        if _counts_present(ledger):
+            counts = _verified_counts(run, ledger, receipts, turns)
+            if len(counts) != 2:
+                raise ValueError('CHECKPOINT_INVALID')
+            count_fields = {
+                'count_ledger': _prefix(ledger / 'counts/attempts.jsonl'),
+                'count_receipt_count': len(counts),
+                'count_marker_sha256': digest(ledger / 'counting.json'),
+            }
         value = ResumeCheckpoint(
             process_id=os.getpid(), process_instance=PROCESS_INSTANCE,
             accepted_turn_id=turns[0].turn_id,
             turns=_prefix(run.inside('records/turns.jsonl')),
             dispatches=_prefix(run.inside('records/dispatches.jsonl')),
             worker_ledger=_prefix(ledger / 'attempts.jsonl'), receipt_count=len(receipts),
+            **count_fields,
         )
         _exclusive_json(run, output, value)
     except (ValueError, OSError, KeyError, IndexError, TypeError):
@@ -321,6 +378,7 @@ def record_resume(run: RunDirectory, *, worker_ledger: Path, checkpoint: Path) -
                              (run.inside('records/dispatches.jsonl'), saved.dispatches),
                              (ledger / 'attempts.jsonl', saved.worker_ledger)):
             _verify_prefix(path, prefix, exact=True)
+        _count_prefix_verified(ledger, saved, exact=True)
         run.verify()
         turn = run.pending()[0]
         if (turn.assistant_turn_index != 4 or turn.job_id != saved.accepted_turn_id.rsplit(':', 2)[0]
@@ -331,6 +389,8 @@ def record_resume(run: RunDirectory, *, worker_ledger: Path, checkpoint: Path) -
             checkpoint_sha256=digest(target), next_turn_id=turn.turn_id,
             receipt_count=len(receipts), turns=saved.turns, dispatches=saved.dispatches,
             worker_ledger=saved.worker_ledger,
+            count_ledger=saved.count_ledger, count_receipt_count=saved.count_receipt_count,
+            count_marker_sha256=saved.count_marker_sha256,
         )
         _exclusive_json(run, _resume_path(target), value)
     except ValueError as exc:
@@ -348,12 +408,16 @@ def _resume_verified(run: RunDirectory, ledger: Path, checkpoint: Path) -> bool:
             or resumed.checkpoint_sha256 != digest(checkpoint)
             or resumed.receipt_count != saved.receipt_count or saved.receipt_count != 3
             or resumed.turns != saved.turns or resumed.dispatches != saved.dispatches
-            or resumed.worker_ledger != saved.worker_ledger):
+            or resumed.worker_ledger != saved.worker_ledger
+            or resumed.count_ledger != saved.count_ledger
+            or resumed.count_receipt_count != saved.count_receipt_count
+            or resumed.count_marker_sha256 != saved.count_marker_sha256):
         return False
     for path, prefix in ((run.inside('records/turns.jsonl'), saved.turns),
                          (run.inside('records/dispatches.jsonl'), saved.dispatches),
                          (ledger / 'attempts.jsonl', saved.worker_ledger)):
         _verify_prefix(path, prefix)
+    _count_prefix_verified(ledger, saved, exact=False)
     turns, dispatches = run.turns, run._dispatches()
     if not turns or turns[0].turn_id != saved.accepted_turn_id or turns[0].turn_index != 2:
         return False
@@ -677,10 +741,10 @@ def _provider_metadata(turn: TurnResponse) -> bool:
         return False
 
 
-def _request_digests(run: RunDirectory) -> dict[str, str]:
+def _request_payloads(run: RunDirectory) -> dict[str, dict[str, Any]]:
     from .worker import build_payload
 
-    result: dict[str, str] = {}
+    result: dict[str, dict[str, Any]] = {}
     cases = {case.id: case for case in run.manifest.cases}
     turns = run.turns
     for job in run.jobs:
@@ -690,9 +754,75 @@ def _request_digests(run: RunDirectory) -> dict[str, str]:
             if request is None:
                 raise ValueError('LEDGER_CORRELATION_INVALID')
             opaque = run.opaque(request)
-            result[opaque.turn_id] = canonical_digest(build_payload(opaque))
+            result[opaque.turn_id] = build_payload(opaque)
             state = accept_turn(state, request, response)
     return result
+
+
+def _request_digests(run: RunDirectory) -> dict[str, str]:
+    return {turn_id: canonical_digest(payload)
+            for turn_id, payload in _request_payloads(run).items()}
+
+
+def _verified_counts(
+    run: RunDirectory, ledger: Path, receipts: list[AttemptReceipt], turns: list[TurnResponse], *,
+    transport_live: bool | None = None, approved: ExecutionApproval | None = None,
+) -> list[CountReceipt]:
+    """Correlate separately retained count attempts with exact generation inputs."""
+    from .count_ledger import read_count_receipts, validate_provider_bound
+    from .counting import counting_profile
+
+    rows = read_count_receipts(ledger)
+    starts = rows[::2]
+    completed = rows[1::2]
+    dispatched = [row for row in receipts if row.event == 'dispatched']
+    reserved = {row.turn_id: row for row in receipts if row.event == 'reserved'}
+    generated = {row.turn_id: row for row in receipts if row.event == 'completed'}
+    accepted = {hashlib.sha256(turn.job_id.encode()).hexdigest()
+                + f':{turn.turn_index}:{turn.attempt}': turn for turn in turns}
+    profile = canonical_digest(counting_profile())
+    if (not rows or len(rows) != len(starts) * 2 or len(starts) > 70
+            or len(starts) != len(dispatched) or len(generated) != len(accepted)
+            or len(starts) != len(accepted)
+            or any(row.event != 'started' for row in starts)
+            or any(row.event != 'completed' for row in completed)
+            or [row.turn_id for row in starts] != [row.turn_id for row in dispatched]):
+        raise ValueError('COUNT_EVIDENCE_INVALID')
+    account_id, project_id = starts[0].account_id, starts[0].project_id
+    if approved is not None:
+        if (not approved.token_counting_authorized or approved.max_token_count_requests != 70
+                or approved.input_profile_sha256 != profile):
+            raise ValueError('COUNT_EVIDENCE_INVALID')
+        account_id, project_id = approved.account_id, approved.project_id
+    payloads = _request_payloads(run)
+    prior_generation: AttemptReceipt | None = None
+    for start, completion in zip(starts, completed, strict=True):
+        bound = completion.input_bound
+        if bound is None or start.turn_id != completion.turn_id:
+            raise ValueError('COUNT_EVIDENCE_INVALID')
+        validate_provider_bound(
+            bound, payloads[start.turn_id], account_id=account_id, project_id=project_id,
+            profile_sha256=profile,
+            transport_live=bound.certified_for_live if transport_live is None else transport_live,
+        )
+        if (start.account_id != account_id or start.project_id != project_id
+                or start.profile_sha256 != profile
+                or completion.request_sha256 != generated[start.turn_id].request_sha256
+                or bound.tokens != accepted[start.turn_id].input_tokens
+                or not 0 < bound.tokens <= 32768
+                or completion.timestamp < start.timestamp
+                or (completion.timestamp - start.timestamp).total_seconds() > 10
+                or completion.timestamp > reserved[start.turn_id].timestamp
+                or (prior_generation is not None
+                    and start.timestamp < prior_generation.timestamp)):
+            raise ValueError('COUNT_EVIDENCE_INVALID')
+        prior_generation = generated[start.turn_id]
+    first_event = min(min(row.timestamp for row in starts),
+                      min(row.timestamp for row in receipts))
+    final_generation = max(row.timestamp for row in generated.values())
+    if (final_generation - first_event).total_seconds() >= 10800:
+        raise ValueError('COUNT_EVIDENCE_INVALID')
+    return rows
 
 
 def _ledger_limits(receipts: list[AttemptReceipt]) -> bool:
@@ -744,6 +874,11 @@ def verify_technical_run(
     responses: list[ResponseRecord] = []
     dispatches: list[Dispatch] = []
     receipts = []
+    counts: list[CountReceipt] = []
+    approved: ExecutionApproval | None = None
+    accounting_method: Literal[
+        'offline-local-uncertified', 'provider-input-tokens', 'unverified'
+    ] = 'offline-local-uncertified' if mode == 'offline' else 'unverified'
     ledger: Path | None = None
     try:
         jobs = run.jobs
@@ -827,6 +962,28 @@ def verify_technical_run(
     if not correlation:
         diagnostics.append('LEDGER_CORRELATION_INVALID')
         checks['ledger_verified'] = False
+    try:
+        from .count_ledger import read_count_receipts
+
+        if approval is not None:
+            approved = ExecutionApproval.model_validate_json(run.inside(approval).read_bytes())
+        if ledger is None:
+            if mode == 'live':
+                raise ValueError('COUNT_EVIDENCE_INVALID')
+        elif _counts_present(ledger):
+            accounting_method = 'unverified'
+            counts = read_count_receipts(ledger)
+            _verified_counts(run, ledger, receipts, turns,
+                             transport_live=mode == 'live', approved=approved)
+            digests['count_ledger'] = digest(ledger / 'counts/attempts.jsonl')
+            checks['count_accounting_verified'] = True
+            accounting_method = 'provider-input-tokens'
+        elif mode == 'live' or (approved is not None and approved.token_counting_authorized):
+            raise ValueError('COUNT_EVIDENCE_INVALID')
+    except (ValueError, OSError, KeyError, TypeError, IndexError):
+        checks['count_accounting_verified'] = False
+        accounting_method = 'unverified'
+        diagnostics.append('COUNT_EVIDENCE_INVALID')
     known = [turn for turn in turns if type(turn.input_tokens) is int
              and type(turn.output_tokens) is int and turn.cost is not None]
     metadata_complete = len(known) == len(turns) == len(dispatched) and bool(turns)
@@ -885,11 +1042,14 @@ def verify_technical_run(
             from .guards import validate_approval
             if approval is None or ledger is None:
                 raise ValueError('APPROVAL_INVALID')
-            from .contracts import ExecutionApproval
-            approved = ExecutionApproval.model_validate_json(run.inside(approval).read_bytes())
+            if approved is None:
+                raise ValueError('APPROVAL_INVALID')
+            representative = next((row.input_bound for row in reversed(counts)
+                                   if row.event == 'completed'), None)
             validate_approval(run, approved, transport_live=mode == 'live',
                               transport_account_id=approved.account_id,
-                              transport_project_id=approved.project_id)
+                              transport_project_id=approved.project_id,
+                              input_bound=representative)
             checks['approval_verified'] = True
             digests['approval'] = digest(run.inside(approval))
         except (ValueError, OSError, KeyError, TypeError):
@@ -926,7 +1086,10 @@ def verify_technical_run(
                             reserved_upper_bound_usd=f'{reserved:.6f}'),
         metadata=Metadata(actual_attempts=len(dispatched), complete_attempts=len(known),
                           missing_attempts=max(len(dispatched), len(turns)) - len(known),
-                          provider_metadata_verified=provider_metadata),
+                          provider_metadata_verified=provider_metadata,
+                          count_requests=sum(row.event == 'started' for row in counts),
+                          count_complete_requests=sum(row.event == 'completed' for row in counts),
+                          accounting_method=accounting_method),
         checks=Checks(**checks), packets=packets, digests=EvidenceDigests(**digests),
         diagnostics=tuple(sorted(set(diagnostics))),
     )

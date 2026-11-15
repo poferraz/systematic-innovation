@@ -36,8 +36,8 @@ class InputCounter(Protocol):
 
 
 class Guard(Protocol):
-    def process(
-        self, job: TurnJob, payload: dict[str, Any], input_bound: InputBound,
+    def process_with_counter(
+        self, job: TurnJob, payload: dict[str, Any], counter: InputCounter,
         send_callback: Callable[[], TurnResponse], *, transport_live: bool,
     ) -> TurnResponse: ...
 
@@ -175,9 +175,8 @@ class Worker:
         ):
             raise WorkerError("transport-identity-mismatch")
         payload = build_payload(job)
-        bound = self.counter.bound(payload)
-        return self.guard.process(
-            job, payload, bound, lambda: self._send(job, payload),
+        return self.guard.process_with_counter(
+            job, payload, self.counter, lambda: self._send(job, payload),
             transport_live=self.transport.is_live,
         )
 

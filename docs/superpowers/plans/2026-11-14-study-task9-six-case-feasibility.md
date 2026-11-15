@@ -183,7 +183,8 @@ Do not raise caps, add models/conditions, silently restart under another ID, tun
 - [x] Owner accepts the model/snapshot, direct API route and technical-only construct.
 - [x] Owner approves the stage-specific **70 calls / $5 / no retries / concurrency 1** decision; the scoped readiness record reconciles the budget while preregistration stays draft.
 - [x] External worker, approval/spend guards, durable ambiguity handling and technical verifier are implemented, offline-tested and independently reviewed; final command evidence is retained separately.
-- [ ] Provider-framing evidence certifies the complete live input bound. The implemented local tokenizer profile remains uncertified and blocks live dispatch.
+- [x] A documented provider count-only accounting route includes framing; the local tokenizer remains uncertified. See the proposed input-accounting/preflight addendum below.
+- [ ] Separately approve up to 70 free count-only requests, actual endpoint access and the final request-bound counting protocol for a later launch.
 - [ ] Exact account/project, provider policy, model access, enforcing budget control, revisions/digests and a clean checkout are recorded.
 - [ ] A separate explicit live execution authorization is issued. **Not issued now.**
 
@@ -197,3 +198,9 @@ Preparation evidence (2026-11-14):
 - Repository authority/isolation validation and whitespace checks are run against the prepared artifacts before handoff.
 
 The owner subsequently approved the 70-call/$5/no-retry plan and readiness implementation with offline tests. See `benchmark/study/task9-readiness-approval.yaml`. Synthetic offline exports are permitted for tests; live generation, scientific stage advancement, private-pack access, merge and push remain unauthorized.
+
+## 10. Input-accounting and preflight addendum — prepared, no launch permission
+
+The owner subsequently requested resolution of input accounting and a reviewable launch preflight with zero generation calls. The [implementation plan](2026-11-14-task9-input-accounting-preflight.md) and [launch packet](../../../benchmark/task9-launch-preflight.md) use the provider's documented exact count-only endpoint inside the locked approval boundary. Both request representations and retained evidence are bound; later generation input usage must agree with the count. The local framing allowance is never promoted into certification.
+
+The proposed later execution would add at most **70 separately authorized, free count-only requests**, without changing the 70-generation/$5/no-retry envelope. These extra requests are not implicitly authorized by the earlier budget decision. The current task performs neither counting requests nor generation. Actual account/endpoint access, custody controls, clean reviewed inputs and separate owner launch authorization remain outstanding; all existing pause flags and scientific statuses remain unchanged.

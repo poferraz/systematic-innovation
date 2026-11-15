@@ -147,3 +147,96 @@ def test_production_transport_live_mode_and_identity_cannot_be_overridden(monkey
     assert client.is_live is True
     assert client.account_id == "account-a"
     assert client.project_id == "proj_a"
+
+
+def count_transport(monkeypatch, *, reply=None):
+    from task9 import transport as transport_module
+    assert hasattr(transport_module, "HTTPCountTransport"), "count-only TLS route missing"
+    Connection.instances.clear()
+    Connection.next_reply = reply
+    monkeypatch.setattr("http.client.HTTPSConnection", Connection)
+    monkeypatch.setenv("OPENAI_API_KEY", "fixture-secret")
+    return transport_module.HTTPCountTransport(account_id="account-a", project_id="proj_a")
+
+
+def test_count_transport_has_only_the_fixed_count_route_and_verified_tls(monkeypatch):
+    client = count_transport(monkeypatch, reply=Reply(b'{"input_tokens":1}'))
+    response = client.send({"model": "fixture"}, timeout_seconds=10, max_output_bytes=4096)
+    assert response.status == 200
+    assert client.is_live is True
+    connection = Connection.instances[0]
+    assert (connection.host, connection.port, connection.timeout) == ("api.openai.com", 443, 10)
+    assert connection.context.verify_mode == ssl.CERT_REQUIRED
+    assert connection.context.check_hostname is True
+    assert connection.requests[0][0:2] == ("POST", "/v1/responses/input_tokens")
+    assert connection.requests[0][3]["OpenAI-Project"] == "proj_a"
+    assert len(Connection.instances) == 1
+    assert connection.closed
+    assert response.redact({"value": "fixture-secret"}) == {"value": "[REDACTED]"}
+    with pytest.raises(TypeError):
+        type(client)(account_id="account-a", project_id="proj_a", url="https://elsewhere")
+
+
+@pytest.mark.parametrize("timeout,limit", [(10.01, 4096), (10, 4097), (True, 4096),
+                                          (float("nan"), 4096), (10, True), (0, 4096)])
+def test_count_limits_are_stricter_than_generation_before_any_credential_lookup(
+    monkeypatch, timeout, limit
+):
+    client = count_transport(monkeypatch)
+    monkeypatch.delenv("OPENAI_API_KEY")
+    with pytest.raises(TransportError, match="^transport-limits-invalid$"):
+        client.send({}, timeout_seconds=timeout, max_output_bytes=limit)
+    assert Connection.instances == []
+
+
+def test_count_cap_and_total_deadline_stop_without_retry(monkeypatch):
+    with pytest.raises(TransportError, match="^response-too-large$"):
+        count_transport(monkeypatch, reply=Reply(b"x" * 4097)).send(
+            {}, timeout_seconds=10, max_output_bytes=4096
+        )
+    assert len(Connection.instances) == 1
+    assert Connection.instances[0].closed
+    with pytest.raises(TransportError, match="^request-timeout$"):
+        count_transport(monkeypatch, reply=Reply(delay=1)).send(
+            {}, timeout_seconds=0.02, max_output_bytes=4096
+        )
+    assert len(Connection.instances) == 1
+    assert Connection.instances[0].closed
+
+
+@pytest.mark.parametrize("status", [301, 401, 429, 503])
+def test_count_never_redirects_or_retries_non_200(monkeypatch, status):
+    reply = Reply()
+    reply.status = status
+    response = count_transport(monkeypatch, reply=reply).send(
+        {}, timeout_seconds=10, max_output_bytes=4096
+    )
+    assert response.status == status
+    assert len(Connection.instances) == 1
+    assert Connection.instances[0].requests[0][1] == "/v1/responses/input_tokens"
+
+
+@pytest.mark.parametrize("factory", [transport, count_transport])
+def test_transport_private_identity_cannot_be_reassigned(monkeypatch, factory):
+    client = factory(monkeypatch)
+    for name, value in (("_account_id", "other"), ("_project_id", "proj_other")):
+        with pytest.raises(AttributeError):
+            setattr(client, name, value)
+    assert (client.account_id, client.project_id) == ("account-a", "proj_a")
+
+
+def test_count_request_id_is_not_silently_truncated_into_valid_evidence(monkeypatch):
+    reply = Reply()
+    reply.getheader = lambda key: "r" * 257
+    response = count_transport(monkeypatch, reply=reply).send(
+        {}, timeout_seconds=10, max_output_bytes=4096
+    )
+    assert response.request_id == "r" * 257
+
+
+@pytest.mark.parametrize("factory", [transport, count_transport])
+def test_transport_private_identity_cannot_be_deleted(monkeypatch, factory):
+    client = factory(monkeypatch)
+    with pytest.raises(AttributeError):
+        del client._account_id
+    assert client.account_id == "account-a"

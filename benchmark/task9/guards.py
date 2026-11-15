@@ -7,11 +7,13 @@ before invoking the callback. An uncertain result is never sent again.
 
 from __future__ import annotations
 
+import copy
 import fcntl
 import hashlib
 import json
 import os
 import subprocess
+import time
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -100,7 +102,7 @@ def approval_bindings(run: RunDirectory) -> dict[str, str]:
     }
 
 
-def validate_approval(
+def _validate_approval(
     run: RunDirectory,
     approval: ExecutionApproval,
     *,
@@ -108,6 +110,7 @@ def validate_approval(
     transport_account_id: str,
     transport_project_id: str,
     input_bound: InputBound | None = None,
+    require_bound: bool = True,
 ) -> None:
     """Validate separate owner approval against actual source and transport mode."""
     try:
@@ -154,7 +157,8 @@ def validate_approval(
                     or decision.get("live_execution_authorized") is not True
                     or stage.get("execution_authorized") is not True
                     or stage.get("six_case_feasibility", {}).get("status") != "pending"
-                    or input_bound is None or not input_bound.certified_for_live
+                    or (require_bound and (input_bound is None
+                                           or not input_bound.certified_for_live))
                     or run.manifest.config.dry_run
                     or run.manifest.runner_worktree_dirty):
                 raise Task9Error("TASK9_LIVE_NOT_AUTHORIZED")
@@ -173,6 +177,25 @@ def validate_approval(
     except Exception as exc:  # noqa: BLE001 - redact every boundary exception
         del exc  # Never expose exception text or provider-controlled details.
         raise Task9Error("TASK9_APPROVAL_INVALID") from None
+
+
+def validate_approval(
+    run: RunDirectory, approval: ExecutionApproval, *, transport_live: bool,
+    transport_account_id: str, transport_project_id: str,
+    input_bound: InputBound | None = None,
+) -> None:
+    """Full approval check, including retained evidence for live input bounds."""
+    _validate_approval(run, approval, transport_live=transport_live,
+                       transport_account_id=transport_account_id,
+                       transport_project_id=transport_project_id, input_bound=input_bound)
+    if transport_live:
+        from .count_ledger import read_count_receipts
+
+        retained = read_count_receipts(run.inside("worker"))
+        if input_bound is None or not any(
+            row.event == "completed" and row.input_bound == input_bound for row in retained
+        ):
+            raise Task9Error("TASK9_RETAINED_COUNT_REQUIRED")
 
 
 def _safe_path(root: Path, name: str) -> Path:
@@ -428,6 +451,7 @@ class Task9Guard:
                 or (not result.content.strip() and result.status != "refused")
                 or result.input_tokens is None or result.output_tokens is None
                 or result.input_tokens > 32768 or result.input_tokens > bound.tokens
+                or (bound.provider_evidence is not None and result.input_tokens != bound.tokens)
                 or result.output_tokens > 4096 or result.cost is None
                 or result.raw_response is None
                 or len(result.raw_response.encode()) > 1048576
@@ -474,58 +498,196 @@ class Task9Guard:
 
     def process(self, turn_job: TurnJob, payload: dict[str, Any], input_bound: InputBound,
                 send: Callable[[], TurnResponse], *, transport_live: bool) -> TurnResponse:
-        """Send once, or recover byte-identical completed evidence without sending."""
+        """Offline compatibility: live dispatch always requires a guarded counter."""
+        if transport_live:
+            raise Task9Error("TASK9_RETAINED_COUNT_REQUIRED")
+
+        class SuppliedBound:
+            def bound(self, payload: dict[str, Any]) -> InputBound:
+                return input_bound
+
+        return self.process_with_counter(turn_job, payload, SuppliedBound(), send,
+                                         transport_live=False)
+
+    def _before_count(self, turn_job: TurnJob, payload: dict[str, Any], *,
+                      transport_live: bool) -> tuple[list[AttemptReceipt], str, TurnResponse | None]:
+        """Everything knowable without input accounting precedes any metadata traffic."""
+        from .count_ledger import read_count_receipts
+
+        _validate_approval(
+            self.run, self.approval, transport_live=transport_live,
+            transport_account_id=self.transport_account_id,
+            transport_project_id=self.transport_project_id, require_bound=False,
+        )
+        json.dumps(payload, allow_nan=False)
+        expected_payload = {
+            "model": turn_job.model, "instructions": turn_job.system_instructions,
+            "input": [{"role": t.role, "content": t.content} for t in turn_job.transcript],
+            **PARAMETERS,
+        }
+        request_hash = canonical_digest(payload)
+        if request_hash != canonical_digest(expected_payload):
+            raise Task9Error("TASK9_REQUEST_MISMATCH")
+        records = self.records()
+        same = [r for r in records if r.turn_id == turn_job.turn_id]
+        if same and same[0].request_sha256 != request_hash:
+            raise Task9Error("TASK9_REPLAY_MISMATCH")
+        final = {r.turn_id: r for r in records}
+        counts = read_count_receipts(self.ledger_root)
+        final_counts = {r.turn_id: r for r in counts}
+        if any(r.event != "completed" for r in final.values()):
+            raise Task9Error("TASK9_RUN_STOPPED")
+        if any(r.event != "completed" for r in final_counts.values()):
+            raise Task9Error("TASK9_COUNT_UNRESOLVED")
+        dispatches = self._scope()
+        self._reconcile(records, dispatches)
+        # Generation receipts bind their exact opaque turn; count receipts are
+        # additionally reconciled below against actual dispatched turn identities.
+        dispatched_opaque = set()
+        for dispatch in dispatches:
+            job_id, index, attempt = dispatch.turn_id.rsplit(":", 2)
+            dispatched_opaque.add(f"{hashlib.sha256(job_id.encode()).hexdigest()}:{index}:{attempt}")
+        if not set(final_counts).issubset(dispatched_opaque):
+            raise Task9Error("TASK9_COUNT_LEDGER_CORRELATION")
+        if same:
+            path = _safe_path(self.ledger_root, same[-1].response_path or "invalid")
+            return records, request_hash, TurnResponse.model_validate_json(path.read_bytes())
+        pending = {self.run.opaque(j).turn_id: j for j in self.run.pending()}
+        canonical = pending.get(turn_job.turn_id)
+        if canonical is None or self.run.opaque(canonical) != turn_job:
+            raise Task9Error("TASK9_PENDING_MISMATCH")
+        core_dispatches = {d.turn_id: d for d in dispatches}
+        if canonical.turn_id not in core_dispatches or turn_job.attempt != 0:
+            raise Task9Error("TASK9_RESERVATION_REQUIRED")
+        core_responses = {r.turn_id: r for r in self.run.turns}
+        unresolved = {d.turn_id for d in dispatches if d.turn_id not in core_responses}
+        if unresolved != {canonical.turn_id}:
+            raise Task9Error("TASK9_CONCURRENCY")
+        accounted = 0
+        for dispatch in dispatches:
+            if dispatch.turn_id == canonical.turn_id:
+                continue
+            observed = core_responses.get(dispatch.turn_id)
+            observed_micro = int((Decimal(str(observed.cost or 0)) * 1000000)
+                                 .to_integral_value(rounding=ROUND_CEILING)) if observed else 0
+            accounted += max(50000, observed_micro)
+        check_envelope(sum(r.event == "dispatched" for r in records), accounted, 50000)
+        timestamps = [items[0].timestamp for items in (records, counts) if items]
+        if timestamps and (datetime.now(UTC) - min(timestamps)).total_seconds() >= 10800:
+            raise Task9Error("TASK9_WALL_LIMIT")
+        return records, request_hash, None
+
+    def _count(self, turn_job: TurnJob, payload: dict[str, Any], counter: Any, *,
+               transport_live: bool, request_hash: str) -> InputBound:
+        from .count_ledger import CountLedger, validate_provider_bound
+
+        provider = getattr(counter, "provider_counting", False)
+        if provider is not True:
+            if transport_live:
+                raise Task9Error("TASK9_RETAINED_COUNT_REQUIRED")
+            bound = InputBound.model_validate(counter.bound(copy.deepcopy(payload)).model_dump())
+            if bound.provider_evidence is not None or bound.certified_for_live:
+                raise Task9Error("TASK9_RETAINED_COUNT_REQUIRED")
+            return bound
+        from .counting import build_count_payload, counting_profile
+
+        if (not self.approval.token_counting_authorized
+                or self.approval.max_token_count_requests != 70):
+            raise Task9Error("TASK9_COUNT_NOT_AUTHORIZED")
+        if (type(getattr(counter, "is_live", None)) is not bool
+                or counter.is_live != transport_live
+                or getattr(counter, "account_id", None) != self.transport_account_id
+                or getattr(counter, "project_id", None) != self.transport_project_id):
+            raise Task9Error("TASK9_COUNT_IDENTITY_MISMATCH")
+        profile = canonical_digest(counting_profile())
+        if (getattr(counter, "profile_sha256", None) != profile
+                or self.approval.input_profile_sha256 != profile):
+            raise Task9Error("TASK9_INPUT_BOUND")
+        if transport_live:
+            decision = yaml.safe_load(READINESS_PATH.read_text(encoding="utf-8"))
+            if (decision.get("token_counting_authorized") is not True
+                    or type(decision.get("max_token_count_requests")) is not int
+                    or decision["max_token_count_requests"] != 70):
+                raise Task9Error("TASK9_COUNT_NOT_AUTHORIZED")
+        count_hash = canonical_digest(build_count_payload(payload))
+        identity = {
+            "turn_id": turn_job.turn_id, "request_sha256": request_hash,
+            "count_request_sha256": count_hash, "profile_sha256": profile,
+            "account_id": self.transport_account_id, "project_id": self.transport_project_id,
+        }
+        ledger = CountLedger(self.ledger_root)
+        same = [row for row in ledger.rows if row.turn_id == turn_job.turn_id]
+        if same:
+            last = same[-1]
+            if (last.event != "completed" or last.input_bound is None
+                    or any(getattr(last, key) != value for key, value in identity.items())):
+                raise Task9Error("TASK9_COUNT_REPLAY_MISMATCH")
+            bound = last.input_bound
+        else:
+            self._require_wall_room(130)
+            ledger.start(**identity)
+            try:
+                started = time.monotonic()
+                bound = InputBound.model_validate(counter.bound(copy.deepcopy(payload)).model_dump())
+                if time.monotonic() - started > 10:
+                    raise Task9Error("TASK9_COUNT_DEADLINE")
+                validate_provider_bound(
+                    bound, payload, account_id=self.transport_account_id,
+                    project_id=self.transport_project_id, profile_sha256=profile,
+                    transport_live=transport_live,
+                )
+                _validate_approval(
+                    self.run, self.approval, transport_live=transport_live,
+                    transport_account_id=self.transport_account_id,
+                    transport_project_id=self.transport_project_id, input_bound=bound,
+                )
+                ledger.complete(bound)
+            except Exception:  # noqa: BLE001 - no provider exception text leaves this boundary
+                ledger.fail()
+                raise Task9Error("TASK9_COUNT_UNRESOLVED") from None
+        validate_provider_bound(
+            bound, payload, account_id=self.transport_account_id,
+            project_id=self.transport_project_id, profile_sha256=profile,
+            transport_live=transport_live,
+        )
+        return bound
+
+    def _require_wall_room(self, phase_seconds: int) -> None:
+        """Reserve the full next phase deadlines inside the combined run window."""
+        from .count_ledger import read_count_receipts
+
+        records, counts = self.records(), read_count_receipts(self.ledger_root)
+        timestamps = [items[0].timestamp for items in (records, counts) if items]
+        if (timestamps and (datetime.now(UTC) - min(timestamps)).total_seconds()
+                + phase_seconds >= self.approval.policy.wall_seconds):
+            raise Task9Error("TASK9_WALL_LIMIT")
+
+    def process_with_counter(self, turn_job: TurnJob, payload: dict[str, Any], counter: Any,
+                             send: Callable[[], TurnResponse], *,
+                             transport_live: bool) -> TurnResponse:
+        """Authorize, count lazily, then send once; completed replay invokes neither."""
         try:
             with self._lock():
+                records, request_hash, cached = self._before_count(
+                    turn_job, payload, transport_live=transport_live)
+                if cached is not None:
+                    return cached
+                bound = self._count(turn_job, payload, counter, transport_live=transport_live,
+                                    request_hash=request_hash)
                 validate_approval(
                     self.run, self.approval, transport_live=transport_live,
                     transport_account_id=self.transport_account_id,
-                    transport_project_id=self.transport_project_id, input_bound=input_bound,
+                    transport_project_id=self.transport_project_id, input_bound=bound,
                 )
-                json.dumps(payload, allow_nan=False)
-                expected_payload = {
-                    "model": turn_job.model, "instructions": turn_job.system_instructions,
-                    "input": [{"role": t.role, "content": t.content}
-                              for t in turn_job.transcript], **PARAMETERS,
-                }
-                request_hash = canonical_digest(payload)
-                if (request_hash != canonical_digest(expected_payload)
-                        or input_bound.request_sha256 != request_hash):
+                if bound.request_sha256 != request_hash:
                     raise Task9Error("TASK9_REQUEST_MISMATCH")
-                records = self.records()
-                same = [r for r in records if r.turn_id == turn_job.turn_id]
-                if same and same[0].request_sha256 != request_hash:
-                    raise Task9Error("TASK9_REPLAY_MISMATCH")
-                final = {r.turn_id: r for r in records}
-                if any(r.event != "completed" for r in final.values()):
-                    raise Task9Error("TASK9_RUN_STOPPED")
-                dispatches = self._scope()
-                self._reconcile(records, dispatches)
-                if same:
-                    path = _safe_path(self.ledger_root, same[-1].response_path or "invalid")
-                    return TurnResponse.model_validate_json(path.read_bytes())
-                pending = {self.run.opaque(j).turn_id: j for j in self.run.pending()}
-                canonical = pending.get(turn_job.turn_id)
-                if canonical is None or self.run.opaque(canonical) != turn_job:
-                    raise Task9Error("TASK9_PENDING_MISMATCH")
-                core_dispatches = {d.turn_id: d for d in dispatches}
-                if canonical.turn_id not in core_dispatches or turn_job.attempt != 0:
-                    raise Task9Error("TASK9_RESERVATION_REQUIRED")
-                core_responses = {r.turn_id: r for r in self.run.turns}
-                unresolved = {d.turn_id for d in dispatches if d.turn_id not in core_responses}
-                if unresolved != {canonical.turn_id}:
-                    raise Task9Error("TASK9_CONCURRENCY")
-                accounted = 0
-                for dispatch in dispatches:
-                    if dispatch.turn_id == canonical.turn_id:
-                        continue
-                    observed = core_responses.get(dispatch.turn_id)
-                    observed_micro = int((Decimal(str(observed.cost or 0)) * 1000000)
-                                         .to_integral_value(rounding=ROUND_CEILING)) if observed else 0
-                    accounted += max(50000, observed_micro)
-                check_envelope(sum(r.event == "dispatched" for r in records), accounted, 50000)
-                if records and (datetime.now(UTC) - records[0].timestamp).total_seconds() >= 10800:
-                    raise Task9Error("TASK9_WALL_LIMIT")
+                # A counter's callback cannot change the frozen run or request
+                # between preflight and generation, even while the worker lock holds.
+                records, checked_hash, cached = self._before_count(
+                    turn_job, payload, transport_live=transport_live)
+                if checked_hash != request_hash or cached is not None:
+                    raise Task9Error("TASK9_REQUEST_MISMATCH")
+                self._require_wall_room(120)
                 _exclusive_file(_safe_path(self.ledger_root, _claim_name(turn_job.turn_id)),
                                 json.dumps({"turn_id": turn_job.turn_id,
                                             "request_sha256": request_hash},
@@ -536,25 +698,22 @@ class Task9Guard:
                 self._append(records, event="dispatched", **base)
                 response_pointer: dict[str, str] = {}
                 try:
-                    result = send()
-                    result = TurnResponse.model_validate(result.model_dump())
+                    result = TurnResponse.model_validate(send().model_dump())
                     if result.turn_id == turn_job.turn_id:
                         response_name = _response_name(turn_job.turn_id)
                         response_path = _safe_path(self.ledger_root, response_name)
                         _exclusive_file(response_path, result.model_dump_json().encode() + b"\n")
                         response_pointer = {"response_path": response_name,
                                             "response_sha256": digest(response_path)}
-                    charged = self._validate_response(turn_job, result, input_bound)
+                    charged = self._validate_response(turn_job, result, bound)
                     self._append(records, event="completed", charged_micro_usd=charged,
                                  **response_pointer, **base)
                     return result
-                except Exception as exc:  # noqa: BLE001 - provider exceptions may contain secrets
-                    del exc  # A callback may raise a credential-bearing exception.
+                except Exception:  # noqa: BLE001 - provider exceptions may contain secrets
                     self._append(records, event="error", error="TASK9_ATTEMPT_UNRESOLVED",
                                  **response_pointer, **base)
                     raise Task9Error("TASK9_ATTEMPT_UNRESOLVED") from None
         except Task9Error:
             raise
-        except Exception as exc:  # noqa: BLE001 - external boundary is code-only
-            del exc
+        except Exception:  # noqa: BLE001 - external boundary is code-only
             raise Task9Error("TASK9_GUARD_REJECTED") from None

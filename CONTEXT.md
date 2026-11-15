@@ -823,6 +823,12 @@ The external [Task 9 tooling](benchmark/task9/README.md) consumes the existing o
 
 Synthetic offline tests exercise the full 30-job / 70-turn exchange and refusal boundaries; [verification evidence](benchmark/task9-verification.md) records the commands and limits. These tests do not execute or pass Study Task 9. The local tokenizer profile deliberately remains uncertified for provider framing. Live model and human studies remain paused; Task 9 is pending, `execution_authorized` remains false, and the canonical skill pack remains frozen at the hash recorded in §19.10. Any live launch needs a separate owner decision and the plan's remaining operator controls.
 
+### 19.14 Task 9 Input Accounting and Launch-Preflight Preparation (2026-11-14)
+
+The owner requested resolution of the remaining full-input accounting blocker and a reviewable launch preflight with zero generation calls. The [implementation plan](docs/superpowers/plans/2026-11-14-task9-input-accounting-preflight.md) uses the provider's documented count-only endpoint, whose contract includes message framing. The existing local tokenizer remains uncertified. Counting now occurs lazily inside the same locked approval boundary as generation and has separate durable claims, a 70-request ceiling, no retries and request-bound receipts; actual generation input usage must agree with the count. Offline fixtures exercise the protocol without provider requests.
+
+The [proposed launch packet](benchmark/task9-launch-preflight.md) declares up to 70 separately authorized free count-only requests in addition to the unchanged 70-generation / US$5 / no-retry envelope. This is preparation, not an amendment granting execution. Account/project selection, actual endpoint access, provider policy, external custody/spend controls, a clean reviewed revision and separate owner authorization remain unfilled. The machine preflight always reports current launch as blocked, scientific stages stay pending, and the canonical skill stays frozen. No actual counting or generation request was made to prepare it.
+
 ## 20. Current Repository-Quality Intent
 
 Before the architecture decision, the owner's intent established the following constraints; the approved direction in section 19.1 now gives them architectural form:

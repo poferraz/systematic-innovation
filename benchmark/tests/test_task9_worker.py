@@ -57,7 +57,8 @@ class Counter:
 
 
 class Guard:
-    def process(self, job, payload, input_bound, send_callback, *, transport_live):
+    def process_with_counter(self, job, payload, counter, send_callback, *, transport_live):
+        input_bound = counter.bound(payload)
         assert input_bound["payload"] == payload
         assert transport_live is False
         return send_callback()
@@ -81,6 +82,21 @@ class Transport:
 def run(value, **kwargs):
     transport = Transport(value, **kwargs)
     return Worker(Guard(), transport, Counter()).process(job()), transport
+
+
+def test_counter_cannot_run_before_guard_accepts_the_request():
+    class PausedGuard:
+        def process_with_counter(self, *args, **kwargs):
+            raise ValueError("paused-before-provider-traffic")
+
+    class NetworkCounter:
+        def bound(self, payload):
+            raise AssertionError("counter reached before approval")
+
+    transport = Transport(provider())
+    with pytest.raises(ValueError, match="^paused-before-provider-traffic$"):
+        Worker(PausedGuard(), transport, NetworkCounter()).process(job())
+    assert transport.payloads == []
 
 
 def test_exact_stateless_payload_and_all_text_usage_cost_metadata():
