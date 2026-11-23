@@ -6,9 +6,9 @@ ERROR: test_restored_review (unittest.loader._FailedTest.test_restored_review)
 ----------------------------------------------------------------------
 ImportError: Failed to import test module: test_restored_review
 Traceback (most recent call last):
-  File "/Users/poferraz/.local/share/uv/python/cpython-3.13.12-macos-aarch64-none/lib/python3.13/unittest/loader.py", line 137, in loadTestsFromName
+  File "<home>/.local/share/uv/python/cpython-3.13.12-macos-aarch64-none/lib/python3.13/unittest/loader.py", line 137, in loadTestsFromName
     module = __import__(module_name)
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_review.py", line 3, in <module>
+  File "tests/test_restored_review.py", line 3, in <module>
     from tools.restored_review import measure_record, blind_answers
 ModuleNotFoundError: No module named 'tools.restored_review'
 

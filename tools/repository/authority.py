@@ -6,12 +6,10 @@ import sys
 
 REQUIRED_LINKS = (
     "CONTEXT.md",
-    "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md",
-    "docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md",
-    "docs/superpowers/plans/2026-09-01-systematic-innovation-coordinated-implementation.md",
-    "docs/superpowers/plans/2026-08-31-systematic-innovation-skill.md",
-    "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-runner.md",
-    "docs/superpowers/plans/2026-08-31-systematic-innovation-benchmark-study.md",
+    "skills/systematic-innovation/SKILL.md",
+    "docs/specifications/skill-and-evaluation.md",
+    "docs/specifications/repository.md",
+    "benchmark/study/six-case-protocol.md",
 )
 
 CANONICAL_SKILL_PATH = "skills/systematic-innovation/"
@@ -34,28 +32,13 @@ CANONICAL_SIGNATURES = (
     "Layer 6: User-Directed Continuation",
 )
 
-BROADENED_SUPERSEDING_PHRASES = (
-    "override conflicting specification",
-    "amend the specification",
-    "amends the specification",
-    "supersede the specification",
-    "overrides the behavioral specification",
-    "supersede conflicting",
-)
-
-NEGATION_PREFIX_RE = re.compile(
-    r"\b(?:never|does not|do not|cannot|must not|nor)[ \t\w,\-—'\":]{0,30}$",
-    re.IGNORECASE,
-)
-
-
 def is_allowlisted_for_behavior(rel: Path) -> bool:
     if rel == Path("CONTEXT.md"):
         return True
     parts = rel.parts
     if parts[0] in {"evals", "tools", "tests"}:
         return True
-    if parts[0] == "docs" and len(parts) > 1 and parts[1] in {"superpowers", "research"}:
+    if parts[0] == "docs" and len(parts) > 1 and parts[1] in {"specifications", "research"}:
         return True
     if parts[0] == "skills" and len(parts) > 1 and parts[1] == "systematic-innovation":
         return True
@@ -63,7 +46,7 @@ def is_allowlisted_for_behavior(rel: Path) -> bool:
 
 
 def scan_authority(root: Path) -> list[str]:
-    """Validate single behavioral authority, root routing links, and plan subordination."""
+    """Validate single behavioral authority, maintained routing links, and source isolation."""
     errors: list[str] = []
     agents_file = root / "AGENTS.md"
     if not agents_file.is_file():
@@ -87,6 +70,11 @@ def scan_authority(root: Path) -> list[str]:
     for boundary_term in ("dist/", "restricted", "host"):
         if boundary_term not in agents_text.lower():
             errors.append(f"AGENTS.md missing required boundary declaration for '{boundary_term}'")
+
+    # Engineering work plans belong outside the published repository.
+    for folder in ("docs/plans", "docs/superpowers/plans"):
+        if any((root / folder).rglob("*.md")):
+            errors.append(f"found a development plan in the public tree: {folder}")
 
     # Reject shadow SKILL.md copies outside skills/systematic-innovation/SKILL.md
     for candidate in root.rglob("SKILL.md"):
@@ -113,22 +101,6 @@ def scan_authority(root: Path) -> list[str]:
                 f"shadow behavioral authority detected in non-allowlisted document: {rel.as_posix()} "
                 f"({len(signature_matches)} canonical signatures)"
             )
-
-    # Reject plan contractual-supremacy language
-    plans_dir = root / "docs/superpowers/plans"
-    if plans_dir.is_dir():
-        for plan in sorted(plans_dir.glob("*.md")):
-            raw_text = plan.read_text(encoding="utf-8")
-            clean_text = re.sub(r"(`{3,}|~{3,}).*?\1", "", raw_text, flags=re.DOTALL)
-            clean_text = re.sub(r"`[^`]*`", "", clean_text)
-            for phrase in BROADENED_SUPERSEDING_PHRASES:
-                for match in re.finditer(re.escape(phrase), clean_text, re.IGNORECASE):
-                    start = match.start()
-                    prefix = clean_text[max(0, start - 50):start]
-                    if not NEGATION_PREFIX_RE.search(prefix):
-                        errors.append(
-                            f"plan claims contractual supremacy over specification ({phrase}): {plan.relative_to(root)}"
-                        )
 
     return errors
 

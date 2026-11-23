@@ -5,7 +5,7 @@ test_selected_details_and_connections_are_not_an_extra_proposal (tests.test_rest
 FAIL: test_selected_details_and_connections_are_not_an_extra_proposal (tests.test_restored_measurement.RestoredMeasurementTests.test_selected_details_and_connections_are_not_an_extra_proposal)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 116, in test_selected_details_and_connections_are_not_an_extra_proposal
+  File "tests/test_restored_measurement.py", line 116, in test_selected_details_and_connections_are_not_an_extra_proposal
     self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 3 != 2

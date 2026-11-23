@@ -1,6 +1,6 @@
 # Compatibility Evidence Contract
 
-This directory defines the schema and claim-profile contracts for evaluating host compatibility of [`skills/systematic-innovation/`](../skills/systematic-innovation/SKILL.md) under [`docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`](../docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md) (§9).
+This directory defines the schema and claim-profile contracts for evaluating host compatibility of [`skills/systematic-innovation/`](../skills/systematic-innovation/SKILL.md) under [`docs/specifications/repository.md`](../docs/specifications/repository.md) (§9).
 
 ## Six Independent Dimensions
 

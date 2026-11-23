@@ -77,11 +77,3 @@ We ran five independent architectural passes to stress-test candidate implementa
 - **Root Token Economy:** Total addition to root `SKILL.md` is strictly under 8 lines of text.
 
 ---
-
-## 5. Repository Evolution Plan for v2
-
-- **Phase 1: Governance & Spec:** `docs/superpowers/specs/2026-10-18-systematic-innovation-v2-design.md` (never authored; superseded as a future workstream by `2026-11-14-systematic-innovation-v2-loop-design.md`) and `CONTEXT.md`.
-- **Phase 2: Test-Driven Contracts:** Add regression and behavior assertions to `tests/test_skill_behavior.py` and `tests/test_skill_portability.py`.
-- **Phase 3: Canonical Skill Implementation:** Update `skills/systematic-innovation/` (`SKILL.md` and the four reference modules).
-- **Phase 4: Evals, Tooling & Benchmarks:** Add 3 new stress cases to `evals/stress/cases.json`; update `tools/score_eval_results.py` and `tools/pilot_metrics.py`.
-- **Phase 5: Verification, Authority Audit & Docs:** Run full test suite, authority scanner, update `README.md`, and verify zero link or provider-name regressions.

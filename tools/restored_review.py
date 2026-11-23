@@ -90,16 +90,28 @@ def main() -> None:
     if args.output.exists():
         raise ValueError("Use a new measurement directory; prior measurements are immutable")
     cases = {c["id"]: c for c in json.loads(args.cases.read_text())["cases"]}
-    records = [{**json.loads(line), "source": str(path)} for path in args.results
+    root = Path(__file__).resolve().parents[1]
+    inputs = [(args.cases, "external/cases")]
+    for index, path in enumerate(args.results, 1):
+        inputs.append((path, f"external/result-{index:03}"))
+    for name in ("restored_review.py", "pilot_metrics.py", "score_eval_results.py"):
+        inputs.append((root / "tools" / name, ""))
+    # The digest identifies each input even when its path is outside this checkout.
+    labels = {}
+    for path, external in inputs:
+        resolved = path.resolve()
+        labels[path] = resolved.relative_to(root).as_posix() if resolved.is_relative_to(root) else external
+    if len(set(labels.values())) != len(inputs):
+        raise ValueError("Source labels collide; select distinct inputs")
+    records = [{**json.loads(line), "source": labels[path]} for path in args.results
                for line in path.read_text().splitlines() if line.strip()]
     measured = [measure_record(row, cases[row["case_id"]]) for row in records]
     packet, key = blind_answers(records, cases)
     args.output.mkdir(parents=True)
     artifacts = {"measurements.json": measured, "human-answers.json": packet, "assignment-key.json": key,
                  "provenance.json": {"measurement_version": VERSION, "inputs": {
-                     str(path): hashlib.sha256(path.read_bytes()).hexdigest()
-                     for path in [args.cases, *args.results, Path(__file__),
-                                  Path("tools/pilot_metrics.py"), Path("tools/score_eval_results.py")]}}}
+                     label: hashlib.sha256(path.read_bytes()).hexdigest()
+                     for path, label in labels.items()}}}
     for name, data in artifacts.items():
         (args.output / name).write_text(json.dumps(data, indent=2) + "\n")
     print(f"Retained {len(measured)} diagnostic records and unrated blind answers")

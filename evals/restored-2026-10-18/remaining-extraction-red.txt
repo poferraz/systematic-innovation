@@ -16,7 +16,7 @@ test_test_method_names_are_not_silently_overwritten (tests.test_restored_measure
 FAIL: test_numbered_name_column_in_control_table_is_a_portfolio (tests.test_restored_measurement.RestoredMeasurementTests.test_numbered_name_column_in_control_table_is_a_portfolio)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 94, in test_numbered_name_column_in_control_table_is_a_portfolio
+  File "tests/test_restored_measurement.py", line 94, in test_numbered_name_column_in_control_table_is_a_portfolio
     self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 1 != 2
@@ -25,7 +25,7 @@ AssertionError: 1 != 2
 FAIL: test_observed_ways_to_improve_container_keeps_short_bold_bullets (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_ways_to_improve_container_keeps_short_bold_bullets)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 101, in test_observed_ways_to_improve_container_keeps_short_bold_bullets
+  File "tests/test_restored_measurement.py", line 101, in test_observed_ways_to_improve_container_keeps_short_bold_bullets
     self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 2

@@ -1,6 +1,6 @@
 # Reproducible Release, Attestation, and Verification Guide
 
-This document defines the build, verification, origin-attestation, identity-rotation, and revocation procedures for official `systematic-innovation` releases under [`docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`](superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md) (§8.2) and [`release/policy.json`](../release/policy.json).
+This document defines the build, verification, origin-attestation, identity-rotation, and revocation procedures for official `systematic-innovation` releases under [`docs/specifications/repository.md`](specifications/repository.md) (§8.2) and [`release/policy.json`](../release/policy.json).
 
 ---
 

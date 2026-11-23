@@ -1,6 +1,6 @@
 # Task 9 offline implementation verification
 
-Date: 2026-11-14, America/Vancouver. Baseline: `afe1a36507f0fe6be3f9db1c3a763eaface19d25`; local branch: `codex/study-task9-plan`. Scope: the approved [70-call / US$5 / no-retry plan](../docs/superpowers/plans/2026-11-14-study-task9-six-case-feasibility.md), external readiness tooling and offline tests only.
+Date: 2026-11-14, America/Vancouver. Baseline: `afe1a36507f0fe6be3f9db1c3a763eaface19d25`; local branch: `codex/study-task9-plan`. Scope: the approved [70-call / US$5 / no-retry plan](study/six-case-protocol.md), external readiness tooling and offline tests only.
 
 ## Test-first evidence
 

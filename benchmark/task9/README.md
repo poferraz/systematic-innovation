@@ -1,6 +1,6 @@
 # Task 9 readiness tooling
 
-This external inbox worker implements the approved [six-case plan](../../docs/superpowers/plans/2026-11-14-study-task9-six-case-feasibility.md). The owner approved **70 requests, US$5 maximum, no retries**, implementation and offline tests. [The decision record](../study/task9-readiness-approval.yaml) keeps live execution unauthorized and the scientific stage pending. The canonical skill remains frozen.
+This external inbox worker implements the approved [six-case plan](../study/six-case-protocol.md). The owner approved **70 requests, US$5 maximum, no retries**, implementation and offline tests. [The decision record](../study/task9-readiness-approval.yaml) keeps live execution unauthorized and the scientific stage pending. The canonical skill remains frozen.
 
 The provider-neutral package remains under `../src/`. This directory runs from the benchmark checkout with `uv run --locked python -m task9`; it is not included in the `sib` distribution. Use Python 3.11–3.14, uv 0.12.8 and the locked development environment. `uv sync --locked --group task9` installs the optional tokenizer dependency; root repository tools remain standard-library only.
 
