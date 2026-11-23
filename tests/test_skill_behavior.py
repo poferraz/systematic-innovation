@@ -205,7 +205,7 @@ class SkillBehaviorContractTests(unittest.TestCase):
         self.assertNotIn("Seven Reasoning Cells (Cells A–G)", evidence)
 
     def test_behavioral_spec_includes_execution_channel_and_budget_precedence(self) -> None:
-        spec = (ROOT / "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md").read_text(encoding="utf-8")
+        spec = (ROOT / "docs/specifications/skill-and-evaluation.md").read_text(encoding="utf-8")
         self.assertIn("### 6.4 Execution-channel precedence", spec)
         self.assertIn("### 12.1 User-requested output budgets", spec)
 
@@ -242,7 +242,7 @@ class SkillBehaviorContractTests(unittest.TestCase):
         import re
 
         skill = read("SKILL.md")
-        spec = (ROOT / "docs/superpowers/specs/2026-08-31-systematic-innovation-design.md").read_text(encoding="utf-8")
+        spec = (ROOT / "docs/specifications/skill-and-evaluation.md").read_text(encoding="utf-8")
         for heading in (
             "## Purpose",
             "## Prerequisites",

@@ -3,7 +3,7 @@
 **Date:** 2026-11-14  
 **Status:** Research synthesis — informs the Task 9 v2 behavioral-specification amendment and sub-plan; non-authoritative until owner-approved.  
 **Scope:** Theoretical and empirical foundation bridging classical systems-based innovation methodology and modern post-training large language model (LLM) probability shaping.  
-**Authority Boundary:** Non-authoritative research document. Canonical skill behavior resides solely in [`skills/systematic-innovation/`](../../skills/systematic-innovation/SKILL.md) and approved specifications under [`docs/superpowers/specs/`](../superpowers/specs/). This document does not modify canonical files.  
+**Authority Boundary:** Non-authoritative research document. Canonical skill behavior resides solely in [`skills/systematic-innovation/`](../../skills/systematic-innovation/SKILL.md) and approved specifications under [`docs/specifications/`](../specifications). This document does not modify canonical files.
 **Copyright Notice:** In compliance with repository provenance rules, this document contains zero copyrighted sentences, paragraphs, or prose from Tudor Rickards (1985) or other proprietary texts. All classical concepts are cited by chapter, section, page, and figure, and expressed through original functional summaries classified under the repository's three provenance categories (*Verified principle*, *Adapted method*, *Original AI/probabilistic mechanism*).
 
 ---

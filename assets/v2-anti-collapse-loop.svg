@@ -97,6 +97,6 @@
 
   <!-- Bottom rule & provenance note -->
   <line x1="36" y1="538" x2="1164" y2="538" stroke="#f5d818" stroke-width="2"/>
-  <text x="36" y="560" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">CONCEPTUAL ARCHITECTURE · V2 SPEC: docs/superpowers/specs/2026-08-31-systematic-innovation-design.md</text>
+  <text x="36" y="560" fill="#dbeafe" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5">CONCEPTUAL ARCHITECTURE · V2 SPEC: docs/specifications/skill-and-evaluation.md</text>
   <text x="1164" y="560" text-anchor="end" fill="#f5d818" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace" font-size="11.5" font-weight="700">FRIEDMAN &amp; DIENG (2023) · RICKARDS (1985)</text>
 </svg>

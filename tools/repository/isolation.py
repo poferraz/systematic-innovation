@@ -297,7 +297,7 @@ def scan_public_tree(root: Path) -> list[Violation]:
     has_repo_structure = (
         (root / "AGENTS.md").exists()
         or (root / "skills").exists()
-        or (root / "docs/superpowers").exists()
+        or (root / "docs/specifications").exists()
     )
     if has_repo_structure:
         for err in scan_authority(root):

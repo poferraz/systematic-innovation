@@ -8,6 +8,8 @@ __pycache__/
 .superpowers/
 dist/
 benchmark/runs/
+# Local session checkpoints used to resume unfinished evaluation runs.
+evals/**/progress/
 **/.runner.lock
 benchmark/private/
 benchmark/restricted/

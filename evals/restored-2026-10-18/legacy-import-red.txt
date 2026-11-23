@@ -5,7 +5,7 @@ test_unverified_historical_import_cannot_write_new_quality_claims (tests.test_le
 FAIL: test_unverified_historical_import_cannot_write_new_quality_claims (tests.test_legacy_import_guard.LegacyImportGuardTests.test_unverified_historical_import_cannot_write_new_quality_claims)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_legacy_import_guard.py", line 20, in test_unverified_historical_import_cannot_write_new_quality_claims
+  File "tests/test_legacy_import_guard.py", line 20, in test_unverified_historical_import_cannot_write_new_quality_claims
     with self.assertRaisesRegex(RuntimeError, "historical importer is disabled"):
          ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: RuntimeError not raised
@@ -14,4 +14,4 @@ AssertionError: RuntimeError not raised
 Ran 1 test in 0.003s
 
 FAILED (failures=1)
-Wrote 0 treatment records to /var/folders/xg/jvr2hvbx5mn4qfyyq0tvbyd00000gn/T/tmps_qnc3kp/treatment.jsonl
+Wrote 0 treatment records to <run-output>/treatment.jsonl

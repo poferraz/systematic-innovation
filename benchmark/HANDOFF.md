@@ -1,6 +1,6 @@
 # External-agent operating brief
 
-Read `../AGENTS.md`, `../CONTEXT.md`, both approved specifications, and applicable component plans. `skills/systematic-innovation/` is frozen. This handoff authorizes offline fixtures and approved public execution only; it does not authorize live study spending, private-pack access, publication, merging, or pushing.
+Read the [contributor guide](../AGENTS.md), [project decisions](../CONTEXT.md) and [study contracts](study/). `skills/systematic-innovation/` is frozen. This handoff authorizes offline fixtures and approved public execution only; it does not authorize live study spending, private-pack access, publication, merging, or pushing.
 
 1. Verify CPython 3.13 and uv 0.12.8. From `benchmark/`, run `uv sync --locked`, `uv lock --check`, `uv run --locked pytest -q`, `uv run --locked ruff check .`, and `uv run --locked mypy src task9`. Run the root standard-library tests and repository validator too.
 2. Validate the explicit configuration with `uv run --locked sib validate --config CONFIG`. Inspect models/hosts/allowlists, environment names, per-turn cost ceilings, maximum calls/cost/concurrency/retries, and failure threshold. Never put credential values in YAML, command arguments, JSONL, or reports.

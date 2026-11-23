@@ -58,13 +58,13 @@ class WorkflowAndPackagingTests(unittest.TestCase):
         self.assertIn('package-ecosystem: "pip"', text)
         self.assertIn('interval: "monthly"', text)
 
-    def test_agents_md_lists_validation_commands_and_loop_docs(self) -> None:
+    def test_agents_md_lists_validation_commands_and_study_docs(self) -> None:
         agents = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
         self.assertIn("python3 -m unittest discover tests -v", agents)
         self.assertIn("python3 tools/validate_skill.py skills/systematic-innovation", agents)
         self.assertIn("python3 -m tools.repository validate", agents)
-        self.assertIn("2026-11-14-systematic-innovation-v2-loop-design.md", agents)
-        self.assertIn("2026-11-14-systematic-innovation-v2-loop.md", agents)
+        self.assertIn("benchmark/study/six-case-protocol.md", agents)
+        self.assertIn("evals/v2-loop/report.md", agents)
 
     def test_security_md_explains_trust_zones_and_uses_advisories(self) -> None:
         security = (ROOT / "SECURITY.md").read_text(encoding="utf-8")

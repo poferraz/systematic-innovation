@@ -2,11 +2,11 @@
   "measurement_version": "restored-diagnostic-3",
   "inputs": {
     "evals/restored-2026-10-18/public-holdout.json": "4ec9065160fb125177d4b037a839d99073cf9bf4ef9bc95c971e67ef696e1b53",
-    "evals/restored-2026-10-18/holdout/baseline_clean.jsonl": "42503c3da8a13560d7309f7650e19dd025cbae63e3e9113f4366347b0ee69362",
-    "evals/restored-2026-10-18/holdout/control_creative.jsonl": "f8aed8bd1505524631177a557abecef706eb32d9ccae61087db1d78ddf939305",
-    "evals/restored-2026-10-18/holdout/control_format.jsonl": "0da030fe2be766097353ab376f84a938183bf6f86fb15211f85d91dc593c2537",
-    "evals/restored-2026-10-18/holdout/skill_treatment.jsonl": "c5d52c490d67fc4d3b107abe2c323079aa8fb6e58884502fc6040cdfb8574388",
-    "/Users/poferraz/Documents/Development/active/systematic-innovation/tools/restored_review.py": "09b86a5c304149f8d9fa954ae02f0b96c4cfa069cb5cd214a5a7dbe7ba75bc03",
+    "evals/restored-2026-10-18/holdout/baseline_clean.jsonl": "4a391425aeed257084ae6680d3b705c5c4a716765e03afadc81495063a3f5674",
+    "evals/restored-2026-10-18/holdout/control_creative.jsonl": "a1191863628784b238e2711c684a29693174780fc1953e688eeebe1025a94255",
+    "evals/restored-2026-10-18/holdout/control_format.jsonl": "f144c3ac47873452e4d1235d541b73dfebb0e4814455aa71015e5c93d7fd433e",
+    "evals/restored-2026-10-18/holdout/skill_treatment.jsonl": "acffa7c20e3ae0222a121204b80961f57127216e2a2b87e508bab6b7584ba839",
+    "tools/restored_review.py": "09b86a5c304149f8d9fa954ae02f0b96c4cfa069cb5cd214a5a7dbe7ba75bc03",
     "tools/pilot_metrics.py": "b56463f2709b4c7f54e54c69c8b9349295f946f703c6769fc7b12f444af32766",
     "tools/score_eval_results.py": "ffc15b14b0919384620ca0ba355039da48e20a40b8c593dc3790f13160af02a8"
   }

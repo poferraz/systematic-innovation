@@ -11,12 +11,15 @@ import subprocess
 import tempfile
 import threading
 import time
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 from typing import Any, Sequence
 
 from tools.pilot_metrics import count_tokens
 
 
+SENSITIVE_FIELDS = {"api_key", "access_token", "auth_token", "secret", "secret_key",
+                    "client_secret", "password", "authorization", "private_key"}
+HOME_PREFIX = re.compile(r"""(?:/(?:Users|home)/[^/\s"']+|[a-z]:\\Users\\[^\\\s"']+)(?=[/\\]|$)""", re.I)
 SECRET_PATTERNS = [
     re.compile(r"sk-[A-Za-z0-9_-]{16,}"),
     re.compile(r"AIza[0-9A-Za-z_-]{20,}"),
@@ -24,7 +27,7 @@ SECRET_PATTERNS = [
     re.compile(r"nvapi-[A-Za-z0-9_-]{12,}"),
     re.compile(r"NVIDIA_[A-Za-z0-9_-]{8,}"),
     re.compile(r"Bearer\s+\S+"),
-    re.compile(r"(?i)(api[_-]?key|token|secret)\s*[:=]\s*['\"]?\S+"),
+    re.compile(r"(?i)(api[_-]?key|token|secret|password|private[_-]?key)\s*[:=]\s*['\"]?\S+"),
 ]
 
 
@@ -34,24 +37,49 @@ def redact_text(value: str) -> str:
     res = value
     for pat in SECRET_PATTERNS:
         res = pat.sub("[REDACTED]", res)
-    return res
+    home = str(Path.home())
+    if home not in ("/", "."):
+        res = re.sub(re.escape(home) + r"(?=[/\\]|$)", "~", res)
+    return HOME_PREFIX.sub("~", res)
 
 
-def redact_obj(obj: Any) -> Any:
+def redact_obj(obj: Any, session_id: str | None = None) -> Any:
     if isinstance(obj, str):
+        if session_id and obj == session_id:
+            return "<session>"
+        if session_id and len(session_id) >= 32:
+            obj = obj.replace(session_id, "<session>")
         return redact_text(obj)
     if isinstance(obj, dict):
-        return {
-            redact_text(str(k)) if isinstance(k, str) else k: redact_obj(v)
-            for k, v in obj.items()
-        }
+        clean = {}
+        for key, value in obj.items():
+            public_key = redact_text(key) if isinstance(key, str) else key
+            if isinstance(key, str) and key.lower() in SENSITIVE_FIELDS:
+                clean[public_key] = "[REDACTED]"
+            else:
+                clean[public_key] = redact_obj(value, session_id)
+        return clean
     if isinstance(obj, list):
-        return [redact_obj(x) for x in obj]
+        return [redact_obj(x, session_id) for x in obj]
     if isinstance(obj, tuple):
-        return tuple(redact_obj(x) for x in obj)
+        return tuple(redact_obj(x, session_id) for x in obj)
     if isinstance(obj, set):
-        return {redact_obj(x) for x in obj}
+        return {redact_obj(x, session_id) for x in obj}
     return obj
+
+
+def public_transport(transport: dict, session_id: str | None) -> dict:
+    """Retain command options and event diagnostics without local command paths."""
+    clean = redact_obj(transport, session_id)
+    command = clean.get("command")
+    if isinstance(command, list) and command:
+        command[0] = PureWindowsPath(command[0]).name
+        for index, flag in enumerate(command[:-1]):
+            if flag == "-o":
+                command[index + 1] = "<run-output>/last-message.md"
+            elif flag == "-C":
+                command[index + 1] = "<workdir>"
+    return clean
 
 
 def redact_secrets(text_or_obj: Any) -> Any:
@@ -273,7 +301,7 @@ def _execute(
     )
     combined = result.stdout or ""
     if result.returncode != 0:
-        raise RuntimeError(f"Codex runner failed ({result.returncode}):\n{redact_text(combined[-4000:])}")
+        raise RuntimeError(f"Codex runner failed with status {result.returncode}")
     events = []
     for line in combined.splitlines():
         try:
@@ -290,15 +318,15 @@ def _execute(
     if session_id is None:
         match = SESSION_RE.search(combined)
         if not match:
-            raise RuntimeError(f"Codex runner did not expose a session id:\n{redact_text(combined[-4000:])}")
+            raise RuntimeError("Codex runner did not expose a session id")
         session_id = match.group(1)
     response = output_path.read_text(encoding="utf-8")
     if not response.strip():
-        raise RuntimeError(f"Codex runner returned no final message:\n{redact_text(combined[-4000:])}")
+        raise RuntimeError("Codex runner returned no final message")
     return response, session_id, usage, {
         "latency_seconds": time.monotonic() - started,
-        "events": redact_obj(events),
-        "command": redact_obj(command),
+        "events": events,
+        "command": command,
         "returncode": result.returncode,
     }
 
@@ -329,6 +357,9 @@ def run_case(
         if saved["prompt_digest"] != prompt_digest or saved["model"] != model:
             raise ValueError("Resume inputs differ from saved conversation")
         turns, session_id = saved["turns"], saved["session_id"]
+        for turn in turns:
+            if "transport" in turn:
+                turn["transport"] = public_transport(turn["transport"], session_id)
         if any(turn.get("assistant_tokens") is not None and "provider_usage_cumulative" not in turn for turn in turns):
             raise ValueError("Legacy progress accounting requires explicit migration; raw counters were preserved")
     with tempfile.TemporaryDirectory(prefix="systematic-innovation-stress-") as tmp:
@@ -340,8 +371,6 @@ def run_case(
                 budget_tracker.check_pre_call(count_tokens(prompt))
             try:
                 executed = _execute(codex, model, prompt, output, session_id, codex_configs=codex_configs)
-            except TypeError:
-                executed = _execute(codex, model, prompt, output, session_id)
             except Exception as exc:
                 if budget_tracker is not None:
                     budget_tracker.record_failure(exc)
@@ -349,7 +378,7 @@ def run_case(
             assistant, session_id = executed[:2]
             usage = executed[2] if len(executed) > 2 else {}
             transport = executed[3] if len(executed) > 3 else {}
-            transport = redact_obj(transport)
+            transport = public_transport(transport, session_id)
             previous_counter = turns[-1].get("provider_usage_cumulative", {}).get("output_tokens", 0) if turns else 0
             counter = usage.get("output_tokens")
             output_tokens = counter - previous_counter if counter is not None and previous_counter is not None and counter >= previous_counter else None
@@ -479,6 +508,8 @@ def _main(argv: Sequence[str] | None = None) -> int:
         "skill_pack_sha256": hashlib.sha256(load_skill_pack(args.skill).encode()).hexdigest() if "skill_treatment" in args.conditions else None,
         "replicates": args.replicates, "case_ids": [case["id"] for case in cases]}
     if args.codex_config:
+        if any(redact_text(option) != option for option in args.codex_config):
+            raise ValueError("Public run configuration cannot include credentials or home paths")
         manifest["codex_configs"] = list(args.codex_config)
     manifest_path = args.output / "manifest.json"
     if not manifest_path.exists() and any(args.output.glob("*.jsonl")):

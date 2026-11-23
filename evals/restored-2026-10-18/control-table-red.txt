@@ -5,7 +5,7 @@ test_control_table_is_the_portfolio_instead_of_selected_detail_headings (tests.t
 FAIL: test_control_table_is_the_portfolio_instead_of_selected_detail_headings (tests.test_restored_measurement.RestoredMeasurementTests.test_control_table_is_the_portfolio_instead_of_selected_detail_headings)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 80, in test_control_table_is_the_portfolio_instead_of_selected_detail_headings
+  File "tests/test_restored_measurement.py", line 80, in test_control_table_is_the_portfolio_instead_of_selected_detail_headings
     self.assertEqual(len(candidates), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
 AssertionError: 1 != 2

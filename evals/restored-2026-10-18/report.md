@@ -161,7 +161,7 @@ not silently converted into saturation or excused by more detailed output.
 All commands use:
 
 ```sh
-UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python
+UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. uv run --no-project --python 3.13 python
 ```
 
 Append `evals/restored-2026-10-18/summarize.py` to verify/resummarize all retained

@@ -61,14 +61,14 @@ class CanonicalSkillPortabilityTests(unittest.TestCase):
         content = readme_path.read_text(encoding="utf-8")
         required_substrings = [
             "systematic-innovation",
-            "Value Proposition",
+            "Try it",
             "Quick Mode",
             "Deep Mode",
-            "Installation",
-            "Supported Standard",
-            "Methodology",
-            "Evidence Limits",
-            "Empirical Benchmark",
+            "skill directory",
+            "Agent Skills standard",
+            "Reasoning lenses",
+            "What the evidence shows",
+            "benchmark",
         ]
         for sub in required_substrings:
             self.assertIn(sub.lower(), content.lower(), f"README.md missing section or concept: {sub}")

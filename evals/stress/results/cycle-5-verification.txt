@@ -2,7 +2,7 @@
 
 UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=.
 
-Command: /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python -m unittest discover -s tests -v
+Command: uv run --no-project --python 3.13 python -m unittest discover -s tests -v
 
 WARN `--no-project` was provided, but no project was found
 test_plans_do_not_claim_contractual_supremacy (repository.test_authority.AuthorityTests.test_plans_do_not_claim_contractual_supremacy) ... ok
@@ -89,7 +89,7 @@ OK
 
 Exit: 0
 
-Command: /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python tools/validate_skill.py skills/systematic-innovation
+Command: uv run --no-project --python 3.13 python tools/validate_skill.py skills/systematic-innovation
 
 WARN `--no-project` was provided, but no project was found
 OK

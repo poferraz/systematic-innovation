@@ -1,6 +1,6 @@
 # Repository Governance and Control Register
 
-This control register maps active repository controls to the risks they mitigate and records the explicit triggers and rationale for deferred controls under [`docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md`](../superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md) (§12 and §16 `AR-11`).
+This control register maps active repository controls to the risks they mitigate and records the explicit triggers and rationale for deferred controls under [`docs/specifications/repository.md`](../specifications/repository.md) (§12 and §16 `AR-11`).
 
 ---
 
@@ -8,7 +8,7 @@ This control register maps active repository controls to the risks they mitigate
 
 | Stage | Control | Authoritative Implementation | Protected Risk |
 | --- | --- | --- | --- |
-| Foundation | Single canonical skill authority routing & plan subordination | [`AGENTS.md`](../../AGENTS.md), [`tools/repository/authority.py`](../../tools/repository/authority.py), [`tests/repository/test_authority.py`](../../tests/repository/test_authority.py) | Prevents shadow behavioral copies outside `skills/systematic-innovation/` and prevents execution plans from silently overriding approved specifications (`AR-01`, `AR-02`, `AR-12`). |
+| Foundation | Single canonical skill authority routing | [`AGENTS.md`](../../AGENTS.md), [`tools/repository/authority.py`](../../tools/repository/authority.py), [`tests/repository/test_authority.py`](../../tests/repository/test_authority.py) | Prevents shadow behavioral copies outside `skills/systematic-innovation/` and prevents execution plans from silently overriding approved specifications (`AR-01`, `AR-02`, `AR-12`). |
 | Foundation | Public-source isolation & secret redaction gate | [`tools/repository/isolation.py`](../../tools/repository/isolation.py), [`.gitignore`](../../.gitignore), [`tests/repository/test_isolation.py`](../../tests/repository/test_isolation.py) | Prevents restricted evaluation packs (`restricted/`, `*.validation.yaml`, `*.sealed.yaml`), generated archives (`dist/`, `*.zip`), or credential assignments from entering the public Git tree (`AR-01`, `AR-07`). |
 | Foundation | Trust-zone security model & private vulnerability reporting | [`SECURITY.md`](../../SECURITY.md) | Separates the pure-Markdown public skill zone, the executable tooling zone, and the off-repo restricted evaluation pack zone; routes disclosures through GitHub Security Advisories. |
 | Active Development | Least-privilege, SHA-pinned public CI across Python 3.11, 3.13, and 3.14 | [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml), [`tests/repository/test_workflows.py`](../../tests/repository/test_workflows.py) | Exercises all stdlib unit tests, isolated locked benchmark pytest/Ruff/Mypy checks, canonical skill format validation, authority checks, and public-source isolation with `contents: read`, 15-minute timeouts, and zero secrets (`AR-07`). |

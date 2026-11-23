@@ -26,7 +26,7 @@ test_test_method_names_are_not_silently_overwritten (tests.test_restored_measure
 FAIL: test_plain_portfolio_does_not_count_selected_details_or_continuation (tests.test_restored_measurement.RestoredMeasurementTests.test_plain_portfolio_does_not_count_selected_details_or_continuation)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 105, in test_plain_portfolio_does_not_count_selected_details_or_continuation
+  File "tests/test_restored_measurement.py", line 105, in test_plain_portfolio_does_not_count_selected_details_or_continuation
     self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 4 != 2
@@ -35,7 +35,7 @@ AssertionError: 4 != 2
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Examples', header='Possibility | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -60,7 +60,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Examples', header='Name | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -85,7 +85,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Rejected ideas', header='Possibility | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -110,7 +110,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Rejected ideas', header='Name | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -135,7 +135,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Constraints', header='Possibility | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -160,7 +160,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Constraints', header='Name | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -185,7 +185,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Implementation steps', header='Possibility | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []
@@ -210,7 +210,7 @@ First extra element 0:
 FAIL: test_tables_inside_nonproposal_sections_do_not_become_candidates (tests.test_restored_measurement.RestoredMeasurementTests.test_tables_inside_nonproposal_sections_do_not_become_candidates) (section='Implementation steps', header='Name | Mechanism')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
+  File "tests/test_restored_measurement.py", line 112, in test_tables_inside_nonproposal_sections_do_not_become_candidates
     self.assertEqual(extract_candidate_mechanisms(response), [])
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: Lists differ: [{'title': 'Batch collection', 'text': 'Ba[351 chars]wn'}] != []

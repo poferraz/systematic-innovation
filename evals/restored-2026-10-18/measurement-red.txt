@@ -12,9 +12,9 @@ test_test_method_names_are_not_silently_overwritten (tests.test_restored_measure
 ERROR: test_format_matched_control_preserves_identical_disclosures (tests.test_restored_measurement.RestoredMeasurementTests.test_format_matched_control_preserves_identical_disclosures)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 47, in test_format_matched_control_preserves_identical_disclosures
+  File "tests/test_restored_measurement.py", line 47, in test_format_matched_control_preserves_identical_disclosures
     prompts = build_user_prompts(case, "control_format", ROOT / "skills/systematic-innovation")
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tools/stress_runner.py", line 41, in build_user_prompts
+  File "tools/stress_runner.py", line 41, in build_user_prompts
     raise ValueError(f"Unknown stress condition: {condition}")
 ValueError: Unknown stress condition: control_format
 
@@ -22,7 +22,7 @@ ValueError: Unknown stress condition: control_format
 FAIL: test_continuation_choices_are_not_learning_probes (tests.test_restored_measurement.RestoredMeasurementTests.test_continuation_choices_are_not_learning_probes)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 36, in test_continuation_choices_are_not_learning_probes
+  File "tests/test_restored_measurement.py", line 36, in test_continuation_choices_are_not_learning_probes
     self.assertEqual(assess_falsifiability(response)["probe_count"], 0)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 1 != 0
@@ -31,7 +31,7 @@ AssertionError: 1 != 0
 FAIL: test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) (layout='headings')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
+  File "tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
     self.assertEqual(len(extracted), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
 AssertionError: 1 != 2
@@ -40,7 +40,7 @@ AssertionError: 1 != 2
 FAIL: test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) (layout='table')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
+  File "tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
     self.assertEqual(len(extracted), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 2
@@ -49,7 +49,7 @@ AssertionError: 0 != 2
 FAIL: test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) (layout='list')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
+  File "tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
     self.assertEqual(len(extracted), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 2
@@ -58,7 +58,7 @@ AssertionError: 0 != 2
 FAIL: test_equivalent_explicit_portfolio_layouts_retain_both_proposals (tests.test_restored_measurement.RestoredMeasurementTests.test_equivalent_explicit_portfolio_layouts_retain_both_proposals) (layout='paragraphs')
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
+  File "tests/test_restored_measurement.py", line 27, in test_equivalent_explicit_portfolio_layouts_retain_both_proposals
     self.assertEqual(len(extracted), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 2
@@ -67,7 +67,7 @@ AssertionError: 0 != 2
 FAIL: test_test_method_names_are_not_silently_overwritten (tests.test_restored_measurement.RestoredMeasurementTests.test_test_method_names_are_not_silently_overwritten)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 42, in test_test_method_names_are_not_silently_overwritten
+  File "tests/test_restored_measurement.py", line 42, in test_test_method_names_are_not_silently_overwritten
     self.assertEqual(len(names), len(set(names)), cls.name)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 15 != 14 : SkillBehaviorContractTests

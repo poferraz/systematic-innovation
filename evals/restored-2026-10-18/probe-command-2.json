@@ -1,14 +1,14 @@
 [
-  "/Users/poferraz/.local/bin/codex",
+  "codex",
   "exec",
   "resume",
   "--json",
-  "01a15064-48a5-7921-bc5d-bfbe84cbebf4",
+  "<session>",
   "--ignore-user-config",
   "--ignore-rules",
   "-m",
   "gpt-5.6-luna",
   "-o",
-  "/Users/poferraz/Documents/Development/active/systematic-innovation/evals/restored-2026-10-18/probe-answer-2.txt",
+  "evals/restored-2026-10-18/probe-answer-2.txt",
   "-"
 ]

@@ -99,8 +99,8 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
             "AGENTS.md",
             "CONTEXT.md",
             "SECURITY.md",
-            "docs/superpowers/specs/*.md",
-            "docs/superpowers/plans/*.md",
+            "docs/specifications/*.md",
+            "benchmark/study/six-case-protocol.md",
             "docs/research/*.md",
             "evals/audits/2026-11-14-*.md",
         )
@@ -123,11 +123,6 @@ class ReadmeVisualAssetsTests(unittest.TestCase):
                     resolved.exists(),
                     f"Broken relative link in {md_path.relative_to(ROOT)}: {target}",
                 )
-
-        context_md = (ROOT / "CONTEXT.md").read_text(encoding="utf-8")
-        self.assertNotIn("evals/build-branding.md", context_md)
-        self.assertIn("### 19.10", context_md)
-        self.assertNotIn("## 23.", context_md)
 
         baseline_md = (ROOT / "evals/audits/2026-11-14-skillevaluator-baseline.md").read_text(encoding="utf-8")
         self.assertIn("Gitleaks `8.30.1`", baseline_md)

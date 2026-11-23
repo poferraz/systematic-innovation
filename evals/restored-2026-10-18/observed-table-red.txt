@@ -13,7 +13,7 @@ test_test_method_names_are_not_silently_overwritten (tests.test_restored_measure
 FAIL: test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights (tests.test_restored_measurement.RestoredMeasurementTests.test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 60, in test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights
+  File "tests/test_restored_measurement.py", line 60, in test_observed_id_table_retains_the_causal_body_and_stops_before_spotlights
     self.assertEqual(len(candidates), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 2
@@ -22,7 +22,7 @@ AssertionError: 0 != 2
 FAIL: test_requested_experiment_in_continuation_layer_is_still_detected (tests.test_restored_measurement.RestoredMeasurementTests.test_requested_experiment_in_continuation_layer_is_still_detected)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 67, in test_requested_experiment_in_continuation_layer_is_still_detected
+  File "tests/test_restored_measurement.py", line 67, in test_requested_experiment_in_continuation_layer_is_still_detected
     self.assertEqual(assess_falsifiability(response)["probe_count"], 1)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 0 != 1

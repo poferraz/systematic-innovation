@@ -1,12 +1,13 @@
 # Reproduce the restored-candidate diagnostic
 
-The retained raw data is immutable evidence. Run the local summarizer first;
-regenerating answers incurs new calls and produces a new study run.
+Run the local summarizer to reproduce the reported measurements. Generating new answers incurs new calls and starts a separate study run.
+
+The published run records omit local machine paths and session identifiers. Their source checksums describe these public copies. Frozen inputs and the methods used to reproduce the measurements are described in the [evidence notes](../README.md).
 
 ## Read-only reproduction
 
 ```sh
-UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python evals/restored-2026-10-18/summarize.py
+UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. uv run --no-project --python 3.13 python evals/restored-2026-10-18/summarize.py
 ```
 
 This checks actual injected pack hashes, exact ordered user disclosures, final
@@ -42,19 +43,18 @@ pass `--skill /absolute/path/to/frozen/skill`; choose new output paths.
 The finite-space comparison reconstructed the five starting files with
 `git show a36903a:skills/systematic-innovation/<relative-file>` in a temporary
 directory, checked `load_skill_pack` against `starting-freeze.json`, then called
-`run_case` once per pack with `saturation-reproducer.json`. Its exact prompts,
-commands, events and usage are in `finite-saturation/`. The revised finite run
+`run_case` once per pack with `saturation-reproducer.json`. Its prompts,
+command options, events and usage are in `finite-saturation/`. The revised finite run
 uses the allocation-only pack (`final-freeze.json`), before the last router edit.
 
-The three usage probes used the exact command arrays in `probe-command*.json`
-and exact `probe-prompt*.txt`; later commands resume the recorded session.
+The three usage probes used the prompts in `probe-prompt*.txt`. The command arrays in `probe-command*.json` record the options and redact local paths and the session identifier. A new run must use its own session for the later resume commands.
 Their artificial one-word replies test usage semantics, not innovation quality.
 
 ## Deterministic verification
 
 ```sh
-UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python -m unittest discover -s tests -v
-UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. /Users/poferraz/.local/bin/uv run --no-project --python 3.13 python tools/validate_skill.py skills/systematic-innovation
+UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. uv run --no-project --python 3.13 python -m unittest discover -s tests -v
+UV_CACHE_DIR=/tmp/systematic-innovation-uv-cache PYTHONPATH=. uv run --no-project --python 3.13 python tools/validate_skill.py skills/systematic-innovation
 git diff --check
 ```
 

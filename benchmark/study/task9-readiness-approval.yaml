@@ -3,7 +3,7 @@ stage: six_case_feasibility
 approved_on: '2026-11-14'
 approver: repository-owner
 source: explicit-user-instruction
-plan: docs/superpowers/plans/2026-11-14-study-task9-six-case-feasibility.md
+plan: benchmark/study/six-case-protocol.md
 budget_approved: true
 implementation_authorized: true
 offline_tests_authorized: true

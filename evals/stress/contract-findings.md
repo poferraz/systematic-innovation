@@ -10,7 +10,7 @@ This is an evaluation finding, not a behavioral authority or specification amend
 | Disclosure layers | Section 13: brief, system snapshot, portfolio, spotlights, connections/tensions, user-directed continuation | Current reference: brief/scan, ledger, portfolio, receptivity, spotlight signals, learning probes | Reconcile the layer contract explicitly before claiming specification conformance |
 | Cell/provenance classification | Sections 4.3 and 9: original AI mechanisms; seven declared cell transformations | Current cell taxonomy differs; evidence table classifies seven cells and Deep questioning as adapted structures | Review alignment and classification against the approved contract; do not attribute project-designed cell architecture to Rickards |
 
-Sources: [approved behavioral specification](../../docs/superpowers/specs/2026-08-31-systematic-innovation-design.md), [architecture authority rule](../../docs/superpowers/specs/2026-09-01-systematic-innovation-repository-architecture-design.md), and [canonical skill](../../skills/systematic-innovation/SKILL.md).
+Sources: [approved behavioral specification](../../docs/specifications/skill-and-evaluation.md), [architecture authority rule](../../docs/specifications/repository.md), and [canonical skill](../../skills/systematic-innovation/SKILL.md).
 
 The Cycle 4 changes do not amend these boundaries: they add cumulative preservation, material/authority checks, and budget allocations. Cycle 5 evaluates that frozen candidate and cannot establish approved-spec conformance on the mismatched boundaries. Any restored or amended candidate needs its own retained run evidence; results for the current candidate must not be relabelled as results for a later revision.
 

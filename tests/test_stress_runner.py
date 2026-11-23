@@ -74,6 +74,42 @@ class StressRunnerTests(unittest.TestCase):
 
 
 class StressRunnerCommandTests(unittest.TestCase):
+    def test_command_paths_are_private_in_public_records_and_progress(self):
+        import subprocess
+        import tempfile
+        from unittest.mock import patch
+        from tools.stress_runner import run_case
+
+        executable = "/home/fixture-operator/bin/codex"
+        case = {"id": "portable", "prompt": "Example", "interaction_mode": "single-turn",
+                "expected_mode": "quick", "should_trigger": True}
+
+        def execute(command, **kwargs):
+            self.assertEqual(command[0], executable)
+            Path(command[command.index("-o") + 1]).write_text("Example response")
+            events = [
+                {"type": "thread.started", "thread_id": "fixture-thread", "api_key": "fixture-value"},
+                {"type": "turn.completed", "usage": {"output_tokens": 2},
+                 "diagnostic": "config in /home/fixture-operator/settings.json"},
+            ]
+            return subprocess.CompletedProcess(command, 0, "\n".join(map(json.dumps, events)))
+
+        with tempfile.TemporaryDirectory() as temp, patch("tools.stress_runner.subprocess.run", execute):
+            progress = Path(temp) / "progress.json"
+            record = run_case(case, "baseline_clean", 1, ROOT / "skills/systematic-innovation",
+                              "fixture-model", executable, progress_path=progress)
+            self.assertEqual(json.loads(progress.read_text())["session_id"], "fixture-thread")
+            self.assertNotIn("fixture-thread", json.dumps(record))
+            for retained in (record, json.loads(progress.read_text())):
+                self.assertNotIn("fixture-operator", json.dumps(retained))
+                self.assertNotIn("fixture-value", json.dumps(retained))
+                transport = retained["turns"][0]["transport"]
+                command = transport["command"]
+                self.assertEqual(command[0], "codex")
+                self.assertEqual(command[command.index("-o") + 1], "<run-output>/last-message.md")
+                self.assertEqual(command[command.index("-C") + 1], "<workdir>")
+                self.assertEqual(transport["events"][-1]["usage"]["output_tokens"], 2)
+
     def test_initial_command_supports_isolated_non_repo_root(self) -> None:
         command = build_initial_command(
             codex="/codex",

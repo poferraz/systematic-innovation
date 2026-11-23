@@ -114,7 +114,7 @@ Ordered by severity. Each entry cites its domain auditor finding(s) and the unde
 - Remediation: draft a spec amendment for both precedence rules and the pending §15/§12/§14 deltas (F-09/F-10/F-21), submit for owner approval, record in CONTEXT §19 — or record them as retained execution refinements pending incorporation.
 
 **F-07 [MEDIUM] v2 synthesis self-labels "Approved," cites a nonexistent spec, and presents untraceable quantitative results** — [B-F03; C+D-F04]
-- Evidence: `docs/research/2026-10-18-v2-brainstorming-synthesis.md:4` ("Status: Approved Brainstorming & Architecture Synthesis"); :63–70 ("five independent architectural passes"; "+22% Vendi", "+35% adoption", "+28% Vendi" — found nowhere else in the tree, linked to no runs); :83 names `docs/superpowers/specs/2026-10-18-systematic-innovation-v2-design.md` which does not exist. Nothing references or implements the document; the `measure-*-v2` dirs are measurement-version artifacts, not v2 runs.
+- Evidence: `docs/research/2026-10-18-v2-brainstorming-synthesis.md:4` ("Status: Approved Brainstorming & Architecture Synthesis"); :63–70 ("five independent architectural passes"; "+22% Vendi", "+35% adoption", "+28% Vendi" — found nowhere else in the tree, linked to no runs); :83 names `docs/specifications/2026-10-18-systematic-innovation-v2-design.md` which does not exist. Nothing references or implements the document; the `measure-*-v2` dirs are measurement-version artifacts, not v2 runs.
 - Clause: CONTEXT §8 tiers; SKILL.md:86 ("No Fabricated Statistics"); §22.
 - Impact: a committed, public-bound document asserts measured gains with no evidence and an authority label no decision record corroborates — downstream agents could treat the numbers as established.
 - Remediation: relabel :4 as research input (mirroring CONTEXT:82), qualify or remove the percentages, record that the v2 spec was never authored; or open a proper v2 cycle with a real decision record.
@@ -191,7 +191,7 @@ Ordered by severity. Each entry cites its domain auditor finding(s) and the unde
 
 **F-27 [LOW] Untracked `evals/audits/` (14 files, 440 KB) has no recorded commit/ignore/relocate policy** — [E+H-F09] — the only untracked content with no disposition record (contrast: bundle policy recorded at CONTEXT:655 and followed). Record a one-line decision.
 
-**F-28 [LOW] Tool portability/overwrite defects** — [E+H-F10] — hardcoded `/Users/poferraz/…` paths (`compile_treatment_results.py:15`, `stress_runner.py:257`); `score_eval_results.py:178–179` writes output unconditionally (no exists-refusal, unlike `restored_review.py:90–91`).
+**F-28 [LOW] Tool portability/overwrite defects** — [E+H-F10] — hardcoded `<home>/…` paths (`compile_treatment_results.py:15`, `stress_runner.py:257`); `score_eval_results.py:178–179` writes output unconditionally (no exists-refusal, unlike `restored_review.py:90–91`).
 
 **F-29 [LOW] README wording outruns and undersells the evidence** — [C+D-F06, F07, F09] — "Transforms ordinary AI ideation" (:23) vs. inconclusive current results; "Zero … dependencies at runtime" (:86) unqualified for a repo whose dev tooling imports playwright; "format-matched comparisons … remain unverified" (:76) although a format-matched control ran in the small uncalibrated diagnostic. Reword to design-intent language; scope the dependency claim; optionally note the control ran.
 

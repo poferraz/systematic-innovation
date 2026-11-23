@@ -47,9 +47,7 @@ from .contracts import (
     InputBound,
 )
 
-PLAN_PATH = REPOSITORY_ROOT / (
-    "docs/superpowers/plans/2026-11-14-study-task9-six-case-feasibility.md"
-)
+PLAN_PATH = REPOSITORY_ROOT / "benchmark/study/six-case-protocol.md"
 STAGE_PATH = REPOSITORY_ROOT / "benchmark/study/stage-gates.yaml"
 READINESS_PATH = REPOSITORY_ROOT / "benchmark/study/task9-readiness-approval.yaml"
 SKILL_PATH = REPOSITORY_ROOT / "skills/systematic-innovation"

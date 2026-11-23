@@ -5,7 +5,7 @@ test_candidate_local_receptivity_is_not_a_later_disclosure_layer (tests.test_res
 FAIL: test_candidate_local_receptivity_is_not_a_later_disclosure_layer (tests.test_restored_measurement.RestoredMeasurementTests.test_candidate_local_receptivity_is_not_a_later_disclosure_layer)
 ----------------------------------------------------------------------
 Traceback (most recent call last):
-  File "/Users/poferraz/Documents/Development/active/systematic-innovation/tests/test_restored_measurement.py", line 120, in test_candidate_local_receptivity_is_not_a_later_disclosure_layer
+  File "tests/test_restored_measurement.py", line 120, in test_candidate_local_receptivity_is_not_a_later_disclosure_layer
     self.assertEqual(len(extract_candidate_mechanisms(response)), 2)
     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 AssertionError: 1 != 2
