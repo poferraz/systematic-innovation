@@ -19,7 +19,11 @@ from tools.pilot_metrics import count_tokens
 
 SENSITIVE_FIELDS = {"api_key", "access_token", "auth_token", "secret", "secret_key",
                     "client_secret", "password", "authorization", "private_key"}
-HOME_PREFIX = re.compile(r"""(?:/(?:Users|home)/[^/\s"']+|[a-z]:\\Users\\[^\\\s"']+)(?=[/\\]|$)""", re.I)
+# Match local path boundaries without rewriting links that contain a /home segment.
+_HOME_ROOTS = [r"""/(?:Users|home)/[^/\s"']+""", r"""[a-z]:\\Users\\[^\\\s"']+"""]
+if str(Path.home()) not in ("/", "."):
+    _HOME_ROOTS.insert(0, re.escape(str(Path.home())))
+HOME_PREFIX = re.compile(rf"""(?<![\w./\\%-])(?:file://)?(?:{'|'.join(_HOME_ROOTS)})(?=[/\\]|$)""", re.I)
 SECRET_PATTERNS = [
     re.compile(r"sk-[A-Za-z0-9_-]{16,}"),
     re.compile(r"AIza[0-9A-Za-z_-]{20,}"),
@@ -37,9 +41,6 @@ def redact_text(value: str) -> str:
     res = value
     for pat in SECRET_PATTERNS:
         res = pat.sub("[REDACTED]", res)
-    home = str(Path.home())
-    if home not in ("/", "."):
-        res = re.sub(re.escape(home) + r"(?=[/\\]|$)", "~", res)
     return HOME_PREFIX.sub("~", res)
 
 

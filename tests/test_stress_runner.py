@@ -74,6 +74,14 @@ class StressRunnerTests(unittest.TestCase):
 
 
 class StressRunnerCommandTests(unittest.TestCase):
+    def test_public_home_url_survives_next_to_a_local_path(self):
+        from tools.stress_runner import redact_text
+
+        url = "https://example.org/us-en/home/example/guide.html"
+        direct = "https://example.org/home/example/guide.html"
+        result = redact_text(f"{url} {direct} path=/home/fixture-operator/docs file:///home/fixture-operator/guide")
+        self.assertEqual(result, f"{url} {direct} path=~/docs ~/guide")
+
     def test_command_paths_are_private_in_public_records_and_progress(self):
         import subprocess
         import tempfile
